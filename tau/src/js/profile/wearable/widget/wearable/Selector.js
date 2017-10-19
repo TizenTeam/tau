@@ -124,6 +124,7 @@
 					self._itemsToReorder = [];
 					self._removedItemIndex = null;
 					self._reorderEnd = null;
+					self._reorderAnimationEnd = null;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -265,9 +266,8 @@
 				);
 
 				events.on(document, "rotarydetent", self, false);
-				events.on(self._ui.indicator, "animationend webkitAnimationEnd", self, false);
-				self.on("dragstart drag dragend click longpress mouseup touchend transitionend",
-					self, false);
+				self.on("dragstart drag dragend click longpress mouseup touchend transitionend" +
+					" animationend webkitAnimationEnd", self, false);
 			}
 
 			/**
@@ -284,8 +284,8 @@
 					element
 				);
 				events.off(document, "rotarydetent", self, false);
-				self.off("dragstart drag dragend click longpress mouseup touchend transitionend",
-					self, false);
+				self.off("dragstart drag dragend click longpress mouseup touchend transitionend" +
+					" animationend webkitAnimationEnd", self, false);
 			}
 
 			/**
@@ -851,8 +851,21 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onAnimationEnd = function () {
-				this._ui.indicator.classList.remove(classes.INDICATOR_ACTIVE);
+			prototype._onAnimationEnd = function (event) {
+				var self = this,
+					ui = self._ui,
+					targetClassList = event.target.classList;
+
+				if (targetClassList.contains(classes.INDICATOR)) {
+					ui.indicator.classList.remove(classes.INDICATOR_ACTIVE);
+				} else if (targetClassList.contains(classes.ITEM_MOVED)) {
+					self._reorderAnimationEnd = true;
+					if (self._reorderEnd && !self._started) {
+						setTimeout(function () {
+							ui.movedItem.classList.add(classes.ITEM_END);
+						}, 30);
+					}
+				}
 			};
 
 			prototype._onTransitionEnd = function (event) {
@@ -890,6 +903,7 @@
 				self._changeLayerInterval = null;
 				self._enable();
 				self._reorderEnd = false;
+				self._reorderAnimationEnd = false;
 			};
 
 			/**
@@ -1024,11 +1038,11 @@
 					movedStyle = movedElement.style;
 					movedStyle.transition = "top 200ms, left 200ms, opacity 200ms, transform 200ms";
 					destinationRect = ui.items[self._destinationIndex].getBoundingClientRect();
-					if (!self._started) {
-						requestAnimationFrame(function () {
+					if (self._reorderAnimationEnd && !self._started) {
+						setTimeout(function () {
 							movedElement.classList.add(classes.ITEM_END);
-						});
-					} else {
+						}, 30);
+					} else if (self._reorderAnimationEnd) {
 						movedStyle.top = (destinationRect.top + destinationRect.width / 2) + "px";
 						movedStyle.left = (destinationRect.left + destinationRect.height / 2) +
 						"px";
