@@ -571,6 +571,12 @@
 				"height": 1047
 			},
 			{
+				"name": "textarea-in-popup",
+				"time": 0,
+				"width": 720,
+				"height": 1280
+			},
+			{
 				"name": "T01-single-page",
 				"time": 0,
 				"width": 720,
@@ -745,6 +751,12 @@
 			},
 			{
 				"name": "11-list",
+				"time": 0,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "textarea-in-popup",
 				"time": 0,
 				"width": 360,
 				"height": 640
