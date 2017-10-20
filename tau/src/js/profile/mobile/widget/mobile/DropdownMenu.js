@@ -550,7 +550,7 @@
 					selectedOption = ui.elDefaultOption || element[element.selectedIndex];
 
 					self._buildWrapper(element);
-					self._buildPlaceholder(ui.elSelectWrapper, elementId,
+					self._buildPlaceholder(element, ui.elSelectWrapper, elementId,
 						selectedOption ? selectedOption.textContent : "");
 				}
 
@@ -584,19 +584,20 @@
 			 * Build placeholder HTML structure
 			 * @method _buildPlaceholder
 			 * @protected
+			 * @param {HTMLElement} element
 			 * @param {HTMLElement} selectWrapperElement
 			 * @param {string} elementId
 			 * @param {string} text
 			 * @member ns.widget.mobile.DropdownMenu
 			 */
-			prototype._buildPlaceholder = function (selectWrapperElement, elementId, text) {
+			prototype._buildPlaceholder = function (element, selectWrapperElement, elementId, text) {
 				var placeholderElement = document.createElement("span");
 
 				placeholderElement.id = elementId + "-placeholder";
 				placeholderElement.className = classes.placeHolder;
 				placeholderElement.textContent = text;
 
-				selectWrapperElement.appendChild(placeholderElement);
+				selectWrapperElement.insertBefore(placeholderElement, element);
 				this._ui.elPlaceHolder = placeholderElement;
 			};
 

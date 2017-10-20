@@ -153,7 +153,7 @@
 			var widget = new DropdownMenu(),
 				element = document.getElementById("select");
 
-			widget._buildPlaceholder(element, "id", "text");
+			widget._buildPlaceholder(element, element.parentElement, "id", "text");
 			assert.equal(widget._ui.elPlaceHolder.outerHTML, "<span id=\"id-placeholder\" " +
 				"class=\"ui-dropdownmenu-placeholder\">text</span>", "elPlaceHolder has correct HTML");
 		});
@@ -168,7 +168,7 @@
 				"elSelectWrapper has correct HTML");
 		});
 
-		test("_generate", 14, function (assert) {
+		test("_generate", 15, function (assert) {
 			var widget = new DropdownMenu(),
 				element = document.getElementById("select-in-page");
 
@@ -176,10 +176,11 @@
 				assert.equal(_element, element, "first argument is element (_buildWrapper)");
 				widget._ui.elSelectWrapper = "wrapper";
 			};
-			widget._buildPlaceholder = function (_wrapper, id, text) {
-				assert.equal(_wrapper, "wrapper", "first argument is wrapper");
-				assert.equal(id, "select-in-page", "second argument is select-in-page");
-				assert.equal(text, "c", "third argument is c");
+			widget._buildPlaceholder = function (_element, _wrapper, id, text) {
+				assert.equal(element, _element, "first argument is wrapper");
+				assert.equal(_wrapper, "wrapper", "second argument is wrapper");
+				assert.equal(id, "select-in-page", "third argument is select-in-page");
+				assert.equal(text, "c", "fourth argument is c");
 			};
 			widget._setNativeMenu = function (_element, value) {
 				assert.equal(_element, element, "first argument is element (_setNativeMenu)");
