@@ -1,4 +1,214 @@
 %changelog
+* Thu Oct 12 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.31
+	- feature(wearable) Implement moving items between layers in Selector
+	- test(wearable) Add UI tests for Grid vertical cases
+	- sample(wearable) Add samples for vertical Grid
+	- feature(core) Add closing on touch in toast popup
+	- feature(wearable) Implement changing item position in selector edit mode
+	- fix(all) Correct history support in toast popup
+	- feature(wearable) Add Small toast popup
+	- refactor(core) Core module
+	- feature(wearable) Implement item dragging in Selector edit mode
+	- refactor(core) fix code smells in util.selectors
+	- fix(wearable) Fix HTML of UI tests for Toast Popup
+	- test(wearable) UI Tests for Small Toast Popup
+	- fix(wearable) Fix bug when exiting from edit mode in Selector
+	- test(wearable) Update screens for list with 5 items
+	- test(wearable) Update screens for lists tests
+	- test(mobile) Increase timeout in UI tests
+	- fix(wearable) Fix Selector's transition to Edit Mode
+	- feature(wearable) ArcListview with visible 5 items
+	- test(mobile) Increase timeout to 30-tabs-with-icon
+	- test(wearable) Update UITests screen for Selector Edit Mode
+	- sample(wearable) Add page for ArcListview with 5 items
+	- fix(wearable) Fix API for Edit Mode in Selector widget
+	- test(wearable) UI tests for ArcListview with 5 items
+	- fix(wearable) Fix styles in Edit Mode in Selector
+	- fix(wearable) Fix UI Test for Edit Mode in Selector
+	- fix(all) Fix problem with reporting UI tests in CI
+	- fix(mobile) Fixes in UItests application
+	- feature(mobile) Create better API in TextEnveloper
+	- fix(mobile) Fix flex Page transition
+	- test(all) Fixes in UI tests engine
+	- fix(wearable) Fix exceptions in Popup
+	- fix(wearable) Increase threshold for 74-time-picker
+	- feature(mobile) Add API to get/set selected in TextEnveloper
+	- test(wearable) Fixes in UI tests application
+	- test(wearable) Update TimePicker screens
+	- fix(jenkins) Fix reporting to SonarCube
+	- feature(wearable) Empty state in Selector's Edit mode
+	- fix(mobile) Fix select/unselect event in TextEnveloper
+	- fix(jenkins) Update Jenkinsfile
+	- feature(wearable) Remove Selector items in Edit mode
+	- feature(wearable) Create Sample for Selector with Edit Mode
+	- fix(wearable) Fix dividing by 0 in ArcListview
+	- fix(core) Fix building widget Tabs
+	- test(wearable) Create UI Test for Selector with Edit Mode
+	- test(wearable) Update screens for 2-lines grid
+	- test(mobile) Fixes in UI tests application
+	- refactor(core) Fix code of util.data
+	- fix(all) Fix problems in running CI
+	- fix(mobile) Fix style of buttons
+	- feature(mobile) Extend API of TextInput
+	- feature(mobile) Extend API of TextEnveloper
+	- feature(core) Implement additional styles for Page
+	- refactor(core) Fix code of engine
+	- fix(wearable) Fix end effect animation for top edge
+	- fix(all) Fix problem in UI tests for end-effect
+	- fix(wearable) Remove end effect from pickers in demo app
+	- test(wearable) Update images for the new Multiline UITests
+	- tests(wearable) Update screens for end effect
+	- test(mobile) Add email and messages test cases in UI tests
+	- fix(mobile) Fix exception in Unit test for Listview
+	- fix(wearable) Fix thumbnail opacity in rectangle Grid
+	- feature(wearable) Enable bouncing effect in ArcListview
+	- fix(wearable) Fix calculating grid size
+	- test(wearable) Add additional Multiline List UI Tests
+	- fix(core) Remove mandatory preventDefault in gestures
+	- feature(wearable) Enable bouncing effect in Scrollview
+	- refactor(core) Page and PageContainar optimization
+	- refactor(wearable) add documentation in DatePicker
+	- test(wearable) Update screens for Multiline List UI Tests
+	- fix(wearable) Fix SnapListView list
+	- feature(wearable) Add animation on scroll in thumbnail mode in Grid
+	- refactor(wearable) Fix code smells in TimePicker
+	- fix(wearable) remove redundant href attribute
+	- test(wearable) Fix issues in UI Tests for Multiline List
+	- feature(wearable) Add styles for icon in Multiline List
+	- fix(wearable) Fix dividers in Multiline List
+	- feature(wearable) Add styles for subtext in Multiline List
+	- feature(wearable) Add text item in Multiline List
+	- feat(wearable) Add styles for basic item in Multiline List
+	- refactor(wearable) Fix code smells in  DatePicker
+	- fix(all) Fix getting logs from app in UI tests
+	- refactor(all) fix problems in widget namespace
+	- refactor(mobile) resolve code problems in Scrollview
+	- fix(wearable) Enable end-effect in SectionChanger
+	- feat(wearable) Create sample for Multiline List
+	- test(wearable) Create UI Tests for Multiline List
+	- refactor(core) Fix code problems in utils
+	- test(wearable) update screens for button tests
+	- fix(wearable) Fix styles of Text Button
+	- test(wearable) Increase threshold in more-options tests
+	- fix(wearable) Fix styling on button with icon
+	- feat(wearable) add icon button feature
+	- test(wearable) Update screens for More Menu
+	- test(wearable) Update screenshots for Selector's UI Tests
+	- test(wearable) Add Grid rectangle thumbnail to pass tests
+	- feature(wearable) Extend option shape in Grid
+	- fix(wearable) Update MoreOptions widget for Tizen 4
+	- fix(wearable) Remove unnecessary classes from Selector
+	- refactor(core) Fix code problems in gestures
+	- fix(wearable) Update Selector widget for Tizen 4
+	- test(wearable) Add UI test 48-grid-rectangle-horizontal to pass
+	- feature(wearable) add shape option to Grid
+	- test(wearable) Initialize unit tests for DatePicker
+	- test(wearable) Add acceptance test for grid 2 lines
+	- refactor(wearable) create common methods in DatePicker
+	- sample(wearable) Add rectangle grid sample to UIComponents
+	- feature(wearable) Add lines option to Grid
+	- sample(wearable) Add sample for Grid 2 lines
+	- tests(wearable) add UI tests for Grid rectangle horizontal
+	- fix(common) Fix UI tests engine for correct work with TAU route
+	- test(wearable) Fix & add missing UI Tests for Selector
+	- test(wearable) Update UI Tests for More Options & Selector
+	- test(wearable) Rename UI-Test for More Options and Selector
+	- refactor(wearable) add emulation of rotary event in browser
+	- test(wearable) create UI tests for 2 lines Grid
+	- fix(wearable) Fix selecting in TimePicker
+	- fix(wearable) Fix rotary support in ArcListview
+	- fix(wearable) Fix blinking in NumberPicker
+	- fix(wearable) Fix selecting month on init in DatePicker
+	- test(wearable) Increase threshold in UI tests
+	- fix(wearable) Fix displaying minutes in TimePicker
+	- test(wearable) Add DatePicker UI tests to pass
+	- test(wearable) Update screens for PageIndicator
+	- test(wearable) Update screenshots for TimePicker UI Tests
+	- fix(test) Update pattern image in 69-number-picker
+	- test(wearable) Update UI test 44-grid-thumbnails-center
+	- fix(wearable) Fix rotation in TimePicker
+	- test(wearable) Initialize unit tests for NumberPicker
+	- test(wearable) Initialize unit tests for CircleIndicator
+	- refactor(wearable) Refactoring of _ui object in DatePicker
+	- test(wearable) update JS for UI tests for DatePicker
+	- fix(wearable) Fix PageIndicator
+	- refactor(wearble) Optimize code of method _onRotary
+	- refactor(wearable) Optimize code of DatePicker
+	- feature(wearable) Fix indicators in DatePicker
+	- test(wearable) ui-tests for DatePicker
+	- fix(wearable) Fix building Listview in UIComponents
+	- fix(wearable) Fix wrong color in DatePicker
+	- feature(wearable) Prepare indicators in DatePicker
+	- fix(wearable) Fix position of number in TimePicker
+	- fix(wearable) Fix header title margins
+	- feature(wearable) Implement date selection in DatePicker
+	- test(wearable) Update UI test 42-grid-moved-at-right
+	- fix(wearable) Fix position of items in Grid after scroll
+	- fix(wearable) Fix UI of TimePicker
+	- test(wearable) Unit tests for Grid
+	- test(wearable) Update UI test 45-grid
+	- fix(wearable) Update colors table
+	- fix(wearable) animation when switching between minutes and hours
+	- fix(wearable) Fixes in Time Picker
+	- fix(wearable) Fix working of Grid
+	- test(wearable) create ui-tests for future DatePicker
+	- test(wearable) Add Color picker UI test to pass tests
+	- feature(wearable) Prepare static UI for DatePicker widget
+	- fix(wearable) fix NumberPicker
+	- fix(wearable) Add more events in Grid
+	- test(wearable) Prepare UI test HTML for Grid with Indicator
+	- feature(wearable) Create empty widget base for DatePicker
+	- sample(wearable) Add missing grid images in UIComponents
+	- fix(wearable) Fix position of prev and vext image in Grid
+	- fix(wearable) Fix size of Grid in mode 3x3
+	- tests(wearable) Update Grid UI tests
+	- fix(wearable) Fix styles in TimePicker widget
+	- fix(wearable) Add AM/PM change to TimePicker
+	- fix(wearable) Fix unit test for ColorPicker
+	- fix(wearable) Fix tests problems in new widgets
+	- tests(wearable) Create UI-Tests ColorPicker widget
+	- tests(wearable) Create tests for ColorPicker widget
+	- feat(wearable) Implement Color Picker widget
+	- fix(mobile) Listview, missing gradinet after refresh
+	- feat(wearable) add documentation for timepicker
+	- feat(wearable) add possibility to rotate many times the gauge
+	- feat(wearable) add animation for selecting Hours or Minutes
+	- feat(wearable) interaction between circular/inputs
+	- feat(wearable) adjust UI to guide
+	- feat(wearable) create structure and demo for TimePicker
+	- fix(mobile) replace settimeout with animationend
+	- fix(mobile) Fix Listview reorder example in demo app
+	- fix(mobile) Repair listview reorder feature
+	- fix(all) Fix sonarcube errors
+	- tool(wearable) Prepare UIComponents apps for development
+	- feature(mobile) Add Light View style to TabBar
+	- tool(all) Run from app
+	- feature(wearable) Add missing public method in Listview
+	- refactor(all) Create common Page
+	- fix(core) Fix proccess of changePage
+	- fix(core) change method refactor
+	- fix(core) remove loading from PageContainer
+	- tests(wearable) Add unit tests for Scrollview widget
+	- fix(mobile) remove jQuery from docs
+	- fix(all) split too long lines from docs and removes TODOs
+	- fix(wearable) move scrollview from Page to new scrollview
+	- feat(all) bring back to run applications without type option
+	- fix(all) Split transition method in PageContainer widget
+	- fix(core) Page Container from /mobile to /core
+	- tests(mobile) Unit tests for Listview reorder feature
+	- feat(mobile) listview reorder - disable canvas on reorder
+	- feat(mobile) reorder feature
+	- fix(all) fix sonar.properties to correct work
+	- fix(wearable) ArcListview - on back listview should be positioned to previous position
+	- fix(all) Fix checking status of build in Jenkins
+	- fix(all) Fix send review to gerrit.
+	- fix(wearable) fix selectmode demos
+	- tests(all) Prepare UI-Test grunt task to work with new emulator
+	- fix(mobile) Fix height of group heading element in expandable list
+	- fix(all) Fix cmd tools for sonar and release
+	- tests(all) Improve UI-Tests performance
+
+
 * Tue Jun 20 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.30
 	- tool(jira-watcher): Change username in JIRA watcher
 	- test(wearable): ui-test:p.24 page-indicator
