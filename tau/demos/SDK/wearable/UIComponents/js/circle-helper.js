@@ -17,7 +17,10 @@ document.addEventListener("tauinit", function () {
 				pageId = page.id,
 				list;
 
-			if (pageId !== "page-snaplistview" && pageId !== "page-swipelist" && pageId !== "page-marquee-list" &&
+			if (!page.classList.contains("page-snaplistview") &&
+				pageId !== "page-snaplistview" &&
+				pageId !== "page-swipelist" &&
+				pageId !== "page-marquee-list" &&
 				pageId !== "page-multiline-list") {
 				list = page.querySelector(".ui-listview");
 				if (list) {
