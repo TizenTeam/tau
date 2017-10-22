@@ -1166,12 +1166,16 @@
 
 				if (direction === "CW") {
 					// check length
-					if (self._activeItemIndex === (activeLayerItemsLength + self._activeLayerIndex * options.maxItemNumber) - 1) {
+					if ((self._activeItemIndex === (activeLayerItemsLength +
+							self._activeLayerIndex * options.maxItemNumber) - 1) ||
+						self._editModeEnabled) {
 						if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
-							self._setItemAndLayer(self._activeLayerIndex + 1, self._activeItemIndex + 1);
+							self._setNextLayer();
 						} else {
-							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree * (self._activeItemIndex % options.maxItemNumber);
-							setIndicatorTransform(ui.indicatorArrow, bounceDegree + options.itemDegree / 3);
+							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree *
+								(self._activeItemIndex % options.maxItemNumber);
+							setIndicatorTransform(ui.indicatorArrow, bounceDegree +
+								options.itemDegree / 3);
 							setTimeout(function () {
 								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
 							}, 100);
@@ -1181,11 +1185,13 @@
 					}
 				} else {
 					// check 0
-					if (self._activeItemIndex % options.maxItemNumber === 0) {
+					if ((self._activeItemIndex % options.maxItemNumber === 0) ||
+						self._editModeEnabled) {
 						if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
-							self._setItemAndLayer(self._activeLayerIndex - 1, self._activeItemIndex - 1);
+							self._setPreviousLayer();
 						} else {
-							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
+							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE -
+								DEFAULT.ITEM_START_DEGREE / 3);
 							setTimeout(function () {
 								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
 							}, 100);
@@ -1413,7 +1419,6 @@
 								DEFAULT.ITEM_NORMAL_SCALE);
 					});
 				}
-				events.off(document, "rotarydetent", self, false);
 				events.on(window, "tizenhwkey", self, true);
 				self._editModeEnabled = true;
 			};
@@ -1443,7 +1448,6 @@
 					ui.indicatorIcon.classList.remove(classes.INDICATOR_ICON_ACTIVE,
 						classes.INDICATOR_ICON_ACTIVE_WITH_TEXT);
 				}
-				events.on(document, "rotarydetent", self, false);
 				events.off(window, "tizenhwkey", self, true);
 
 				self._editModeEnabled = false;
