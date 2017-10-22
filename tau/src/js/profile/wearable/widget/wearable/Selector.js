@@ -984,18 +984,37 @@
 			};
 
 			prototype._setNextLayer = function () {
-				var self = this;
+				var self = this,
+					options = self.options,
+					items = self._ui.items,
+					len = items.length,
+					i;
 
 				if (self._enabled) {
+					for (i = 0; i < len; i++) {
+						utilDom.setNSData(items[i], "index", i);
+						setItemTransform(items[i], DEFAULT.ITEM_START_DEGREE, options.itemRadius,
+							-DEFAULT.ITEM_START_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+					}
+
 					self._setItemAndLayer(self._activeLayerIndex + 1,
 						(self._activeLayerIndex + 1) * self.options.maxItemNumber);
 				}
 			};
 
 			prototype._setPreviousLayer = function () {
-				var self = this;
+				var self = this,
+					options = self.options,
+					items = self._ui.items,
+					len = items.length,
+					i;
 
 				if (self._enabled) {
+					for (i = 0; i < len; i++) {
+						utilDom.setNSData(items[i], "index", i);
+						setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, options.itemRadius,
+							-DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+					}
 					self._setItemAndLayer(self._activeLayerIndex - 1,
 						self._activeLayerIndex * self.options.maxItemNumber - 1);
 				}
