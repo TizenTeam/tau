@@ -366,7 +366,7 @@
 					});
 
 				// apply "to" properties on items
-				applyItemsTo(beforeItems);
+				self._applyItemsTo(beforeItems);
 
 				// set how to items after insert position will be moved on right
 				setItemsPositionTo(afterItems, size, self._scrollDimension, self._nonScrollDimension);
@@ -376,7 +376,7 @@
 					self._nonScrollDimension);
 
 				// apply "to" properties at new item
-				applyItemsTo([newItem]);
+				self._applyItemsTo([newItem]);
 				// set new item scale before show
 				newItem.scale = 0;
 
@@ -906,7 +906,7 @@
 				var self = this,
 					items = self._items;
 
-				applyItemsTo(items);
+				self._applyItemsTo(items);
 				items.forEach(transformItem);
 			};
 
@@ -975,10 +975,10 @@
 				return item;
 			}
 
-			function applyItemsTo(items) {
+			prototype._applyItemsTo = function (items) {
 				var len = items.length,
-					item = null,
-					to = null,
+					item,
+					to,
 					i = 0;
 
 				for (; i < len; ++i) {
@@ -995,7 +995,7 @@
 						item.opacity = to.opacity;
 					}
 				}
-			}
+			};
 
 			function updateItemsFrom(items) {
 				var len = items.length,
@@ -1125,10 +1125,11 @@
 				}
 			}
 
-			function moveItemsToImages(self) {
-				var items = self._items,
+			prototype._moveItemsToImages = function () {
+				var self = this,
+					items = self._items,
 					len = items.length,
-					to = null,
+					to,
 					i = 0;
 
 				for (; i < len; ++i) {
@@ -1136,10 +1137,10 @@
 					to.position = {};
 					to.position[self._scrollDimension] = i * self._getItemSize("image");
 					to.position[self._nonScrollDimension] = 0;
-					to.scale = self._settings.scaleThumbanil;
+					to.scale = self._settings.scaleThumbnail;
 					to.opacity = IMAGE_OPACITY;
 				}
-			}
+			};
 
 			function moveItemsToThumbnails(self) {
 				var items = self._items,
@@ -1342,7 +1343,7 @@
 				var self = this,
 					items = self._items;
 
-				moveItemsToImages(self);
+				self._moveItemsToImages();
 				self._transformItems();
 
 				self._setGridSize("image");

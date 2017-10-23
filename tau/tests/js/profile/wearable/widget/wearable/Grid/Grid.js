@@ -909,6 +909,186 @@
 				}
 			], "_items are modified");
 		});
+
+		QUnit.test("_transformItems", 2, function (assert) {
+			var gridWidget = new Grid();
+
+			gridWidget._items = [
+				{element: {style: {}}, position: {left: 0, top: 1}, scale: 2, opacity: 3},
+				{element: {style: {}}, position: {left: 0.1, top: 1.1}, scale: 2.1, opacity: 3.1},
+				{element: {style: {}}, position: {left: 0.2, top: 1.2}, scale: 2.2, opacity: 3.2}
+			];
+			gridWidget._applyItemsTo = function (_items) {
+				assert.equal(_items, gridWidget._items, "First argument is items");
+			};
+
+			gridWidget._transformItems();
+
+			assert.deepEqual(gridWidget._items, [
+				{
+					"element": {
+						"style": {
+							"opacity": 3,
+							"transform": "translate3d(0px, 1px, 0) scale(2)",
+							"webkitTransform": "translate3d(0px, 1px, 0) scale(2)"
+						}
+					},
+					"opacity": 3,
+					"position": {
+						"left": 0,
+						"top": 1
+					},
+					"scale": 2
+				},
+				{
+					"element": {
+						"style": {
+							"opacity": 3.1,
+							"transform": "translate3d(0.1px, 1.1px, 0) scale(2.1)",
+							"webkitTransform": "translate3d(0.1px, 1.1px, 0) scale(2.1)"
+						}
+					},
+					"opacity": 3.1,
+					"position": {
+						"left": 0.1,
+						"top": 1.1
+					},
+					"scale": 2.1
+				},
+				{
+					"element": {
+						"style": {
+							"opacity": 3.2,
+							"transform": "translate3d(0.2px, 1.2px, 0) scale(2.2)",
+							"webkitTransform": "translate3d(0.2px, 1.2px, 0) scale(2.2)"
+						}
+					},
+					"opacity": 3.2,
+					"position": {
+						"left": 0.2,
+						"top": 1.2
+					},
+					"scale": 2.2
+				}
+			], "Items are transformed");
+		});
+
+		QUnit.test("_applyItemsTo", 1, function (assert) {
+			var gridWidget = new Grid(),
+				items = [
+					{
+						position: {},
+						to: {
+							position: {
+								left: 0,
+								top: 1
+							},
+							scale: 2,
+							opacity: 3
+						}
+					},
+					{
+						position: {},
+						to: {
+							position: {
+								left: 0.1,
+								top: 1.1
+							},
+							scale: 2.1,
+							opacity: 3.1
+						}
+					}
+				];
+
+			gridWidget._applyItemsTo(items);
+
+			assert.deepEqual(items, [
+				{
+					"opacity": 3,
+					"position": {
+						"left": 0,
+						"top": 1
+					},
+					"scale": 2,
+					"to": {
+						"opacity": 3,
+						"position": {
+							"left": 0,
+							"top": 1
+						},
+						"scale": 2
+					}
+				},
+				{
+					"opacity": 3.1,
+					"position": {
+						"left": 0.1,
+						"top": 1.1
+					},
+					"scale": 2.1,
+					"to": {
+						"opacity": 3.1,
+						"position": {
+							"left": 0.1,
+							"top": 1.1
+						},
+						"scale": 2.1
+					}
+				}
+			], "Items are transformed");
+		});
+
+		QUnit.test("_moveItemsToImages", 4, function (assert) {
+			var gridWidget = new Grid();
+
+			gridWidget._items = [
+				{to: {}},
+				{to: {}},
+				{to: {}}
+			];
+			gridWidget._scrollDimension = "l";
+			gridWidget._nonScrollDimension = "t";
+			gridWidget._settings = {
+				scaleThumbnail: 1
+			};
+			gridWidget._getItemSize = function (mode) {
+				assert.equal(mode, "image", "mode is 'image'");
+				return 2;
+			};
+			gridWidget._moveItemsToImages();
+			assert.deepEqual(gridWidget._items, [
+				{
+					"to": {
+						"opacity": 1,
+						"position": {
+							"l": 0,
+							"t": 0
+						},
+						"scale": 1
+					}
+				},
+				{
+					"to": {
+						"opacity": 1,
+						"position": {
+							"l": 2,
+							"t": 0
+						},
+						"scale": 1
+					}
+				},
+				{
+					"to": {
+						"opacity": 1,
+						"position": {
+							"l": 4,
+							"t": 0
+						},
+						"scale": 1
+					}
+				}
+			], "_items are correctly modified");
+		});
 	}
 
 	if (typeof define === "function") {
