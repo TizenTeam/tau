@@ -3,14 +3,15 @@
  * #Button
  * Shows a control that can be used to generate an action event.
  *
- * The button component shows on the screen a control that you can use to generate an action event when it is pressed
- *  and released. The component is coded with standard HTML anchor and input elements.
+ * The button component shows on the screen a control that you can use to generate an action event
+ * when it is pressed and released. The component is coded with standard HTML anchor and input
+ * elements.
  *
  * The following table describes the supported button classes.
  *
  * ## Default selectors
- * The button widget shows a control on the screen that you can use to generate an action event when it is pressed and
- * released.
+ * The button widget shows a control on the screen that you can use to generate an action event
+ * when it is pressed and released.
  * This widget is coded with standard HTML anchor and input elements.
  *
  * Default selector for buttons is class *ui-btn*
@@ -40,7 +41,8 @@
  * ### Icons
  * Buttons can contains icons
  *
- * Creates an icon button in the header area is permitted but in content or footer area creating icon are not supported.
+ * Creates an icon button in the header area is permitted but in content or footer area creating
+ * icon are not supported.
  *
  * To use menu icon in header add class *ui-more* to the button element:
  *
@@ -107,7 +109,8 @@
  *
  * ### Button Group
  *
- * You can group buttons in columns or rows. The following table lists the supported button column and row classes.
+ * You can group buttons in columns or rows. The following table lists the supported button column
+ * and row classes.
  *
  * <table>
  *  <tr>
@@ -393,7 +396,8 @@
 					options = self.options,
 					buttonClassList = element.classList;
 
-				if (state === true || options.disabled === true || element.disabled || buttonClassList.contains(classes.DISABLED)) {
+				if (state === true || options.disabled === true || element.disabled ||
+					buttonClassList.contains(classes.DISABLED)) {
 					options.disabled = true;
 					self._disable(element);
 				} else {

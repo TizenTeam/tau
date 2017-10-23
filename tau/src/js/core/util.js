@@ -231,7 +231,8 @@
 			 * @static
 			 */
 			util.importEvaluateAndAppendElement = function (element, container) {
-				var externalScriptsQueue = util._createScriptsSync(util._removeExternalScripts(element), element),
+				var externalScriptsQueue =
+							util._createScriptsSync(util._removeExternalScripts(element), element),
 					newNode = document.importNode(element, true);
 
 				container.appendChild(newNode); // append and eval inline
@@ -291,7 +292,8 @@
 					scriptData = util.fetchSync(src, "text/plain");
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					if (!scriptData) {
-						ns.warn("Failed to fetch and append external script. URL: " + src + "; response status: " + status);
+						ns.warn("Failed to fetch and append external script. URL: " + src +
+							"; response status: " + status);
 					}
 					//>>excludeEnd("tauDebug");
 				} else {

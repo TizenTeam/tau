@@ -17,7 +17,8 @@
 /*
  * #Defaults settings object
  *
- * This module is deprecated, please use tau.setConfig and tau.getConfig functions or tauConfig object.
+ * This module is deprecated, please use tau.setConfig and tau.getConfig functions or tauConfig
+ * object.
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>

@@ -16,7 +16,8 @@
  */
 /**
  * #Checkbox
- * Checkbox component changes the default browser checkboxes to a form more adapted to the mobile environment.
+ * Checkbox component changes the default browser checkboxes to a form more adapted to the mobile
+ * environment.
  *
  * @since 2.4
  * @class ns.widget.core.Checkbox
@@ -88,8 +89,8 @@
 			ns.widget.core.Checkbox = Checkbox;
 			engine.defineWidget(
 				"Checkbox",
-				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch), " +
-				"input.ui-checkbox",
+				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch'])" +
+				":not(.ui-toggleswitch), input.ui-checkbox",
 				[],
 				Checkbox,
 				""

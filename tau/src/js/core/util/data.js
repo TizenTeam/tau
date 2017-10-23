@@ -133,9 +133,16 @@
 					hashMap[hash][key] = value;
 
 					if (element instanceof Element) {
-						eventUtils.trigger(element, "setData", {"key": key, "value": value});
+						eventUtils.trigger(element, "setData", {
+							"key": key,
+							"value": value
+						});
 					}
-					eventUtils.trigger(body, "globalSetData", {"element": element, "key": key, "value": value});
+					eventUtils.trigger(body, "globalSetData", {
+						"element": element,
+						"key": key,
+						"value": value
+					});
 
 					return value;
 				},
@@ -166,9 +173,16 @@
 								hashMap[hash] = hashMap[hash] || {};
 								hashMap[hash][key] = hashMap[hash][key] || value;
 							}
-							eventUtils.trigger(element, "getData", {"key": key, "value": value});
+							eventUtils.trigger(element, "getData", {
+								"key": key,
+								"value": value
+							});
 						}
-						eventUtils.trigger(body, "globalGetData", {"element": element, "key": key, "value": value});
+						eventUtils.trigger(body, "globalGetData", {
+							"element": element,
+							"key": key,
+							"value": value
+						});
 
 						return value;
 					}
@@ -192,7 +206,8 @@
 					if (hash && hashMap[hash] && hashMap[hash][key] !== undefined) {
 						value = hashMap[hash][key];
 
-						// Delete keyword has a performance impact on the execution, that's why we assign undefined
+						// Delete keyword has a performance impact on the execution, that's why we assign
+						// undefined
 						hashMap[hash][key] = undefined;
 
 						// If any property is defined we cannot clear the hashMap[hash]
@@ -202,9 +217,16 @@
 
 						if (element instanceof Element) {
 							removeDom(element, key);
-							eventUtils.trigger(element, "removeData", {"key": key, "value": value});
+							eventUtils.trigger(element, "removeData", {
+								"key": key,
+								"value": value
+							});
 						}
-						eventUtils.trigger(body, "globalRemoveData", {"element": element, "key": key, "value": value});
+						eventUtils.trigger(body, "globalRemoveData", {
+							"element": element,
+							"key": key,
+							"value": value
+						});
 
 						return true;
 					}

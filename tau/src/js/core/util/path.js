@@ -83,7 +83,8 @@
 					// URL as well as some other commonly used sub-parts. When used with RegExp.exec()
 					// or String.match, it parses the URL into a results array that looks like this:
 					//
-					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123
+					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#
+					//       msg-content?param1=true&param2=123
 					//	[1]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread
 					//	[2]: http://jblas:password@mycompany.com:8080/mail/inbox
 					//	[3]: http://jblas:password@mycompany.com:8080
@@ -128,9 +129,9 @@
 
 						hash = hash === "#" && !search ? "" : hash;
 						location = uri;
-						// Make sure to parse the url or the location object for the hash because using location.hash
-						// is autodecoded in firefox, the rest of the url should be from the object (location unless
-						// we're testing) to avoid the inclusion of the authority
+						// Make sure to parse the url or the location object for the hash because using
+						// location.hash is autodecoded in firefox, the rest of the url should be from the
+						// object (location unless we're testing) to avoid the inclusion of the authority
 						return uri.protocol + "//" + uri.host + uri.pathname + uri.search + hash + search;
 					},
 
@@ -489,8 +490,8 @@
 					},
 
 					/**
-					 * Check whether a url is referencing the same domain, or an external domain or different protocol
-					 * could be mailto, etc
+					 * Check whether a url is referencing the same domain, or an external domain or different
+					 * protocol could be mailto, etc
 					 * @method isExternal
 					 * @member ns.util.path
 					 * @param {string|Object} url
@@ -806,7 +807,8 @@
 			 * @property {Object} documentBase uri structure
 			 * @static
 			 */
-			path.documentBase = base ? path.parseUrl(path.makeUrlAbsolute(base.getAttribute("href"), path.documentUrl.href)) : path.documentUrl;
+			path.documentBase = base ? path.parseUrl(path.makeUrlAbsolute(base.getAttribute("href"),
+				path.documentUrl.href)) : path.documentUrl;
 
 			path.documentBaseDiffers = (path.documentUrl.hrefNoHash !== path.documentBase.hrefNoHash);
 

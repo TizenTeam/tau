@@ -46,7 +46,8 @@
 				// to support circle in  browser by additionall parameter in url
 				/* istanbul ignore if */
 				if (window.location.search === "?circle") {
-					/* istanbul ignore next: we can't test this part because set location is unsuported in test envirinmnet */
+					/* istanbul ignore next: we can't test this part because set location is unsuported in
+					 test envirinmnet */
 					isCircle = true;
 				}
 
@@ -69,7 +70,8 @@
 					tizen: isTizen
 				},
 				shape: {
-					circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape()
+					circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches :
+						isCircleShape()
 				},
 				gradeA: function () {
 					return true;

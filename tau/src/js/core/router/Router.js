@@ -35,7 +35,7 @@
 			"../util/path",
 			"../util/object",
 			"../router",
-			"./route", // fetch namespace
+			"./route",
 			"./history",
 			"../widget/core/Page",
 			"../widget/core/PageContainer"
@@ -179,11 +179,15 @@
 			/**
 			 * Default values for router
 			 * @property {Object} defaults
-			 * @property {boolean} [defaults.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @property {boolean} [defaults.fromHashChange = false] Sets if will be changed after
+			 * hashchange.
 			 * @property {boolean} [defaults.reverse = false] Sets the direction of change.
-			 * @property {boolean} [defaults.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @property {number} [defaults.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @property {boolean} [defaults.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @property {boolean} [defaults.showLoadMsg = true] Sets if message will be shown during
+			 * loading.
+			 * @property {number} [defaults.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
+			 * @property {boolean} [defaults.volatileRecord = false] Sets if the current history entry
+			 * will be modified or a new one will be created.
 			 * @member ns.router.Router
 			 */
 			Router.prototype.defaults = {

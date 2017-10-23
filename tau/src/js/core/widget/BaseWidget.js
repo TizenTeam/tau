@@ -21,10 +21,12 @@
  *
  * ## How to invoke creation of widget from JavaScript
  *
- * To build and initialize widget in JavaScript you have to use method {@link ns.engine#instanceWidget} . First argument for method
- * is HTMLElement, which specifies the element of widget. Second parameter is name of widget to create.
+ * To build and initialize widget in JavaScript you have to use method
+ * {@link ns.engine#instanceWidget}. First argument for method is HTMLElement, which specifies the
+ * element of widget. Second parameter is name of widget to create.
  *
- * If you load jQuery before initializing tau library, you can use standard jQuery UI Widget notation.
+ * If you load jQuery before initializing tau library, you can use standard jQuery UI Widget
+ * notation.
  *
  * ### Examples
  * #### Build widget from JavaScript
@@ -58,7 +60,9 @@
  *						Button = function () { // create local object with widget
  *							...
  *						},
- *						prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's object, for better minification this should be assign to local variable and next variable should be assign to prototype of object
+ *						prototype = new BaseWidget(); // add ns.widget.BaseWidget as prototype to widget's
+ *						object, for better minification this should be assign to local variable and next
+ *						variable should be assign to prototype of object.
  *
  *					function closestEnabledButton(element) { // example of private method
  *						...
@@ -70,33 +74,42 @@
  *						...
  *					};
  *
- *					prototype._build = function (template, element) { // method called when the widget is being built, should contain all HTML manipulation actions
+ *					prototype._build = function (template, element) {
+ *						// method called when the widget is being built, should contain all HTML
+ *						// manipulation actions
  *						...
  *						return element;
  *					};
  *
- *					prototype._init = function (element) { // method called during initialization of widget, should contain all actions necessary fastOn application start
+ *					prototype._init = function (element) {
+ *						// method called during initialization of widget, should contain all actions
+ *						// necessary fastOn application start
  *						...
  *						return element;
  *					};
  *
- *					prototype._bindEvents = function (element) { // method to bind all events, should contain all event bindings
+ *					prototype._bindEvents = function (element) {
+ *						// method to bind all events, should contain all event bindings
  *						...
  *					};
  *
- *					prototype._enable = function (element) { // method called during invocation of enable() method
+ *					prototype._enable = function (element) {
+ *						// method called during invocation of enable() method
  *						...
  *					};
  *
- *					prototype._disable = function (element) { // method called during invocation of disable() method
+ *					prototype._disable = function (element) {
+ *						// method called during invocation of disable() method
  *						...
  *					};
  *
- *					prototype.refresh = function (element) { // example of public method
+ *					prototype.refresh = function (element) {
+ *						// example of public method
  *						...
  *					};
  *
- *					prototype._refresh = function () { // example of protected method
+ *					prototype._refresh = function () {
+ *						// example of protected method
  *						...
  *					};
  *
@@ -104,8 +117,9 @@
  *
  *					engine.defineWidget( // define widget
  *						"Button", //name of widget
- *						"[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",  //widget's selector
- *						[ // public methods, here should be list all public method, without that method will not be available
+ *						"[data-role='button'],button,[type='button'],[type='submit'],[type='reset']",
+ *						//widget's selector
+ *						[ // public methods, here should be list all public method
  *							"enable",
  *							"disable",
  *							"refresh"
@@ -272,7 +286,8 @@
 					 * @property {string} widgetFullName
 					 * @member ns.widget.BaseWidget
 					 */
-					self.widgetFullName = ((definitionNamespace ? definitionNamespace + "-" : "") + definitionName).toLowerCase();
+					self.widgetFullName = ((definitionNamespace ? definitionNamespace + "-" : "") +
+						definitionName).toLowerCase();
 					/**
 					 * Id of widget instance
 					 * @property {string} id
@@ -683,10 +698,11 @@
 
 			/**
 			 * Reads class based on name conversion option value, for all options which have boolean value
-			 * we can read option value by check that exists classname connected with option name. To correct use this
-			 * method is required define in widget property _classesPrefix.
+			 * we can read option value by check that exists classname connected with option name. To
+			 * correct use this method is required define in widget property _classesPrefix.
 			 *
-			 * For example for option middle in Button widget we will check existing of class ui-btn-middle.
+			 * For example for option middle in Button widget we will check existing of class
+			 * ui-btn-middle.
 			 *
 			 * @method _readBooleanOptionFromElement
 			 * @param {HTMLElement} element Main element of widget
@@ -706,9 +722,9 @@
 			};
 
 			/**
-			 * Sets or removes class based on name conversion option, for all options which have boolean value
-			 * we can just set classname which is converted from camel case to dash style. To correct use this method
-			 * is required define in widget property _classesPrefix.
+			 * Sets or removes class based on name conversion option, for all options which have boolean
+			 * value we can just set classname which is converted from camel case to dash style.
+			 * To correct use this method is required define in widget property _classesPrefix.
 			 *
 			 * For example for option middle in Button widget we will set or remove class ui-btn-middle.
 			 *
@@ -762,11 +778,13 @@
 			 *
 			 * This method can work in many context.
 			 *
-			 * If first argument is type of object them, method set values for options given in object. Keys of object are names of options and values from object are values to set.
+			 * If first argument is type of object them, method set values for options given in object.
+			 * Keys of object are names of options and values from object are values to set.
 			 *
 			 * If you give only one string argument then method return value for given option.
 			 *
-			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
+			 * If you give two arguments and first argument will be a string then second argument will be
+			 * intemperate as value to set.
 			 *
 			 * @method option
 			 * @param {string|Object} [name] name of option
@@ -859,7 +877,8 @@
 				var element = this.element;
 
 				type = type || this.name;
-				return element && element.hasAttribute(engineDataTau.bound) && element.getAttribute(engineDataTau.bound).indexOf(type) > -1;
+				return element && element.hasAttribute(engineDataTau.bound) &&
+					element.getAttribute(engineDataTau.bound).indexOf(type) > -1;
 			};
 
 			/**
@@ -877,7 +896,8 @@
 				var element = this.element;
 
 				type = type || this.name;
-				return element && element.hasAttribute(engineDataTau.built) && element.getAttribute(engineDataTau.built).indexOf(type) > -1;
+				return element && element.hasAttribute(engineDataTau.built) &&
+					element.getAttribute(engineDataTau.built).indexOf(type) > -1;
 			};
 
 			/**

@@ -29,7 +29,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event" // fetch namespace
+			"../event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

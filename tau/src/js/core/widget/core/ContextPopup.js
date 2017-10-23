@@ -20,14 +20,17 @@
  * # Popup Widget
  * Shows a pop-up window.
  *
- * The popup widget shows in the middle of the screen a list of items in a pop-up window. It automatically optimizes the pop-up window size within the screen. The following table describes the supported popup classes.
+ * The popup widget shows in the middle of the screen a list of items in a pop-up window.
+ * It automatically optimizes the pop-up window size within the screen. The following table
+ * describes the supported popup classes.
  *
  * ## Default selectors
  * All elements with class *ui-popup* will be become popup widgets.
  *
  * The pop-up window can contain a header, content, and footer area like the page element.
  *
- * To open a pop-up window from a link, use the data-rel attribute in HTML markup as in the following code:
+ * To open a pop-up window from a link, use the data-rel attribute in HTML markup as in the
+ * following code:
  *
  *      @example
  *      <a href="#popup" class="ui-btn" data-rel="popup">Open popup when clicking this element.</a>
@@ -72,7 +75,8 @@
  *
  * #### Popup with checkbox/radio
  *
- * If you want make popup with list checkbox(or radio) just include checkbox (radio) to popup and add class *ui-popup-checkbox-label* to popup element.
+ * If you want make popup with list checkbox(or radio) just include checkbox (radio) to popup and
+ * add class *ui-popup-checkbox-label* to popup element.
  *
  *        @example
  *         <div id="listBoxPopup" class="ui-popup">
@@ -218,7 +222,8 @@
  *        var popupElement = document.getElementById("popup"),
  *            popup = tau.widget.popup(buttonElement);
  *
- * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create
+ * widget. We recommend get this element by method *document.getElementById*.
  *
  * ## Options for Popup Widget
  *
@@ -238,7 +243,8 @@
  *
  * ## Transitions
  *
- * By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
+ * By default, the framework doesn't apply transition. To set a custom transition effect, add the
+ * data-transition attribute to the link.
  *
  *        @example
  *        <a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
@@ -305,17 +311,28 @@
 				 * Object with default options
 				 * @property {Object} defaults
 				 * @property {string} [options.transition="none"] Sets the default transition for the popup.
-				 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-				 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
-				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
-				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
-				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
-				 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's arrow by priority ("l" for left, "t" for top,
-				 * "r" for right, and "b" for bottom). The first one has the highest priority, the last one - the lowest. If you set arrow="t",
-				 * then arrow will be placed at the top of popup container and the whole popup will be placed under cliced element.
-				 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-				 * @property {number} [options.distance=0] Sets the extra distance in px from clicked element.
-				 * @property {HTMLElement|string} [options.link=null] Set the element or its id, under which popup should be placed.
+				 * @property {string} [options.positionTo="window"] Sets the element relative to which the
+				 * popup will be centered.
+				 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup
+				 * is open to support the back button.
+				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is
+				 * open.
+				 * @property {string} [overlayClass=""] Sets the custom class for the popup background,
+				 * which covers the entire window.
+				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup
+				 * is open to support the back button.
+				 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's arrow by
+				 * priority ("l" for left, "t" for top,
+				 * "r" for right, and "b" for bottom). The first one has the highest priority, the last one
+				 * - the lowest. If you set arrow="t",
+				 * then arrow will be placed at the top of popup container and the whole popup will be
+				 * placed under cliced element.
+				 * @property {string} [options.positionTo="window"] Sets the element relative to which
+				 * the popup will be centered.
+				 * @property {number} [options.distance=0] Sets the extra distance in px from clicked
+				 * element.
+				 * @property {HTMLElement|string} [options.link=null] Set the element or its id, under
+				 * which popup should be placed.
 				 * It only works with option positionTo="origin".
 				 * @member ns.widget.core.ContextPopup
 				 * @static

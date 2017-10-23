@@ -66,7 +66,9 @@
 				/**
 				 * Split string to array
 				 * @method getEventsListeners
-				 * @param {string|Array|Object} names string with one name of event, many names of events divided by spaces, array with names of widgets or object in which keys are names of events and values are callbacks
+				 * @param {string|Array|Object} names string with one name of event, many names of events
+				 * divided by spaces, array with names of widgets or object in which keys are names of
+				 * events and values are callbacks
 				 * @param {Function} globalListener
 				 * @return {Array}
 				 * @static
@@ -159,7 +161,8 @@
 					});
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 
-					ns.log("triggered event " + type + " on:", element.tagName + "#" + (element.id || "--no--id--"));
+					ns.log("triggered event " + type + " on:", element.tagName + "#" +
+						(element.id || "--no--id--"));
 					//>>excludeEnd("tauDebug");
 					return element.dispatchEvent(evt);
 				},
@@ -465,8 +468,10 @@
 									var args = arraySlice.call(arguments);
 
 									ns.event.fastOff(elements[i], listeners[j].type, callbacks[i][j], useCapture);
-									args.shift(); // remove the first argument of binding function
-									args.shift(); // remove the second argument of binding function
+									// remove the first argument of binding function
+									args.shift();
+									// remove the second argument of binding function
+									args.shift();
 									listeners[j].callback.apply(this, args);
 								}).bind(null, i, j);
 								ns.event.fastOn(elements[i], listeners[j].type, callbacks[i][j], useCapture);

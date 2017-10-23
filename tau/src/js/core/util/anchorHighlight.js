@@ -264,8 +264,10 @@
 						classList.add(classes.INACTIVE_BTN);
 					}
 				} else {
-					//when target of animationend event is child of active element instead of active element itself
-					if (!classList.contains(classes.ACTIVE_BTN) && !classList.contains(classes.INACTIVE_BTN)) {
+					//when target of animationend event is child of active element instead of active element
+					// itself
+					if (!classList.contains(classes.ACTIVE_BTN) &&
+						!classList.contains(classes.INACTIVE_BTN)) {
 						target.parentNode.classList.remove(classes.ACTIVE_BTN);
 						target.parentNode.classList.remove(classes.INACTIVE_BTN);
 					}
@@ -419,7 +421,8 @@
 				// if move looks like scroll
 				if (!anchorHighlight._didScroll &&
 					// if move is bigger then threshold
-					(abs(touch.clientX - startX) > scrollThreshold || abs(touch.clientY - startY) > scrollThreshold)) {
+					(abs(touch.clientX - startX) > scrollThreshold ||
+					abs(touch.clientY - startY) > scrollThreshold)) {
 					anchorHighlight._startTime = 0;
 					// we clear active classes
 					anchorHighlight._requestAnimationFrame(clearActiveClass);
@@ -528,7 +531,8 @@
 				document.addEventListener("popuphide", anchorHighlight._hideClear, false);
 				document.addEventListener("animationend", anchorHighlight._clearBtnActiveClass, false);
 				document.addEventListener("animationEnd", anchorHighlight._clearBtnActiveClass, false);
-				document.addEventListener("webkitAnimationEnd", anchorHighlight._clearBtnActiveClass, false);
+				document.addEventListener("webkitAnimationEnd", anchorHighlight._clearBtnActiveClass,
+					false);
 			}
 
 			/**
@@ -542,12 +546,14 @@
 				document.removeEventListener("touchend", anchorHighlight._touchendHandler, false);
 				document.removeEventListener("touchmove", anchorHighlight._touchmoveHandler, false);
 
-				document.removeEventListener("visibilitychange", anchorHighlight._checkPageVisibility, false);
+				document.removeEventListener("visibilitychange", anchorHighlight._checkPageVisibility,
+					false);
 				document.removeEventListener("pagehide", anchorHighlight._hideClear, false);
 				document.removeEventListener("popuphide", anchorHighlight._hideClear, false);
 				document.removeEventListener("animationend", anchorHighlight._clearBtnActiveClass, false);
 				document.removeEventListener("animationEnd", anchorHighlight._clearBtnActiveClass, false);
-				document.removeEventListener("webkitAnimationEnd", anchorHighlight._clearBtnActiveClass, false);
+				document.removeEventListener("webkitAnimationEnd", anchorHighlight._clearBtnActiveClass,
+					false);
 			}
 
 			enable();

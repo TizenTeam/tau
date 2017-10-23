@@ -64,7 +64,8 @@
 					arrayElements;
 
 				if (context) {
-					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
+					if (elements instanceof Array || elements instanceof NodeList ||
+						elements instanceof HTMLCollection) {
 						arrayElements = slice.call(elements);
 						for (i = 0, length = arrayElements.length; i < length; i += 1) {
 							context.appendChild(arrayElements[i]);
@@ -91,7 +92,8 @@
 			DOM.replaceWithNodes = function (context, elements) {
 				var returnElements;
 
-				if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
+				if (elements instanceof Array || elements instanceof NodeList ||
+					elements instanceof HTMLCollection) {
 					returnElements = this.insertNodesBefore(context, elements);
 					context.parentNode.removeChild(context);
 				} else {
@@ -130,7 +132,8 @@
 
 				if (context) {
 					parent = context.parentNode;
-					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
+					if (elements instanceof Array || elements instanceof NodeList ||
+						elements instanceof HTMLCollection) {
 						returnElements = slice.call(elements);
 						for (i = 0, length = returnElements.length; i < length; ++i) {
 							parent.insertBefore(returnElements[i], context);
@@ -233,7 +236,8 @@
 				containerData = prepareContainer(fragment, html);
 
 				if (containerData.contentFlag === true) {
-					innerContainer = containerData.container.querySelector("span#temp-container-" + containerCounter);
+					innerContainer = containerData.container.querySelector("span#temp-container-" +
+						containerCounter);
 					resultElements = this.replaceWithNodes(innerContainer, elements);
 				} else {
 					innerContainer = containerData.container.children[0];

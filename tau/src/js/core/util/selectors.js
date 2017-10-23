@@ -215,7 +215,8 @@
 				 * @member ns.util.selectors
 				 */
 				getChildrenByDataNS: function (context, dataSelector) {
-					return slice.call(context.children).filter(testSelector.bind(null, getDataSelector(dataSelector)));
+					return slice.call(context.children).filter(testSelector.bind(null,
+						getDataSelector(dataSelector)));
 				},
 
 				/**

@@ -77,7 +77,8 @@
 			 **/
 			var vmouse,
 				/**
-				 * @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
+				 * @property {Object} eventProps Contains the properties which are copied from the original
+				 * event to custom v-events
 				 * @member ns.event.vmouse
 				 * @static
 				 * @private
@@ -127,7 +128,8 @@
 			 * @param {Object} from Sets the original event
 			 * @param {Object} to Sets the new event
 			 * @param {Object} properties Sets the special properties for position
-			 * @param {Object} propertiesNames Describe parameters which will be copied from Original to To event
+			 * @param {Object} propertiesNames Describe parameters which will be copied from Original to
+			 * event
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
