@@ -48,7 +48,7 @@
 					convertToMiliseconds: function (string) {
 						var parsed = string.match(timeRegex),
 							miliseconds = 0,
-							parsedNumber = 0;
+							parsedNumber;
 
 						if (parsed.length === 3) {
 							parsedNumber = parseFloat(parsed[1]) || 0;

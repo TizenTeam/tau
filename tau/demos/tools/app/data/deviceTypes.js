@@ -6,6 +6,10 @@ module.exports = {
 			"device": "M-3.0-x86"
 		},
 		{
+			"type": "p-3.0",
+			"device": "m-0923-1"
+		},
+		{
 			"type": "p-bar-3.0",
 			"device": "M-3.0-x86"
 		},

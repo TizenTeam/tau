@@ -237,15 +237,24 @@
 			width: 100%;
 
 			.ui-popup-content {
-				padding: 0 43 * @unit_base;
+				padding: 0 30 * @unit_base;
 				height: auto;
 				background-color: transparent;
 				color: @color_toast_text;
-				font-size: 32 * @px_base;
+				font-size: 28 * @px_base;
 				text-align: center;
 				line-height: 37 * @px_base;
 				text-overflow: ellipsis;
 				overflow: hidden;
+			}
+		}
+
+		&.ui-popup-toast-graphic {
+			.ui-popup-wrapper {
+				.ui-popup-content {
+					font-size: 32 * @px_base;
+					line-height: 42 * @px_base;
+				}
 			}
 		}
 
@@ -286,7 +295,7 @@
 
 			.ui-popup-wrapper {
 				.ui-popup-content {
-					padding: 0 20 * @unit_base;
+					padding: 0 19 * @unit_base;
 					max-height: 96 * @unit_base;
 					color: @color_toast_popup_small_text;
 					font-size: 24 * @unit_base;
