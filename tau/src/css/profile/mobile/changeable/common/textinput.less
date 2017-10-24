@@ -1,85 +1,98 @@
 input, textarea {
-    font-family: @font_family;
+	font-family: @font_family;
 
-    &::-webkit-input-placeholder {
-        text-shadow: 0 0 0 @color_textinput_placeholder;
-    }
+	&::-webkit-input-placeholder {
+		text-shadow: 0 0 0 @color_textinput_placeholder;
+	}
 }
 
 textarea.ui-text-input {
-    padding: 25 * @unit_base 24 * @unit_base 24 * @unit_base 24 * @unit_base;
-    resize: none;
-    overflow: hidden;
-    white-space: normal;
-    .transition(height 200ms linear);
-    & + .ui-text-input-textline {
-        top: -25 * @unit_base;
-    }
+	padding: 25 * @unit_base 24 * @unit_base 24 * @unit_base 24 * @unit_base;
+	resize: none;
+	overflow: hidden;
+	white-space: normal;
+	.transition(height 200ms linear);
+	& + .ui-text-input-textline {
+		top: -25 * @unit_base;
+	}
 }
 
 input.ui-text-input {
-    padding: 25 * @unit_base 32 * @unit_base  24 * @unit_base 32 * @unit_base;
-    & + .ui-text-input-textline {
-        top: -15 * @unit_base;
-    }
+	padding: 25 * @unit_base 32 * @unit_base  24 * @unit_base 32 * @unit_base;
+	& + .ui-text-input-textline {
+		top: -15 * @unit_base;
+	}
+}
+
+.ui-popup {
+	textarea.ui-text-input {
+		min-height: 120 * @unit_base;
+		line-height: 54 * @unit_base;
+		display: block;
+		padding: 33 * @unit_base 32 * @unit_base;
+		+ .ui-text-input-textline {
+			top: 0;
+			margin: -20 * @unit_base  32 * @unit_base 20 * @unit_base 32 * @unit_base;
+		}
+	}
 }
 
 input.ui-text-input,
 textarea.ui-text-input {
-    .appearance(none);
-    box-sizing: border-box;
-    width: 100%;
-    height: 90 * @unit_base;
-    line-height: 41 * @unit_base;
-    color: @color_textinput_cursor;
-    text-shadow: 0 0 0 @color_textinput_text;
-    -webkit-text-fill-color: transparent;
-    font-size: @font_size_textinput_text;
-    background-color: @color_textinput_bg;
-    border: none;
+	.appearance(none);
+	box-sizing: border-box;
+	width: 100%;
+	height: 90 * @unit_base;
+	line-height: 41 * @unit_base;
+	color: @color_textinput_cursor;
+	text-shadow: 0 0 0 @color_textinput_text;
+	-webkit-text-fill-color: transparent;
+	font-size: @font_size_textinput_text;
+	background-color: @color_textinput_bg;
+	border: none;
 
-    &:focus {
-        outline: none;
-    }
+	&:focus {
+		outline: none;
+	}
 
-    &.ui-text-input-disabled,
-    &:disabled {
-        text-shadow: 0 0 0 @color_textinput_text_dim;
-    }
+	&.ui-text-input-disabled,
+	&:disabled {
+		text-shadow: 0 0 0 @color_textinput_text_dim;
+	}
 
-    & + .ui-text-input-textline {
-        background: @color_textinput_textline_dim;
-        height: 2 * @unit_base;
-        position: relative;
-        display: block;
-        box-sizing: border-box;
-        margin: 0 24 * @unit_base 0 24 * @unit_base;
-    }
+	& + .ui-text-input-textline {
+		background: @color_textinput_textline_dim;
+		height: 2 * @unit_base;
+		position: relative;
+		display: block;
+		box-sizing: border-box;
+		margin: 0 24 * @unit_base 0 24 * @unit_base;
+	}
 
-    &.ui-text-input-focused + .ui-text-input-textline {
-        background: @color_textinput_textline;
-    }
+	&.ui-text-input-focused + .ui-text-input-textline {
+		background: @color_textinput_textline;
+	}
 
-    &.ui-text-input-clear-active {
-        padding-right: 84 * @unit_base;
-    }
-    &.ui-text-input-clear-active + .ui-text-input-textline {
-        margin-right: 84 * @unit_base;
-    }
-    & ~ .ui-text-input-clear {
-        display: block;
-        float: right;
-        position: relative;
-        top: -90 * @unit_base;
-        box-sizing: border-box;
-        width: 80 * @unit_base;
-        height: 80 * @unit_base;
-        margin-right: 12 * @unit_base;
-        .mask-image("images/controls/core_button_icon_clear.png");
-        .mask-size(contain);
-        background-color: @color_textinput_clear_icon;
-    }
-    & ~ .ui-text-input-clear-hidden {
-        visibility: hidden;
-    }
+	&.ui-text-input-clear-active {
+		padding-right: 84 * @unit_base;
+	}
+	&.ui-text-input-clear-active + .ui-text-input-textline {
+		margin-right: 84 * @unit_base;
+	}
+	& ~ .ui-text-input-clear {
+		display: block;
+		float: right;
+		position: relative;
+		top: -90 * @unit_base;
+		box-sizing: border-box;
+		width: 80 * @unit_base;
+		height: 80 * @unit_base;
+		margin-right: 12 * @unit_base;
+		.mask-image("images/controls/core_button_icon_clear.png");
+		.mask-size(contain);
+		background-color: @color_textinput_clear_icon;
+	}
+	& ~ .ui-text-input-clear-hidden {
+		visibility: hidden;
+	}
 }

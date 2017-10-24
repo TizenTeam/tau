@@ -104,13 +104,15 @@
  */
 (function (document, ns) {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../core/engine",
 			"../../../../core/util/DOM",
 			"../../../../core/util/object",
+			"../../../../core/util/selectors",
 			"../../../../core/event",
+			"../../../../core/widget/core/Popup",
 			"./BaseWidgetMobile",
 			"../mobile"
 		],
@@ -119,11 +121,13 @@
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
 				domUtils = ns.util.DOM,
+				util = ns.util,
 				objectUtils = ns.util.object,
 				utilEvent = ns.event,
 
 				TextInput = function () {
 					var self = this;
+
 					self.options = objectUtils.merge({}, TextInput.defaults);
 					self._ui = {
 						textLineElement: null,
@@ -134,6 +138,7 @@
 
 				prototype = new BaseWidget(),
 
+				popupClasses = ns.widget.core.Popup.classes,
 				CLASSES_PREFIX = "ui-text-input",
 
 				/**
@@ -173,7 +178,8 @@
 				 */
 				defaults = {
 					clearBtn: false,
-					textLine: true
+					textLine: true,
+					maxHeight: null
 				};
 
 			TextInput.prototype = prototype;
@@ -182,14 +188,35 @@
 
 			/**
 			 * Resize textarea, called after text input
-			 * @method _resize
-			 * @private
+			 * @method _resizeTextArea
+			 * @protected
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function resizeTextArea(element) {
-				element.style.height = "auto";
-				element.style.height = element.scrollHeight + "px";
+			prototype._resizeTextArea = function (element) {
+				var popupElement = util.selectors.getClosestByClass(element, popupClasses.popup),
+					popupWidget,
+					maxHeight = parseInt(this.options.maxHeight, 10),
+					newHeight,
+					style = element.style,
+					previousHeight = style.height;
+
+				// reset for the browser to recalculate scrollHeight
+				style.height = "auto";
+				// apply scrollHeight as new height
+				newHeight = element.scrollHeight;
+
+				element.scrollTop = newHeight;
+				if (maxHeight && newHeight > maxHeight) {
+					newHeight = maxHeight;
+				}
+				style.height = newHeight + "px";
+
+				if ((previousHeight !== (newHeight + "px")) && popupElement && previousHeight !== "") {
+					popupWidget = engine.getBinding(popupElement);
+					popupWidget.refresh();
+				}
+
 			}
 			/**
 			 * Toggle visibility of the clear button
@@ -239,7 +266,7 @@
 
 				toggleClearButton(self._ui.textClearButtonElement, element);
 				if (element.nodeName.toLowerCase() === "textarea") {
-					resizeTextArea(element);
+					self._resizeTextArea(element);
 				}
 			}
 			/**
@@ -307,29 +334,29 @@
 			* @protected
 			*/
 			prototype._build = function (element) {
-				var self= this,
+				var self = this,
 					options = self.options,
 					type = element.type,
 					ui = self._ui;
 
 				/* set Aria and TextLine */
 				switch (type) {
-				case "text":
-				case "password":
-				case "number":
-				case "email":
-				case "url":
-				case "tel":
-					setAria(element);
-					ui.textLineElement = createTextLine(element);
-					break;
-				default:
-					if (element.tagName.toLowerCase() === "textarea") {
+					case "text":
+					case "password":
+					case "number":
+					case "email":
+					case "url":
+					case "tel":
 						setAria(element);
-						if (options.textLine) {
-							ui.textLineElement = createTextLine(element);
+						ui.textLineElement = createTextLine(element);
+						break;
+					default:
+						if (element.tagName.toLowerCase() === "textarea") {
+							setAria(element);
+							if (options.textLine) {
+								ui.textLineElement = createTextLine(element);
+							}
 						}
-					}
 				}
 
 				element.classList.add(classes.uiTextInput);
@@ -378,7 +405,10 @@
 				}
 
 				if (element.nodeName.toLowerCase() === "textarea") {
-					resizeTextArea(element);
+					if (element.hasAttribute("rows") === false) {
+						element.rows = 1;
+					}
+					self._resizeTextArea(element);
 				}
 
 				return element;
@@ -466,6 +496,7 @@
 			 */
 			prototype._enable = function () {
 				var element = this.element;
+
 				if (element) {
 					element.removeAttribute("disabled");
 					element.classList.remove(classes.uiTextInputDisabled);
@@ -501,6 +532,7 @@
 			 */
 			prototype._disable = function () {
 				var element = this.element;
+
 				if (element) {
 					element.setAttribute("disabled", "disabled");
 					element.classList.add(classes.uiTextInputDisabled);
@@ -516,8 +548,9 @@
 			 * @protected
 			 * @since 2.3.1
 			 */
-			prototype._getValue = function ()  {
+			prototype._getValue = function () {
 				var element = this.element;
+
 				if (element) {
 					return element.value;
 				}
@@ -535,6 +568,7 @@
 			 */
 			prototype._setValue = function (value) {
 				var element = this.element;
+
 				if (element) {
 					element.value = value;
 				}
@@ -583,7 +617,7 @@
 				TextInput,
 				"mobile"
 			);
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.TextInput;
 		}
 	);
