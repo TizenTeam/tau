@@ -456,8 +456,8 @@
 					scroll: scrollHandler.bind(null, self),
 					scrollEnd: scrollEndCallback.bind(null, self),
 					scale: function (listItemElement, rate) {
-						var scale = 1,
-							opacity = 1;
+						var scale,
+							opacity;
 
 						if (rate < 0) {
 							listItemElement.style.webkitTransform = "";
