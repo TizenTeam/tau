@@ -1,4 +1,4 @@
-/* global QUnit, ns, define, tau, Promise */
+/* global QUnit, define, tau, Promise, expect, start */
 (function () {
 	"use strict";
 	function runTests(SnapListview, helpers, ns) {
@@ -95,7 +95,7 @@
 			snaplistWidget._build(element);
 			snaplistWidget._init(element);
 
-			helpers.stub(snaplistWidget, "_initSnapListview", function (info) {
+			helpers.stub(snaplistWidget, "_initSnapListview", function () {
 				assert.ok(true, "method: _inistSnapListview was called");
 			});
 			snaplistWidget._refresh(element);
@@ -103,8 +103,7 @@
 		});
 
 		QUnit.test("_destroy", 2, function (assert) {
-			var snaplistWidget = new SnapListview(),
-				element = document.getElementById("snap-list");
+			var snaplistWidget = new SnapListview();
 
 			snaplistWidget._scrollEndTimeoutId = true;
 			helpers.stub(snaplistWidget, "_unbindEvents", function () {
@@ -223,24 +222,24 @@
 
 			ns.util.scrolling.enable(element, "x");
 
-			helpers.stub(ns.util.selectors, "getClosestByClass", function (element) {
+			helpers.stub(ns.util.selectors, "getClosestByClass", function () {
 				assert.ok(true, "method: getClosestByClass was called");
 			});
 			// when given element is current scrolling element
-			snaplistWidget._initSnapListview(element)
+			snaplistWidget._initSnapListview(element);
 
 
 			assert.ok(element.classList.contains(SnapListview.classes.SNAP_CONTAINER),
-					"container class is added to the same element");
+				"container class is added to the same element");
 			ns.util.scrolling.disable(element, "x");
 
 			// when scrollable element has overflow-y set to scroll
 			element.style["overflowY"] = "scroll";
 
-			snaplistWidget._initSnapListview(element)
+			snaplistWidget._initSnapListview(element);
 
 			assert.ok(element.classList.contains(SnapListview.classes.SNAP_CONTAINER),
-					"container class is added sucessfully");
+				"container class is added sucessfully");
 
 			helpers.restoreStub(ns.util.selectors, "getClosestByClass");
 
@@ -294,8 +293,6 @@
 					start();
 					assert.ok(true, "index was set and callback called, position is set");
 				},
-				inedxOutOfRange = false,
-				animationTimer = 1,
 				index = -1;
 
 			// in phantom window.performacne object is not available
@@ -308,7 +305,7 @@
 					assert.ok(true, "method: window.performance.now was called");
 					return +new Date();
 				});
-				SnapListview.animationTimer = null,
+				SnapListview.animationTimer = null;
 				snaplistWidget._scrollToPosition(index, callback);
 
 				index = 1;
@@ -318,11 +315,50 @@
 				helpers.stub(window, "cancelAnimationFrame", function () {
 					assert.ok(true, "method: cancelAnimationFrame was called and animation was canceled");
 				});
-				SnapListview.animationTimer = 1,
+				SnapListview.animationTimer = 1;
 				snaplistWidget._scrollToPosition(index, callback);
 				helpers.restoreStub(window, "cancelAnimationFrame");
 				helpers.restoreStub(window.performance, "now");
 			}
+		});
+
+		QUnit.test("handleEvent", 1, function (assert) {
+			var snaplistWidget = new SnapListview(),
+				event = {
+					type: "rotarydetent"
+				};
+
+			snaplistWidget._onRotary = function (_event) {
+				assert.equal(_event, event, "Event is first argument");
+			};
+			snaplistWidget.handleEvent(event);
+			snaplistWidget.handleEvent({});
+		});
+
+		QUnit.test("_onRotary", 4, function (assert) {
+			var snaplistWidget = new SnapListview(),
+				indexes = [4, 2],
+				count = 0;
+
+			snaplistWidget._listItems = new Array(10);
+			snaplistWidget.getSelectedIndex = function () {
+				assert.ok(true, "getSelectedIndex was called");
+				return 3;
+			};
+			snaplistWidget.scrollToPosition = function (index) {
+				assert.equal(index, indexes[count++], "index is correct");
+				return true;
+			};
+			snaplistWidget._onRotary({
+				detail: {
+					direction: "CW"
+				}
+			});
+			snaplistWidget._onRotary({
+				detail: {
+					direction: "CCW"
+				}
+			});
 		});
 	}
 	if (typeof define === "function") {

@@ -224,7 +224,7 @@
 			// call events which will generate equals
 			helpers.triggerEvent(document, "touchstart", null, null, null, {touches: []});
 			helpers.triggerEvent(document, "scrollend");
-			helpers.triggerEvent(document, "rotarydetent");
+			helpers.triggerEvent(document, "rotarydetent", {direction: "CW"});
 			helpers.triggerEvent(document, "selected");
 
 			helper._unbindEventsForCircular();
@@ -232,7 +232,7 @@
 			// events which will not generate equals
 			helpers.triggerEvent(document, "touchstart", null, null, null, {touches: []});
 			helpers.triggerEvent(document, "scrollend");
-			helpers.triggerEvent(document, "rotarydetent");
+			helpers.triggerEvent(document, "rotarydetent", {direction: "CW"});
 			helpers.triggerEvent(document, "selected");
 
 			// destroy helper for remove event listeners
@@ -484,7 +484,7 @@
 
 			helper.handleEvent({type: "click"});
 			helper.handleEvent({type: "scroll"});
-			helper.handleEvent({type: "rotarydetent"});
+			helper.handleEvent({type: "rotarydetent", detail: {}});
 			helper.handleEvent({type: "touchstart"});
 			helper.handleEvent({type: "scrollend"});
 			helper.handleEvent({type: "selected"});

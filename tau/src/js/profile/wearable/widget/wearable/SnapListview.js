@@ -501,6 +501,56 @@
 			};
 
 			/**
+			 * Handler for rotary event
+			 * @method _onRotary
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype._onRotary = function (event) {
+				var self = this,
+					selectedIndex = self.getSelectedIndex(),
+					listItems = self._listItems,
+					listItemLength = listItems.length,
+					direction = event.detail && event.detail.direction,
+					scrolled = false;
+
+				if (selectedIndex !== null) {
+					if (direction === "CW") {
+						// try to scroll to the next element on list
+						// - the next element can be hidden, so we try as long as it is possible to change
+						// element
+						while (!scrolled && ++selectedIndex < listItemLength) {
+							scrolled = self.scrollToPosition(selectedIndex);
+						}
+					} else {
+						// try to scroll to the previous element on list
+						// - the previous element can be hidden, so we try as long as it is possible to change
+						// element
+						while (!scrolled && --selectedIndex >= 0) {
+							scrolled = self.scrollToPosition(selectedIndex);
+						}
+					}
+				}
+			};
+
+			/**
+			 * Event handler for widget
+			 * @param {Event} event
+			 * @method handleEvent
+			 * @memberof ns.widget.wearable.SnapListview
+			 * @protected
+			 */
+			prototype.handleEvent = function (event) {
+				var self = this;
+
+				switch (event.type) {
+					case "rotarydetent" :
+						self._onRotary(event);
+				}
+			};
+
+			/**
 			 * Bind events
 			 * @method _bindEvents
 			 * @protected
@@ -518,9 +568,10 @@
 				if (scrollableElement) {
 					utilEvent.on(scrollableElement, "scroll", this._callbacks.scroll, false);
 				}
-				element.addEventListener("touchstart", self._callbacks.touchstart);
-				element.addEventListener("touchend", self._callbacks.touchend);
+				element.addEventListener("touchstart", self._callbacks.touchstart, false);
+				element.addEventListener("touchend", self._callbacks.touchend, false);
 				element.addEventListener("vclick", self._callbacks.vclick, false);
+				window.addEventListener("rotarydetent", self, false);
 			};
 
 			/**
@@ -537,9 +588,10 @@
 				if (scrollableElement) {
 					utilEvent.off(scrollableElement, "scroll", this._callbacks.scroll, false);
 				}
-				element.removeEventListener("touchstart", self._callbacks.touchstart);
-				element.removeEventListener("touchend", self._callbacks.touchend);
-				element.removeEventListener("vclick", self._callbacks.vclick);
+				element.removeEventListener("touchstart", self._callbacks.touchstart, false);
+				element.removeEventListener("touchend", self._callbacks.touchend, false);
+				element.removeEventListener("vclick", self._callbacks.vclick, false);
+				window.removeEventListener("rotarydetent", self, false);
 			};
 
 			/**
