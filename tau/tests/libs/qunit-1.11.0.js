@@ -1181,7 +1181,7 @@ QUnit.load = function() {
 	}
 };
 
-addEvent( window, "load", QUnit.load );
+addEvent( window, "DOMContentLoaded", QUnit.load );
 
 // `onErrorFnPrev` initialized at top of scope
 // Preserve other handlers
