@@ -507,6 +507,267 @@
 
 			assert.equal(ArclistWidget._state.toIndex, 0, "scrollToPosition change to index.");
 		});
+
+		QUnit.test("_setBouncingTimeout", 2, function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget._bouncingEffect = {
+				dragEnd: function () {
+					assert.ok(true, "dragEnd was called");
+				}
+			};
+
+			helpers.stub(window, "setTimeout", function (callback, timeout) {
+				callback();
+				assert.equal(timeout, 1000, "timeout is correct");
+			});
+
+			arclistWidget._setBouncingTimeout();
+			helpers.restoreStub(window, "setTimeout");
+		});
+
+		QUnit.test("_carouselUpdate", function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget._state = {
+				items: [
+					{y: 2, height: 10},
+					{y: 12, height: 10},
+					{y: 22, height: 10}
+				],
+				scroll: {
+					current: 5
+				}
+			};
+			arclistWidget._carousel = {
+				items: [
+					{carouselElement: {style: {}}},
+					{carouselElement: {style: {}}},
+					{carouselElement: {style: {}}},
+					{carouselElement: {style: {}}},
+					{carouselElement: {style: {}}}
+				]
+			};
+			arclistWidget._carouselUpdate(2);
+			assert.deepEqual(arclistWidget._carousel, {
+				"items": [
+					{
+						"carouselElement": {
+							"style": {
+								"top": "2px"
+							}
+						}
+					},
+					{
+						"carouselElement": {
+							"style": {
+								"top": "12px"
+							}
+						}
+					},
+					{
+						"carouselElement": {
+							"style": {
+								"top": "22px"
+							}
+						}
+					},
+					{
+						"carouselElement": {
+							"style": {
+								"top": 0
+							}
+						}
+					},
+					{
+						"carouselElement": {
+							"style": {
+								"top": 0
+							}
+						}
+					}
+				]
+			}, "arclistWidget._carousel is updated correctly");
+		});
+
+		QUnit.test("_render", 6, function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget._state = {
+				scroll: {
+					current: 100
+				}
+			};
+			arclistWidget._scrollAnimationEnd = false;
+			arclistWidget._calc = function () {
+				assert.ok(true, "_calc was called");
+			};
+			arclistWidget._draw = function () {
+				assert.ok(true, "_draw was called");
+			};
+			arclistWidget._findItemIndexByY = function (y) {
+				assert.equal(y, 79, "y is correct");
+				return 5;
+			};
+			helpers.stub(ns.util, "cancelAnimationFrame", function (callback) {
+				assert.equal(callback, undefined, "callback is undefined");
+			});
+
+			helpers.stub(ns.util, "requestAnimationFrame", function (callback) {
+				assert.equal(typeof callback, "function", "callback is function");
+			});
+			arclistWidget._render();
+			assert.equal(arclistWidget._state.currentIndex, 5, "_state.currentIndex is updated");
+
+			helpers.restoreStub(ns.util, "cancelAnimationFrame");
+			helpers.restoreStub(ns.util, "requestAnimationFrame");
+		});
+
+		QUnit.test("_findItemIndexByY", function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget._state = {
+				items: [
+					{y: 10},
+					{y: 20},
+					{y: 30},
+					{y: 40}
+				]
+			};
+			assert.equal(arclistWidget._findItemIndexByY(10), 0, "_findItemIndexByY(10) return correct" +
+				" value");
+			assert.equal(arclistWidget._findItemIndexByY(21), 1, "_findItemIndexByY(21) return correct" +
+				" value");
+			assert.equal(arclistWidget._findItemIndexByY(32), 2, "_findItemIndexByY(32) return correct" +
+				" value");
+			assert.equal(arclistWidget._findItemIndexByY(42), 3, "_findItemIndexByY(42) return correct" +
+				" value");
+		});
+
+		QUnit.test("_scroll", function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget._refresh = function () {
+				assert.ok(true, "_refresh was called");
+			};
+			helpers.stub(ns.util, "cancelAnimationFrame", function (callback) {
+				assert.equal(callback, undefined, "callback is undefined");
+			});
+
+			helpers.stub(ns.util, "requestAnimationFrame", function (callback) {
+				assert.equal(typeof callback, "function", "callback is function");
+				return 5;
+			});
+			arclistWidget._scroll();
+			assert.equal(arclistWidget._animationHandle, 5, "_state.currentIndex is updated");
+
+			helpers.restoreStub(ns.util, "cancelAnimationFrame");
+			helpers.restoreStub(ns.util, "requestAnimationFrame");
+		});
+
+		QUnit.test("_roll", 5, function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget._state = {
+				scroll: {
+					current: 5
+				},
+				items: [
+					{
+						y: 3
+					}
+				],
+				toIndex: 0
+			};
+			arclistWidget._scrollAnimationEnd = true;
+			helpers.stub(ns.util, "requestAnimationFrame", function (callback) {
+				assert.equal(typeof callback, "function", "callback is function");
+				return 5;
+			});
+			arclistWidget._roll(2000);
+			assert.equal(arclistWidget._animationHandle, 5, "_state.currentIndex is updated");
+			assert.equal(arclistWidget._state.duration, 2000, "_state.duration is 2000");
+			assert.ok(arclistWidget._state.startTime, "_state.startTime is set");
+			assert.deepEqual(arclistWidget._state.scroll, {
+				"current": 5,
+				"from": 5,
+				"to": 176
+			}, "arclistWidget._state.scroll is correct");
+			helpers.restoreStub(ns.util, "requestAnimationFrame");
+		});
+
+		QUnit.test("_rollDown", 12, function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget.trigger = function (name, details) {
+				assert.equal(name, "change", "event name is change");
+				assert.deepEqual(details, {
+					unselected: 9
+				}, "");
+			};
+			arclistWidget._setBouncingTimeout = function () {
+				assert.ok(true, "_setBouncingTimeout was called");
+			};
+			arclistWidget._roll = function () {
+				assert.ok(true, "_roll was called");
+			};
+			arclistWidget._state = {
+				items: new Array(5),
+				toIndex: 3,
+				currentIndex: 9
+			};
+			arclistWidget._maxScrollY = 200;
+			arclistWidget._bouncingEffect = {
+				dragEnd: function () {
+					assert.ok(true, "_bouncingEffect.dragEnd was called");
+				},
+				drag: function (x, y) {
+					assert.equal(x, 0, "drag, x=0");
+					assert.equal(y, -200, "drag, y=-200");
+				}
+			};
+			arclistWidget._rollDown();
+			assert.equal(arclistWidget._state.toIndex, 4, "_state.toIndex is 4");
+			arclistWidget._rollDown();
+			assert.equal(arclistWidget._state.toIndex, 4, "_state.toIndex is 4");
+		});
+
+
+		QUnit.test("_rollUp", function (assert) {
+			var arclistWidget = new ArcListview();
+
+			arclistWidget.trigger = function (name, details) {
+				assert.equal(name, "change", "event name is change");
+				assert.deepEqual(details, {
+					unselected: 9
+				}, "details is correct");
+			};
+			arclistWidget._setBouncingTimeout = function () {
+				assert.ok(true, "_setBouncingTimeout was called");
+			};
+			arclistWidget._roll = function () {
+				assert.ok(true, "_roll was called");
+			};
+			arclistWidget._state = {
+				items: new Array(5),
+				toIndex: 1,
+				currentIndex: 9
+			};
+			arclistWidget._maxScrollY = 200;
+			arclistWidget._bouncingEffect = {
+				dragEnd: function () {
+					assert.ok(true, "_bouncingEffect.dragEnd was called");
+				},
+				drag: function (x, y) {
+					assert.equal(x, 0, "drag, x=0");
+					assert.equal(y, 0, "drag, y=0");
+				}
+			};
+			arclistWidget._rollUp();
+			assert.equal(arclistWidget._state.toIndex, 0, "_state.toIndex is correct");
+			arclistWidget._rollUp();
+			assert.equal(arclistWidget._state.toIndex, 0, "_state.toIndex is correct");
+		});
 	}
 
 	if (typeof define === "function") {

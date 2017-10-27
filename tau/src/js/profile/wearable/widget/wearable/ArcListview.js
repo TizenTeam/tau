@@ -42,7 +42,6 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var nsWidget = ns.widget,
-				EffectBouncing = ns.widget.core.scroller.effect.Bouncing,
 				Listview = nsWidget.core.Listview,
 				Page = nsWidget.core.Page,
 				eventUtils = ns.event,
@@ -96,22 +95,6 @@
 				 * @static
 				 */
 				timingFunction = util.easing.easeOutQuad,
-				/**
-				 * Alias for class {@link ns.util.requestAnimationFrame}
-				 * @property {Object} requestAnimationFrame
-				 * @memberof ns.widget.wearable.ArcListview
-				 * @protected
-				 * @static
-				 */
-				requestAnimationFrame = util.requestAnimationFrame,
-				/**
-				 * Alias for class {@link ns.util.cancelAnimationFrame}
-				 * @property {Object} cancelAnimationFrame
-				 * @memberof ns.widget.wearable.ArcListview
-				 * @protected
-				 * @static
-				 */
-				cancelAnimationFrame = util.cancelAnimationFrame,
 				/**
 				 * Alias for method {@link Math.round}
 				 * @property {Function} round
@@ -573,9 +556,10 @@
 				self._draw();
 
 				if (!self._scrollAnimationEnd) {
-					state.currentIndex = self._findItemIndexByY(-1 * (state.scroll.current - SCREEN_HEIGHT / 2 + 1));
-					cancelAnimationFrame(self._animationHandle);
-					self._animationHandle = requestAnimationFrame(self._render.bind(self));
+					state.currentIndex = self._findItemIndexByY(
+						-1 * (state.scroll.current - SCREEN_HEIGHT / 2 + 1));
+					util.cancelAnimationFrame(self._animationHandle);
+					self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
 				}
 			};
 
@@ -659,7 +643,7 @@
 				if (self._scrollAnimationEnd) {
 					state.startTime = Date.now();
 					self._scrollAnimationEnd = false;
-					self._animationHandle = requestAnimationFrame(self._render.bind(self));
+					self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
 				}
 			};
 
@@ -673,8 +657,8 @@
 				momentum = (momentum === undefined) ? 0 : momentum;
 
 				self._refresh();
-				cancelAnimationFrame(self._animationHandle);
-				self._animationHandle = requestAnimationFrame(self._render.bind(self));
+				util.cancelAnimationFrame(self._animationHandle);
+				self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
 			};
 
 			/**
@@ -720,7 +704,7 @@
 				if (self._scrollAnimationEnd) {
 					state.startTime = Date.now();
 					self._scrollAnimationEnd = false;
-					self._animationHandle = requestAnimationFrame(self._render.bind(self));
+					self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
 				}
 			};
 
@@ -1047,7 +1031,7 @@
 				}
 			};
 
-			function buildArcListviewSelection(page) {
+			prototype._buildArcListviewSelection = function (page) {
 				// find or add selection for current list element
 				var arcListviewSelection = page.querySelector(selectors.SELECTION);
 
@@ -1057,7 +1041,7 @@
 					page.appendChild(arcListviewSelection);
 				}
 				return arcListviewSelection;
-			}
+			};
 
 			function buildArcListviewCarousel(carousel, count) {
 				// create carousel
@@ -1106,7 +1090,7 @@
 					// find list elements with including group indexes
 					self._items = slice.call(page.querySelectorAll(selectors.ITEMS)) || [];
 
-					ui.arcListviewSelection = buildArcListviewSelection(page);
+					ui.arcListviewSelection = self._buildArcListviewSelection(page);
 					arcListviewCarousel = buildArcListviewCarousel(carousel, visibleItensCount);
 					ui.arcListviewCarousel = arcListviewCarousel;
 
@@ -1253,7 +1237,7 @@
 				var self = this;
 
 				self._maxScrollY = self.element.getBoundingClientRect().height - BOTTOM_MARGIN;
-				self._bouncingEffect = new EffectBouncing(self._ui.page, {
+				self._bouncingEffect = new ns.widget.core.scroller.effect.Bouncing(self._ui.page, {
 					maxScrollX: 0,
 					maxScrollY: self._maxScrollY,
 					orientation: "vertical"
