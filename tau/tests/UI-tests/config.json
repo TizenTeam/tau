@@ -574,7 +574,8 @@
 				"name": "textarea-in-popup",
 				"time": 0,
 				"width": 720,
-				"height": 1280
+				"height": 1280,
+				"pass": true
 			},
 			{
 				"name": "T01-single-page",
