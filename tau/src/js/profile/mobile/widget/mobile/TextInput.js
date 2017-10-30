@@ -230,13 +230,11 @@
 				}
 				style.height = newHeight + "px";
 
-				listviewElement = util.selectors.getClosestByClass(element, listviewClasses.LISTVIEW);
-
-				if ((previousHeight !== (newHeight + "px")) && popupElement && previousHeight !== "" &&
-				previousHeight !== "0px") {
+				if ((previousHeight !== (newHeight + "px")) && popupElement && previousHeight !== "") {
 					popupWidget = engine.getBinding(popupElement);
 					popupWidget.refresh();
 				}
+				listviewElement = util.selectors.getClosestByClass(element, listviewClasses.LISTVIEW);
 				if (listviewElement) {
 					listviewWidget = engine.getBinding(listviewElement);
 					if (listviewWidget) {
