@@ -34,7 +34,7 @@
 			"../../util/scrolling",
 			"../../event",
 			"../BaseWidget",
-			"../core" // fetch namespace
+			"../core"
 		],
 
 		function () {
@@ -156,7 +156,8 @@
 					 * @property {Object} ui
 					 * User Interface
 					 * @property {?HTMLElement} [ui.scrollview=null] Scroll element
-					 * @property {?HTMLElement} [ui.spacer=null] HTML element which makes scrollbar proper size
+					 * @property {?HTMLElement} [ui.spacer=null] HTML element which makes scrollbar proper
+					 * size
 					 * @property {number} [ui.itemSize=0] Size of list element in pixels. If scrolling is
 					 * vertically it's item width in other case it"s height of item element
 					 * @member ns.widget.core.VirtualListview
@@ -213,16 +214,21 @@
 					/**
 					 * VirtualListview widget options.
 					 * @property {Object} options
-					 * @property {number} [options.bufferSize=100] Number of items of result set. The default value is 100.
+					 * @property {number} [options.bufferSize=100] Number of items of result set. The default
+					 * value is 100.
 					 * As the value gets higher, the loading time increases while the system performance
 					 * improves. So you need to pick a value that provides the best performance
-					 * without excessive loading time. It's recomended to set bufferSize at least 3 times bigger than number
+					 * without excessive loading time. It's recomended to set bufferSize at least 3 times
+					 * bigger than number
 					 * of visible elements.
 					 * @property {number} [options.dataLength=0] Total number of items.
-					 * @property {string} [options.orientation=VERTICAL] Scrolling orientation. Default VERTICAL scrolling enabled.
-					 * @property {Object} options.listItemUpdater Holds reference to method which modifies list item, depended
+					 * @property {string} [options.orientation=VERTICAL] Scrolling orientation. Default
+					 * VERTICAL scrolling enabled.
+					 * @property {Object} options.listItemUpdater Holds reference to method which modifies
+					 * list item, depended
 					 * at specified index from database. **Method should be overridden by developer using
-					 * {@link ns.widget.core.VirtualListview#setListItemUpdater} method.** or defined as a config
+					 * {@link ns.widget.core.VirtualListview#setListItemUpdater} method.** or defined as a
+					 * config
 					 * object. Method takes two parameters:
 					 *  -  element {HTMLElement} List item to be modified
 					 *  -  index {number} Index of data set
@@ -334,10 +340,8 @@
 					l = ops.length;
 
 				for (; i < l; i += 4) {
-					switch (ops[i]) {
-						case "propset":
-							ops[i + 1][ops[i + 2]] = ops[i + 3];
-							break;
+					if (ops[i] === "propset") {
+						ops[i + 1][ops[i + 2]] = ops[i + 3];
 					}
 				}
 
@@ -431,31 +435,33 @@
 				var element = self.element,
 					options = self.options,
 					scrollInfo = self._scroll,
-					scrollClipSize = 0,
+					scrollClipSize,
 					dataLength = options.dataLength,
-					indexCorrection = 0,
-					bufferedElements = 0,
+					indexCorrection,
+					bufferedElements,
 					avgListItemSize = self._avgListItemSize,
 					bufferSize = options.bufferSize,
-					i = 0,
-					offset = 0,
-					index = -1,
+					i,
+					offset,
+					index,
 					isLastBuffer = false;
 
 				//Get size of scroll clip depended on scroll direction
-				scrollClipSize = options.orientation === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
+				scrollClipSize = options.orientation === VERTICAL ? scrollInfo.clipHeight :
+					scrollInfo.clipWidth;
 
 				//Compute average list item size
 				if (avgListItemSize === -1) {
-					self._avgListItemSize = avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
+					self._avgListItemSize = avgListItemSize =
+						_computeElementSize(element, options.orientation) / bufferSize;
 				}
 
 				//Compute average number of elements in each buffer (before and after clip)
-				bufferedElements = Math.floor((bufferSize - Math.floor(scrollClipSize / avgListItemSize)) / 2);
+				bufferedElements = Math.floor((bufferSize -
+					Math.floor(scrollClipSize / avgListItemSize)) / 2);
 
 				if (toIndex - bufferedElements <= 0) {
 					index = 0;
-					indexCorrection = 0;
 				} else {
 					index = toIndex - bufferedElements;
 				}
@@ -504,26 +510,33 @@
 			}
 
 			/**
-			 * Loads element range into internal list item buffer. Elements are taken off one end of the children list,
-			 *  placed on the other end (i.e.: first is taken and appended ath the end when scrolling down)
-			 *  and their contents get reloaded. Content reload is delegated to an external function (_updateListItem).
+			 * Loads element range into internal list item buffer. Elements are taken off one end of the
+			 * children list,
+			 *  placed on the other end (i.e.: first is taken and appended ath the end when scrolling
+			 *  down)
+			 *  and their contents get reloaded. Content reload is delegated to an external function
+			 *  (_updateListItem).
 			 * Depending on the direction, elements are
 			 * @param {VirtualList} self
 			 * @param {HTMLElement} element parent widget (the list view) of the (re)loaded element range
-			 * @param {HTMLElement} domBuffer an off-document element tfor temporary storage of prcessed elements
+			 * @param {HTMLElement} domBuffer an off-document element tfor temporary storage of processed
+			 * elements
 			 * @param {Function} sizeGetter a function calculating element size
 			 * @param {number} loadIndex element index to start loading at
-			 * @param {number} indexDirection -1 when indices decrease with each loaded element, +1 otherwise
+			 * @param {number} indexDirection -1 when indices decrease with each loaded element, +1
+			 * otherwise
 			 * @param {number} elementsToLoad loaded element count
 			 * @return {number} number of pixels the positions of the widgets in the list moved.
-			 *  Repositioning the widget by this amount (along the scroll axis) is needed for the remaining childern
+			 *  Repositioning the widget by this amount (along the scroll axis) is needed for the
+			 *  remaining childern
 			 *  elements not to move, relative to the viewport.
 			 * @private
 			 */
-			function _loadListElementRange(self, element, domBuffer, sizeGetter, loadIndex, indexDirection, elementsToLoad) {
-				var temporaryElement = null,
+			function _loadListElementRange(self, element, domBuffer, sizeGetter, loadIndex,
+					indexDirection, elementsToLoad) {
+				var temporaryElement,
 					jump = 0,
-					i = 0;
+					i;
 
 				if (indexDirection > 0) {
 					for (i = elementsToLoad; i > 0; i--) {
@@ -572,7 +585,8 @@
 			 * @param {number} elementPositionLeft current elementLeft
 			 * @private
 			 */
-			function _setElementStylePosition(self, dataLength, elementStyle, scrollDir, jump, elementPositionTop, elementPositionLeft) {
+			function _setElementStylePosition(self, dataLength, elementStyle, scrollDir, jump,
+					elementPositionTop, elementPositionLeft) {
 				var scrolledVertically = (scrollDir & 2) === 0,
 					scrolledHorizontally = (scrollDir & 2) === 1,
 					newPosition,
@@ -680,8 +694,8 @@
 					scrollLastPositionX = scrollInfo.lastPositionX,
 					elementPositionTop = parseInt(elementStyle.marginTop, 10) || 0,
 					elementPositionLeft = parseInt(elementStyle.marginLeft, 10) || 0,
-					elementsToLoad = 0,
-					bufferToLoad = 0,
+					elementsToLoad,
+					bufferToLoad,
 					elementsLeftToLoad = 0,
 					domBuffer = self._domBuffer,
 					avgListItemSize = self._avgListItemSize,
@@ -692,12 +706,13 @@
 					sizeMap = self._sizeMap,
 					jump = 0,
 					hiddenPart = 0,
-					indexDirection = 0,
-					loadIndex = 0;
+					indexDirection,
+					loadIndex;
 
 				if (avgListItemSize === -1) {
 					//Compute average list item size
-					self._avgListItemSize = avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
+					self._avgListItemSize = avgListItemSize =
+						_computeElementSize(element, options.orientation) / bufferSize;
 				}
 
 				switch (scrollDir) {
@@ -708,7 +723,8 @@
 						elementsLeftToLoad = dataLength - currentIndex - bufferSize;
 						break;
 					case SCROLL_UP:
-						hiddenPart = (elementPositionTop + resultsetSize) - (scrollLastPositionY + scrollInfo.clipHeight);
+						hiddenPart = (elementPositionTop + resultsetSize) -
+							(scrollLastPositionY + scrollInfo.clipHeight);
 						elementsLeftToLoad = currentIndex;
 						break;
 					case SCROLL_RIGHT:
@@ -716,7 +732,8 @@
 						elementsLeftToLoad = dataLength - currentIndex - bufferSize;
 						break;
 					case SCROLL_LEFT:
-						hiddenPart = (elementPositionLeft + resultsetSize) - (scrollLastPositionX - scrollInfo.clipWidth);
+						hiddenPart = (elementPositionLeft + resultsetSize) -
+							(scrollLastPositionX - scrollInfo.clipWidth);
 						elementsLeftToLoad = currentIndex;
 						break;
 				}
@@ -726,7 +743,8 @@
 				if (hiddenPart > 0 && (resultsetSize / hiddenPart) <= 2) {
 					//Left half of hidden elements still hidden/cached
 					elementsToLoad = ((hiddenPart / avgListItemSize) -
-						((bufferSize - scrollInfo.clipHeight / avgListItemSize) / 5) | 0) | 0; // floor the value
+						// |0 = floor the value
+						((bufferSize - scrollInfo.clipHeight / avgListItemSize) / 5) | 0) | 0;
 					elementsToLoad = Math.min(elementsLeftToLoad, elementsToLoad);
 					bufferToLoad = (elementsToLoad / bufferSize) | 0;
 					elementsToLoad = elementsToLoad % bufferSize;
@@ -772,11 +790,9 @@
 				var _scroll = self._scroll;
 
 				_updateScrollInfo(self, event);
-				if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0) {
-					if (!blockEvent) {
-						_orderElements(self);
-						utilEvent.trigger(self.element, "vlistupdate");
-					}
+				if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0 && !blockEvent) {
+					_orderElements(self);
+					utilEvent.trigger(self.element, "vlistupdate");
 				}
 			}
 
@@ -800,7 +816,6 @@
 				scrollviewStyle = scrollview.style;
 
 				if (orientation === HORIZONTAL) {
-					// @TODO check if whiteSpace: nowrap is better for vertical listes
 					scrollviewStyle.overflowX = "scroll";
 					scrollviewStyle.overflowY = "hidden";
 				} else {
@@ -889,8 +904,8 @@
 					ui = self._ui,
 					options = self.options,
 					scrollview = self.scrollview || self._getScrollView(options, element),
-					elementRect = null,
-					scrollviewRect = null;
+					elementRect,
+					scrollviewRect;
 
 				if (options.dataLength < options.bufferSize) {
 					options.bufferSize = options.dataLength;
@@ -940,7 +955,6 @@
 					listItem = document.createElement(childElementType);
 
 					if (orientation === HORIZONTAL) {
-						// TODO: check if whiteSpace: nowrap is better for vertical lists
 						// NOTE: after rebuild this condition check possible duplication from _init method
 						listItem.style.float = "left";
 					}
@@ -998,7 +1012,7 @@
 					ui = self._ui,
 					spacerStyle = ui.spacer.style,
 					bufferSizePx,
-					listSize = 0;
+					listSize;
 
 				if (options.orientation === VERTICAL) {
 					//Note: element.clientHeight is variable
@@ -1008,7 +1022,8 @@
 					if (options.optimizedScrolling) {
 						utilScrolling.setMaxScroll(listSize);
 					} else {
-						self._addToRenderList("propset", spacerStyle, "height", (listSize - bufferSizePx) + "px");
+						self._addToRenderList("propset", spacerStyle, "height", (listSize - bufferSizePx) +
+							"px");
 					}
 				} else {
 					//Note: element.clientWidth is variable
@@ -1018,7 +1033,8 @@
 					if (options.optimizedScrolling) {
 						utilScrolling.setMaxScroll(listSize);
 					} else {
-						self._addToRenderList("propset", spacerStyle, "width", (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px");
+						self._addToRenderList("propset", spacerStyle, "width", (bufferSizePx /
+							options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px");
 					}
 
 				}
