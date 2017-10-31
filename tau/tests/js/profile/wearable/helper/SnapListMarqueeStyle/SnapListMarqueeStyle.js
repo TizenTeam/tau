@@ -83,7 +83,7 @@
 
 		QUnit.test("init", function (assert) {
 			var listElement = document.getElementById("snap-list"),
-				listElement2 = document.getElementById("snap-list2"),
+				listElement2 = document.getElementById("snap-list-2"),
 				helper = new SnapListMarqueeStyle(listElement);
 
 			assert.expect(2);

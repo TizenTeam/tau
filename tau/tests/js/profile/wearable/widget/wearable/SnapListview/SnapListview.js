@@ -209,6 +209,7 @@
 			snaplistWidget._build(element);
 			snaplistWidget._init(element);
 
+			ns.util.scrolling.disable();
 			ns.util.scrolling.enable(element, "x");
 
 			helpers.stub(ns.util.selectors, "getClosestByClass", function () {

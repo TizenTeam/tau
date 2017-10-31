@@ -185,7 +185,8 @@
 					i,
 					scrollInitSize = [].reduce.call(scrollview.children, function (previousValue, currentNode) {
 						return previousValue + currentNode.getBoundingClientRect()[sizeProperty];
-					}, 0);
+					}, 0),
+					circle = ns.support.shape.circle;
 
 				scrollviewWidget = ns.engine.getBinding(selectors.getClosestBySelector(list,
 					".ui-page"), "Scrollview");
@@ -211,7 +212,7 @@
 					}
 				}
 
-				if (options.snap) {
+				if (options.snap && circle) {
 					self._snapListviewWidget = ns.engine.instanceWidget(list, "SnapListview", options.snap);
 				}
 
@@ -232,7 +233,7 @@
 						utilScrolling.setMaxScroll(options.dataLength * self._itemSize);
 					}
 				}
-				if (options.snap) {
+				if (options.snap && circle) {
 					utilScrolling.setSnapSize(self._itemSize);
 				}
 

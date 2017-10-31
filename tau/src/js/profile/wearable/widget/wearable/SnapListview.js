@@ -84,14 +84,16 @@
 				 * @member ns.widget.wearable.SnapListview
 				 * @private
 				 */
-				doms = ns.util.DOM,
+				util = ns.util,
+				doms = util.DOM,
 				/**
 				 * Alias for class ns.util.selectors
 				 * @property {ns.util.selectors} utilSelector
 				 * @member ns.widget.wearable.SnapListview
 				 * @private
 				 */
-				utilSelector = ns.util.selectors,
+				utilSelector = util.selectors,
+				scrolling = util.scrolling,
 
 				/**
 				 * Triggered when scroll will be started
@@ -176,7 +178,8 @@
 				},
 
 				// time threshold for detect scroll end
-				SCROLL_END_TIME_THRESHOLD = 0;
+				SCROLL_END_TIME_THRESHOLD = 0,
+				SCROLL_MARGIN = 80;
 
 			SnapListview.classes = classes;
 			SnapListview.animationTimer = null;
@@ -184,10 +187,10 @@
 			/**
 			 * Class represend one item in list
 			 * @param {HTMLElement} element list element
-			 * @param {number} visiableOffset top offset of list
+			 * @param {number} visibleOffset top offset of list
 			 * @class ns.widget.wearable.SnapListview.ListItem
 			 */
-			SnapListview.ListItem = function (element, visiableOffset) {
+			SnapListview.ListItem = function (element, visibleOffset) {
 				var offsetTop,
 					height;
 
@@ -204,8 +207,8 @@
 				};
 
 				this.position = {
-					begin: offsetTop - visiableOffset,
-					start: offsetTop - visiableOffset + height,
+					begin: offsetTop - visibleOffset,
+					start: offsetTop - visibleOffset + height,
 					stop: offsetTop,
 					end: offsetTop + height
 				};
@@ -248,6 +251,7 @@
 
 				if (selectedIndex !== null) {
 					self._listItems[selectedIndex].element.classList.remove(classes.SNAP_LISTVIEW_SELECTED);
+					self._selectedIndex = null;
 				}
 			}
 
@@ -273,7 +277,8 @@
 					tempListItem,
 					tempListItemCoord,
 					i,
-					previousSelectedIndex = self._selectedIndex;
+					previousSelectedIndex = self._selectedIndex,
+					selectedIndex;
 
 				for (i = 0; i < listItemLength; i++) {
 					tempListItem = listItems[i];
@@ -283,20 +288,23 @@
 					if (isListItemDisplayed(tempListItem) &&
 						(tempListItemCoord.top < scrollCenter) &&
 						(tempListItemCoord.top + tempListItemCoord.height >= scrollCenter)) {
-						removeSelectedClass(self);
-						self._selectedIndex = i;
+						selectedIndex = i;
 						break;
 					}
 				}
-				if (previousSelectedIndex !== self._selectedIndex) {
+				if (selectedIndex !== previousSelectedIndex && selectedIndex !== undefined) {
+					removeSelectedClass(self);
 					if (self._selectTimeout) {
 						clearTimeout(self._selectTimeout);
 					}
 					self._selectTimeout = setTimeout(function () {
-						var element = self._listItems[self._selectedIndex].element;
+						var element = self._listItems && self._listItems[selectedIndex].element;
 
-						element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
-						utilEvent.trigger(element, eventType.SELECTED);
+						if (element) {
+							self._selectedIndex = selectedIndex;
+							element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
+							utilEvent.trigger(element, eventType.SELECTED);
+						}
 					}, 300);
 				}
 			}
@@ -369,8 +377,8 @@
 			function getScrollableParent(element) {
 				var overflow;
 
-				while (element !== document.body) {
-					if (ns.util.scrolling.isElement(element)) {
+				while (element && element !== document.body) {
+					if (scrolling.isElement(element)) {
 						return element;
 					}
 					overflow = doms.getCSSProperty(element, "overflow-y");
@@ -394,18 +402,25 @@
 				var self = this,
 					ui = self._ui,
 					scroller,
-					visiableOffset;
+					visibleOffset,
+					elementHeight = listview.firstElementChild.getBoundingClientRect().height;
 
 				// finding page  and scroller
 				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || document.body;
 
 				scroller = getScrollableParent(listview);
 				if (scroller) {
+					if (!scrolling.isElement(scroller)) {
+						scrolling.enable(scroller, "y");
+					}
+					scrolling.setMaxScroll(scroller.firstElementChild.getBoundingClientRect()
+						.height + SCROLL_MARGIN);
+					scrolling.setSnapSize(elementHeight);
 					scroller.classList.add(classes.SNAP_CONTAINER);
 					ui.scrollableParent.element = scroller;
 
-					visiableOffset = scroller.clientHeight;
-					ui.scrollableParent.height = visiableOffset;
+					visibleOffset = scroller.clientHeight;
+					ui.scrollableParent.height = visibleOffset;
 				}
 			};
 
@@ -415,20 +430,20 @@
 					options = self.options,
 					listItems = [],
 					scroller = ui.scrollableParent.element,
-					visiableOffset;
+					visibleOffset;
 
 				if (!scroller) {
 					self._initSnapListview(listview);
 					scroller = ui.scrollableParent.element || ui.page;
 				}
-				visiableOffset = ui.scrollableParent.height || ui.page.offsetHeight;
+				visibleOffset = ui.scrollableParent.height || ui.page.offsetHeight;
 
 				// init information about widget
 				self._selectedIndex = null;
 
 				// init items on each element
 				utilArray.forEach(listview.querySelectorAll(options.selector), function (element, index) {
-					listItems.push(new SnapListview.ListItem(element, visiableOffset, scroller));
+					listItems.push(new SnapListview.ListItem(element, visibleOffset, scroller));
 					// searching existing selected element
 					if (element.classList.contains(classes.SNAP_LISTVIEW_SELECTED)) {
 						self._selectedIndex = index;
@@ -595,6 +610,8 @@
 				self._selectedIndex = null;
 				self._currentIndex = null;
 
+				scrolling.disable();
+
 				return null;
 			};
 
@@ -657,7 +674,7 @@
 				utilEvent.preventDefault(e);
 				utilEvent.stopPropagation(e);
 
-				if (targetIndex > -1) {
+				if (targetIndex > -1 && selectedIndex !== null) {
 					if (targetIndex < selectedIndex) {
 						utilEvent.trigger(window, "rotarydetent", {direction: "CCW"}, true);
 					} else if (targetIndex > selectedIndex) {

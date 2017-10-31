@@ -51,6 +51,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/util/selectors",
+			"../../../../core/util/scrolling",
 			"../../../../core/event",
 			"../../../../core/widget/core/scroller/effect/Bouncing",
 			"../../../../core/util/DOM/manipulation",
@@ -76,6 +77,7 @@
 				 * @static
 				 */
 				util = ns.util,
+				scrolling = util.scrolling,
 				/**
 				 * Alias for {@link ns.util.DOM}
 				 * @property {Object} doms
@@ -266,18 +268,32 @@
 			};
 
 			prototype._move = function (event) {
-				var newX = this.startScrollerOffsetX,
-					newY = this.startScrollerOffsetY;
+				var self = this,
+					scroller = self.scroller,
+					newX = self.startScrollerOffsetX,
+					newY = self.startScrollerOffsetY,
+					scrollTop,
+					maxScrollY,
+					deltaY = event.detail.deltaY,
+					bouncingEffect = self.bouncingEffect;
 
-				if ((this.scroller.scrollTop === 0 && event.detail.deltaY > 0) ||
-					(this.scroller.scrollTop === this.maxScrollY && event.detail.deltaY < 0)) {
-					if (this.bouncingEffect) {
-						this.bouncingEffect.drag(0, -this.scroller.scrollTop);
+				if (scrolling.isElement(scroller)) {
+					scrollTop = scrolling.getScrollPosition();
+					maxScrollY = scrolling.getMaxScroll();
+				} else {
+					scrollTop = scroller.scrollTop;
+					maxScrollY = self.maxScrollY;
+				}
+
+				if ((scrollTop === 0 && deltaY > 0) ||
+					(scrollTop === maxScrollY && deltaY < 0)) {
+					if (bouncingEffect) {
+						bouncingEffect.drag(0, -scrollTop);
 					}
 				}
 
-				this.scrollerOffsetX = newX;
-				this.scrollerOffsetY = newY;
+				self.scrollerOffsetX = newX;
+				self.scrollerOffsetY = newY;
 			};
 
 			Scrollview.prototype = prototype;

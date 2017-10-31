@@ -1,13 +1,14 @@
 /*global pageId, listId, templateId, itemClass, tau, JSON_DATA */
 (function (pageId, listId, templateId, itemClass) {
 	var pageElement = document.getElementById(pageId),
-		virtualListWidget;
+		virtualListWidget,
+		listHelper;
 
 	/**
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	pageElement.addEventListener("pageshow", function () {
+	pageElement.addEventListener("pagebeforeshow", function () {
 		/* Get HTML element reference */
 		var listElement = document.getElementById(listId),
 			bufferSize = 10,
@@ -20,7 +21,6 @@
 		if (pageElement.classList.contains("page-snaplistview")) {
 			options.snap = {animate: "scale"};
 		}
-
 		virtualListWidget = tau.widget.VirtualListviewSimple(listElement, options);
 		/* Update list items */
 		virtualListWidget.setListItemUpdater(function (listElement, newIndex) {
@@ -39,6 +39,13 @@
 				});
 			}
 		});
+		if (pageId.indexOf("marquee") > -1) {
+			listHelper = tau.helper.SnapListMarqueeStyle.create(listElement, {
+				marqueeDelay: 1000,
+				marqueeStyle: "endToEnd",
+				animate: "scale"
+			});
+		}
 	});
 
 	/**
@@ -48,5 +55,9 @@
 	pageElement.addEventListener("pagehide", function () {
 		// Remove all children in the vlist
 		virtualListWidget.destroy();
+
+		if (listHelper) {
+			listHelper.destroy();
+		}
 	});
 }(pageId, listId, templateId, itemClass));

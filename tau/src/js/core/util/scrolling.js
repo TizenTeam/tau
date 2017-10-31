@@ -135,8 +135,6 @@
 					startPosition = direction ? touch.clientX : touch.clientY;
 					// save current time for calculate acceleration on touchend
 					lastTime = Date.now();
-					// reset acceleration state
-					moveToPosition = scrollPosition;
 					eventUtil.trigger(scrollingElement, EVENTS.SCROLL_BEFORE_START, {
 						scrollLeft: direction ? -scrollPosition : 0,
 						scrollTop: direction ? 0 : -scrollPosition,
@@ -185,7 +183,7 @@
 							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
 							scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
 							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) &&
-							(scrollPosition + lastScrollPosition <= 0),
+								(scrollPosition + lastScrollPosition <= 0),
 							fromAPI: fromAPI
 						});
 						fadeInScrollBar();
@@ -194,8 +192,8 @@
 					if (!isTouch) {
 						// we need start request loop
 						isTouch = true;
-						requestAnimationFrame(render);
 					}
+					requestAnimationFrame(render);
 				}
 			}
 
@@ -229,11 +227,11 @@
 						}
 						requestAnimationFrame(moveTo);
 					} else {
+						// touch move was slow
 						if (snapSize) {
 							moveToPosition = snapSize * round((scrollPosition + lastScrollPosition) / snapSize);
 							requestAnimationFrame(moveTo);
 						}
-						// touch move was slow, just finish render loop
 						isTouch = false;
 					}
 
@@ -274,11 +272,7 @@
 					fadeInScrollBar();
 					// we stop scrolling
 					isScrollableTarget = false;
-				} else {
-					if (snapSize) {
-						moveToPosition = snapSize * round((scrollPosition + lastScrollPosition) / snapSize);
-						requestAnimationFrame(moveTo);
-					}
+					requestAnimationFrame(render);
 				}
 			}
 
@@ -336,7 +330,6 @@
 					} else {
 						// if difference is <=2 then we move to end value and finish loop
 						scrollPosition = moveToPosition;
-						isTouch = false;
 					}
 					if (!bounceBack) {
 						// normalize scroll value
@@ -407,9 +400,6 @@
 							}
 						}
 					}
-				}
-				// if is still touched then we continue loop
-				if (elementStyle && isTouch) {
 					requestAnimationFrame(render);
 				}
 			}
@@ -436,14 +426,18 @@
 					// detect direction
 					direction = (setDirection === "x") ? 1 : 0;
 
-					// we are creating a container to position transform
-					childElement = document.createElement("div");
-					// ... and appending all children to it
-					while (element.firstElementChild) {
-						childElement.appendChild(element.firstElementChild);
-					}
+					if (element.children.length > 1) {
+						// we are creating a container to position transform
+						childElement = document.createElement("div");
+						// ... and appending all children to it
+						while (element.firstElementChild) {
+							childElement.appendChild(element.firstElementChild);
+						}
 
-					element.appendChild(childElement);
+						element.appendChild(childElement);
+					} else {
+						childElement = element;
+					}
 
 					// setting scrolling element
 					scrollingElement = element;
@@ -613,7 +607,26 @@
 				render();
 			}
 
+			/**
+			 * Return scroll position
+			 * @method getScrollPosition
+			 * @member ns.util.scrolling
+			 */
+			function getScrollPosition() {
+				return -scrollPosition;
+			}
+
+			/**
+			 * Return max scroll position
+			 * @method getMaxScroll
+			 * @member ns.util.scrolling
+			 */
+			function getMaxScroll() {
+				return maxScrollPosition;
+			}
+
 			ns.util.scrolling = {
+				getScrollPosition: getScrollPosition,
 				enable: enable,
 				disable: disable,
 				enableScrollBar: enableScrollBar,
@@ -664,6 +677,7 @@
 						}
 					}
 				},
+				getMaxScroll: getMaxScroll,
 				setSnapSize: function (setSnapSize) {
 					snapSize = setSnapSize;
 					if (snapSize) {

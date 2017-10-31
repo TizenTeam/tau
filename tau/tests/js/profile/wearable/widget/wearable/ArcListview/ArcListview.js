@@ -399,6 +399,8 @@
 			listWidget._ui.arcListviewCarousel = arcListviewCarousel;
 			listWidget._bindEvents();
 
+			ns.util.scrolling.disable();
+
 			expect(7);
 
 			listWidget.handleEvent = function (_event) {
@@ -450,6 +452,8 @@
 				element2 = document.getElementById("arc-list-2");
 
 			expect(3);
+
+			ns.util.scrolling.disable();
 
 			helpers.stub(ns, "warn", function (info) {
 				assert.equal(info, "Can't create Listview on SnapListview element", "info is correct");
