@@ -73,7 +73,7 @@
 					self._scrollBegin = 0;
 					self._elementsMap = [];
 					self._itemSize = 0;
-					self._numberOfItems = 3;
+					self._numberOfItems = 7;
 					self._edgeEffectGradientSize = 0;
 				},
 				abs = Math.abs,
@@ -244,6 +244,10 @@
 			prototype._refresh = function () {
 				this._buildList();
 				this.trigger("draw");
+			};
+
+			prototype.draw = function () {
+				this.refresh();
 			};
 
 			prototype.scrollTo = function (position) {

@@ -17,7 +17,7 @@
 				bufferSize: bufferSize
 			};
 
-		if (listId === "virtual-1line-snap") {
+		if (pageElement.classList.contains("page-snaplistview")) {
 			options.snap = {animate: "scale"};
 		}
 
