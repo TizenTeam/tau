@@ -39,9 +39,6 @@
 				});
 			}
 		});
-
-		// Draw child elements
-		virtualListWidget.draw();
 	});
 
 	/**

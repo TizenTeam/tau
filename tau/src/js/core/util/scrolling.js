@@ -36,6 +36,8 @@
 					SCROLL_FLICK: "flick",
 					SCROLL: "scroll"
 				},
+				// 1px line space from screen edge
+				RADIUS = 174,
 				// position when was last touch start
 				startPosition = 0,
 				// current state of scroll position
@@ -141,9 +143,6 @@
 						fromAPI: fromAPI
 					});
 				}
-				// clean
-				touches = null;
-				touch = null;
 			}
 
 			/**
@@ -185,7 +184,8 @@
 						eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
 							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
 							scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
-							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) && (scrollPosition + lastScrollPosition <= 0),
+							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) &&
+								(scrollPosition + lastScrollPosition <= 0),
 							fromAPI: fromAPI
 						});
 						fadeInScrollBar();
@@ -197,9 +197,6 @@
 						requestAnimationFrame(render);
 					}
 				}
-				// clean
-				touches = null;
-				touch = null;
 			}
 
 			/**
@@ -218,7 +215,8 @@
 					// calculate speed of touch move
 					if (inBounds && abs(lastScrollPosition / diffTime) > 1) {
 						// if it was fast move, we start animation of scrolling after touch end
-						moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime), 0), -maxScrollPosition);
+						moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime),
+							0), -maxScrollPosition);
 						if (snapSize) {
 							moveToPosition = snapSize * round(moveToPosition / snapSize);
 						}
@@ -280,6 +278,34 @@
 			}
 
 			/**
+			 * Handler for rotary event
+			 * @param event
+			 */
+			function rotary(event) {
+				var direction = event.detail && event.detail.direction;
+
+				// update position by snapSize
+				if (direction === "CW") {
+					moveToPosition = scrollPosition - (snapSize || 50);
+				} else {
+					moveToPosition = scrollPosition + (snapSize || 50);
+				}
+				if (moveToPosition < -maxScrollPosition) {
+					moveToPosition = -maxScrollPosition;
+				}
+				if (moveToPosition > 0) {
+					moveToPosition = 0;
+				}
+				requestAnimationFrame(moveTo);
+				eventUtil.trigger(scrollingElement, EVENTS.SCROLL_START, {
+					scrollLeft: direction ? -(moveToPosition) : 0,
+					scrollTop: direction ? 0 : -(moveToPosition),
+					fromAPI: false
+				});
+				event.stopImmediatePropagation();
+			}
+
+			/**
 			 * Loop function to calculate state in animation after touchend
 			 */
 			function moveTo() {
@@ -288,7 +314,6 @@
 					// get absolute value
 					absDiffPosition = abs(diffPosition);
 
-				// @TODO conditions below should be changed to easing function
 				// if difference is big
 				if (scrollingElement) {
 					if (absDiffPosition > 10) {
@@ -362,7 +387,7 @@
 						polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
 							arcStart: scrollBarPosition,
 							arcEnd: scrollBarPosition + circularScrollThumbSize,
-							r: 174 // 1px line space from screen edge
+							r: RADIUS
 						});
 					} else {
 						if (scrollThumb) {
@@ -444,6 +469,7 @@
 					document.addEventListener("touchstart", touchStart, false);
 					document.addEventListener("touchmove", touchMove, false);
 					document.addEventListener("touchend", touchEnd, false);
+					window.addEventListener("rotarydetent", rotary, true);
 				}
 			}
 
@@ -458,6 +484,7 @@
 				document.removeEventListener("touchstart", touchStart, false);
 				document.removeEventListener("touchmove", touchMove, false);
 				document.removeEventListener("touchend", touchEnd, false);
+				window.removeEventListener("rotarydetent", rotary, true);
 
 				// after changed page and removed it this element can not exists
 				if (scrollingElement) {
@@ -471,10 +498,10 @@
 			}
 
 			function enableScrollBar() {
-				var boundingRect = null,
-					childElementRect = null,
-					scrollBarStyle = null,
-					scrollThumbStyle = null,
+				var boundingRect,
+					childElementRect,
+					scrollBarStyle,
+					scrollThumbStyle,
 					arcStartPoint = direction ? 0 : 90,
 					scrollBarWidth = 0,
 					scrollBarHeight = 0;
@@ -493,7 +520,7 @@
 						arcEnd: arcStartPoint + (CIRCULAR_SCROLL_BAR_SIZE / 2),
 						classes: classes.path,
 						width: 10,
-						r: 174, // 1px line space from screen edge
+						r: RADIUS,
 						linecap: "round"
 					});
 					// create thumb
@@ -503,7 +530,7 @@
 						arcEnd: circularScrollThumbSize,
 						classes: classes.thumb,
 						width: 10,
-						r: 174, // 1px line space from screen edge
+						r: RADIUS,
 						linecap: "round"
 					});
 
@@ -601,8 +628,7 @@
 				 * @member ns.util.scrolling
 				 */
 				setMaxScroll: function (maxValue) {
-					var // @TODO can be cached somehow to save operations (should be only refreshed on scrollingElement dimensions change)
-						boundingRect = scrollingElement.getBoundingClientRect(),
+					var boundingRect = scrollingElement.getBoundingClientRect(),
 						directionDimension = direction ? "width" : "height",
 						directionSize = boundingRect[directionDimension],
 						tempMaxPosition = max(maxValue - directionSize, 0);
@@ -619,7 +645,7 @@
 								polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
 									arcStart: scrollBarPosition,
 									arcEnd: scrollBarPosition + circularScrollThumbSize,
-									r: 174 // 1px line space from screen edge
+									r: RADIUS
 								});
 							} else {
 								directionSize -= 2 * SCROLL_MARGIN;

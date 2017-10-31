@@ -73,7 +73,7 @@
 					self._scrollBegin = 0;
 					self._elementsMap = [];
 					self._itemSize = 0;
-					self._numberOfItems = 7;
+					self._numberOfItems = 5;
 					self._edgeEffectGradientSize = 0;
 				},
 				abs = Math.abs,
