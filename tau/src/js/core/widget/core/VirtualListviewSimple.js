@@ -174,6 +174,7 @@
 				var self = this,
 					listItem,
 					ui = self._ui,
+					scrollviewWidget,
 					options = self.options,
 					scrollview = self._ui.scrollview,
 					sizeProperty = options.orientation === "vertical" ? "height" : "width",
@@ -186,6 +187,16 @@
 					scrollInitSize = [].reduce.call(scrollview.children, function (previousValue, currentNode) {
 						return previousValue + currentNode.getBoundingClientRect()[sizeProperty];
 					}, 0);
+
+				scrollviewWidget = ns.engine.getBinding(selectors.getClosestBySelector(list,
+					".ui-page"), "Scrollview");
+				if (scrollviewWidget) {
+					scrollviewWidget.option("bouncingEffect", false);
+					self._scrollviewWidget = scrollviewWidget;
+					options.edgeEffect = function (positionDiff, orientation, edge) {
+						scrollviewWidget.showBouncingEffect(edge);
+					};
+				}
 
 				if (options.dataLength < numberOfItems) {
 					numberOfItems = options.dataLength;
@@ -201,6 +212,10 @@
 					}
 				}
 
+				if (options.snap) {
+					self._snapListviewWidget = ns.engine.instanceWidget(list, "SnapListview", options.snap);
+				}
+
 				elementRect = self.element.getBoundingClientRect();
 				self._itemSize = numberOfItems > 0 ? Math.round(elementRect[sizeProperty] / numberOfItems) : 0;
 				self._numberOfItems = numberOfItems;
@@ -213,15 +228,13 @@
 				} else {
 					utilScrolling.enableScrollBar();
 					if (scrollview.classList.contains("ui-scroller")) {
-						utilScrolling.setMaxScroll(options.dataLength * self._itemSize + scrollInitSize);
+						utilScrolling.setMaxScroll((options.dataLength + 1) * self._itemSize + scrollInitSize);
 					} else {
 						utilScrolling.setMaxScroll(options.dataLength * self._itemSize);
 					}
 				}
 				if (options.snap) {
 					utilScrolling.setSnapSize(self._itemSize);
-					self._snapListviewWidget = ns.engine.instanceWidget(list, "SnapListview", options.snap);
-					self._snapListviewWidget.refresh();
 				}
 
 				// Add default edge effect
@@ -311,6 +324,8 @@
 						// eg. fast flicking down and up without touchend
 						(ui.edgeEffect || ui.scrollview.querySelector("." + classes.edgeEffect)).style.boxShadow = "none";
 						self._edgeEffectGradientSize = 0;
+					} else {
+						self._scrollviewWidget.hideBouncingEffect();
 					}
 				}
 
@@ -363,7 +378,7 @@
 							}
 						}
 						scroll[beginProperty] = correction + scrollBegin % self._itemSize;
-					}					else {
+					} else {
 						// If we are somewhere in the middle of the list
 						if (scrollBegin >= 0) {
 							if (scrollBegin < self._itemSize) {

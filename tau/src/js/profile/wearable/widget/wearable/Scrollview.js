@@ -83,7 +83,7 @@
 				 * @private
 				 * @static
 				 */
-				doms = util.DOM,
+				DOM = util.DOM,
 				/**
 				 * Alias for {@link ns.util.selectors}
 				 * @property {Object} selectors
@@ -104,7 +104,9 @@
 				},
 				EffectBouncing = ns.widget.core.scroller.effect.Bouncing,
 				Scrollview = function () {
-					this.options = {};
+					this.options = {
+						bouncingEffect: true
+					};
 				},
 				/**
 				 * Dictionary for page related css class names
@@ -140,7 +142,7 @@
 				});
 
 				if (element.children.length > 0 && element.children[0].classList.contains(classes.uiHeader)) {
-					doms.insertNodeAfter(element.children[0], scroller);
+					DOM.insertNodeAfter(element.children[0], scroller);
 				} else {
 					element.insertBefore(scroller, element.firstChild);
 				}
@@ -162,22 +164,49 @@
 				return element;
 			};
 
+			prototype._setBouncingEffect = function (element, value) {
+				var self = this,
+					scroller = self.scroller;
+
+				if (value) {
+					ns.event.enableGesture(
+						scroller,
+
+						new ns.event.gesture.Drag({
+							threshold: 30,
+							delay: self.options.scrollDelay,
+							blockVertical: self.orientation === EffectBouncing.Orientation.HORIZONTAL,
+							blockHorizontal: self.orientation === EffectBouncing.Orientation.VERTICAL
+						})
+					);
+
+					utilsEvents.on(scroller, "drag dragstart dragend", self);
+				} else {
+					ns.event.disableGesture(scroller);
+					utilsEvents.off(scroller, "drag dragstart dragend", self);
+				}
+			};
+
 
 			prototype._init = function () {
-				this.maxScrollX = 0;
-				this.maxScrollY = 0;
-				if (this.scroller) {
-					this.maxScrollY = this.scroller.scrollHeight - window.innerHeight;
+				var self = this,
+					scroller = self.scroller;
+
+				self.maxScrollX = 0;
+				self.maxScrollY = 0;
+				if (scroller) {
+					self.maxScrollY = scroller.scrollHeight - window.innerHeight;
 				}
-				this.minScrollX = 0;
-				this.minScrollY = 0;
-				this.bouncingEffect = new EffectBouncing(this.element, {
-					maxScrollX: this.maxScrollX,
-					maxScrollY: this.maxScrollY,
+				self.minScrollX = 0;
+				self.minScrollY = 0;
+				self.bouncingEffect = new EffectBouncing(self.element, {
+					maxScrollX: self.maxScrollX,
+					maxScrollY: self.maxScrollY,
 					orientation: "vertical"
 				});
-				this.scrollerOffsetX = 0;
-				this.scrollerOffsetY = 0;
+				self.scrollerOffsetX = 0;
+				self.scrollerOffsetY = 0;
+				self._setBouncingEffect(self.element, self.options.bouncingEffect);
 			};
 
 
@@ -203,6 +232,24 @@
 				}
 			};
 
+			prototype.showBouncingEffect = function (place) {
+				var bouncingEffect = this.bouncingEffect;
+
+				if (place === "end") {
+					bouncingEffect.drag(0, -this.scroller.getBoundingClientRect().height);
+				} else {
+					bouncingEffect.drag(0, 0);
+				}
+			};
+
+			prototype.hideBouncingEffect = function () {
+				var bouncingEffect = this.bouncingEffect;
+
+				if (bouncingEffect) {
+					bouncingEffect.dragEnd();
+				}
+			};
+
 			/* jshint -W086 */
 			prototype.handleEvent = function (event) {
 				switch (event.type) {
@@ -216,22 +263,6 @@
 						this._end(event);
 						break;
 				}
-			};
-
-
-			prototype._bindEvents = function () {
-				ns.event.enableGesture(
-					this.scroller,
-
-					new ns.event.gesture.Drag({
-						threshold: 30,
-						delay: this.options.scrollDelay,
-						blockVertical: this.orientation === EffectBouncing.Orientation.HORIZONTAL,
-						blockHorizontal: this.orientation === EffectBouncing.Orientation.VERTICAL
-					})
-				);
-
-				utilsEvents.on(this.scroller, "drag dragstart dragend", this);
 			};
 
 			prototype._move = function (event) {

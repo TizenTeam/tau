@@ -185,7 +185,7 @@
 							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
 							scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
 							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) &&
-								(scrollPosition + lastScrollPosition <= 0),
+							(scrollPosition + lastScrollPosition <= 0),
 							fromAPI: fromAPI
 						});
 						fadeInScrollBar();
@@ -290,6 +290,9 @@
 				} else {
 					moveToPosition = scrollPosition + (snapSize || 50);
 				}
+				if (snapSize) {
+					moveToPosition = snapSize * round(moveToPosition / snapSize);
+				}
 				if (moveToPosition < -maxScrollPosition) {
 					moveToPosition = -maxScrollPosition;
 				}
@@ -379,8 +382,8 @@
 
 					if (!virtualMode && elementStyle) {
 						elementStyle.transform = direction ?
-						"translate3d(" + lastRenderedPosition + "px,0,0)" :
-						"translate3d(0, " + lastRenderedPosition + "px,0)";
+							"translate3d(" + lastRenderedPosition + "px,0,0)" :
+							"translate3d(0, " + lastRenderedPosition + "px,0)";
 					}
 
 					if (circularScrollBar) {
@@ -641,7 +644,6 @@
 								// Calculate new thumb size based on max scrollbar size
 								circularScrollThumbSize = max((directionSize / (maxScrollPosition + directionSize)) * CIRCULAR_SCROLL_BAR_SIZE, CIRCULAR_SCROLL_MIN_THUMB_SIZE);
 								maxScrollBarPosition = CIRCULAR_SCROLL_BAR_SIZE - circularScrollThumbSize;
-
 								polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
 									arcStart: scrollBarPosition,
 									arcEnd: scrollBarPosition + circularScrollThumbSize,
@@ -658,6 +660,9 @@
 				},
 				setSnapSize: function (setSnapSize) {
 					snapSize = setSnapSize;
+					if (snapSize) {
+						maxScrollPosition = snapSize * round(maxScrollPosition / snapSize);
+					}
 				},
 				setBounceBack: function (setBounceBack) {
 					bounceBack = setBounceBack;
