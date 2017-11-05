@@ -321,45 +321,6 @@
 				helpers.restoreStub(window.performance, "now");
 			}
 		});
-
-		QUnit.test("handleEvent", 1, function (assert) {
-			var snaplistWidget = new SnapListview(),
-				event = {
-					type: "rotarydetent"
-				};
-
-			snaplistWidget._onRotary = function (_event) {
-				assert.equal(_event, event, "Event is first argument");
-			};
-			snaplistWidget.handleEvent(event);
-			snaplistWidget.handleEvent({});
-		});
-
-		QUnit.test("_onRotary", 4, function (assert) {
-			var snaplistWidget = new SnapListview(),
-				indexes = [4, 2],
-				count = 0;
-
-			snaplistWidget._listItems = new Array(10);
-			snaplistWidget.getSelectedIndex = function () {
-				assert.ok(true, "getSelectedIndex was called");
-				return 3;
-			};
-			snaplistWidget.scrollToPosition = function (index) {
-				assert.equal(index, indexes[count++], "index is correct");
-				return true;
-			};
-			snaplistWidget._onRotary({
-				detail: {
-					direction: "CW"
-				}
-			});
-			snaplistWidget._onRotary({
-				detail: {
-					direction: "CCW"
-				}
-			});
-		});
 	}
 	if (typeof define === "function") {
 		define(function () {

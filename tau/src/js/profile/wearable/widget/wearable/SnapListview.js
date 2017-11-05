@@ -501,56 +501,6 @@
 			};
 
 			/**
-			 * Handler for rotary event
-			 * @method _onRotary
-			 * @param {Event} event
-			 * @protected
-			 * @member ns.widget.wearable.SnapListview
-			 */
-			prototype._onRotary = function (event) {
-				var self = this,
-					selectedIndex = self.getSelectedIndex(),
-					listItems = self._listItems,
-					listItemLength = listItems.length,
-					direction = event.detail && event.detail.direction,
-					scrolled = false;
-
-				if (selectedIndex !== null) {
-					if (direction === "CW") {
-						// try to scroll to the next element on list
-						// - the next element can be hidden, so we try as long as it is possible to change
-						// element
-						while (!scrolled && ++selectedIndex < listItemLength) {
-							scrolled = self.scrollToPosition(selectedIndex);
-						}
-					} else {
-						// try to scroll to the previous element on list
-						// - the previous element can be hidden, so we try as long as it is possible to change
-						// element
-						while (!scrolled && --selectedIndex >= 0) {
-							scrolled = self.scrollToPosition(selectedIndex);
-						}
-					}
-				}
-			};
-
-			/**
-			 * Event handler for widget
-			 * @param {Event} event
-			 * @method handleEvent
-			 * @memberof ns.widget.wearable.SnapListview
-			 * @protected
-			 */
-			prototype.handleEvent = function (event) {
-				var self = this;
-
-				switch (event.type) {
-					case "rotarydetent" :
-						self._onRotary(event);
-				}
-			};
-
-			/**
 			 * Bind events
 			 * @method _bindEvents
 			 * @protected
@@ -571,7 +521,6 @@
 				element.addEventListener("touchstart", self._callbacks.touchstart, false);
 				element.addEventListener("touchend", self._callbacks.touchend, false);
 				element.addEventListener("vclick", self._callbacks.vclick, false);
-				window.addEventListener("rotarydetent", self, false);
 			};
 
 			/**
@@ -591,7 +540,6 @@
 				element.removeEventListener("touchstart", self._callbacks.touchstart, false);
 				element.removeEventListener("touchend", self._callbacks.touchend, false);
 				element.removeEventListener("vclick", self._callbacks.vclick, false);
-				window.removeEventListener("rotarydetent", self, false);
 			};
 
 			/**
@@ -664,7 +612,7 @@
 
 			function vClickHandler(self, e) {
 				var listItems = self._listItems,
-					router = engine.getRouter(),
+					selectedIndex = self._selectedIndex,
 					targetListItem,
 					targetIndex;
 
@@ -676,29 +624,16 @@
 
 				targetIndex = getIndexOfSnapListItem(targetListItem, listItems);
 
-				if (findClosestLink(e.target, self.element)) {
-					utilEvent.preventDefault(e);
-					utilEvent.stopPropagation(e);
-					if (targetIndex > -1) {
-						self._scrollToPosition(targetIndex, router.linkClick.bind(router, e));
-					}
-				} else {
-					if (targetIndex > -1) {
-						self._scrollToPosition(targetIndex);
+				utilEvent.preventDefault(e);
+				utilEvent.stopPropagation(e);
+
+				if (targetIndex > -1) {
+					if (targetIndex < selectedIndex) {
+						utilEvent.trigger(window, "rotarydetent", {direction: "CCW"}, true);
+					} else if (targetIndex > selectedIndex) {
+						utilEvent.trigger(window, "rotarydetent", {direction: "CW"}, true);
 					}
 				}
-			}
-
-			function findClosestLink(target, listElement) {
-				var current = target;
-
-				while (current.parentNode && current !== listElement) {
-					if (current.nodeType === Node.ELEMENT_NODE && current.nodeName && current.nodeName === "A") {
-						return current;
-					}
-					current = current.parentNode;
-				}
-				return undefined;
 			}
 
 			function getIndexOfSnapListItem(targetListItem, targetList) {
