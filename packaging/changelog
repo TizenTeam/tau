@@ -1,5 +1,5 @@
 %changelog
-* Mon Nov 6 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.11.9.1
+* Tue Nov 7 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.11.10
 	- fix(mobile) Fix textarea support in popup
 	- fix(demos): Fixed eslint errors
 	- feat(doc) Application templates documentation
