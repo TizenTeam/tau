@@ -1,4 +1,53 @@
 %changelog
+* Tue Nov 7 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.32
+	- fix(wearable) Fix selecting item on click in SnapListview
+	- fix(wearable) Scrolling problem in VirtualListSimple
+	- fix(wearable) Enable scrolling by rotary in VirtualListviewSimple
+	- tools(all) Fixes in commit message template
+	- tests(wearable) Increase tests coverage in ArcListview
+	- fix(wearable) Integration of VirtualListviewSimple with SnapListview
+	- refactor(core) Refactor of Virtual List
+	- tests(core) Enable tests for Marquee in Karma
+	- tests(mobile) Add textarea inside ui-test Popup to pass
+	- test(wearable) Extend unit tests for Grid
+	- refactor(core) Fix code smells in Router and routes
+	- tests(wearable) Create UI Test for SnapListview
+	- fix(core) Fix working of Marquee in browser
+	- test(wearable) Extend unit tests for Grid
+	- test(wearable) Extend unit tests for Grid
+	- tests(wearable) Extend unit tests for Grid
+	- tools(all) Change start event for QUnit
+	- refactor(wearable) Merge helper SnapListStyle into SnapListview
+	- fix(wearable) Selected item in SnapListView is positioned incorrectly
+	- fix(wearable): Fix SonarQube errors
+	- refactor(mobile) Code fixes in Listview
+	- sample(wearable) Add sample to UIComponents with VirtualList
+	- refactor(core) util.polar
+	- fix(all) Fix SonarQube errors and code smells
+	- refactor(core) util
+	- fix(mobile) Fix minor bugs related to TextInput
+	- fix(wearable) Fix layer changing on bezel rotation in Selector edit mode
+	- tests(wearable) Add Toast Popup UI tests to pass
+	- test(mobile) Add ui-test for textarea in popup
+	- fix(mobile) Fix opening native version of DropdownMenu
+	- refactor(core) util.date
+	- refactor(wearable) Refactoring of Grid for unit tests
+	- fix(mobile) Fix textarea support in popup
+	- sample(mobile) Add sample of textarea in popup
+	- fix(wearable) Fix bug in Selector's edit mode
+	- tools(all) Add commit message template
+	- fix(mobile) Fix building DropdownMenu on select without options
+	- refactor(core): Fix gesture manager
+	- feature(wearable) Implement animations for dragged item in Selector
+	- fix(wearable) Fix problem with opening standard Popup after toast
+	- test(wearable) Add Grid UI test to pass
+	- feature(mobile) Trigger add event on blur from TextEnveloper
+	- fix(mobile) Add removing TextInput at destroy of TextEnveloper
+	- feature(wearable) Implement reorder animations in Selector
+	- test(wearable) Fix problems in toast UI tests
+	- test(wearable) Update tests and screen for list multiline
+	- feature(wearable) Add vertical version to grid
+
 * Thu Oct 12 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.31
 	- feature(wearable) Implement moving items between layers in Selector
 	- test(wearable) Add UI tests for Grid vertical cases
