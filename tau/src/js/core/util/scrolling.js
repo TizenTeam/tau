@@ -305,6 +305,7 @@
 					moveToPosition = 0;
 				}
 				requestAnimationFrame(moveTo);
+				requestAnimationFrame(render);
 				eventUtil.trigger(scrollingElement, EVENTS.SCROLL_START, {
 					scrollLeft: direction ? -(moveToPosition) : 0,
 					scrollTop: direction ? 0 : -(moveToPosition),

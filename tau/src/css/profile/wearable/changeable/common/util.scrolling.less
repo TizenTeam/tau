@@ -1,5 +1,5 @@
 @scrollbar_thickness: 10px;
-@scrollbar_background: rgba(0, 0, 0, 0.2);
+@scrollbar_background: rgba(255, 255, 255, 0.2);
 
 @scrollthumb_length: 10px;
 @scrollthumb_background: rgb(0, 157, 228);
@@ -12,6 +12,7 @@
 	opacity: 0;
 
 	.scrolling-scrollthumb {
+		stroke: @scrollthumb_background;
 		background-color: @scrollthumb_background;
 		position: absolute;
 	}

@@ -325,7 +325,9 @@
 						(ui.edgeEffect || ui.scrollview.querySelector("." + classes.edgeEffect)).style.boxShadow = "none";
 						self._edgeEffectGradientSize = 0;
 					} else {
-						self._scrollviewWidget.hideBouncingEffect();
+						if (self._scrollviewWidget) {
+							self._scrollviewWidget.hideBouncingEffect();
+						}
 					}
 				}
 
