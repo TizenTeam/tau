@@ -274,6 +274,11 @@
 					fadeInScrollBar();
 					// we stop scrolling
 					isScrollableTarget = false;
+				} else {
+					if (snapSize) {
+						moveToPosition = snapSize * round((scrollPosition + lastScrollPosition) / snapSize);
+						requestAnimationFrame(moveTo);
+					}
 				}
 			}
 
