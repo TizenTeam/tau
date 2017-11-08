@@ -1,6 +1,7 @@
-/* global QUnit, Promise, define, tau, ns */
+/* global QUnit, Promise, define, tau, ns, start */
 (function () {
 	"use strict";
+
 	function runTests(SnapListMarqueeStyle, helpers) {
 		function initHTML() {
 			return new Promise(function (resolve) {
@@ -67,7 +68,8 @@
 				"timingFunction": "linear"
 			}, "Default options are initialized");
 
-			assert.equal(typeof helper._snapListStyleHelper, "object", "_snapListStyleHelper is initialized");
+			assert.equal(typeof helper._listviewWidget, "object", "_snapListStyleHelper is" +
+				" initialized");
 			assert.equal(helper._selectedMarqueeWidget, null, "_selectedMarqueeWidget is initialized");
 
 			assert.equal(helper.element, listElement2, "element is initialized");
@@ -239,7 +241,7 @@
 			helper.destroy();
 		});
 
-		QUnit.test("_clickHandlerForRectangular", function (assert) {
+		QUnit.asyncTest("_clickHandlerForRectangular", function (assert) {
 			var listElement = document.getElementById("snap-list"),
 				helper = new SnapListMarqueeStyle(listElement),
 				testFlow = [],
@@ -265,61 +267,74 @@
 			helper._selectedMarqueeWidget = marqueeWidget;
 
 			helper._clickHandlerForRectangular({
-				target: listElement
-			});
-
-			assert.deepEqual(testFlow, [
-				"stop",
-				"reset",
-				"destroy"
-			], "flow of call methods is correct (stop, reset, destroy), case with Marquee widget exist on another element");
-
-			testFlow = [];
-
-			helper._selectedMarqueeWidget = marqueeWidget;
-
-			helper._clickHandlerForRectangular({
-				target: listElement.firstElementChild
-			});
-
-			assert.deepEqual(testFlow, [
-				"start"
-			], "flow of call methods is correct (start), case with Marquee widget exist current element and is not running");
-
-			testFlow = [];
-
-			helper._selectedMarqueeWidget = marqueeWidget;
-			helper._selectedMarqueeWidget._state = "running";
-
-			helper._clickHandlerForRectangular({
-				target: listElement.firstElementChild
-			});
-
-			assert.deepEqual(testFlow, [
-				"reset"
-			], "flow of call methods is correct (reset), case with Marquee widget exist current element and is running");
-
-			testFlow = [];
-
-			helper._clickHandlerForRectangular({
 				target: listElement.querySelector(".ui-marquee")
 			});
 
-			assert.deepEqual(testFlow, [
-				"stop",
-				"reset",
-				"destroy"
-			], "flow of call methods is correct (stop, reset, destroy), click on anaother element with maquee");
+			setTimeout(function () {
 
-			assert.equal(helper._selectedMarqueeWidget.element, listElement.querySelector(".ui-marquee"), "");
+				assert.deepEqual(testFlow, [
+					"stop",
+					"reset",
+					"destroy"
+				], "flow of call methods is correct (stop, reset, destroy), case with Marquee widget exist on another element");
 
-			testFlow = [];
+				testFlow = [];
 
-			// destroy helper for remove event listeners
-			helper.destroy();
+				helper._selectedMarqueeWidget = marqueeWidget;
+
+				helper._clickHandlerForRectangular({
+					target: listElement.firstElementChild
+				});
+
+				setTimeout(function () {
+
+					assert.deepEqual(testFlow, [
+						"start"
+					], "flow of call methods is correct (start), case with Marquee widget exist current element and is not running");
+
+					testFlow = [];
+
+					helper._selectedMarqueeWidget = marqueeWidget;
+					helper._selectedMarqueeWidget._state = "running";
+
+					helper._clickHandlerForRectangular({
+						target: listElement.firstElementChild
+					});
+
+					setTimeout(function () {
+
+						assert.deepEqual(testFlow, [
+							"reset"
+						], "flow of call methods is correct (reset), case with Marquee widget exist current element and is running");
+
+						testFlow = [];
+
+						helper._clickHandlerForRectangular({
+							target: listElement.querySelector(".ui-marquee")
+						});
+
+						setTimeout(function () {
+
+							assert.deepEqual(testFlow, [
+								"stop",
+								"reset",
+								"destroy"
+							], "flow of call methods is correct (stop, reset, destroy), click on anaother element with maquee");
+
+							assert.equal(helper._selectedMarqueeWidget.element, listElement.querySelector(".ui-marquee"), "");
+
+							testFlow = [];
+
+							// destroy helper for remove event listeners
+							helper.destroy();
+							start();
+						}, 300);
+					}, 300);
+				}, 300);
+			}, 300);
 		});
 
-		QUnit.test("_scrollHandlerForRectangular", function (assert) {
+		QUnit.asyncTest("_scrollHandlerForRectangular", function (assert) {
 			var listElement = document.getElementById("snap-list"),
 				helper = new SnapListMarqueeStyle(listElement),
 				testFlow = [];
@@ -346,18 +361,21 @@
 			helper._scrollHandlerForRectangular({
 				target: listElement
 			});
+			setTimeout(function () {
 
-			assert.deepEqual(testFlow, [
-				"stop",
-				"reset",
-				"destroy"
-			], "flow of call methods is correct (stop, reset, destroy), destroy widget");
+				assert.deepEqual(testFlow, [
+					"stop",
+					"reset",
+					"destroy"
+				], "flow of call methods is correct (stop, reset, destroy), destroy widget");
 
-			// destroy helper for remove event listeners
-			helper.destroy();
+				// destroy helper for remove event listeners
+				helper.destroy();
+				start();
+			}, 100);
 		});
 
-		QUnit.test("_touchStartHandler", function (assert) {
+		QUnit.asyncTest("_touchStartHandler", function (assert) {
 			var listElement = document.getElementById("snap-list"),
 				helper = new SnapListMarqueeStyle(listElement),
 				testFlow = [];
@@ -384,26 +402,29 @@
 			helper._touchStartHandler({
 				target: listElement
 			});
+			setTimeout(function () {
 
-			assert.deepEqual(testFlow, [
-				"reset"
-			], "flow of call methods is correct (reset), reset widget if was initialized");
+				assert.deepEqual(testFlow, [
+					"reset"
+				], "flow of call methods is correct (reset), reset widget if was initialized");
 
-			testFlow = [];
+				testFlow = [];
 
-			helper._selectedMarqueeWidget = null;
+				helper._selectedMarqueeWidget = null;
 
-			helper._touchStartHandler({
-				target: listElement
-			});
+				helper._touchStartHandler({
+					target: listElement
+				});
 
-			assert.deepEqual(testFlow, [], "flow of call methods is correct (empty), widget wasn't initialized");
+				assert.deepEqual(testFlow, [], "flow of call methods is correct (empty), widget wasn't initialized");
 
-			// destroy helper for remove event listeners
-			helper.destroy();
+				// destroy helper for remove event listeners
+				helper.destroy();
+				start();
+			}, 100);
 		});
 
-		QUnit.test("_scrollEndHandler", function (assert) {
+		QUnit.asyncTest("_scrollEndHandler", function (assert) {
 			var listElement = document.getElementById("snap-list"),
 				helper = new SnapListMarqueeStyle(listElement);
 
@@ -417,17 +438,21 @@
 				target: listElement
 			});
 
-			helpers.restoreStub(helper, "_destroyMarqueeWidget");
+			setTimeout(function () {
 
-			// destroy helper for remove event listeners
-			helper.destroy();
+				helpers.restoreStub(helper, "_destroyMarqueeWidget");
+
+				// destroy helper for remove event listeners
+				helper.destroy();
+				start();
+			}, 100);
 		});
 
-		QUnit.test("_selectedHandler", function (assert) {
+		QUnit.asyncTest("_selectedHandler", function (assert) {
 			var listElement = document.getElementById("snap-list"),
 				helper = new SnapListMarqueeStyle(listElement);
 
-			assert.expect(4);
+			assert.expect(3);
 
 			helper._selectedMarqueeWidget = null;
 
@@ -439,21 +464,24 @@
 				target: listElement
 			});
 
-			assert.equal(helper._selectedMarqueeWidget.element, listElement.querySelector(".ui-marquee"), "Marquee was initialized on correct element");
+			setTimeout(function () {
+				assert.equal(helper._selectedMarqueeWidget && helper._selectedMarqueeWidget.element,
+					listElement.querySelector(".ui-marquee"), "Marquee was initialized on correct element");
 
-			helper._selectedMarqueeWidget = null;
+				helper._selectedMarqueeWidget = null;
 
-			helper._selectedHandler({
-				target: listElement.querySelector(".ui-marquee")
-			});
+				helper._selectedHandler({
+					target: listElement.querySelector(".ui-marquee")
+				});
 
-			assert.equal(helper._selectedMarqueeWidget, null, "Marquee wasn't initialized on element");
+				assert.equal(helper._selectedMarqueeWidget, null, "Marquee wasn't initialized on element");
 
+				helpers.restoreStub(helper, "_destroyMarqueeWidget");
 
-			helpers.restoreStub(helper, "_destroyMarqueeWidget");
-
-			// destroy helper for remove event listeners
-			helper.destroy();
+				// destroy helper for remove event listeners
+				helper.destroy();
+				start();
+			}, 100);
 		});
 
 		QUnit.test("handleEvent", function (assert) {

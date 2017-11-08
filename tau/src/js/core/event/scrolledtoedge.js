@@ -79,9 +79,6 @@
 					}
 				};
 
-			// @todo: check config
-			scrolledToEdge.enable();
-
 			ns.event.scrolledtoedge = scrolledToEdge;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

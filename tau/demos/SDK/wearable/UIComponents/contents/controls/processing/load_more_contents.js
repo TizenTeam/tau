@@ -1,4 +1,4 @@
-/*global window*/
+/*global window, tau*/
 (function (window, document) {
 	var page = document.getElementById("load-more-contents-page"),
 		activityIndicator = page.querySelector(".ui-processing"),
@@ -28,6 +28,7 @@
 	 * Do preparatory works and adds event listeners
 	 */
 	page.addEventListener("pagebeforeshow", function () {
+		tau.event.scrolledtoedge.enable();
 		page.addEventListener("scrolledtoedge", onReachScrollEnd, true);
 	});
 
@@ -37,6 +38,7 @@
 	 */
 	page.addEventListener("pagebeforehide", function () {
 		page.removeEventListener("scrolledtoedge", onReachScrollEnd, true);
+		tau.event.scrolledtoedge.disable();
 	});
 
 }(window, window.document));

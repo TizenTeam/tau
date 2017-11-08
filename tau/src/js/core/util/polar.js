@@ -317,14 +317,17 @@
 				 */
 				updatePosition: function (svg, selector, options) {
 					var path = svg && svg.querySelector("path" + selector),
-						line = svg && svg.querySelector("line" + selector);
+						line;
 
 					if (path) {
 						// set options
 						options = objectUtils.merge({}, defaultsArc, options || {});
 						updatePathPosition(path, options);
-					} else if (line) {
-						updateLinePosition(line, options);
+					} else {
+						line = svg && svg.querySelector("line" + selector);
+						if (line) {
+							updateLinePosition(line, options);
+						}
 					}
 				},
 

@@ -388,8 +388,8 @@
 
 					if (!virtualMode && elementStyle) {
 						elementStyle.transform = direction ?
-							"translate3d(" + lastRenderedPosition + "px,0,0)" :
-							"translate3d(0, " + lastRenderedPosition + "px,0)";
+							"translate(" + lastRenderedPosition + "px, 0)" :
+							"translate(0, " + lastRenderedPosition + "px)";
 					}
 
 					if (circularScrollBar) {
@@ -401,9 +401,9 @@
 					} else {
 						if (scrollThumb) {
 							if (direction) {
-								scrollThumb.style.transform = "translate3d(" + scrollBarPosition + "px,0,0)";
+								scrollThumb.style.transform = "translate(" + scrollBarPosition + "px, 0)";
 							} else {
-								scrollThumb.style.transform = "translate3d(0," + scrollBarPosition + "px,0)";
+								scrollThumb.style.transform = "translate(0, " + scrollBarPosition + "px)";
 							}
 						}
 					}

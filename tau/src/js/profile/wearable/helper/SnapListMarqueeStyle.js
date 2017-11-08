@@ -26,16 +26,17 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./SnapListStyle",
 			"../helper",
 			"../../../core/engine",
 			"../../../core/util/object",
 			"../../../core/support/tizen",
 			"../../../core/widget/core/Marquee",
-			"../widget/wearable/Listview"
+			"../widget/wearable/Listview",
+			"../widget/wearable/SnapListview"
 		],
 		function () { //>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
+				helper = ns.helper,
 				objectUtils = ns.util.object,
 				defaults = {
 					marqueeDelay: 0,
@@ -55,12 +56,33 @@
 					self.options = objectUtils.fastMerge({}, defaults);
 					objectUtils.fastMerge(self.options, options);
 
-					self._snapListStyleHelper = null;
+					self._listviewWidget = null;
 					self._selectedMarqueeWidget = null;
 					self.element = listElement;
 				},
 
 				prototype = ListMarqueeStyle.prototype;
+
+			/**
+			 * Destroy previous Marquee and create new.
+			 * @method _instanceMarquee
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._instanceMarquee = function () {
+				var self = this,
+					marqueeElement = self._marqueeElement,
+					selectedMarqueeWidget;
+
+				self._destroyMarqueeWidget();
+
+				if (marqueeElement) {
+					selectedMarqueeWidget = engine.instanceWidget(marqueeElement, "Marquee", self.options);
+					selectedMarqueeWidget.start();
+					self._marqueeElement = null;
+					self._selectedMarqueeWidget = selectedMarqueeWidget;
+				}
+			};
 
 			/**
 			 * Handler for click event on rectangle version
@@ -74,18 +96,17 @@
 					eventTarget = event.target,
 					selectedMarqueeWidget = self._selectedMarqueeWidget;
 
-				if (selectedMarqueeWidget && eventTarget.parentElement === selectedMarqueeWidget.element) {
+				if (selectedMarqueeWidget &&
+					eventTarget.parentElement === selectedMarqueeWidget.element) {
 					if (selectedMarqueeWidget._state === "running") {
 						selectedMarqueeWidget.reset();
 					} else {
 						selectedMarqueeWidget.start();
 					}
 				} else {
-					this._destroyMarqueeWidget();
-
 					if (eventTarget && eventTarget.classList.contains("ui-marquee")) {
-						self._selectedMarqueeWidget = engine.instanceWidget(eventTarget, "Marquee", self.options);
-						self._selectedMarqueeWidget.start();
+						self._marqueeElement = eventTarget;
+						requestAnimationFrame(self._instanceMarquee.bind(self));
 					}
 				}
 			};
@@ -150,11 +171,9 @@
 				var self = this,
 					marqueeElement = event.target.querySelector(".ui-marquee");
 
-				self._destroyMarqueeWidget();
-
 				if (marqueeElement) {
-					self._selectedMarqueeWidget = engine.instanceWidget(marqueeElement, "Marquee", self.options);
-					self._selectedMarqueeWidget.start();
+					self._marqueeElement = marqueeElement;
+					requestAnimationFrame(self._instanceMarquee.bind(self));
 				}
 			};
 
@@ -194,22 +213,25 @@
 			 */
 			prototype.init = function () {
 				var self = this,
-					listElement = this.element;
+					listElement = self.element,
+					listWidgetName,
+					options = self.options;
 
-				self.options.delay = self.options.delay || self.options.marqueeDelay;
+				options.delay = options.delay || options.marqueeDelay;
 
 				if (ns.support.shape.circle) {
 					self._bindEventsForCircular();
 				} else {
 					self._bindEventsForRectangular();
-					self.options.snapListview = false;
+					options.snapListview = false;
 				}
 				// create SnapListStyle helper
-				if (self.options.snapListview) {
-					self._snapListStyleHelper = ns.helper.SnapListStyle.create(listElement, self.options);
+				if (options.snapListview) {
+					listWidgetName = "SnapListview";
 				} else {
-					self._listviewWidget = engine.instanceWidget(listElement, "Listview", self.options);
+					listWidgetName = "Listview";
 				}
+				self._listviewWidget = engine.instanceWidget(listElement, listWidgetName, options);
 			};
 
 			/**
@@ -278,18 +300,15 @@
 				} else {
 					self._unbindEventsForRectangular();
 				}
+
 				self._destroyMarqueeWidget();
-				if (self._snapListStyleHelper) {
-					self._snapListStyleHelper.destroy();
-				}
 
 				if (self._listviewWidget) {
 					self._listviewWidget.destroy();
+					self._listviewWidget = null;
 				}
 
 				self.options = null;
-				self._snapListStyleHelper = null;
-				self._listviewWidget = null;
 			};
 
 			ListMarqueeStyle.create = function (listElement, options) {
@@ -299,8 +318,8 @@
 				return instance;
 			};
 
-			ns.helper.SnapListMarqueeStyle = ListMarqueeStyle;
-			ns.helper.ListMarqueeStyle = ListMarqueeStyle;
+			helper.SnapListMarqueeStyle = ListMarqueeStyle;
+			helper.ListMarqueeStyle = ListMarqueeStyle;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ListMarqueeStyle;
 		}

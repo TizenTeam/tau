@@ -265,24 +265,39 @@
 				var ui = self._ui,
 					listItems = self._listItems,
 					scrollableParent = ui.scrollableParent,
-					scrollCenter = -scrollableParent.element.firstElementChild.getBoundingClientRect().top + scrollableParent.height / 2,
+					scrollableParentHeight = scrollableParent.height || ui.page.offsetHeight,
+					scrollableParentElement = scrollableParent.element || ui.page,
+					scrollCenter = -scrollableParentElement.firstElementChild
+						.getBoundingClientRect().top + scrollableParentHeight / 2,
 					listItemLength = listItems.length,
 					tempListItem,
 					tempListItemCoord,
-					i;
+					i,
+					previousSelectedIndex = self._selectedIndex;
 
 				for (i = 0; i < listItemLength; i++) {
 					tempListItem = listItems[i];
 					tempListItemCoord = tempListItem.coord;
 
 					// element has to be displayed to be able to be selected
-					if (isListItemDisplayed(tempListItem) && (tempListItemCoord.top < scrollCenter) && (tempListItemCoord.top + tempListItemCoord.height >= scrollCenter)) {
+					if (isListItemDisplayed(tempListItem) &&
+						(tempListItemCoord.top < scrollCenter) &&
+						(tempListItemCoord.top + tempListItemCoord.height >= scrollCenter)) {
 						removeSelectedClass(self);
 						self._selectedIndex = i;
-						tempListItem.element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
-						utilEvent.trigger(tempListItem.element, eventType.SELECTED);
-						return;
+						break;
 					}
+				}
+				if (previousSelectedIndex !== self._selectedIndex) {
+					if (self._selectTimeout) {
+						clearTimeout(self._selectTimeout);
+					}
+					self._selectTimeout = setTimeout(function () {
+						var element = self._listItems[self._selectedIndex].element;
+
+						element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
+						utilEvent.trigger(element, eventType.SELECTED);
+					}, 300);
 				}
 			}
 
@@ -296,10 +311,11 @@
 				var self = this,
 					anim = self.options.animate,
 					animateCallback = self._callbacks[anim],
-					scrollPosition;
+					scrollPosition,
+					scrollableParentElement = self._ui.scrollableParent.element || self._ui.page;
 
 				if (animateCallback) {
-					scrollPosition = -self._ui.scrollableParent.element.firstElementChild.getBoundingClientRect().top;
+					scrollPosition = -scrollableParentElement.firstElementChild.getBoundingClientRect().top;
 					utilArray.forEach(self._listItems, function (item) {
 						item.animate(scrollPosition, animateCallback);
 					});
@@ -377,23 +393,37 @@
 			prototype._initSnapListview = function (listview) {
 				var self = this,
 					ui = self._ui,
-					options = self.options,
-					listItems = [],
 					scroller,
 					visiableOffset;
 
-
 				// finding page  and scroller
 				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || document.body;
-				scroller = getScrollableParent(listview) || ui.page;
-				scroller.classList.add(classes.SNAP_CONTAINER);
 
-				visiableOffset = scroller.clientHeight || ui.page.offsetHeight;
+				scroller = getScrollableParent(listview);
+				if (scroller) {
+					scroller.classList.add(classes.SNAP_CONTAINER);
+					ui.scrollableParent.element = scroller;
+
+					visiableOffset = scroller.clientHeight;
+					ui.scrollableParent.height = visiableOffset;
+				}
+			};
+
+			prototype._refreshSnapListview = function (listview) {
+				var self = this,
+					ui = self._ui,
+					options = self.options,
+					listItems = [],
+					scroller = ui.scrollableParent.element,
+					visiableOffset;
+
+				if (!scroller) {
+					self._initSnapListview(listview);
+					scroller = ui.scrollableParent.element || ui.page;
+				}
+				visiableOffset = ui.scrollableParent.height || ui.page.offsetHeight;
 
 				// init information about widget
-				ui.scrollableParent.element = scroller;
-				ui.scrollableParent.height = visiableOffset;
-
 				self._selectedIndex = null;
 
 				// init items on each element
@@ -475,7 +505,7 @@
 					}
 				};
 
-				self._initSnapListview(element);
+				self._refreshSnapListview(element);
 				setSelection(self);
 
 				return element;
@@ -494,7 +524,7 @@
 				var self = this,
 					element = self.element;
 
-				self._initSnapListview(element);
+				self._refreshSnapListview(element);
 				setSelection(self);
 
 				return null;
@@ -576,7 +606,7 @@
 			 */
 			prototype._enable = function () {
 				var self = this,
-					scrollableParent = self._ui.scrollableParent.element;
+					scrollableParent = self._ui.scrollableParent.element || self._ui.page;
 
 				scrollableParent.classList.remove(classes.SNAP_DISABLED);
 				if (!self._enabled) {

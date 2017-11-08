@@ -24,7 +24,6 @@
 			"../../util/selectors",
 			"../../util/scrolling",
 			"../BaseWidget",
-			"../../../profile/wearable/widget/wearable/SnapListview",
 			"../../../core/support/tizen",
 			"../core" // fetch namespace
 		],
@@ -400,9 +399,9 @@
 					scrollChildStyle.webkitTransform = "translate(" + (-scroll.scrollLeft) + "px, " + (-scroll.scrollTop) + "px)";
 
 					self._scrollBeginPrev = scrollBegin;
-				}
-				if (self._snapListviewWidget) {
-					self._snapListviewWidget.refresh();
+					if (self._snapListviewWidget) {
+						self._snapListviewWidget.refresh();
+					}
 				}
 			}
 

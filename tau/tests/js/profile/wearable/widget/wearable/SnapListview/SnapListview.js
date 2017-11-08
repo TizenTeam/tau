@@ -62,28 +62,16 @@
 
 		});
 
-		QUnit.test("_initSnapListview", 9, function (assert) {
+		QUnit.test("_initSnapListview", 2, function (assert) {
 			var snaplistWidget = new SnapListview(),
-				element = document.getElementById("snap-list");
-
-			helpers.stub(snaplistWidget, "_listItemAnimate", function () {
-				assert.ok(true);
-			});
+				element = document.getElementById("snap-list-2");
 
 			snaplistWidget._initSnapListview(element);
 
 			assert.equal(snaplistWidget._ui.page, document.body, "page is set as document.body");
 
-			assert.equal(snaplistWidget._ui.scrollableParent.element, document.body, "scollable element is correct set");
-			assert.equal(snaplistWidget._ui.scrollableParent.element.classList.contains("ui-snap-container"), true, "scrollable element has containar class");
-			assert.equal(snaplistWidget._ui.scrollableParent.height, document.body.offsetHeight, "scroller height is correct detected");
-
-			assert.equal(snaplistWidget._selectedIndex, null, "selected index is correct initilaized");
-			assert.equal(snaplistWidget._listItems.length, 9, "list items are correct detected");
-
-			element.firstElementChild.classList.add(SnapListview.classes.SNAP_LISTVIEW_SELECTED);
-			snaplistWidget._initSnapListview(element);
-			assert.equal(typeof snaplistWidget._selectedIndex, "number", "selected index is correct initilaized");
+			assert.equal(snaplistWidget._ui.scrollableParent.element, null, "scollable element is" +
+				" correct set");
 
 			helpers.restoreStub(snaplistWidget, "_listItemAnimate");
 		});
@@ -94,12 +82,13 @@
 
 			snaplistWidget._build(element);
 			snaplistWidget._init(element);
+			snaplistWidget.element = element;
 
-			helpers.stub(snaplistWidget, "_initSnapListview", function () {
-				assert.ok(true, "method: _inistSnapListview was called");
+			helpers.stub(snaplistWidget, "_refreshSnapListview", function () {
+				assert.ok(true, "method: _refreshSnapListview was called");
 			});
 			snaplistWidget._refresh(element);
-			helpers.restoreStub(snaplistWidget, "_initSnapListview");
+			helpers.restoreStub(snaplistWidget, "_refreshSnapListview");
 		});
 
 		QUnit.test("_destroy", 2, function (assert) {
@@ -260,10 +249,10 @@
 					start();
 					assert.ok(true, "index was set and callback called, position is set");
 				},
-				inedxOutOfRange = false,
+				indexOutOfRange = false,
 				index = -1;
 
-			// in phantom window.performacne object is not available
+			// in phantom window.performance object is not available
 			if (window.navigator.userAgent.match("PhantomJS")) {
 				expect(0);
 				start();
@@ -273,13 +262,13 @@
 					assert.ok(true, "method: window.performance.now was called");
 					return +new Date();
 				});
-				inedxOutOfRange = !snaplistWidget._scrollToPosition(index, callback);
-				assert.ok(inedxOutOfRange, "index in not in the range");
+				indexOutOfRange = !snaplistWidget._scrollToPosition(index, callback);
+				assert.ok(indexOutOfRange, "index in not in the range");
 
 				index = 1;
 				snaplistWidget._enabled = true;
 				snaplistWidget._currentIndex = 0;
-				snaplistWidget._initSnapListview(element);
+				snaplistWidget._refreshSnapListview(element);
 
 				snaplistWidget._scrollToPosition(index, callback);
 				helpers.restoreStub(window.performance, "now");
@@ -311,7 +300,7 @@
 				index = 1;
 				snaplistWidget._enabled = true;
 				snaplistWidget._currentIndex = 0;
-				snaplistWidget._initSnapListview(element);
+				snaplistWidget._refreshSnapListview(element);
 				helpers.stub(window, "cancelAnimationFrame", function () {
 					assert.ok(true, "method: cancelAnimationFrame was called and animation was canceled");
 				});
