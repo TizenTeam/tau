@@ -1,7 +1,9 @@
 /* global notEqual, expect, document, tau, define, module, test, strictEqual, initFixture, window, ok, equal */
 (function () {
 	"use strict";
-	function runTests(engine, Marquee, helpers) {
+	function runTests(engine, Marquee, helpers, ns) {
+
+		ns = ns || window.ns;
 
 		function initHTML() {
 			return new Promise(function (resolve) {
@@ -32,18 +34,41 @@
 				equal(marqueeObject.tagName, "DIV", "Marquee created DIV for marquee content");
 				// check default marquee Style (slide)
 				equal(marqueeWidget.option("marqueeStyle"), "slide", "Default marquee style is Slide");
-				equal(marqueeWidget.option("timingFunction"), "linear", "Default marquee timing function is linear");
+				equal(marqueeWidget.option("timingFunction"), "linear", "Default marquee timing" +
+					" function is linear");
 				equal(marqueeWidget.option("iteration"), 1, "Default iteration count is 1");
 				equal(marqueeWidget.option("speed"), 60, "Default speed of marquee is 60(px/sec)");
 				equal(marqueeWidget.option("delay"), 0, "Default delay time is 0");
 				equal(marqueeWidget.option("autoRun"), true, "Default autoRun option is true");
-				equal(marqueeWidget.option("ellipsisEffect"), "gradient", "Default ellipsisEffect option is gradient");
-				equal(marqueeObject.style.webkitAnimationName, marqueeWidget.option("marqueeStyle") + "-" + marqueeEl.id, "Marquee Animation Name set");
-
+				equal(marqueeWidget.option("ellipsisEffect"), "gradient", "Default ellipsisEffect option" +
+					" is gradient");
+				equal(marqueeObject.style.webkitAnimationName, marqueeWidget.option("marqueeStyle") + "-" +
+					marqueeEl.id, "Marquee Animation Name set");
 
 				marqueeWidget.destroy();
 				// after destroy, check resetDOM.
-				equal(marqueeEl.innerHTML, "<p>Marquee Test sample with Only text</p>", "original marquee element has proper innerHTML");
+				equal(marqueeEl.innerHTML, "<p>Marquee Test sample with Only text</p>", "original" +
+					" marquee element has proper innerHTML");
+			});
+
+			test("_setAnimationStyle wrong options values (speed, itaration, delay)", 3,
+				function () {
+					helpers.stub(ns, "warn", function () {
+						ok(true, "ns warn invoked");
+						return true;
+					});
+
+					var marqueeElement = document.getElementById("marquee"),
+					marqueeWidget = tau.widget.Marquee(marqueeElement, {
+						runOnlyOnEllipsisText: false,
+						speed: "abc",
+						iteration: "abc",
+						delay: "abc"
+					});
+
+					helpers.restoreStub(ns, "warn");
+
+					marqueeWidget.destroy();
 			});
 
 			test("marquee with several element", 2, function () {
@@ -51,13 +76,15 @@
 					marqueeWidget = tau.widget.Marquee(marqueeEl, {runOnlyOnEllipsisText: false}),
 					marqueeObject = marqueeEl.querySelector(".ui-marquee-content");
 
-				equal(marqueeObject.childElementCount, 2, "All childNodes in original element copied to marquee Object DOM");
-				equal(marqueeObject.children[0].innerHTML, "Marquee Text with image file", "Text copied well into Marquee object DOM");
+				equal(marqueeObject.childElementCount, 2, "All childNodes in original element copied to" +
+					" marquee Object DOM");
+				equal(marqueeObject.children[0].innerHTML, "Marquee Text with image file", "Text copied" +
+					" well into Marquee object DOM");
 
 				marqueeWidget.destroy();
 			});
 
-			test("marquee Style and animation name Check", 6, function () {
+			test("marquee Style and animation name Check", 10, function () {
 				var marqueeSlideWidget = tau.widget.Marquee(document.getElementById("marqueeSlide"), {
 						marqueeStyle: "slide",
 						runOnlyOnEllipsisText: false
@@ -69,36 +96,65 @@
 					marqueeAlternateWidget = tau.widget.Marquee(document.getElementById("marqueeAlternate"), {
 						marqueeStyle: "alternate",
 						runOnlyOnEllipsisText: false
+					}),
+					marqueeEndToEndWidget = tau.widget.Marquee(document.getElementById("marqueeEndToEnd"), {
+						marqueeStyle: "endToEnd",
+						runOnlyOnEllipsisText: false
+					}),
+					marqueeDefaultWidget = tau.widget.Marquee(document.getElementById("marqueeDefault"), {
+						marqueeStyle: "",
+						runOnlyOnEllipsisText: false
 					});
 
-				equal(marqueeSlideWidget.option("marqueeStyle"), "slide", "Marquee widget has marqueeStyle=slide option");
-				equal(marqueeSlideWidget._ui.marqueeInnerElement.style.webkitAnimationName, "slide-marqueeSlide", "Marquee Animation Name check");
-				equal(marqueeScrollWidget.option("marqueeStyle"), "scroll", "Marquee widget has marqueeStyle=scroll option");
-				equal(marqueeScrollWidget._ui.marqueeInnerElement.style.webkitAnimationName, "scroll-marqueeScroll", "Marquee Animation Name check");
-				equal(marqueeAlternateWidget.option("marqueeStyle"), "alternate", "Marquee widget has marqueeStyle=alternate option");
-				equal(marqueeAlternateWidget._ui.marqueeInnerElement.style.webkitAnimationName, "alternate-marqueeAlternate", "Marquee Animation Name check");
+				equal(marqueeSlideWidget.option("marqueeStyle"), "slide", "Marquee widget has" +
+					" marqueeStyle=slide option");
+				equal(marqueeSlideWidget._ui.marqueeInnerElement.style.webkitAnimationName,
+					"slide-marqueeSlide", "Marquee Animation Name check");
+				equal(marqueeScrollWidget.option("marqueeStyle"), "scroll", "Marquee widget has" +
+					" marqueeStyle=scroll option");
+				equal(marqueeScrollWidget._ui.marqueeInnerElement.style.webkitAnimationName,
+					"scroll-marqueeScroll", "Marquee Animation Name check");
+				equal(marqueeAlternateWidget.option("marqueeStyle"), "alternate", "Marquee widget has" +
+					" marqueeStyle=alternate option");
+				equal(marqueeAlternateWidget._ui.marqueeInnerElement.style.webkitAnimationName,
+					"alternate-marqueeAlternate", "Marquee Animation Name check");
+				equal(marqueeEndToEndWidget.option("marqueeStyle"), "endToEnd", "Marquee widget has" +
+					" marqueeStyle=endtoend option");
+				equal(marqueeEndToEndWidget._ui.marqueeInnerElement.style.webkitAnimationName,
+					"endToEnd-marqueeEndToEnd", "Marquee Animation Name check");
+				equal(marqueeDefaultWidget.option("marqueeStyle"), "", "Marquee widget has" +
+					" no added option");
+				equal(marqueeDefaultWidget._ui.marqueeInnerElement.style.webkitAnimationName,
+					"-marqueeDefault", "Marquee Animation Name is empty");
 
 				marqueeSlideWidget.destroy();
 				marqueeScrollWidget.destroy();
 				marqueeAlternateWidget.destroy();
+				marqueeEndToEndWidget.destroy();
+				marqueeDefaultWidget.destroy();
 			});
 
-			test("change option and refresh test for marquee", 3, function () {
+			test("change option and refresh test for marquee", 4, function () {
 				var marqueeWidget = tau.widget.Marquee(document.getElementById("optionsTest"), {
 					marqueeStyle: "slide",
 					runOnlyOnEllipsisText: false
 				});
 
-				equal(marqueeWidget.option("marqueeStyle"), "slide", "Marquee widget has marqueeStyle=slide option");
+				equal(marqueeWidget.option("marqueeStyle"), "slide", "Marquee widget has" +
+					" marqueeStyle=slide option");
 				marqueeWidget.option("marqueeStyle", "alternate");
 				equal(marqueeWidget.option("marqueeStyle"), "alternate", "Marquee style has been changed");
 				marqueeWidget.option("iteration", "infinite");
-				equal(marqueeWidget._ui.marqueeInnerElement.style.webkitAnimationIterationCount, "infinite", "Marquee iteration count has been changed");
+				equal(marqueeWidget._ui.marqueeInnerElement.style.webkitAnimationIterationCount, "infinite",
+					"Marquee iteration count has been changed");
+				ok(marqueeWidget._ui.marqueeInnerElement, "Marquee exists");
 				// @TODO some tests do not work, require checking
 				//marqueeWidget.option("autoRun", false);
-				//ok(marqueeWidget._ui.marqueeInnerElement.classList.contains("ui-marquee-anim-stopped"), "after option autoRun be false, it has paused");
+				//ok(marqueeWidget._ui.marqueeInnerElement.classList.contains("ui-marquee-anim-stopped"),
+				// "after option autoRun be false, it has paused");
 				//marqueeWidget.option("runOnlyOnEllipsisText", true);
-				//equal(marqueeWidget._ui.marqueeInnerElement.style.webkitAnimationName, "", "after option runOnlyOnEllipsisText be true, it does not have any animation style");
+				//equal(marqueeWidget._ui.marqueeInnerElement.style.webkitAnimationName, "",
+				// "after option runOnlyOnEllipsisText be true, it does not have any animation style");
 
 				marqueeWidget.destroy();
 			});

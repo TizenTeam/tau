@@ -218,7 +218,7 @@
 							"0% { transform: translate(0, 0);}" +
 							"95%, 100% { transform: translate(-100%, 0);} }";
 						break;
-					case style.aLTERNATE:
+					case style.ALTERNATE:
 						customKeyFrame = "@keyframes " + keyFrameName + " {" +
 							"0% { transform: translate(0, 0);}" +
 							"50% { transform: translate(-" + (textWidth - containerWidth) +
@@ -305,8 +305,9 @@
 				return keyFrameName;
 			}
 
-			function setAnimationStyle(self, options) {
-				var speed = parseInt(options.speed, 10),
+			prototype._setAnimationStyle = function (options) {
+				var self = this,
+					speed = parseInt(options.speed, 10),
 					marqueeInnerElement = self._ui.marqueeInnerElement,
 					marqueeInnerElementStyle = marqueeInnerElement.style,
 					duration = getAnimationDuration(self, isNaN(speed) ? defaults.speed : speed),
@@ -339,7 +340,7 @@
 					marqueeElementStyle.animationTimingFunction = options.timingFunction;
 					marqueeElementStyle.animationDelay = options.delay + "ms";
 				}
-			}
+			};
 
 			function setEllipsisEffectStyle(self, ellipsisEffectOption, hasEllipsisText) {
 				var marqueeElement = self.element;
@@ -408,7 +409,7 @@
 
 				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
 					setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
-					setAnimationStyle(self, self.options);
+					self._setAnimationStyle(self.options);
 					setAutoRunState(self, self.options.autoRun);
 				}
 
@@ -448,7 +449,7 @@
 				}
 
 				setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
-				setAnimationStyle(self, self.options);
+				self._setAnimationStyle(self.options);
 				setAutoRunState(self, self.options.autoRun);
 			};
 
@@ -558,7 +559,7 @@
 
 				switch (self._state) {
 					case states.IDLE:
-						setAnimationStyle(self, self.options);
+						self._setAnimationStyle(self.options);
 						self._bindEvents();
 						self._animationStart();
 						break;
