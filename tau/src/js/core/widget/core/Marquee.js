@@ -159,16 +159,16 @@
 				/**
 				 * Options for widget
 				 * @property {Object} options
-				 * @property {string|"slide"|"scroll"|"alternate"} [options.marqueeStyle="slide"] Sets the
-				 * default style for the marquee
+				 * @property {string|"slide"|"scroll"|"alternate"} [options.marqueeStyle="slide"]
+				 * Sets the default style for the marquee
 				 * @property {number} [options.speed=60] Sets the speed(px/sec) for the marquee
-				 * @property {number|"infinite"} [options.iteration=1] Sets the iteration count number for
-				 * marquee
+				 * @property {number|"infinite"} [options.iteration=1] Sets the iteration count
+				 * number for marquee
 				 * @property {number} [options.delay=2000] Sets the delay(ms) for marquee
 				 * @property {"linear"|"ease"|"ease-in"|"ease-out"|"cubic-bezier(n,n,n,n)"}
 				 * [options.timingFunction="linear"] Sets the timing function for marquee
-				 * @property {"gradient"|"ellipsis"|"none"} [options.ellipsisEffect="gradient"] Sets the
-				 * end-effect(gradient) of marquee
+				 * @property {"gradient"|"ellipsis"|"none"} [options.ellipsisEffect="gradient"] Sets
+				 * the end-effect(gradient) of marquee
 				 * @property {boolean} [options.autoRun=true] Sets the status of autoRun
 				 * @member ns.widget.core.Marquee
 				 * @static
@@ -204,33 +204,36 @@
 					styleElement = self._ui.styleSheelElement || document.createElement("style"),
 					keyFrameName = marqueeStyle + "-" + self.id,
 					customKeyFrame,
+					customKeyFrameWithOutWebkitPrefix,
 					returnTimeFrame;
 
 				switch (marqueeStyle) {
 					case style.SLIDE:
-						customKeyFrame = "@keyframes " + keyFrameName + " {" +
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
 							"0% { transform: translate(0, 0);}" +
 							"95%, 100% { transform: translate(-" + (textWidth - containerWidth) +
 								"px, 0);} }";
 						break;
 					case style.SCROLL:
-						customKeyFrame = "@keyframes " + keyFrameName + " {" +
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
 							"0% { transform: translate(0, 0);}" +
 							"95%, 100% { transform: translate(-100%, 0);} }";
 						break;
 					case style.ALTERNATE:
-						customKeyFrame = "@keyframes " + keyFrameName + " {" +
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
 							"0% { transform: translate(0, 0);}" +
 							"50% { transform: translate(-" + (textWidth - containerWidth) +
 								"px, 0);}" +
 							"100% { transform: translate(0, 0);} }";
 						break;
 					case style.ENDTOEND:
-						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
-						customKeyFrame = "@keyframes " + keyFrameName + " {" +
+						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) *
+							100, 10);
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
 							"0% { transform: translate(0, 0);}" +
 							returnTimeFrame + "% { transform: translate(-100%, 0); opacity: 1}" +
-							(returnTimeFrame + 1) + "% { transform: translate(-100%, 0); opacity: 0}" +
+							(returnTimeFrame + 1) + "% { transform: translate(-100%, 0);" +
+								" opacity: 0}" +
 							(returnTimeFrame + 2) + "% { transform: translate(" + containerWidth +
 								"px, 0); opacity: 0; }" +
 							(returnTimeFrame + 3) + "% { transform: translate(" + containerWidth +
@@ -246,7 +249,9 @@
 					if (!styleElement.parentElement) {
 						marqueeContainer.appendChild(styleElement);
 					}
-					styleElement.sheet.insertRule(customKeyFrame);
+					styleElement.sheet.insertRule(customKeyFrame, 0);
+					customKeyFrameWithOutWebkitPrefix = customKeyFrame.replace(/-webkit-/g, "");
+					styleElement.sheet.insertRule(customKeyFrameWithOutWebkitPrefix, 0);
 
 					self._ui.styleSheelElement = styleElement;
 				}
@@ -262,31 +267,45 @@
 					styleElement = self._ui.styleSheelElement || document.createElement("style"),
 					keyFrameName = "gradient-" + self.id,
 					customKeyFrame,
+					customKeyFrameWithOutWebkitPrefix,
 					returnTimeFrame;
 
 				switch (marqueeStyle) {
 					case style.SLIDE:
 					case style.SCROLL:
 					case style.ALTERNATE:
-						customKeyFrame = "@keyframes " + keyFrameName + " {" +
-							"0% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0," +
-							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
-							"100% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0," +
-							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-mask-image: -webkit-linear-gradient(left," +
+							" transparent 0," +
+							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
+							" transparent 100%)}" +
+							"100% { -webkit-mask-image: -webkit-linear-gradient(left," +
+							" transparent 0," +
+							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
+							" transparent 100%)} }";
 						break;
 					case style.ENDTOEND:
-						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
-						customKeyFrame = "@keyframes " + keyFrameName + " {" +
-							"0% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0," +
+						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100,
+							10);
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-mask-image: -webkit-linear-gradient(left," +
+							" rgba(255, 255, 255, 1) 0," +
 							" rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
-							"1% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0," +
-							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
-							returnTimeFrame + "% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
+							"1% { -webkit-mask-image: -webkit-linear-gradient(left," +
+							" transparent 0," +
+							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
 							" transparent 100%)}" +
-							(returnTimeFrame + 1) + "% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
-							"100% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0," +
+							returnTimeFrame + "% { -webkit-mask-image:" +
+							" -webkit-linear-gradient(left," +
+							" transparent 0, rgba(255, 255, 255, 1) 15%," +
+							" rgba(255, 255, 255, 1) 85%," +
+							" transparent 100%)}" +
+							(returnTimeFrame + 1) + "% { -webkit-mask-image:" +
+							" -webkit-linear-gradient(left," +
+							" rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%," +
+							" transparent 100%)}" +
+							"100% { -webkit-mask-image: -webkit-linear-gradient(left," +
+							" rgba(255, 255, 255, 1) 0," +
 							" rgba(255, 255, 255, 1) 85%, transparent 100%) } }";
 						break;
 					default:
@@ -297,7 +316,10 @@
 					if (!styleElement.parentElement) {
 						marqueeContainer.appendChild(styleElement);
 					}
-					styleElement.sheet.insertRule(customKeyFrame);
+					styleElement.sheet.insertRule(customKeyFrame, 0);
+					customKeyFrameWithOutWebkitPrefix = customKeyFrame.replace(/-webkit-keyframes/g,
+						"keyframes");
+					styleElement.sheet.insertRule(customKeyFrameWithOutWebkitPrefix, 0);
 
 					self._ui.styleSheelElement = styleElement;
 				}
@@ -309,11 +331,9 @@
 				var self = this,
 					speed = parseInt(options.speed, 10),
 					marqueeInnerElement = self._ui.marqueeInnerElement,
-					marqueeInnerElementStyle = marqueeInnerElement.style,
 					duration = getAnimationDuration(self, isNaN(speed) ? defaults.speed : speed),
 					marqueeKeyFrame = setMarqueeKeyFrame(self, options.marqueeStyle),
-					marqueeElement = self.element,
-					marqueeElementStyle = marqueeElement.style;
+					marqueeElement = self.element;
 
 				// warning when option value is not correct.
 				if (isNaN(speed)) {
@@ -326,19 +346,25 @@
 					ns.warn("delay value must be number");
 				}
 
-				marqueeInnerElementStyle.animationName = marqueeKeyFrame;
-				marqueeInnerElementStyle.animationDuration = duration + "s";
-				marqueeInnerElementStyle.animationIterationCount = options.iteration;
-				marqueeInnerElementStyle.animationTimingFunction = options.timingFunction;
-				marqueeInnerElementStyle.animationDelay = options.delay + "ms";
+				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-name", marqueeKeyFrame);
+				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-duration", duration + "s");
+				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-iteration-count",
+					options.iteration);
+				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-timing-function",
+					options.timingFunction);
+				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-delay",
+					options.delay + "ms");
 
 				if (options.ellipsisEffect === ellipsisEffect.GRADIENT) {
-					marqueeElementStyle.animationName =
-						setMarqueeGradientKeyFrame(self, options.marqueeStyle);
-					marqueeElementStyle.animationDuration = duration + "s";
-					marqueeElementStyle.animationIterationCount = options.iteration;
-					marqueeElementStyle.animationTimingFunction = options.timingFunction;
-					marqueeElementStyle.animationDelay = options.delay + "ms";
+					domUtil.setPrefixedStyle(marqueeElement, "animation-name",
+						setMarqueeGradientKeyFrame(self, options.marqueeStyle));
+					domUtil.setPrefixedStyle(marqueeElement, "animation-duration", duration + "s");
+					domUtil.setPrefixedStyle(marqueeElement, "animation-iteration-count",
+						options.iteration);
+					domUtil.setPrefixedStyle(marqueeElement, "animation-timing-function",
+						options.timingFunction);
+					domUtil.setPrefixedStyle(marqueeElement, "animation-delay",
+						options.delay + "ms");
 				}
 			};
 
@@ -408,7 +434,8 @@
 					self._ui.marqueeInnerElement.scrollWidth;
 
 				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
-					setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
+					setEllipsisEffectStyle(self, self.options.ellipsisEffect,
+						self._hasEllipsisText);
 					self._setAnimationStyle(self.options);
 					setAutoRunState(self, self.options.autoRun);
 				}
@@ -429,7 +456,8 @@
 
 				self._callbacks.animationEnd = animationEndCallback;
 
-				utilEvent.one(marqueeInnerElement, "animationend", animationEndCallback);
+				utilEvent.one(marqueeInnerElement, "animationend webkitAnimationEnd",
+					animationEndCallback);
 			};
 
 			/**
@@ -442,7 +470,8 @@
 				var self = this;
 
 				self._resetStyle();
-				self._hasEllipsisText = self.element.offsetWidth < self._ui.marqueeInnerElement.scrollWidth;
+				self._hasEllipsisText = self.element.offsetWidth <
+					self._ui.marqueeInnerElement.scrollWidth;
 
 				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
 					return;
@@ -462,17 +491,15 @@
 			prototype._resetStyle = function () {
 				var self = this,
 					marqueeContainer = self.element,
-					marqueeKeyframeStyleSheet = self._ui.styleSheelElement,
-					marqueeInnerElementStyle = self._ui.marqueeInnerElement.style,
-					marqueeElementStyle = marqueeContainer.style;
+					marqueeKeyframeStyleSheet = self._ui.styleSheelElement;
 
 				if (marqueeContainer.contains(marqueeKeyframeStyleSheet)) {
 					marqueeContainer.removeChild(marqueeKeyframeStyleSheet);
 					self._ui.styleSheelElement = null;
 				}
 
-				marqueeInnerElementStyle.animation = "";
-				marqueeElementStyle.animation = "";
+				domUtil.setPrefixedStyle(self._ui.marqueeInnerElement, "animation", "");
+				domUtil.setPrefixedStyle(self.element, "animation", "");
 			};
 
 			/**
@@ -525,7 +552,8 @@
 					marqueeElementClassList.remove(classes.MARQUEE_ELLIPSIS);
 				}
 
-				marqueeInnerElementClassList.remove(classes.ANIMATION_IDLE, classes.ANIMATION_STOPPED);
+				marqueeInnerElementClassList.remove(classes.ANIMATION_IDLE,
+					classes.ANIMATION_STOPPED);
 				marqueeInnerElementClassList.add(classes.ANIMATION_RUNNING);
 				marqueeElementClassList.remove(classes.ANIMATION_IDLE, classes.ANIMATION_STOPPED);
 				marqueeElementClassList.add(classes.ANIMATION_RUNNING);
@@ -641,7 +669,8 @@
 				}
 
 				self._state = states.IDLE;
-				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING, classes.ANIMATION_STOPPED);
+				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING,
+					classes.ANIMATION_STOPPED);
 				marqueeInnerElementClassList.add(classes.ANIMATION_IDLE);
 				if (ellipsisEffect === ellipsisEffect.ELLIPSIS) {
 					marqueeElementClassList.add(classes.MARQUEE_ELLIPSIS);
