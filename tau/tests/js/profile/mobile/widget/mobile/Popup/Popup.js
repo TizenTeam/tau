@@ -16,16 +16,54 @@
 			setup: initHTML
 		});
 
-		test("constructor", 1, function (assert) {
-			var element = document.getElementById("popup1");
+		test("_build", 6, function (assert) {
 
-			assert.ok(element.classList.contains("ui-popup"), "Popup has ui-popup class");
+			var element = document.getElementById("popup1"),
+				element2 = document.getElementById("popup2"),
+				widget = new Popup(),
+				widget2;
+
+			widget._build(element);
+
+			assert.ok(element.classList.contains("ui-popup-activity"),
+				"classes swap between divs is working fine");
+			assert.ok(element.classList.contains("ui-popup-activity-small"),
+				"classes swap between divs is working fine");
+			assert.ok(!element.querySelector(
+				".ui-popup-content").classList.contains("ui-popup-activity"),
+				"classes swap between divs is working fine");
+			assert.ok(!element.querySelector(
+				".ui-popup-content").classList.contains("ui-popup-activity-small"),
+				"classes swap between divs is working fine");
+
+			equal(document.body.lastChild, element, "popup has been properly appended to the" +
+				" document body");
+
+			widget.close();
+
+			helpers.stub(ns.widget.core.ContextPopup.prototype, "_build", function () {
+				assert.ok(true, "core Popup module build method called");
+			});
+			widget2 = new Popup();
+			helpers.stub(widget2._ui, "content", {
+				classList: {
+					contains: function () {
+						return false;
+					}
+				}
+			});
+			//check if method build from core Popup is called inside build method
+			//from mobile Popup
+			widget2._build(element2);
+
+			helpers.restoreStub(widget2._ui, "content");
+			helpers.restoreStub(ns.widget.core.ContextPopup.prototype, "_build");
 		});
 
 
 		test("_show", 5, function (assert) {
 			var widget = new Popup(),
-				element = document.getElementById('popup1');
+				element = document.getElementById("popup1");
 
 			widget.element = element;
 			widget.options.positionTo = "";

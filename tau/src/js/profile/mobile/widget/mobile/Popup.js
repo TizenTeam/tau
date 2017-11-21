@@ -590,7 +590,6 @@
 				if (element.parentNode !== page) {
 					page.appendChild(element);
 				}
-
 				element = CorePopupPrototype._build.call(self, element);
 				popupContentClassList = self._ui.content.classList;
 
@@ -609,9 +608,10 @@
 					}
 
 					DOMTokenListPrototype.remove.apply(popupContentClassList, classListToSwap);
-					DOMTokenListPrototype.add.apply(elementClassList, classListToSwap);
+					for (i = 0; i < classListToSwap.length; i++) {
+						elementClassList.add(classListToSwap[i]);
+					}
 				}
-
 				return element;
 			};
 
