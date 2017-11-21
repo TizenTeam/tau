@@ -285,9 +285,9 @@
 
 				// update position by snapSize
 				if (direction === "CW") {
-					moveToPosition = scrollPosition - (snapSize || 50);
+					moveToPosition -= snapSize || 50;
 				} else {
-					moveToPosition = scrollPosition + (snapSize || 50);
+					moveToPosition += snapSize || 50;
 				}
 				if (snapSize) {
 					moveToPosition = snapSize * round(moveToPosition / snapSize);
