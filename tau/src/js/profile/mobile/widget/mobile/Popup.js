@@ -582,6 +582,7 @@
 				var page = utilSelector.getClosestByClass(element, "ui-page") || document.body,
 					elementClassList = element.classList,
 					self = this,
+					i,
 					popupContentClassList,
 					DOMTokenListPrototype = DOMTokenList.prototype,
 					classListToSwap;
@@ -593,20 +594,20 @@
 				element = CorePopupPrototype._build.call(self, element);
 				popupContentClassList = self._ui.content.classList;
 
-
-				//this is for backwards compatibility when
+				//This is for backwards compatibility when
 				//.ui-popup-activity class was in div with class
 				//.ui-popup-content, now .ui-popup-activity class
-				// should be placed in most outer Popup div with class .ui-popup
+				// should be placed in most outer Popup div that has class .ui-popup
 				if (popupContentClassList.contains("ui-popup-activity")) {
 
 					classListToSwap = [];
 
-					popupContentClassList.forEach(function (className) {
-						if (className.indexOf("ui-popup-activity") !== -1) {
-							classListToSwap.push(className);
+					for (i = 0; i < popupContentClassList.length; i++) {
+						if (popupContentClassList[i].indexOf("ui-popup-activity") !== -1) {
+							classListToSwap.push(popupContentClassList[i]);
 						}
-					});
+					}
+
 					DOMTokenListPrototype.remove.apply(popupContentClassList, classListToSwap);
 					DOMTokenListPrototype.add.apply(elementClassList, classListToSwap);
 				}
