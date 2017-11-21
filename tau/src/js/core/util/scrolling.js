@@ -229,7 +229,7 @@
 					} else {
 						// touch move was slow
 						if (snapSize) {
-							moveToPosition = snapSize * round((scrollPosition + lastScrollPosition) / snapSize);
+							moveToPosition = snapSize * round(scrollPosition / snapSize);
 							requestAnimationFrame(moveTo);
 						}
 						isTouch = false;
