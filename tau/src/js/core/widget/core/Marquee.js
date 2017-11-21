@@ -369,16 +369,14 @@
 			};
 
 			function setEllipsisEffectStyle(self, ellipsisEffectOption, hasEllipsisText) {
-				var marqueeElement = self.element;
+				var elementClassList = self.element.classList;
 
 				switch (ellipsisEffectOption) {
 					case ellipsisEffect.GRADIENT:
-						if (hasEllipsisText) {
-							marqueeElement.classList.add(classes.MARQUEE_GRADIENT);
-						}
+						elementClassList.toggle(classes.MARQUEE_GRADIENT, hasEllipsisText);
 						break;
 					case ellipsisEffect.ELLIPSIS:
-						marqueeElement.classList.add(classes.MARQUEE_ELLIPSIS);
+						elementClassList.add(classes.MARQUEE_ELLIPSIS);
 						break;
 					default :
 						break;
@@ -433,6 +431,7 @@
 					domUtil.getCSSProperty(element, "padding-right", null, "float") <
 					self._ui.marqueeInnerElement.scrollWidth;
 
+				setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
 				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
 					setEllipsisEffectStyle(self, self.options.ellipsisEffect,
 						self._hasEllipsisText);
