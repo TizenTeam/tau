@@ -62,7 +62,8 @@
 			"../../../../profile/mobile/widget/mobile/Popup",
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/event/gesture",
+			"../../../../core/event/gesture/Pinch",
+			"../../../../core/event/gesture/Instance",
 			"../../../../core/util/DOM",
 			"../../../../core/util/selectors",
 			"../mobile"

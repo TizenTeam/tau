@@ -109,7 +109,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/util/DOM",
+			"../../../../core/util/DOM/manipulation",
 			"../../../../core/util/object",
 			"../../../../core/util/selectors",
 			"../../../../core/widget/core/Button",

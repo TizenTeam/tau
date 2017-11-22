@@ -513,6 +513,7 @@
 			"../../../../core/util/DOM",
 			"../../../../core/widget/core/ContextPopup",
 			"../../../../core/widget/core/Listview",
+			"../../../../core/widget/core/Button",
 			"../mobile"
 		],
 		function () {

@@ -243,6 +243,7 @@
 			"../../engine",
 			"../../util/selectors",
 			"../../util/DOM/attributes",
+			"../../util/DOM/css",
 			"../BaseWidget",
 			"../core"
 		],

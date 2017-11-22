@@ -1,14 +1,13 @@
-/*global window, document, test, asyncTest, start */
+/*global window, document, test, asyncTest, start, ns */
 (function (window, document, tau, define, QUnit) {
 	"use strict";
 
 	QUnit.config.reorder = false;
 	QUnit.config.notrycatch = true;
 
-	function runTest(route, helpers) {
+	function runTest(engine, Router, helpers) {
 		"use strict";
-		var engine = tau.engine,
-			router = engine.getRouter();
+		var router = engine.getRouter();
 
 		function initHTML() {
 			return new Promise(function (resolve) {
@@ -17,20 +16,23 @@
 				parent.innerHTML =
 					helpers.loadHTMLFromFile("/base/tests/js/core/router/Router/test-data/sample.html");
 				helpers.loadTAUStyle(document, "wearable", function () {
+					ns.setConfig("pageContainer", parent);
+					ns.setConfig("autoInitializePage", true);
 					resolve();
 				});
 			});
 		}
 
-		module("tau.router.wearable.Router public methods", {
+		module("core/router/Router", {
 			teardown: function () {
 				var baseTag = document.querySelector("base");
 
 				if (baseTag) {
 					baseTag.parentElement.removeChild(baseTag);
 				}
-				tau.engine._clearBindings();
+				engine._clearBindings();
 				router.destroy();
+				ns.setConfig("pageContainer", null);
 			},
 			setup: initHTML
 		});
@@ -81,7 +83,7 @@
 				document.removeEventListener("pageshow", onPageShow, true);
 			};
 
-			tau.set("autoInitializePage", false);
+			ns.setConfig("autoInitializePage", false);
 			router.init();
 			document.addEventListener("pageshow", onPageShow, true);
 			router.open("#firstPage");
@@ -95,7 +97,7 @@
 				document.removeEventListener("pageshow", onPageShow, true);
 			};
 
-			tau.set("autoInitializePage", false);
+			ns.setConfig("autoInitializePage", false);
 			router.init();
 			document.addEventListener("pageshow", onPageShow, true);
 			router.open("#secondPage");
@@ -109,7 +111,7 @@
 				document.removeEventListener("pageshow", onPageShow, true);
 			};
 
-			tau.set("autoInitializePage", false);
+			ns.setConfig("autoInitializePage", false);
 			router.init();
 			document.addEventListener("pageshow", onPageShow, true);
 			router.open("#thirdPage");
@@ -131,7 +133,7 @@
 			 equal(router.container.activePage.id, 'secondPage', 'page "secondPage" was opened after click');
 			 document.removeEventListener('pageshow', onSecondPageShow, true);
 			 };
-			 tau.set('autoInitializePage', true);
+			 ns.setConfig('autoInitializePage', true);
 			 document.addEventListener('pageshow', onFirstPageShow, true);
 			 router.init();
 			 });
@@ -150,7 +152,7 @@
 		// 				router.close();
 		// 			};
 		//
-		// 		tau.set("autoInitializePage", false);
+		// 		ns.setConfig("autoInitializePage", false);
 		// 		router.init();
 		// 		document.addEventListener("pageshow", onPageShow, true);
 		// 		router.open("test-data/externalPage.html")
@@ -195,15 +197,15 @@
 					assert.ok("Page was opened");
 				},
 				onPopupShow = function () {
-					start();
 					assert.ok(document.querySelector(".ui-popup-active"),
 						"router.openPopup(\"#firstPopup\")");
 					document.getElementById("firstPopup").removeEventListener("popupshow", onPopupShow);
+					start();
 				};
 
 			document.addEventListener("pageshow", onPageShow, true);
 			document.getElementById("firstPopup").addEventListener("popupshow", onPopupShow);
-			tau.set("autoInitializePage", true);
+			ns.setConfig("autoInitializePage", true);
 			router.init();
 		});
 
@@ -239,10 +241,10 @@
 					router.getRoute("popup").close();
 				},
 				onPopupHide = function (event) {
-					start();
 					assert.equal(event.target.classList.contains("ui-popup-active"), false,
 						"router.closePopup(\"#firstPopup\")");
 					document.getElementById("firstPopup").removeEventListener("popuphide", onPopupHide);
+					start();
 				};
 
 			document.addEventListener("pageshow", onPageShow, true);
@@ -334,14 +336,14 @@
 	if (typeof define === "function") {
 		define(
 			[
-				"src/js/core/engine"
+				"../../../../../src/js/core/engine"
 			],
 			function (engine) {
 				return runTest.bind(null, engine);
 			}
 			);
 	} else {
-		runTest(tau.router.Router, window.helpers);
+		runTest(ns.engine, ns.router.Router, window.helpers);
 	}
 
 }(window, window.document, window.tau, window.define, window.QUnit)

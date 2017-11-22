@@ -173,10 +173,11 @@
 			"../../../util/DOM/css",
 			"../../../event/vmouse",
 			"../../../event",
+			"../../../event/gesture/Instance",
+			"../../../event/gesture/Drag",
 			"../Scrollview",
 			"../Tab",
-			"../Page",
-			"../../../event"
+			"../Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

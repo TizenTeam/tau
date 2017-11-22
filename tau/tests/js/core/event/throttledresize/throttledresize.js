@@ -33,7 +33,9 @@
 	}
 
 	if (typeof define === "function") {
-		define(runTests);
+		define(function () {
+			return runTests;
+		});
 	} else {
 		runTests(tau.event.throttledresize);
 	}

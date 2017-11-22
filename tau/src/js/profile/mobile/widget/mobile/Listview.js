@@ -109,6 +109,8 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/object",
 			"../../../../core/event",
+			"../../../../core/event/gesture/Instance",
+			"../../../../core/event/gesture/Drag",
 			"../../../../core/engine",
 			"../../../../core/widget/core/Page",
 			"./Popup",

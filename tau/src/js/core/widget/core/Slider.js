@@ -57,7 +57,8 @@
 			"../../util/selectors",
 			"../../util/DOM/css",
 			"../../event",
-			"../../event/gesture",
+			"../../event/gesture/Instance",
+			"../../event/gesture/Drag",
 			"../../router/history",
 			"../core", // fetch namespace
 			"./Page",

@@ -3,11 +3,15 @@
 	var ns = window.ns || window.tau;
 
 	function runTests(PageContainer, helpers) {
-		var qunitFuxturesElement = document.getElementById("qunit-fixture");
+		var qunitFuxturesElement;
 
 		function initHTML() {
 			var HTML = helpers.loadHTMLFromFile("/base/tests/js/core/widget/core/PageContainer/test-data/sample.html"),
-				parent = qunitFuxturesElement || helpers.initFixture();
+				qunitFuxturesElement,
+				parent;
+
+			qunitFuxturesElement = document.getElementById("qunit-fixture");
+			parent = qunitFuxturesElement || helpers.initFixture();
 
 			parent.innerHTML = HTML;
 		}

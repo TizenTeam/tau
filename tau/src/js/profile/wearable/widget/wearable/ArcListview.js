@@ -31,6 +31,7 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/util/array",
+			"../../../../core/util/easing",
 			"../../../../core/util/selectors",
 			"../../../../core/widget/core/Listview",
 			"../../../../core/widget/core/Page",
