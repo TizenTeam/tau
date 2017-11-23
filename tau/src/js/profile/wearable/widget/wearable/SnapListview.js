@@ -265,14 +265,24 @@
 				return listItem.element.style.display !== "none";
 			}
 
+			function getScrollPosition(scrollableParentElement) {
+				var contentElement = scrollableParentElement.querySelector(".ui-content"),
+					marginTop = 0;
+
+				if (contentElement) {
+					marginTop = parseInt(window.getComputedStyle(contentElement).marginTop, 10);
+				}
+
+				return -scrollableParentElement.firstElementChild.getBoundingClientRect().top + marginTop;
+			}
+
 			function setSelection(self) {
 				var ui = self._ui,
 					listItems = self._listItems,
 					scrollableParent = ui.scrollableParent,
 					scrollableParentHeight = scrollableParent.height || ui.page.offsetHeight,
 					scrollableParentElement = scrollableParent.element || ui.page,
-					scrollCenter = -scrollableParentElement.firstElementChild
-						.getBoundingClientRect().top + scrollableParentHeight / 2,
+					scrollCenter = getScrollPosition(scrollableParentElement) + scrollableParentHeight / 2,
 					listItemLength = listItems.length,
 					tempListItem,
 					tempListItemCoord,
@@ -323,7 +333,7 @@
 					scrollableParentElement = self._ui.scrollableParent.element || self._ui.page;
 
 				if (animateCallback) {
-					scrollPosition = -scrollableParentElement.firstElementChild.getBoundingClientRect().top;
+					scrollPosition = getScrollPosition(scrollableParentElement);
 					utilArray.forEach(self._listItems, function (item) {
 						item.animate(scrollPosition, animateCallback);
 					});
@@ -443,7 +453,7 @@
 
 				// init items on each element
 				utilArray.forEach(listview.querySelectorAll(options.selector), function (element, index) {
-					listItems.push(new SnapListview.ListItem(element, visibleOffset, scroller));
+					listItems.push(new SnapListview.ListItem(element, visibleOffset));
 					// searching existing selected element
 					if (element.classList.contains(classes.SNAP_LISTVIEW_SELECTED)) {
 						self._selectedIndex = index;

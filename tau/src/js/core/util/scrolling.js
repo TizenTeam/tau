@@ -426,18 +426,14 @@
 					// detect direction
 					direction = (setDirection === "x") ? 1 : 0;
 
-					if (element.children.length > 1) {
-						// we are creating a container to position transform
-						childElement = document.createElement("div");
-						// ... and appending all children to it
-						while (element.firstElementChild) {
-							childElement.appendChild(element.firstElementChild);
-						}
-
-						element.appendChild(childElement);
-					} else {
-						childElement = element;
+					// we are creating a container to position transform
+					childElement = document.createElement("div");
+					// ... and appending all children to it
+					while (element.firstElementChild) {
+						childElement.appendChild(element.firstElementChild);
 					}
+
+					element.appendChild(childElement);
 
 					// setting scrolling element
 					scrollingElement = element;
