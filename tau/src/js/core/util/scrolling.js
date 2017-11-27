@@ -278,7 +278,7 @@
 
 			/**
 			 * Handler for rotary event
-			 * @param event
+			 * @param {Event} event
 			 */
 			function rotary(event) {
 				var direction = event.detail && event.detail.direction;
