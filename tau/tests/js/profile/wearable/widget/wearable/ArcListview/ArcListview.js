@@ -466,13 +466,16 @@
 
 			assert.equal(element.classList.contains("ui-arc-listview"), true, "class ui-arc-listview is added ");
 
-			ns.engine.instanceWidget(element2, "SnapListview");
+			helpers.stub(ns.engine, "getBinding", function () {
+				return true;
+			});
 
 			ArclistWidget._build(element2);
 
 			assert.equal(element2.classList.contains("ui-arc-listview"), false, "class ui-arc-listview is added ");
 
 			helpers.restoreStub(ns, "warn");
+			helpers.restoreStub(ns.engine, "getBinding");
 		});
 
 		QUnit.test("getSelectedIndex", function (assert) {
