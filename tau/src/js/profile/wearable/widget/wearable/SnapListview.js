@@ -178,8 +178,7 @@
 				},
 
 				// time threshold for detect scroll end
-				SCROLL_END_TIME_THRESHOLD = 0,
-				SCROLL_MARGIN = 80;
+				SCROLL_END_TIME_THRESHOLD = 0;
 
 			SnapListview.classes = classes;
 			SnapListview.animationTimer = null;
@@ -413,7 +412,8 @@
 					ui = self._ui,
 					scroller,
 					visibleOffset,
-					elementHeight = listview.firstElementChild.getBoundingClientRect().height;
+					elementHeight = listview.firstElementChild.getBoundingClientRect().height,
+					scrollMargin;
 
 				// finding page  and scroller
 				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || document.body;
@@ -423,8 +423,12 @@
 					if (!scrolling.isElement(scroller)) {
 						scrolling.enable(scroller, "y");
 					}
+
+					scrollMargin = listview.getBoundingClientRect().top -
+						scroller.getBoundingClientRect().top - elementHeight / 2;
+
 					scrolling.setMaxScroll(scroller.firstElementChild.getBoundingClientRect()
-						.height + SCROLL_MARGIN);
+						.height + scrollMargin);
 					scrolling.setSnapSize(elementHeight);
 					scroller.classList.add(classes.SNAP_CONTAINER);
 					ui.scrollableParent.element = scroller;
