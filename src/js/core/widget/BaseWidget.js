@@ -196,7 +196,7 @@
 				objectUtils = util.object,
 				Set = util.Set,
 				BaseWidget = function () {
-					this.state = "created";
+					this.flowState = "created";
 					return this;
 				},
 				getNSData = domUtils.getNSData,
@@ -307,7 +307,7 @@
 				 * @member ns.widget.BaseWidget
 				 */
 
-				self.state = "configuring";
+				self.flowState = "configuring";
 
 				self.options = self.options || {};
 				/**
@@ -329,7 +329,7 @@
 
 				objectUtils.fastMerge(self.options, options);
 
-				self.state = "configured";
+				self.flowState = "configured";
 			};
 
 			/**
@@ -402,7 +402,7 @@
 
 				eventUtils.trigger(element, self.widgetEventPrefix + "beforecreate");
 
-				self.state = "building";
+				self.flowState = "building";
 
 				id = element.id;
 				if (id) {
@@ -426,7 +426,7 @@
 				element.setAttribute(engineDataTau.built, dataBuilt);
 				element.setAttribute(engineDataTau.name, dataName);
 
-				self.state = "built";
+				self.flowState = "built";
 				return node;
 			};
 
@@ -453,7 +453,7 @@
 
 				self.id = element.id;
 
-				self.state = "initiating";
+				self.flowState = "initiating";
 
 				if (typeof self._init === TYPE_FUNCTION) {
 					self._init(element);
@@ -464,7 +464,7 @@
 				} else {
 					self.enable();
 				}
-				self.state = "initiated";
+				self.flowState = "initiated";
 				return self;
 			};
 
@@ -625,7 +625,7 @@
 				element = element || self.element;
 
 				// the widget is in during destroy process
-				self.state = "destroying";
+				self.flowState = "destroying";
 
 				if (typeof self._destroy === TYPE_FUNCTION) {
 					self._destroy(element);
@@ -637,7 +637,7 @@
 					engine.removeBinding(element, self.name);
 				}
 				// the widget was destroyed
-				self.state = "destroyed";
+				self.flowState = "destroyed";
 			};
 
 			/**

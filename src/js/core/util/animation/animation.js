@@ -22,7 +22,8 @@
 
 					self._object = object;
 					self._animate = {
-						chain: []
+						chain: [],
+						chainIndex: 0
 					};
 					self._animateConfig = null;
 				},
@@ -144,10 +145,14 @@
 			prototype._initAnimate = function () {
 				var self = this,
 					animateConfig = [],
-					options = self._animate.chain.shift();
+					options = self._animate.chain[self._animate.chainIndex++];
 
-				options.forEach(eachOption.bind(null, self._config, animateConfig));
-				self._animateConfig = animateConfig;
+				if (options) {
+					options.forEach(eachOption.bind(null, self._config, animateConfig));
+					self._animateConfig = animateConfig;
+				} else {
+					self._animateConfig = null;
+				}
 			};
 
 			function animateLoopCallback(self, copiedArgs) {
@@ -232,7 +237,7 @@
 			// setting callback function
 				callback = self._animate.callback || callback;
 
-				if (self._animate.chain.length) {
+				if (self._animate.chainIndex < self._animate.chain.length) {
 				// if we have many animations in chain that we set callback
 				// to start next animation from chain after finish current
 				// animation
@@ -250,7 +255,9 @@
 			prototype.stop = function () {
 				var self = this;
 
-			// reset current animation config
+			// reset index of animations chain
+				self._animate.chainIndex = 0;
+				// reset current animation config
 				self._animateConfig = null;
 			// clear timeout
 				self._animationTimeout = null;
@@ -336,7 +343,9 @@
 							requestAnimationFrame(self._animationTimeout);
 						}
 					} else {
-					// animation is finished
+					// Animation state can be change to "stopped"
+						self.stop();
+						// animation is finished
 						if (callback) {
 							callback();
 						}

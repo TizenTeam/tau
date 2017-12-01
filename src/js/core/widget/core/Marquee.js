@@ -50,7 +50,7 @@
 			"../../engine",
 			"../../event",
 			"../../util/object",
-			"../../util/DOM",
+			"../../util/animation/animation",
 			"../BaseWidget",
 			"../core"
 		],
@@ -66,26 +66,14 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * Alias for class ns.event
-				 * @property {ns.event} event
-				 * @member ns.widget.core.Marquee
-				 * @private
-				 */
-				utilEvent = ns.event,
-				/**
 				 * Alias for class ns.util.object
 				 * @property {Object} objectUtils
 				 * @member ns.widget.core.Marquee
 				 * @private
 				 */
 				objectUtils = ns.util.object,
-				/**
-				 * Alias for class ns.util.DOM
-				 * @property {Object} domUtil
-				 * @member ns.widget.core.Marquee
-				 * @private
-				 */
-				domUtil = ns.util.DOM,
+
+				Animation = ns.util.Animate,
 
 				states = {
 					RUNNING: "running",
@@ -94,15 +82,7 @@
 				},
 
 				Marquee = function () {
-					this._ui = {};
-					this._ui.marqueeInnerElement = null;
-					this._ui.styleSheelElement = null;
-
-					this._state = states.STOPPED;
-					this._hasEllipsisText = false;
-
 					this.options = objectUtils.copy(Marquee.defaults);
-
 					// event callbacks
 					this._callbacks = {};
 				},
@@ -136,10 +116,6 @@
 					ANIMATION_IDLE: CLASSES_PREFIX + "-anim-idle"
 				},
 
-				selector = {
-					MARQUEE_CONTENT: "." + CLASSES_PREFIX + "-content"
-				},
-
 				/**
 				 * Dictionary for marquee style
 				 */
@@ -156,19 +132,23 @@
 					NONE: "none"
 				},
 
+				round100 = function (value) {
+					return Math.round(value * 100) / 100;
+				},
+
 				/**
 				 * Options for widget
 				 * @property {Object} options
-				 * @property {string|"slide"|"scroll"|"alternate"} [options.marqueeStyle="slide"]
-				 * Sets the default style for the marquee
+				 * @property {string|"slide"|"scroll"|"alternate"} [options.marqueeStyle="slide"] Sets the
+				 * default style for the marquee
 				 * @property {number} [options.speed=60] Sets the speed(px/sec) for the marquee
-				 * @property {number|"infinite"} [options.iteration=1] Sets the iteration count
-				 * number for marquee
+				 * @property {number|"infinite"} [options.iteration=1] Sets the iteration count number for
+				 * marquee
 				 * @property {number} [options.delay=2000] Sets the delay(ms) for marquee
 				 * @property {"linear"|"ease"|"ease-in"|"ease-out"|"cubic-bezier(n,n,n,n)"}
 				 * [options.timingFunction="linear"] Sets the timing function for marquee
-				 * @property {"gradient"|"ellipsis"|"none"} [options.ellipsisEffect="gradient"] Sets
-				 * the end-effect(gradient) of marquee
+				 * @property {"gradient"|"ellipsis"|"none"} [options.ellipsisEffect="gradient"] Sets the
+				 * end-effect(gradient) of marquee
 				 * @property {boolean} [options.autoRun=true] Sets the status of autoRun
 				 * @member ns.widget.core.Marquee
 				 * @static
@@ -177,220 +157,129 @@
 					marqueeStyle: style.SLIDE,
 					speed: 60,
 					iteration: 1,
+					currentIteration: 1,
 					delay: 0,
 					timingFunction: "linear",
 					ellipsisEffect: ellipsisEffect.GRADIENT,
 					runOnlyOnEllipsisText: true,
+					animation: states.STOPPED,
 					autoRun: true
+				},
+				GRADIENTS = {
+					LEFT: "-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
+					" rgba(255, 255, 255, 1) 100%)",
+					BOTH: "-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1)" +
+					" 15%, rgba(255, 255, 255, 1) 85%, transparent 100%",
+					RIGHT: "-webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255," +
+					" 255, 255, 1) 85%, transparent 100%)"
 				};
 
 			Marquee.classes = classes;
 			Marquee.defaults = defaults;
 
-			/* Marquee AnimationEnd callback */
-			function marqueeEndHandler(self) {
-				self.reset();
-			}
+			prototype._calculateTranslateFunctions = {
+				scroll: function (self, state, diff, from, current) {
+					var value = from + state * diff,
+						returnValue;
 
-			function getAnimationDuration(self, speed) {
-				return self._ui.marqueeInnerElement.scrollWidth / speed;
-			}
-
-			function setMarqueeKeyFrame(self, marqueeStyle) {
-				var marqueeInnerElement = self._ui.marqueeInnerElement,
-					marqueeContainer = self.element,
-					containerWidth = marqueeContainer.offsetWidth,
-					textWidth = marqueeInnerElement.scrollWidth,
-					styleElement = self._ui.styleSheelElement || document.createElement("style"),
-					keyFrameName = marqueeStyle + "-" + self.id,
-					customKeyFrame,
-					customKeyFrameWithOutWebkitPrefix,
-					returnTimeFrame;
-
-				switch (marqueeStyle) {
-					case style.SLIDE:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
-							"0% { transform: translate(0, 0);}" +
-							"95%, 100% { transform: translate(-" + (textWidth - containerWidth) +
-								"px, 0);} }";
-						break;
-					case style.SCROLL:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
-							"0% { transform: translate(0, 0);}" +
-							"95%, 100% { transform: translate(-100%, 0);} }";
-						break;
-					case style.ALTERNATE:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
-							"0% { transform: translate(0, 0);}" +
-							"50% { transform: translate(-" + (textWidth - containerWidth) +
-								"px, 0);}" +
-							"100% { transform: translate(0, 0);} }";
-						break;
-					case style.ENDTOEND:
-						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) *
-							100, 10);
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
-							"0% { transform: translate(0, 0);}" +
-							returnTimeFrame + "% { transform: translate(-100%, 0); opacity: 1}" +
-							(returnTimeFrame + 1) + "% { transform: translate(-100%, 0);" +
-								" opacity: 0}" +
-							(returnTimeFrame + 2) + "% { transform: translate(" + containerWidth +
-								"px, 0); opacity: 0; }" +
-							(returnTimeFrame + 3) + "% { transform: translate(" + containerWidth +
-								"px, 0); opacity: 1; }" +
-							"100% { transform: translate(0, 0);} }";
-						break;
-					default:
-						customKeyFrame = null;
-						break;
-				}
-
-				if (customKeyFrame) {
-					if (!styleElement.parentElement) {
-						marqueeContainer.appendChild(styleElement);
+					returnValue = "translateX(-" + round100(value) + "px)";
+					if (current === returnValue) {
+						return null;
 					}
-					styleElement.sheet.insertRule(customKeyFrame, 0);
-					customKeyFrameWithOutWebkitPrefix = customKeyFrame.replace(/-webkit-/g, "");
-					styleElement.sheet.insertRule(customKeyFrameWithOutWebkitPrefix, 0);
+					return returnValue;
+				},
+				slide: function (self, state, diff, from, current) {
+					var stateDOM = self._stateDOM,
+						containerWidth = stateDOM.offsetWidth,
+						textWidth = stateDOM.children[0].offsetWidth,
+						value,
+						returnValue;
 
-					self._ui.styleSheelElement = styleElement;
-				}
-
-				return keyFrameName;
-			}
-
-			function setMarqueeGradientKeyFrame(self, marqueeStyle) {
-				var marqueeInnerElement = self._ui.marqueeInnerElement,
-					marqueeContainer = self.element,
-					containerWidth = marqueeContainer.offsetWidth,
-					textWidth = marqueeInnerElement.scrollWidth,
-					styleElement = self._ui.styleSheelElement || document.createElement("style"),
-					keyFrameName = "gradient-" + self.id,
-					customKeyFrame,
-					customKeyFrameWithOutWebkitPrefix,
-					returnTimeFrame;
-
-				switch (marqueeStyle) {
-					case style.SLIDE:
-					case style.SCROLL:
-					case style.ALTERNATE:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
-							"0% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" transparent 0," +
-							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
-							" transparent 100%)}" +
-							"100% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" transparent 0," +
-							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
-							" transparent 100%)} }";
-						break;
-					case style.ENDTOEND:
-						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100,
-							10);
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
-							"0% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" rgba(255, 255, 255, 1) 0," +
-							" rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
-							"1% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" transparent 0," +
-							" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%," +
-							" transparent 100%)}" +
-							returnTimeFrame + "% { -webkit-mask-image:" +
-							" -webkit-linear-gradient(left," +
-							" transparent 0, rgba(255, 255, 255, 1) 15%," +
-							" rgba(255, 255, 255, 1) 85%," +
-							" transparent 100%)}" +
-							(returnTimeFrame + 1) + "% { -webkit-mask-image:" +
-							" -webkit-linear-gradient(left," +
-							" rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%," +
-							" transparent 100%)}" +
-							"100% { -webkit-mask-image: -webkit-linear-gradient(left," +
-							" rgba(255, 255, 255, 1) 0," +
-							" rgba(255, 255, 255, 1) 85%, transparent 100%) } }";
-						break;
-					default:
-						customKeyFrame = null;
-						break;
-				}
-				if (customKeyFrame) {
-					if (!styleElement.parentElement) {
-						marqueeContainer.appendChild(styleElement);
+					value = state * (textWidth - containerWidth);
+					returnValue = "translateX(-" + round100(value) + "px)";
+					if (current === returnValue) {
+						return null;
 					}
-					styleElement.sheet.insertRule(customKeyFrame, 0);
-					customKeyFrameWithOutWebkitPrefix = customKeyFrame.replace(/-webkit-keyframes/g,
-						"keyframes");
-					styleElement.sheet.insertRule(customKeyFrameWithOutWebkitPrefix, 0);
+					return returnValue;
+				},
+				alternate: function (self, state, diff, from, current) {
+					var stateDOM = self._stateDOM,
+						containerWidth = stateDOM.offsetWidth,
+						textWidth = stateDOM.children[0].offsetWidth,
+						value = from + state * diff,
+						returnValue;
 
-					self._ui.styleSheelElement = styleElement;
-				}
+					if (value > textWidth / 2) {
+						value = textWidth - (value - textWidth / 2) * 2;
+					} else {
+						value *= 2;
+					}
+					value = value / textWidth * (textWidth - containerWidth);
+					returnValue = "translateX(-" + round100(value) + "px)";
+					if (current === returnValue) {
+						return null;
+					}
+					return returnValue;
+				},
+				endToEnd: function (self, state, diff, from, current) {
+					var stateDOM = self._stateDOM,
+						textWidth = stateDOM.children[0].offsetWidth,
+						containerWidth = stateDOM.offsetWidth,
+						value,
+						returnValue;
 
-				return keyFrameName;
-			}
-
-			prototype._setAnimationStyle = function (options) {
-				var self = this,
-					speed = parseInt(options.speed, 10),
-					marqueeInnerElement = self._ui.marqueeInnerElement,
-					duration = getAnimationDuration(self, isNaN(speed) ? defaults.speed : speed),
-					marqueeKeyFrame = setMarqueeKeyFrame(self, options.marqueeStyle),
-					marqueeElement = self.element;
-
-				// warning when option value is not correct.
-				if (isNaN(speed)) {
-					ns.warn("speed value must be number(px/sec)");
-				}
-				if ((options.iteration !== "infinite") && isNaN(options.iteration)) {
-					ns.warn("iteration count must be number or 'infinite'");
-				}
-				if (isNaN(options.delay)) {
-					ns.warn("delay value must be number");
-				}
-
-				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-name", marqueeKeyFrame);
-				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-duration", duration + "s");
-				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-iteration-count",
-					options.iteration);
-				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-timing-function",
-					options.timingFunction);
-				domUtil.setPrefixedStyle(marqueeInnerElement, "animation-delay",
-					options.delay + "ms");
-
-				if (options.ellipsisEffect === ellipsisEffect.GRADIENT) {
-					domUtil.setPrefixedStyle(marqueeElement, "animation-name",
-						setMarqueeGradientKeyFrame(self, options.marqueeStyle));
-					domUtil.setPrefixedStyle(marqueeElement, "animation-duration", duration + "s");
-					domUtil.setPrefixedStyle(marqueeElement, "animation-iteration-count",
-						options.iteration);
-					domUtil.setPrefixedStyle(marqueeElement, "animation-timing-function",
-						options.timingFunction);
-					domUtil.setPrefixedStyle(marqueeElement, "animation-delay",
-						options.delay + "ms");
+					value = state * (textWidth + containerWidth);
+					if (value > textWidth) {
+						value = containerWidth - value + textWidth;
+					} else {
+						value = -value;
+					}
+					returnValue = "translateX(" + round100(value) + "px)";
+					if (current === returnValue) {
+						return null;
+					}
+					return returnValue;
 				}
 			};
 
-			function setEllipsisEffectStyle(self, ellipsisEffectOption, hasEllipsisText) {
-				var elementClassList = self.element.classList;
+			prototype._calculateEndToEndGradient = function (state, diff, from, current) {
+				var self = this,
+					stateDOM = self._stateDOM,
+					textWidth = stateDOM.children[0].offsetWidth,
+					containerWidth = stateDOM.offsetWidth,
+					returnTimeFrame = (textWidth / (textWidth + containerWidth)),
+					returnValue;
 
-				switch (ellipsisEffectOption) {
-					case ellipsisEffect.GRADIENT:
-						elementClassList.toggle(classes.MARQUEE_GRADIENT, hasEllipsisText);
-						break;
-					case ellipsisEffect.ELLIPSIS:
-						elementClassList.add(classes.MARQUEE_ELLIPSIS);
-						break;
-					default :
-						break;
-				}
-
-			}
-
-			function setAutoRunState(self, autoRunOption) {
-				if (autoRunOption) {
-					self.start();
+				if (state > returnTimeFrame) {
+					returnValue = GRADIENTS.RIGHT;
+				} else if (state > 0) {
+					returnValue = GRADIENTS.BOTH;
 				} else {
-					self.stop();
+					returnValue = GRADIENTS.LEFT;
 				}
-			}
+
+				if (current === returnValue) {
+					return null;
+				}
+				return returnValue;
+			};
+
+			prototype._calculateStandardGradient = function (state, diff, from, current) {
+				var returnValue;
+
+				if (state === 1) {
+					returnValue = GRADIENTS.LEFT;
+				} else if (state > 0) {
+					returnValue = GRADIENTS.BOTH;
+				} else {
+					returnValue = GRADIENTS.RIGHT;
+				}
+
+				if (current === returnValue) {
+					return null;
+				}
+				return returnValue;
+			};
 
 			/**
 			 * Build Marquee DOM
@@ -401,17 +290,70 @@
 			 * @member ns.widget.core.Marquee
 			 */
 			prototype._build = function (element) {
-				var marqueeInnerElement = document.createElement("div");
+				var marqueeInnerElement = element.querySelector("." + classes.MARQUEE_CONTENT);
 
-				while (element.hasChildNodes()) {
-					marqueeInnerElement.appendChild(element.removeChild(element.firstChild));
+				if (!marqueeInnerElement) {
+					marqueeInnerElement = document.createElement("div");
+
+					while (element.hasChildNodes()) {
+						marqueeInnerElement.appendChild(element.removeChild(element.firstChild));
+					}
+					marqueeInnerElement.classList.add(classes.MARQUEE_CONTENT);
+					element.appendChild(marqueeInnerElement);
 				}
-				marqueeInnerElement.classList.add(classes.MARQUEE_CONTENT);
-				element.appendChild(marqueeInnerElement);
-
-				this._ui.marqueeInnerElement = marqueeInnerElement;
-
 				return element;
+			};
+
+			prototype._initStateDOMstructure = function () {
+				this._stateDOM = {
+					classList: [],
+					offsetWidth: null,
+					style: {
+						webkitMaskImage: null
+					},
+					children: [
+						{
+							offsetWidth: null,
+							style: {
+								webkitTransform: null
+							}
+						}
+					]
+				};
+			};
+
+			prototype._initAnimation = function () {
+				var self = this,
+					stateDOM = self._stateDOM,
+					stateDOMfirstChild = stateDOM.children[0],
+					width = stateDOMfirstChild.offsetWidth,
+					animation = new Animation({}),
+					state = {
+						hasEllipsisText: (width > 0),
+						animation: [{
+							object: stateDOMfirstChild.style,
+							property: "webkitTransform",
+							calculate: self._calculateTranslateFunctions.scroll.bind(null, self),
+							from: 0,
+							to: width
+						}, {
+							object: stateDOM.style,
+							calculate: self._calculateStandardGradient.bind(self),
+							property: "webkitMaskImage",
+							from: 0,
+							to: 1
+						}],
+						animationConfig: {
+							duration: width / self.options.speed * 1000,
+							timing: Animation.timing.linear
+						}
+					};
+
+				self.state = state;
+
+				animation.tick(self._render.bind(self, true));
+
+				self._animation = animation;
 			};
 
 			/**
@@ -425,97 +367,143 @@
 			prototype._init = function (element) {
 				var self = this;
 
-				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement ||
-					element.querySelector(selector.MARQUEE_CONTENT);
-				self._hasEllipsisText = element.offsetWidth -
-					domUtil.getCSSProperty(element, "padding-right", null, "float") <
-					self._ui.marqueeInnerElement.scrollWidth;
-
-				setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
-				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
-					setEllipsisEffectStyle(self, self.options.ellipsisEffect,
-						self._hasEllipsisText);
-					self._setAnimationStyle(self.options);
-					setAutoRunState(self, self.options.autoRun);
-				}
+				self._initStateDOMstructure();
+				self._initDOMstate();
+				self._initAnimation();
+				self.option(self.options);
 
 				return element;
 			};
 
-			/**
-			 * Bind events
-			 * @method _bindEvents
-			 * @protected
-			 * @member ns.widget.core.Marquee
-			 */
-			prototype._bindEvents = function () {
-				var self = this,
-					marqueeInnerElement = self._ui.marqueeInnerElement,
-					animationEndCallback = marqueeEndHandler.bind(null, self);
-
-				self._callbacks.animationEnd = animationEndCallback;
-
-				utilEvent.one(marqueeInnerElement, "animationend webkitAnimationEnd",
-					animationEndCallback);
+			prototype._setEllipsisEffect = function (element, value) {
+				return this._togglePrefixedClass(this._stateDOM, CLASSES_PREFIX + "-", value);
 			};
 
-			/**
-			 * Refresh styles
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.core.Marquee
-			 */
-			prototype._refresh = function () {
+			prototype._updateDuration = function () {
+				var self = this,
+					stateDOM = self._stateDOM,
+					state = self.state,
+					firstChild = stateDOM.children[0],
+					width = firstChild.offsetWidth,
+					dWidth = width - stateDOM.offsetWidth,
+					animationConfig = state.animationConfig;
+
+				animationConfig.duration = (dWidth > 0) ?
+					width / self.options.speed * 1000 :
+					0;
+				self._animation.set(state.animation, animationConfig);
+			};
+
+			prototype._setSpeed = function (element, value) {
 				var self = this;
 
-				self._resetStyle();
-				self._hasEllipsisText = self.element.offsetWidth <
-					self._ui.marqueeInnerElement.scrollWidth;
-
-				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
-					return;
-				}
-
-				setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
-				self._setAnimationStyle(self.options);
-				setAutoRunState(self, self.options.autoRun);
+				self.options.speed = parseInt(value, 10);
+				self._updateDuration();
+				return false;
 			};
 
-			/**
-			 * Reset style of Marquee elements
-			 * @method _resetStyle
-			 * @protected
-			 * @member ns.widget.core.Marquee
-			 */
-			prototype._resetStyle = function () {
+			function animationIterationCallback(self) {
+				var animation = self._animation,
+					state = self.state;
+
+				if (self.options.currentIteration++ < self.options.iteration) {
+					animation.set(state.animation, state.animationConfig);
+					animation.stop();
+					animation.start();
+				} else {
+					self.options.animation = states.STOPPED;
+					self.trigger(eventType.MARQUEE_END);
+				}
+			}
+
+			prototype._setIteration = function (element, value) {
 				var self = this,
-					marqueeContainer = self.element,
-					marqueeKeyframeStyleSheet = self._ui.styleSheelElement;
+					state = self.state,
+					animationConfig = state.animationConfig;
 
-				if (marqueeContainer.contains(marqueeKeyframeStyleSheet)) {
-					marqueeContainer.removeChild(marqueeKeyframeStyleSheet);
-					self._ui.styleSheelElement = null;
+				if (value === "infinite") {
+					animationConfig.loop = true;
+					animationConfig.callback = function () {
+						self.options.animation = states.STOPPED;
+						self.trigger.bind(self, eventType.MARQUEE_END);
+					};
+				} else {
+					value = parseInt(value, 10);
+					self.options.currentIteration = 1;
+					animationConfig.loop = false;
+					animationConfig.callback = animationIterationCallback.bind(null, self);
 				}
-
-				domUtil.setPrefixedStyle(self._ui.marqueeInnerElement, "animation", "");
-				domUtil.setPrefixedStyle(self.element, "animation", "");
+				self._animation.set(state.animation, animationConfig);
+				self.options.loop = value;
+				return false;
 			};
 
-			/**
-			 * Remove marquee object and Reset DOM structure
-			 * @method _resetDOM
-			 * @protected
-			 * @member ns.widget.core.Marquee
-			 */
-			prototype._resetDOM = function () {
-				var ui = this._ui;
+			prototype._setDelay = function (element, value) {
+				var self = this,
+					state = self.state,
+					animationConfig = state.animationConfig;
 
-				while (ui.marqueeInnerElement.hasChildNodes()) {
-					this.element.appendChild(ui.marqueeInnerElement.removeChild(
-						ui.marqueeInnerElement.firstChild));
+				value = parseInt(value, 10);
+				animationConfig.delay = value;
+				self._animation.set(state.animation, animationConfig);
+				self.options.delay = value;
+				return false;
+			};
+
+			prototype._setTimingFunction = function (element, value) {
+				var self = this,
+					state = self.state,
+					animationConfig = state.animationConfig;
+
+				animationConfig.timing = Animation.timing[value];
+				self._animation.set(state.animation, animationConfig);
+				self.options.timing = value;
+				return false;
+			};
+
+			prototype._setAutoRun = function (element, value) {
+				if (value) {
+					this.start();
 				}
-				this.element.removeChild(ui.marqueeInnerElement);
-				return null;
+				return false;
+			};
+
+			prototype._setAnimation = function (element, value) {
+				var self = this,
+					animation = self._animation,
+					stateDOM = self._stateDOM,
+					options = self.options,
+					width = stateDOM.children[0].offsetWidth - stateDOM.offsetWidth,
+					runOnlyOnEllipsisText = options.runOnlyOnEllipsisText;
+
+				if (value !== options.animation) {
+					if (value === states.RUNNING) {
+						if ((runOnlyOnEllipsisText && width) || (!runOnlyOnEllipsisText)) {
+							self.options.currentIteration = 1;
+							animation.start();
+							self.trigger(eventType.MARQUEE_START);
+						}
+					} else {
+						animation.stop();
+						self.trigger(eventType.MARQUEE_STOPPED);
+					}
+					options.animation = value;
+				}
+				return false;
+			};
+
+			prototype._setMarqueeStyle = function (element, value) {
+				var self = this,
+					animation = self.state.animation;
+
+				animation[0].calculate = self._calculateTranslateFunctions[value].bind(null, self);
+				if (value === "endToEnd") {
+					animation[1].calculate = self._calculateEndToEndGradient.bind(self);
+				} else {
+					animation[1].calculate = self._calculateStandardGradient.bind(self);
+				}
+				self.options.marqueeStyle = value;
+				return false;
 			};
 
 			/**
@@ -527,37 +515,10 @@
 			prototype._destroy = function () {
 				var self = this;
 
-				self._resetStyle();
-				self._resetDOM();
-				self._callbacks = null;
-				self._ui = null;
-
-				return null;
-			};
-
-			/**
-			 * Set Marquee animation status Running
-			 * @method _animationStart
-			 * @member ns.widget.core.Marquee
-			 */
-			prototype._animationStart = function () {
-				var self = this,
-					marqueeElementClassList = self.element.classList,
-					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
-
-				self._state = states.RUNNING;
-
-				if (marqueeElementClassList.contains(classes.MARQUEE_ELLIPSIS)) {
-					marqueeElementClassList.remove(classes.MARQUEE_ELLIPSIS);
-				}
-
-				marqueeInnerElementClassList.remove(classes.ANIMATION_IDLE,
-					classes.ANIMATION_STOPPED);
-				marqueeInnerElementClassList.add(classes.ANIMATION_RUNNING);
-				marqueeElementClassList.remove(classes.ANIMATION_IDLE, classes.ANIMATION_STOPPED);
-				marqueeElementClassList.add(classes.ANIMATION_RUNNING);
-
-				self.trigger(eventType.MARQUEE_START);
+				self.state = null;
+				self._stateDOM = null;
+				self._animation.destroy();
+				self._animation = null;
 			};
 
 			/**
@@ -578,25 +539,7 @@
 			 * @member ns.widget.core.Marquee
 			 */
 			prototype.start = function () {
-				var self = this;
-
-				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
-					return;
-				}
-
-				switch (self._state) {
-					case states.IDLE:
-						self._setAnimationStyle(self.options);
-						self._bindEvents();
-						self._animationStart();
-						break;
-					case states.STOPPED:
-						self._state = states.RUNNING;
-						self._animationStart();
-						break;
-					case states.RUNNING:
-						break;
-				}
+				this.option("animation", "running");
 			};
 
 			/**
@@ -616,25 +559,7 @@
 			 * @member ns.widget.core.Marquee
 			 */
 			prototype.stop = function () {
-				var self = this,
-					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList,
-					marqueeElementClassList = self.element.classList;
-
-				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
-					return;
-				}
-
-				if (self._state === states.IDLE) {
-					return;
-				}
-
-				self._state = states.STOPPED;
-				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING);
-				marqueeInnerElementClassList.add(classes.ANIMATION_STOPPED);
-				marqueeElementClassList.remove(classes.ANIMATION_RUNNING);
-				marqueeElementClassList.add(classes.ANIMATION_STOPPED);
-
-				self.trigger(eventType.MARQUEE_STOPPED);
+				this.option("animation", "stopped");
 			};
 
 			/**
@@ -655,28 +580,11 @@
 			 */
 			prototype.reset = function () {
 				var self = this,
-					ellipsisEffect = self.options.ellipsisEffect,
-					marqueeElementClassList = self.element.classList,
-					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
+					stateDOM = self._stateDOM;
 
-				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
-					return;
-				}
-
-				if (self._state === states.IDLE) {
-					return;
-				}
-
-				self._state = states.IDLE;
-				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING,
-					classes.ANIMATION_STOPPED);
-				marqueeInnerElementClassList.add(classes.ANIMATION_IDLE);
-				if (ellipsisEffect === ellipsisEffect.ELLIPSIS) {
-					marqueeElementClassList.add(classes.MARQUEE_ELLIPSIS);
-				}
-
-				self._resetStyle();
-				self.trigger(eventType.MARQUEE_END);
+				self.stop();
+				stateDOM.style.webkitMaskImage = GRADIENTS.LEFT;
+				stateDOM.children[0].style.webkitTransform = "translateX(0)";
 			};
 
 			Marquee.prototype = prototype;

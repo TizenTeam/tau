@@ -2,8 +2,10 @@
 	position: relative;
 	white-space: nowrap;
 	overflow: hidden;
-	.user-select(none);
+	user-select: none;
 	width: 100%;
+	height: 39 * @unit_base;
+	line-height: 39 * @unit_base;
 	&.ui-marquee-gradient {
 		text-overflow: clip;
 		-webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%);
@@ -18,6 +20,8 @@
 	}
 
 	.ui-marquee-content {
+		left: 0;
+		position: relative;
 		overflow: visible;
 		display: inline-block;
 	}

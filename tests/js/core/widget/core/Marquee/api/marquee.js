@@ -13,12 +13,7 @@
 		// check methods of Marquee widget
 		equal(typeof widget._build, "function", "Method marquee._build exists");
 		equal(typeof widget._init, "function", "Method marquee._build exists");
-		equal(typeof widget._bindEvents, "function", "Method marquee._bindEvents exists");
-		equal(typeof widget._refresh, "function", "Method marquee._refresh exists");
-		equal(typeof widget._resetStyle, "function", "Method marquee._resetStyle exists");
-		equal(typeof widget._resetDOM, "function", "Method marquee._resetDOM exists");
 		equal(typeof widget._destroy, "function", "Method marquee._destroy exists");
-		equal(typeof widget._animationStart, "function", "Method marquee._animationStart exists");
 		equal(typeof widget.start, "function", "Method marquee.start exists");
 		equal(typeof widget.stop, "function", "Method marquee.stop exists");
 		equal(typeof widget.reset, "function", "Method marquee.reset exists");
@@ -42,4 +37,4 @@
 		equal(typeof Marquee.classes.ANIMATION_STOPPED, "string", "Property marquee.classes.ANIMATION_STOPPED exists");
 		equal(typeof Marquee.classes.ANIMATION_IDLE, "string", "Property marquee.classes.ANIMATION_IDLE exists");
 	});
-}(ej));
+}(tau));

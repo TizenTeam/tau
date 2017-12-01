@@ -2,9 +2,15 @@
 (function () {
 	var page = document.getElementById("marqueeTest"),
 		marqueeEl = document.getElementById("marquee"),
+		marqueeEl2 = document.getElementById("marquee2"),
+		marqueeEl3 = document.getElementById("marquee3"),
+		marqueeEl4 = document.getElementById("marquee4"),
 		startBtn = document.getElementById("start"),
 		startFlag = true,
 		marqueeWidget,
+		marqueeWidget2,
+		marqueeWidget3,
+		marqueeWidget4,
 		pageShowHandler,
 		pageHideHandler;
 
@@ -19,47 +25,29 @@
 	}
 
 	/**
-	 * marqueeend event handler
-	 */
-	function marqueeEndHandler() {
-		startFlag = false;
-		startBtn.textContent = "START";
-	}
-
-	/**
-	 * marqueestart event handler
-	 */
-	function marqueeStartHandler() {
-		startFlag = true;
-	}
-
-	/**
-	 * marqueestopped event handler
-	 */
-	function marqueeStoppedHandler() {
-		startFlag = false;
-	}
-
-	/**
 	 * click event handler for start button
 	 */
 	function marqueeStartandStop() {
 		if (startFlag) {
 			startBtn.textContent = "START";
 			marqueeWidget.stop();
+			marqueeWidget2.stop();
+			marqueeWidget3.stop();
+			marqueeWidget4.stop();
 		} else {
 			startBtn.textContent = "STOP";
 			marqueeWidget.start();
+			marqueeWidget2.start();
+			marqueeWidget3.start();
+			marqueeWidget4.start();
 		}
+		startFlag = !startFlag;
 	}
 
 	/**
 	 * Adds event listeners
 	 */
 	function bindEvents() {
-		marqueeEl.addEventListener("marqueeend", marqueeEndHandler);
-		marqueeEl.addEventListener("marqueestart", marqueeStartHandler);
-		marqueeEl.addEventListener("marqueestopped", marqueeStoppedHandler);
 		startBtn.addEventListener("vclick", marqueeStartandStop);
 	}
 
@@ -70,9 +58,6 @@
 		page.removeEventListener("pageshow", pageShowHandler);
 		page.removeEventListener("pagehide", pageHideHandler);
 		startBtn.removeEventListener("vclick", marqueeStartandStop);
-		marqueeEl.removeEventListener("marqueeend", marqueeEndHandler);
-		marqueeEl.removeEventListener("marqueestart", marqueeStartHandler);
-		marqueeEl.removeEventListener("marqueestopped", marqueeStoppedHandler);
 	}
 
 	/**
@@ -81,7 +66,15 @@
 	 */
 	pageShowHandler = function () {
 		bindEvents();
-		marqueeWidget = new tau.widget.Marquee(marqueeEl, {marqueeStyle: "endToEnd"});
+		marqueeWidget = new tau.widget.Marquee(marqueeEl);
+		marqueeWidget2 = new tau.widget.Marquee(marqueeEl2);
+		marqueeWidget3 = new tau.widget.Marquee(marqueeEl3);
+		marqueeWidget4 = new tau.widget.Marquee(marqueeEl4);
+
+		marqueeWidget.start();
+		marqueeWidget2.start();
+		marqueeWidget3.start();
+		marqueeWidget4.start();
 	};
 
 	/**

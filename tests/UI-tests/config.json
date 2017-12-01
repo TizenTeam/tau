@@ -3783,8 +3783,7 @@
 				"name": "ce-31-list-font",
 				"time": 1400,
 				"width": 360,
-				"height": 360,
-				"pass": true
+				"height": 360
 			},
 			{
 				"name": "ce-32-list-font-color",
