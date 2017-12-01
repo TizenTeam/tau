@@ -19,6 +19,8 @@ module.exports = {
 	"w-1220-1": "wearable",
 	"w-0109-3": "wearable",
 	"000011d200006469": "mobile",
+	"0000d81800006200": "mobile",
+	"0000d0b500009200": "mobile",
 	"tw1": "wearable",
 	"TW1": "wearable",
 	"TM1": "mobile",

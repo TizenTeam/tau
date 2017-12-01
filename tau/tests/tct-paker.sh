@@ -6,7 +6,8 @@
 echo "tct-paker.sh"
 
 # Config params
-TEST_FILENAME=tct-webuifw-tests01-3.0.zip
+TIZEN_VERSION=4.0
+TEST_FILENAME=tct-webuifw-tests01-${TIZEN_VERSION}.zip
 TEST_NAME=tct-webuifw-tests
 
 # Aliases
@@ -41,7 +42,7 @@ case "$1" in
 	-n|--number)
 		PACK_ONLY=1
 		PACKAGE_NUMBER=$2
-		TEST_FILENAME=${TEST_NAME}0${PACKAGE_NUMBER}-3.0.zip
+		TEST_FILENAME=${TEST_NAME}0${PACKAGE_NUMBER}-${TIZEN_VERSION}.zip
 		TEST_NAME=${TEST_NAME}0${PACKAGE_NUMBER}
 		echo "Building package ${PACKAGE_NUMBER}   =>    ${TEST_NAME}"
 		;;

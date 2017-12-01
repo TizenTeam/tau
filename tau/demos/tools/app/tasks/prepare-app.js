@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 	"use strict";
 
 
-	function prepareProfile(app, profile, destination, destDir, done) {
+	function prepareProfile(app, profile, destination, appDest, done) {
 		fs.exists(app + path.sep + profile, function (exists) {
 			if (exists) {
 				app += path.sep + profile + path.sep;
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
 				profile: profile,
 				app: app,
 				type: "landscape",
-				"dest-dir": destDir
+				"app-dest": appDest
 			});
 			done();
 		});
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("prepare-app", function () {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app") + path.sep,
-			destDir = grunt.option("dest-dir"),
+			appDest = grunt.option("app-dest"),
 			destination = grunt.option("destination") || path.join("lib", "tau"),
 			done = this.async(),
 			tasks = [];
@@ -40,11 +40,11 @@ module.exports = function (grunt) {
 		grunt.log.error("grunt.option: " + profile);
 		if (profile) {
 			grunt.log.error("prepare Profile: " + profile);
-			tasks.push(prepareProfile.bind(null, app, profile, destination, destDir));
+			tasks.push(prepareProfile.bind(null, app, profile, destination, appDest));
 		} else {
 			grunt.log.error("prepare Profile: " + profile);
-			tasks.push(prepareProfile.bind(null, app, "wearable", destination, destDir));
-			tasks.push(prepareProfile.bind(null, app, "mobile", destination, destDir));
+			tasks.push(prepareProfile.bind(null, app, "wearable", destination, appDest));
+			tasks.push(prepareProfile.bind(null, app, "mobile", destination, appDest));
 		}
 
 		async.series(tasks, function () {

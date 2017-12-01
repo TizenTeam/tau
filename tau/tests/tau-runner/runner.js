@@ -19,6 +19,7 @@ $(document).ready(function () {
 	var tizen = window.tizen,
 		_order = 1,
 		UnitTCRunner,
+		ATTEMPT_REGEXP = /attempt=([0-9]+)/,
 		Runner = function () {
 			var self = this,
 				currentModule,
@@ -65,10 +66,37 @@ $(document).ready(function () {
 
 			$.extend(self, {
 				frame: window.frames["testFrame"],
-				testTimeout: 20 * 1000,
+				testTimeout: 10 * 1000,
+				attemptsLimit: 20,
+				attempt: 0,
 				$frameElem: $("#testFrame"),
 				assertionResultPrefix: "assertion result for test:",
-				onTimeout: QUnit.start,
+				onTimeout: function () {
+					var src = "",
+						urlOperand = "?";
+
+					// runner will try again perform test (several attepts)
+					if (self.attempt > self.attemptsLimit) {
+						QUnit.start();
+					} else {
+						self.attempt++;
+						src = self.$frameElem.attr("src");
+						if (src.match(/\?/)) {
+							urlOperand = "&";
+						}
+
+						if ((src.match(ATTEMPT_REGEXP))) {
+							src.replace(ATTEMPT_REGEXP, function () {
+								return "attempt=" + self.attempt;
+							});
+						} else {
+							src += urlOperand + "attempt=" + self.attempt;
+						}
+
+						self.$frameElem.one("load", self.onFrameLoad);
+						self.$frameElem.attr("src", src);
+					}
+				},
 
 				onFrameLoad: function () {
 					// establish a timeout for a given suite in case of async tests hanging
@@ -130,7 +158,6 @@ $(document).ready(function () {
 					//}
 				},
 				onTestDone: function (result) {
-
 					currentTest.time = (new Date()).getTime() - currentTest.start.getTime();  // ms
 					currentTest.total = result.total;
 					currentTest.passed = result.passed;
@@ -157,6 +184,7 @@ $(document).ready(function () {
 
 					// make sure we don't time out the tests
 					clearTimeout(self.testTimer);
+					self.attempt = 0;
 
 					// TODO decipher actual cause of multiple test results firing twice
 					// clear the done call to prevent early completion of other test cases

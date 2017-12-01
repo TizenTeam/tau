@@ -118,14 +118,14 @@ module.exports = function (grunt) {
 		});
 	}
 
-	function prepareWGT(dir, appId, profile, done, destDir) {
-		destDir = destDir || "";
+	function prepareWGT(dir, appId, profile, done, appDest) {
+		appDest = appDest || "";
 
 		exec("tools/tizen-sdk/bin/web-build " + dir + " -e .gitignore .build* .settings .sdk_delta.info *.wgt .idea", function () {
 			exec("mkdir " + dir + ".buildResult", function () {
 				exec("cp " + dir + ".project " + dir + ".buildResult/", function () {
 					exec("tools/tizen-sdk/bin/web-signing " + dir + ".buildResult -n -p Developer:tools/profiles.xml", function () {
-						exec("tools/tizen-sdk/bin/web-packaging -n -o " + path.join(destDir, appId) + ".wgt " + dir + "/.buildResult/", function () {
+						exec("tools/tizen-sdk/bin/web-packaging -n -o " + path.join(appDest, appId) + ".wgt " + dir + "/.buildResult/", function () {
 							done();
 						});
 					});
@@ -134,7 +134,7 @@ module.exports = function (grunt) {
 		});
 	}
 
-	function build(dir, profile, done, destDir) {
+	function build(dir, profile, done, appDest) {
 		fs.exists(dir + "/config.xml", function (exists) {
 			if (exists) {
 				fs.readFile(dir + "/config.xml", function (err, data) {
@@ -152,7 +152,7 @@ module.exports = function (grunt) {
 						appId = result.widget["tizen:application"][0].$.id;
 
 						fs.unlink(appId + ".wgt", function () {
-							prepareWGT(dir, appId, profile, done, destDir);
+							prepareWGT(dir, appId, profile, done, appDest);
 						});
 					});
 				});
@@ -293,6 +293,7 @@ module.exports = function (grunt) {
 			app = options.app || "MediaQuriesUtilDemo",
 			src = options["src"],
 			dest = options["dest"],
+			appDest = options["app-dest"],
 			done = this.async();
 
 		if (src.substr(-1) !== "/") {
@@ -329,6 +330,7 @@ module.exports = function (grunt) {
 			], getDeviceList.bind(null, profile,
 				function (devices, count) {
 					var device = null;
+
 					if (count) {
 						device = devices[profile][0];
 
@@ -342,7 +344,7 @@ module.exports = function (grunt) {
 											grunt.log.error("Error on building");
 										}
 										run(device, app, tauDebug, done);
-									});
+									}, appDest);
 								} else {
 									grunt.log.ok("Device " + device.name + " not match to type " + type + " (" + JSON.stringify(info) + ")");
 								}
@@ -355,7 +357,7 @@ module.exports = function (grunt) {
 									grunt.log.error("Error on building");
 								}
 								run(device, app, tauDebug, done);
-							});
+							}, appDest);
 						}
 					} else {
 						done();

@@ -4,7 +4,9 @@
  * TAU TCT package automatic making module.
  */
 var shell = require("shelljs"),
-	path = require("path");
+	path = require("path"),
+	TIZEN_VERSION = "4.0",
+	TCT_MANAGER_NAME = "tizen_web_" + TIZEN_VERSION;
 
 module.exports = function (grunt) {
 	var DOWNLOAD_PATH = path.join(process.env.HOME, process.env.DOWNLOADS || "Downloads"),
@@ -163,7 +165,7 @@ module.exports = function (grunt) {
 					force: true
 				},
 				src: [
-					"/opt/tct/tizen_web_3.0/packages/wearable/tcttautest*.zip"
+					"/opt/tct/" + TCT_MANAGER_NAME + "/packages/wearable/tcttautest*.zip"
 				]
 			},
 			"tct-mobile-packages": {
@@ -171,7 +173,7 @@ module.exports = function (grunt) {
 					force: true
 				},
 				src: [
-					"/opt/tct/tizen_web_3.0/packages/mobile/tcttautest*.zip"
+					"/opt/tct/" + TCT_MANAGER_NAME + "/packages/mobile/tcttautest*.zip"
 				]
 			},
 			legacy: {
@@ -272,9 +274,10 @@ module.exports = function (grunt) {
 			len = xmls.length,
 			i;
 
+
 		for (i = 1; i <= len; i++) {
 			shell.exec("cd demos && grunt prepare-app --app=../tests/tct-packages/" + i + "/tau-runner/" +
-				" --tizen-3-0=true --profile=" + profile + " --no-run=true --dest-dir=../tests/tct-packages/" + i + "/ && cd ..");
+				" --tizen-3-0=true --profile=" + profile + " --no-run=true --app-dest=../tests/tct-packages/" + i + "/ && cd ..");
 		}
 	});
 
@@ -290,12 +293,16 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("tctUpdatePackagesInfo", "tct packaging", function (profile) {
 		// create tct test plan
-		shell.exec("/opt/tools/shell/tct-plan-generator -o /opt/tct/tizen_web_3.0/packages/pkg_infos/" + profile + "_pkg_info.xml --tizen-version tizen_web_3.0 -m '*.zip' --profile " + profile);
+		shell.exec("/opt/tools/shell/tct-plan-generator " +
+			"-o /opt/tct/" + TCT_MANAGER_NAME +
+			"/packages/pkg_infos/" + profile + "_pkg_info.xml " +
+			"--tizen-version " + TCT_MANAGER_NAME +
+			" -m '*.zip' --profile " + profile);
 	});
 
 	grunt.registerTask("copyTctPackagesToTctMgr", "tct packaging", function (profile) {
 		// create tct test plan
-		shell.exec("cp tests/tct-package/*.zip /opt/tct/tizen_web_3.0/packages/" + profile);
+		shell.exec("cp tests/tct-package/*.zip /opt/tct/" + TCT_MANAGER_NAME + "/packages/" + profile);
 	});
 
 	grunt.registerTask("exit", "finish work", function () {
