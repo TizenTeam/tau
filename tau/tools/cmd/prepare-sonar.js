@@ -21,13 +21,13 @@ if (mode === "gerrit") {
 cmd.chain(
 	function (cb) {
 		fs.readFile("tau/report/test/karma/coverage/lcov/lcov.info", "UTF-8", function (err, data) {
-			var lines = data.split("\n");
+			var lines;
 
 			if (err) {
 				throw err;
 			}
 
-			lines = lines.map(function (line) {
+			lines = data.split("\n").map(function (line) {
 				return line.replace(/SF:\/.*\/tau\/src\/js/, "SF:tau/src/js");
 			}).join("\n");
 			fs.writeFile("tau/report/test/karma/coverage/lcov/lcov.info", lines, function (err) {
