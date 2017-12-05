@@ -29,6 +29,7 @@
 	define(
 		[
 			"./selectors",
+			"../util",
 			"../event"
 		],
 		function () {
@@ -205,7 +206,7 @@
 					// inform that animation of button's activation was ended
 					_activeAnimationFinished: false,
 					//cache function
-					_requestAnimationFrame: ns.util.requestAnimationFrame
+					_requestAnimationFrame: ns.util.windowRequestAnimationFrame
 				},
 
 				// cache function
@@ -340,12 +341,12 @@
 						anchorHighlight._buttonTarget = detectBtnElement(anchorHighlight._target);
 						anchorHighlight._target = detectHighlightTarget(anchorHighlight._target);
 						if (!anchorHighlight._didScroll) {
-							anchorHighlight.liTarget = anchorHighlight._detectLiElement(anchorHighlight._target);
-							if (anchorHighlight.liTarget) {
-								anchorHighlight.liTarget.classList.add(classes.ACTIVE_LI);
-								eventUtil.trigger(anchorHighlight.liTarget, events.ACTIVE_LI, {});
+							anchorHighlight._liTarget = anchorHighlight._detectLiElement(anchorHighlight._target);
+							if (anchorHighlight._liTarget) {
+								anchorHighlight._liTarget.classList.add(classes.ACTIVE_LI);
+								eventUtil.trigger(anchorHighlight._liTarget, events.ACTIVE_LI, {});
 							}
-							anchorHighlight.liTarget = null;
+							anchorHighlight._liTarget = null;
 							if (anchorHighlight._buttonTarget) {
 								btnTargetClassList = anchorHighlight._buttonTarget.classList;
 								btnTargetClassList.remove(classes.ACTIVE_BTN);

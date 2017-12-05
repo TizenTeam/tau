@@ -39,27 +39,91 @@
 			//>>excludeEnd("tauBuildExclude");
 			var currentFrame = null,
 				util = ns.util || {},
-				slice = [].slice;
+				// frames callbacks which should be run in next request animation frame
+				waitingFrames = [],
+				slice = [].slice,
+				// inform that loop was added to request animation frame callback
+				loopWork = false;
 
+			/**
+			 * Function which is use as workaround when any type of request animation frame not exists
+			 * @param {Function} callback
+			 * @method _requestAnimationFrameOnSetTimeout
+			 * @static
+			 * @member ns.util
+			 * @protected
+			 */
 			util._requestAnimationFrameOnSetTimeout = function (callback) {
 				currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 			};
 
+			/**
+			 * Function which support every request animation frame.
+			 * @method _loop
+			 * @protected
+			 * @static
+			 * @member ns.util
+			 */
+			util._loop = function () {
+				var loopWaitingFrames = slice.call(waitingFrames),
+					currentFrameFunction = loopWaitingFrames.shift(),
+					loopTime = performance.now();
+
+				waitingFrames = [];
+
+				while (currentFrameFunction) {
+					currentFrameFunction();
+					if (performance.now() - loopTime < 15) {
+						currentFrameFunction = loopWaitingFrames.shift();
+					} else {
+						currentFrameFunction = null;
+					}
+				}
+				if (loopWaitingFrames.length || waitingFrames.length) {
+					waitingFrames.unshift.apply(waitingFrames, loopWaitingFrames);
+					util.windowRequestAnimationFrame(util._loop);
+				} else {
+					loopWork = false;
+				}
+			};
+
+			/**
+			 * Find browser prefixed request animation frame function.
+			 * @method _getRequestAnimationFrame
+			 * @protected
+			 * @static
+			 * @member ns.util
+			 */
 			util._getRequestAnimationFrame = function () {
 				return (window.requestAnimationFrame ||
-				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame ||
-				window.oRequestAnimationFrame ||
-				window.msRequestAnimationFrame ||
-				util._requestAnimationFrameOnSetTimeout).bind(window);
+					window.webkitRequestAnimationFrame ||
+					window.mozRequestAnimationFrame ||
+					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame ||
+					util._requestAnimationFrameOnSetTimeout).bind(window);
 			};
+
 			/**
-			 * requestAnimationFrame function
+			 * Original requestAnimationFrame from object window.
+			 * @method windowRequestAnimationFrame
+			 * @static
+			 * @member ns.util
+			 */
+			util.windowRequestAnimationFrame = util._getRequestAnimationFrame();
+
+			/**
+			 * Special requestAnimationFrame function which add functions to queue of callbacks
 			 * @method requestAnimationFrame
 			 * @static
 			 * @member ns.util
 			 */
-			util.requestAnimationFrame = util._getRequestAnimationFrame();
+			util.requestAnimationFrame = function (callback) {
+				waitingFrames.push(callback);
+				if (!loopWork) {
+					util.windowRequestAnimationFrame(util._loop);
+					loopWork = true;
+				}
+			};
 
 			util._cancelAnimationFrameOnSetTimeout = function () {
 				// propably wont work if there is any more than 1
@@ -69,11 +133,11 @@
 
 			util._getCancelAnimationFrame = function () {
 				return (window.cancelAnimationFrame ||
-				window.webkitCancelAnimationFrame ||
-				window.mozCancelAnimationFrame ||
-				window.oCancelAnimationFrame ||
-				window.msCancelAnimationFrame ||
-				util._cancelAnimationFrameOnSetTimeout).bind(window);
+					window.webkitCancelAnimationFrame ||
+					window.mozCancelAnimationFrame ||
+					window.oCancelAnimationFrame ||
+					window.msCancelAnimationFrame ||
+					util._cancelAnimationFrameOnSetTimeout).bind(window);
 			};
 
 			util.cancelAnimationFrame = util._getCancelAnimationFrame();
@@ -232,7 +296,7 @@
 			 */
 			util.importEvaluateAndAppendElement = function (element, container) {
 				var externalScriptsQueue =
-							util._createScriptsSync(util._removeExternalScripts(element), element),
+						util._createScriptsSync(util._removeExternalScripts(element), element),
 					newNode = document.importNode(element, true);
 
 				container.appendChild(newNode); // append and eval inline

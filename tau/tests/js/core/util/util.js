@@ -1,6 +1,7 @@
 /*global window, ns, tau, define, module, test, equal, notStrictEqual, initFixture, ok*/
 (function (window, document) {
 	"use strict";
+
 	function runTests(util, helpers) {
 
 		window.ns = window.ns || window.tau;
@@ -560,6 +561,65 @@
 			helpers.restoreStub(util, "path");
 		});
 
+		test("_loop/requestAnimationFrame", 10, function (assert) {
+			var windowRequestAnimationFrameCount = 0;
+
+			helpers.stub(util, "windowRequestAnimationFrame", function (callback) {
+				windowRequestAnimationFrameCount++;
+				assert.equal(typeof callback, "function", "first argument is function");
+			});
+
+			util.requestAnimationFrame(function () {
+				assert.ok(true, "b");
+			});
+
+			util.requestAnimationFrame(function () {
+				var startTime = performance.now();
+
+				while (performance.now() - startTime < 20) {
+					true;
+				}
+				assert.ok(true, "a");
+			});
+
+			util.requestAnimationFrame(function () {
+				assert.ok(true, "b");
+			});
+
+
+			assert.equal(windowRequestAnimationFrameCount, 1, "windowRequestAnimationFrame was called" +
+				" only once");
+
+			util._loop();
+
+			assert.equal(windowRequestAnimationFrameCount, 2, "windowRequestAnimationFrame was called" +
+				" twice");
+
+			util._loop();
+
+			assert.equal(windowRequestAnimationFrameCount, 2, "windowRequestAnimationFrame was called" +
+				" twice");
+
+			util.requestAnimationFrame(function () {
+				assert.ok(true, "b");
+			});
+
+			assert.equal(windowRequestAnimationFrameCount, 3, "windowRequestAnimationFrame was called" +
+				" three times");
+
+			// cleanup mocks
+			helpers.restoreStub(util, "windowRequestAnimationFrame");
+		});
+
+		test("isNumber", 7, function (assert) {
+			assert.equal(util.isNumber(3), true, "");
+			assert.equal(util.isNumber(false), false, "");
+			assert.equal(util.isNumber(3.0), true, "");
+			assert.equal(util.isNumber("3"), true, "");
+			assert.equal(util.isNumber("3.45px"), true, "");
+			assert.equal(util.isNumber(NaN), false, "");
+			assert.equal(util.isNumber(Infinity), false, "");
+		});
 	}
 
 	if (typeof define === "function") {

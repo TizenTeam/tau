@@ -394,8 +394,12 @@ window.DOMTokenList.prototype.remove = function () {
 	}
 
 	function Promise(fn) {
-		if (typeof this !== 'object') throw new TypeError('Promises must be constructed via new');
-		if (typeof fn !== 'function') throw new TypeError('not a function');
+		if (typeof this !== "object") {
+			throw new TypeError("Promises must be constructed via new");
+		}
+		if (typeof fn !== "function") {
+			throw new TypeError("not a function");
+		}
 		this._state = 0;
 		this._handled = false;
 		this._value = undefined;
@@ -415,11 +419,13 @@ window.DOMTokenList.prototype.remove = function () {
 		self._handled = true;
 		Promise._immediateFn(function () {
 			var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+
 			if (cb === null) {
 				(self._state === 1 ? resolve : reject)(deferred.promise, self._value);
 				return;
 			}
 			var ret;
+
 			try {
 				ret = cb(self._value);
 			} catch (e) {
@@ -433,15 +439,18 @@ window.DOMTokenList.prototype.remove = function () {
 	function resolve(self, newValue) {
 		try {
 			// Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
-			if (newValue === self) throw new TypeError('A promise cannot be resolved with itself.');
-			if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
+			if (newValue === self) {
+				throw new TypeError("A promise cannot be resolved with itself.");
+			}
+			if (newValue && (typeof newValue === "object" || typeof newValue === "function")) {
 				var then = newValue.then;
+
 				if (newValue instanceof Promise) {
 					self._state = 3;
 					self._value = newValue;
 					finale(self);
 					return;
-				} else if (typeof then === 'function') {
+				} else if (typeof then === "function") {
 					doResolve(bind(then, newValue), self);
 					return;
 				}
@@ -462,7 +471,7 @@ window.DOMTokenList.prototype.remove = function () {
 
 	function finale(self) {
 		if (self._state === 2 && self._deferreds.length === 0) {
-			Promise._immediateFn(function() {
+			Promise._immediateFn(function () {
 				if (!self._handled) {
 					Promise._unhandledRejectionFn(self._value);
 				}
@@ -476,8 +485,8 @@ window.DOMTokenList.prototype.remove = function () {
 	}
 
 	function Handler(onFulfilled, onRejected, promise) {
-		this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
-		this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+		this.onFulfilled = typeof onFulfilled === "function" ? onFulfilled : null;
+		this.onRejected = typeof onRejected === "function" ? onRejected : null;
 		this.promise = promise;
 	}
 
@@ -489,24 +498,31 @@ window.DOMTokenList.prototype.remove = function () {
 	 */
 	function doResolve(fn, self) {
 		var done = false;
+
 		try {
 			fn(function (value) {
-				if (done) return;
+				if (done) {
+					return;
+				}
 				done = true;
 				resolve(self, value);
 			}, function (reason) {
-				if (done) return;
+				if (done) {
+					return;
+				}
 				done = true;
 				reject(self, reason);
 			});
 		} catch (ex) {
-			if (done) return;
+			if (done) {
+				return;
+			}
 			done = true;
 			reject(self, ex);
 		}
 	}
 
-	Promise.prototype['catch'] = function (onRejected) {
+	Promise.prototype["catch"] = function (onRejected) {
 		return this.then(null, onRejected);
 	};
 
@@ -521,14 +537,17 @@ window.DOMTokenList.prototype.remove = function () {
 		var args = Array.prototype.slice.call(arr);
 
 		return new Promise(function (resolve, reject) {
-			if (args.length === 0) return resolve([]);
+			if (args.length === 0) {
+				return resolve([]);
+			}
 			var remaining = args.length;
 
 			function res(i, val) {
 				try {
-					if (val && (typeof val === 'object' || typeof val === 'function')) {
+					if (val && (typeof val === "object" || typeof val === "function")) {
 						var then = val.then;
-						if (typeof then === 'function') {
+
+						if (typeof then === "function") {
 							then.call(val, function (val) {
 								res(i, val);
 							}, reject);
@@ -551,7 +570,7 @@ window.DOMTokenList.prototype.remove = function () {
 	};
 
 	Promise.resolve = function (value) {
-		if (value && typeof value === 'object' && value.constructor === Promise) {
+		if (value && typeof value === "object" && value.constructor === Promise) {
 			return value;
 		}
 
@@ -575,14 +594,16 @@ window.DOMTokenList.prototype.remove = function () {
 	};
 
 	// Use polyfill for setImmediate for performance gains
-	Promise._immediateFn = (typeof setImmediate === 'function' && function (fn) { setImmediate(fn); }) ||
+	Promise._immediateFn = (typeof setImmediate === "function" && function (fn) {
+		setImmediate(fn);
+	}) ||
 		function (fn) {
 			setTimeoutFunc(fn, 0);
 		};
 
 	Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
-		if (typeof console !== 'undefined' && console) {
-			console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
+		if (typeof console !== "undefined" && console) {
+			console.warn("Possible Unhandled Promise Rejection:", err); // eslint-disable-line no-console
 		}
 	};
 
@@ -604,10 +625,12 @@ window.DOMTokenList.prototype.remove = function () {
 		Promise._unhandledRejectionFn = fn;
 	};
 
-	if (typeof module !== 'undefined' && module.exports) {
+	if (typeof module !== "undefined" && module.exports) {
 		module.exports = Promise;
 	} else if (!root.Promise) {
 		root.Promise = Promise;
 	}
+
+	window.performance = window.performance || Date;
 
 })(this);
