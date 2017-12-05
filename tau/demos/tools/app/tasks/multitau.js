@@ -249,8 +249,8 @@ module.exports = function (grunt) {
 									match = portRegexp.exec(stdout);
 
 								if (debug) {
-									if (device.indexOf(":") > -1) {
-										openDebuger(device, match[1], done);
+									if (device.id.indexOf(":") > -1) {
+										openDebuger(device.id, match[1], done);
 									} else {
 										exec("sdb" + deviceParam + " forward tcp:" + match[1] + " tcp:" + match[1], function () {
 											openDebuger(device, match[1], done);
