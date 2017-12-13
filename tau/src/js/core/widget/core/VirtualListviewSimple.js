@@ -255,8 +255,13 @@
 			};
 
 			prototype._refresh = function () {
-				this._buildList();
-				this.trigger("draw");
+				var self = this;
+
+				self._buildList();
+				if (self._snapListviewWidget) {
+					self._snapListviewWidget.refresh();
+				}
+				self.trigger("draw");
 			};
 
 			prototype.draw = function () {
