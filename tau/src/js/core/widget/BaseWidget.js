@@ -150,9 +150,12 @@
 		[
 			"../engine",
 			"../event",
+			"../util",
 			"../util/object",
 			"../util/string",
 			"../util/DOM/attributes",
+			"../util/DOM/css",
+			"../util/Set",
 			"../widget"
 		],
 		function () {
@@ -191,6 +194,7 @@
 				 * @static
 				 */
 				objectUtils = util.object,
+				Set = util.Set,
 				BaseWidget = function () {
 					return this;
 				},
@@ -205,51 +209,18 @@
 				 */
 				TYPE_FUNCTION = "function",
 				disableClass = "ui-state-disabled",
-				ariaDisabled = "aria-disabled";
+				ariaDisabled = "aria-disabled",
+				__callbacks;
 
 			BaseWidget.classes = {
 				disable: disableClass
 			};
 
-			/**
-			 * Protected method configuring the widget
-			 * @method _configure
-			 * @member ns.widget.BaseWidget
-			 * @protected
-			 * @template
-			 * @ignore
-			 */
-			/**
-			 * Configures widget object from definition.
-			 *
-			 * It calls such methods as #\_getCreateOptions and #\_configure.
-			 * @method configure
-			 * @param {Object} definition
-			 * @param {string} definition.name Name of the widget
-			 * @param {string} definition.selector Selector of the widget
-			 * @param {HTMLElement} element Element of widget
-			 * @param {Object} options Configure options
-			 * @member ns.widget.BaseWidget
-			 * @return {ns.widget.BaseWidget}
-			 * @ignore
-			 */
-			prototype.configure = function (definition, element, options) {
+			prototype._configureDefinition = function (definition) {
 				var self = this,
 					definitionName,
 					definitionNamespace;
-				/**
-				 * Object with options for widget
-				 * @property {Object} [options={}]
-				 * @member ns.widget.BaseWidget
-				 */
 
-				self.options = self.options || {};
-				/**
-				 * Base element of widget
-				 * @property {?HTMLElement} [element=null]
-				 * @member ns.widget.BaseWidget
-				 */
-				self.element = self.element || null;
 				if (definition) {
 					definitionName = definition.name;
 					definitionNamespace = definition.namespace;
@@ -302,6 +273,46 @@
 					 */
 					self.selector = definition.selector;
 				}
+			};
+
+			/**
+			 * Protected method configuring the widget
+			 * @method _configure
+			 * @member ns.widget.BaseWidget
+			 * @protected
+			 * @template
+			 * @ignore
+			 */
+			/**
+			 * Configures widget object from definition.
+			 *
+			 * It calls such methods as #\_getCreateOptions and #\_configure.
+			 * @method configure
+			 * @param {Object} definition
+			 * @param {string} definition.name Name of the widget
+			 * @param {string} definition.selector Selector of the widget
+			 * @param {HTMLElement} element Element of widget
+			 * @param {Object} options Configure options
+			 * @member ns.widget.BaseWidget
+			 * @return {ns.widget.BaseWidget}
+			 * @ignore
+			 */
+			prototype.configure = function (definition, element, options) {
+				var self = this;
+				/**
+				 * Object with options for widget
+				 * @property {Object} [options={}]
+				 * @member ns.widget.BaseWidget
+				 */
+
+				self.options = self.options || {};
+				/**
+				 * Base element of widget
+				 * @property {?HTMLElement} [element=null]
+				 * @member ns.widget.BaseWidget
+				 */
+				self.element = self.element || null;
+				self._configureDefinition(definition);
 
 				if (typeof self._configure === TYPE_FUNCTION) {
 					self._configure(element);
@@ -773,6 +784,23 @@
 				return options;
 			};
 
+			prototype._processOptionObject = function (firstArgument) {
+				var self = this,
+					key,
+					partResult,
+					refresh = false;
+
+				for (key in firstArgument) {
+					if (firstArgument.hasOwnProperty(key)) {
+						partResult = self._oneOption(key, firstArgument[key]);
+						if (key !== undefined && firstArgument[key] !== undefined) {
+							refresh = refresh || partResult;
+						}
+					}
+				}
+				return refresh;
+			};
+
 			/**
 			 * Gets or sets options of the widget.
 			 *
@@ -790,32 +818,23 @@
 			 * @param {string|Object} [name] name of option
 			 * @param {*} [value] value to set
 			 * @member ns.widget.BaseWidget
-			 * @return {*} return value of option or undefined if method is called in setter context
+			 * @return {*} return value of option or null if method is called in setter context
 			 */
 			prototype.option = function (name, value) {
 				var self = this,
 					firstArgument = name,
 					secondArgument = value,
-					key,
-					result,
-					partResult,
+					result = null,
 					refresh = false;
 
 				if (typeof firstArgument === "string") {
 					result = self._oneOption(firstArgument, secondArgument);
-					if (firstArgument !== undefined && secondArgument !== undefined) {
+					if (secondArgument !== undefined) {
 						refresh = result;
-						result = undefined;
+						result = null;
 					}
 				} else if (typeof firstArgument === "object") {
-					for (key in firstArgument) {
-						if (firstArgument.hasOwnProperty(key)) {
-							partResult = self._oneOption(key, firstArgument[key]);
-							if (key !== undefined && firstArgument[key] !== undefined) {
-								refresh = refresh || partResult;
-							}
-						}
-					}
+					refresh = self._processOptionObject(firstArgument);
 				}
 				if (refresh) {
 					self.refresh();
@@ -847,9 +866,9 @@
 				}
 				methodName = "_set" + (field[0].toUpperCase() + field.slice(1));
 				if (typeof self[methodName] === TYPE_FUNCTION) {
-					self[methodName](self.element, value);
+					refresh = self[methodName](self.element, value);
 				} else if (typeof value === "boolean") {
-					self._setBooleanOption(self.element, field, value);
+					refresh = self._setBooleanOption(self.element, field, value);
 				} else {
 					self.options[field] = value;
 					if (self.element) {
@@ -979,6 +998,153 @@
 			 */
 			prototype.off = function (eventName, listener, useCapture) {
 				eventUtils.off(this.element, eventName, listener, useCapture);
+			};
+
+			prototype._framesFlow = function () {
+				var self = this,
+					args = slice.call(arguments),
+					func = args.shift();
+
+				if (typeof func === "function") {
+					func();
+				}
+				if (func !== undefined) {
+					util.requestAnimationFrame(function frameFlowCallback() {
+						self._framesFlow.apply(self, args);
+					});
+				}
+			};
+
+			function callbacksFilter(item) {
+				return !item.toRemove;
+			}
+
+			function callbacksForEach(item) {
+				if (item.object[item.property] === item.value) {
+					util.requestAnimationFrame(item.callback.bind(item.object));
+					item.toRemove = true;
+				}
+			}
+
+			function _controlWaitFor() {
+				__callbacks.forEach(callbacksForEach);
+				__callbacks = __callbacks.filter(callbacksFilter);
+				if (__callbacks.length) {
+					util.requestAnimationFrame(_controlWaitFor);
+				}
+			}
+
+			prototype._waitFor = function (property, value, callback) {
+				var self = this;
+
+				if (self[property] === value) {
+					callback.call(self);
+				} else {
+					__callbacks = __callbacks || [];
+					__callbacks.push({
+						object: self,
+						property: property,
+						value: value,
+						callback: callback
+					});
+				}
+				_controlWaitFor();
+			};
+
+			function readDOMElementStateClassList(element, stateObject) {
+				var classList = stateObject.classList;
+
+				if (classList !== undefined) {
+					if (classList instanceof Set) {
+						classList.clear();
+					} else {
+						classList = new Set();
+						stateObject.classList = classList;
+					}
+					if (element.classList.length) {
+						classList.add.apply(classList, slice.call(element.classList));
+					}
+				}
+			}
+
+			function readDOMElementState(element, stateObject) {
+				readDOMElementStateClassList(element, stateObject);
+				if (stateObject.offsetWidth !== undefined) {
+					stateObject.offsetWidth = element.offsetWidth;
+				}
+				if (stateObject.style !== undefined) {
+					domUtils.extractCSSProperties(element, stateObject.style, null, true);
+				}
+				if (stateObject.children !== undefined) {
+					stateObject.children.forEach(function (child, index) {
+						readDOMElementState(element.children[index], child);
+					});
+				}
+			}
+
+			function render(stateObject, element, isChild) {
+				var recalculate = false;
+
+				if (stateObject.classList !== undefined) {
+					slice.call(element.classList).forEach(function renderRemoveClassList(className) {
+						if (!stateObject.classList.has(className)) {
+							element.classList.remove(className);
+							recalculate = true;
+						}
+					});
+					stateObject.classList.forEach(function renderAddClassList(className) {
+						if (!element.classList.contains(className)) {
+							element.classList.add(className);
+							recalculate = true;
+						}
+					});
+				}
+				if (stateObject.style !== undefined) {
+					Object.keys(stateObject.style).forEach(function renderUpdateStyle(styleName) {
+						element.style[styleName] = stateObject.style[styleName];
+					});
+				}
+				if (stateObject.children !== undefined) {
+					stateObject.children.forEach(function renderChildren(child, index) {
+						render(child, element.children[index], true);
+					});
+				}
+				if (recalculate && !isChild) {
+					util.requestAnimationFrame(readDOMElementState.bind(null, element, stateObject));
+				}
+			}
+
+			prototype._render = function (now) {
+				var self = this,
+					stateDOM = self._stateDOM,
+					element = self.element;
+
+				if (now) {
+					render(stateDOM, element);
+				} else {
+					util.requestAnimationFrame(render.bind(null, stateDOM, element));
+				}
+			};
+
+			prototype._initDOMstate = function () {
+				readDOMElementState(this.element, this._stateDOM);
+			};
+
+			prototype._togglePrefixedClass = function (stateDOM, prefix, name) {
+				var requireRefresh = false,
+					prefixedClassName = prefix + name;
+
+				stateDOM.classList.forEach(function (className) {
+					if (className.indexOf(prefix) === 0 && prefixedClassName !== className) {
+						stateDOM.classList.delete(className);
+						requireRefresh = true;
+					}
+				});
+				if (!stateDOM.classList.has(prefixedClassName)) {
+					stateDOM.classList.add(prefixedClassName);
+					requireRefresh = true;
+				}
+				return requireRefresh;
 			};
 
 			BaseWidget.prototype = prototype;

@@ -183,11 +183,13 @@
 
 		widget = ns.engine.instanceWidget(elem, "BasicWidget");
 
-	equal(typeof widget.option(5), "undefined", "If the first argument isn't string, function returns nothing");
+	equal(widget.option(5), null, "If the first argument isn't string, function returns nothing");
 	equal(widget.option("property"), 1, "Function option with 1 arguments calls _getProperty (if exists) or returns value of given option");
-	equal(typeof widget.option("property", 4), "undefined", "Function option with 2 arguments calls _setProperty (if exists) and returns nothing");
+	equal(widget.option("property", 4), null, "Function option with 2 arguments calls _setProperty" +
+		" (if exists) and returns nothing");
 
-	equal(typeof widget.option("newproperty", 1), "undefined", "Function with 2 arguments calls _setNewproperty (if exists) and returns nothing");
+	equal(widget.option("newproperty", 1), null, "Function with 2 arguments calls _setNewproperty" +
+		" (if exists) and returns nothing");
 	equal(widget.option("newproperty"), 1, "Function with 1 arguments calls _getNewproperty (if exists) and returns value of given property");
 	equal(elem.getAttribute("data-newproperty"), 1, "New attribute is set");
 	});
