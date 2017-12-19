@@ -174,12 +174,6 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				utilDOM = ns.util.DOM,
-				Button = function () {
-					var self = this;
-
-					self.options = {};
-					self._classesPrefix = classes.BTN + "-";
-				},
 				classes = {
 					BTN: "ui-btn",
 					DISABLED: "ui-state-disabled",
@@ -193,6 +187,12 @@
 					BTN_TEXT_DARK: "ui-btn-text-dark",
 					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-",
 					BTN_ICON_MIDDLE: "ui-btn-icon-middle"
+				},
+				Button = function () {
+					var self = this;
+
+					self.options = {};
+					self._classesPrefix = classes.BTN + "-";
 				},
 				buttonStyle = {
 					CIRCLE: "circle",
