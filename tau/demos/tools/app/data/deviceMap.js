@@ -32,5 +32,6 @@ module.exports = {
 	"m-0413-1": "mobile",
 	"SM-R760": "wearable",
 	"SM-R732": "wearable",
-	"emulator-mobile": "mobile"
+	"emulator-mobile": "mobile",
+	"m-1220-1": "mobile"
 };

@@ -28,6 +28,14 @@ module.exports = {
 		{
 			"type": "l-3.0",
 			"device": "emulator-mobile"
+		},
+		{
+			"type": "p-3.0",
+			"device": "m-1220-1"
+		},
+		{
+			"type": "l-3.0",
+			"device": "m-1220-1"
 		}
 	],
 	"wearable": [
