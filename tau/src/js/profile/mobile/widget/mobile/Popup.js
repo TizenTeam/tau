@@ -580,12 +580,40 @@
 			* @member ns.widget.mobile.Popup
 			*/
 			Popup.prototype._build = function (element) {
-				var page = utilSelector.getClosestByClass(element, "ui-page") || document.body;
+				var page = utilSelector.getClosestByClass(element, "ui-page") || document.body,
+					elementClassList = element.classList,
+					self = this,
+					i,
+					popupContentClassList,
+					DOMTokenListPrototype = DOMTokenList.prototype,
+					classListToSwap;
 
 				if (element.parentNode !== page) {
 					page.appendChild(element);
 				}
-				return CorePopupPrototype._build.call(this, element);
+				element = CorePopupPrototype._build.call(self, element);
+				popupContentClassList = self._ui.content.classList;
+
+				//This is for backwards compatibility when
+				//.ui-popup-activity class was in div with class
+				//.ui-popup-content, now .ui-popup-activity class
+				// should be placed in most outer Popup div that has class .ui-popup
+				if (popupContentClassList.contains("ui-popup-activity")) {
+
+					classListToSwap = [];
+
+					for (i = 0; i < popupContentClassList.length; i++) {
+						if (popupContentClassList[i].indexOf("ui-popup-activity") !== -1) {
+							classListToSwap.push(popupContentClassList[i]);
+						}
+					}
+
+					DOMTokenListPrototype.remove.apply(popupContentClassList, classListToSwap);
+					for (i = 0; i < classListToSwap.length; i++) {
+						elementClassList.add(classListToSwap[i]);
+					}
+				}
+				return element;
 			};
 
 			Popup.prototype._setDirectionPriority = function (element, value) {
