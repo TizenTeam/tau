@@ -58,6 +58,15 @@ module.exports = {
 		{
 			"type": "c-3.0-d",
 			"device": "TW1"
+		},
+		{
+			type: "c-3.0",
+			device: "wearable-3.0-circle-x86"
+		},
+		{
+			type: "c-4.0",
+			device: "wearable-4.0-circle-x86"
 		}
+
 	]
 };
