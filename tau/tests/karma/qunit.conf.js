@@ -48,6 +48,7 @@ module.exports = function (config) {
 			{pattern: "tests/js/**/*.html", included: false, served: true, watch: true},
 			{pattern: "src/js/**/*.js", included: false, served: true, watch: true},
 			{pattern: "dist/**/*", included: false, served: true, watch: true},
+			"tests/karma/testPaths.js",
 			"tests/karma/runner.js"
 		],
 
