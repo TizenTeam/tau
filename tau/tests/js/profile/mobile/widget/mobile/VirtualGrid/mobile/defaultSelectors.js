@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("virtualgrid", {
+	module("profile/mobile/widget/mobile/VirtualGrid", {
 		setup: function () {
 			tau.engine.run();
 		},

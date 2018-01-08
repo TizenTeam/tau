@@ -533,7 +533,7 @@
 			 * @private
 			 */
 			function _loadListElementRange(self, element, domBuffer, sizeGetter, loadIndex,
-					indexDirection, elementsToLoad) {
+				indexDirection, elementsToLoad) {
 				var temporaryElement,
 					jump = 0,
 					i;
@@ -586,7 +586,7 @@
 			 * @private
 			 */
 			function _setElementStylePosition(self, dataLength, elementStyle, scrollDir, jump,
-					elementPositionTop, elementPositionLeft) {
+				elementPositionTop, elementPositionLeft) {
 				var scrolledVertically = (scrollDir & 2) === 0,
 					scrolledHorizontally = (scrollDir & 2) === 1,
 					newPosition,
@@ -945,7 +945,9 @@
 					listItem,
 					list = self.element,
 					options = self.options,
-					childElementType = (list.tagName === "UL" || list.tagName === "OL") ? "li" : "div",
+					childElementType = (list.tagName === "UL" ||
+						list.tagName === "OL" ||
+						list.tagName === "TAU-VIRTUALLISTVIEW") ? "li" : "div",
 					numberOfItems = options.bufferSize,
 					documentFragment = self._domBuffer,
 					orientation = options.orientation,

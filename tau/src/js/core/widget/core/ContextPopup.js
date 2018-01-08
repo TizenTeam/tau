@@ -1,6 +1,6 @@
 /*global window, ns, define */
 /*
- * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
  * Licensed under the Flora License, Version 1.1 (the "License");
  * you may not use this file except in compliance with the License.
@@ -585,8 +585,8 @@
 				// check type of popup and correct value for "fixedPositionField" coordinate
 				bestOffsetInfo[direction.fixedPositionField] +=
 					(direction.fixedPositionField === "x" ?
-					(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
-					(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor) / 2 +
+						(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
+						(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor) / 2 +
 					options.distance * direction.fixedPositionFactor;
 
 				// fix min/max position

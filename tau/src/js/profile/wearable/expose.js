@@ -1,4 +1,3 @@
-/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint plusplus: true, nomen: true */
+/*global window, ns, define, ns */
 /**
- * @class tau.navigator
+ * @class tau.expose
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -30,7 +28,7 @@
 			"../../core/util/object",
 			"../../core/widget/core/Page",
 			"../../core/router/route",
-			"../../core/router/history"
+			"../../core/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -46,7 +44,7 @@
 					utilObject = ns.util.object,
 					routePage = router.getRoute("page"),
 					routePopup = router.getRoute("popup"),
-					history = ns.router.history,
+					history = ns.history,
 					back = history.back.bind(router),
 					classes = ns.widget.core.Page.classes,
 					pageActiveClass = classes.uiPageActive;
@@ -127,4 +125,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

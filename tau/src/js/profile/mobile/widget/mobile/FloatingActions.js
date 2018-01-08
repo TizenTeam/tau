@@ -495,6 +495,10 @@
 				}
 			};
 
+			prototype.onAttach = function () {
+				this.refresh();
+			};
+
 			// definition
 			FloatingActions.prototype = prototype;
 			FloatingActions.classes = classes;

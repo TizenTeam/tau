@@ -1462,6 +1462,48 @@
 	- feat(mobile): add example for chain of popups
 	- fix(all): Fixed broken tests in newest phantom version
 
+* Tue Aug 11 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-7
+	- refactor(wearable): modify more options
+	- fix(common): delete package list in spec and delete tau build in makefile
+	- fix(core): change version in web-ui-fw.spec file
+
+* Fri Aug 05 2015 Hyeoncheol Choi <hc7.choi@samsung.com> 0.10.29-6
+	- delete(wearable): delete expandableHeader
+
+* Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-5
+	- feat(etc): License file has been changed in SDK demos
+	- fix(all): License changed to Flora
+	- refactor(wearable): revert changes about patent issue.
+
+* Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-4
+	- fix(wearable): remove transition due to patent issue
+	- feat(wearable): modify selector style
+	- refactor(wearable): disable snap list in rectangular demo
+	- refactor(wearable): remove label in thumbnail list
+	- fix(wearable): fix Selector item index issue
+
+* Thu Jul 23 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-3
+	- refactor(wearable): remove circular index scrollbar (fast scroll)
+
+* Fri Jul 17 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-2
+	- fix(wearable): add enable/disable to Selector
+	- fix(wearable): modify Selector with drawer sample UX
+	- refactor(demo): rename indicator sample from bar to linear
+	- fix(wearable): add animation-fill-mode in page transition
+	- refactor(wearable): add class automatically in section changer
+	- refactor(wearable): add refresh logic in enable method in snap list
+	- refactor(wearable): update color code xml for wc1
+	- fix(wearable): modify snap list animation when using rotary
+	- fix(wearable): modify snap list for using in section changer
+	- fix(wearable): fix page, popup transition animation type
+	- fix(wearable): fix Selector bouncing effect issue
+
+* Mon Jul 13 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-1
+	- fix(mobile2.3.1): add destroy method in slider
+	- fix(wearable): modify base degree of items and indicator
+	- fix(wearable): modify custom indicator sample of Selector
+	- refactor(wearable): modify sensitivity for drag event
+
 * Wed Jul 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29
 	- fix(wearable): fix moreoptions handler width and position(P150625-07282)
 	- feat(wearable): add circular index scrollbar component

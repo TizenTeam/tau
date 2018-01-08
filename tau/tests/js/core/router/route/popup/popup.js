@@ -5,90 +5,90 @@
 	QUnit.config.reorder = false;
 	QUnit.config.notrycatch = true;
 
-	function runTest(route, helpers) {
+	function runTest(route) {
 		//********** test start ********/
 		var originalHistory = null,
-				originalPath = null,
-				originalRouter = null,
-				originalAsyncState = false,
-				historyMock = {
-					backCalled: 0,
-					replaceCalled: 0,
-					lastReplaceParams: {},
-					back: function () {
-						this.backCalled++;
-					},
-					replace: function (options, title, url) {
-						this.lastReplaceParams = {
-							options: options,
-							title: title,
-							url: url
+			originalPath = null,
+			originalRouter = null,
+			originalAsyncState = false,
+			historyMock = {
+				backCalled: 0,
+				replaceCalled: 0,
+				lastReplaceParams: {},
+				back: function () {
+					this.backCalled++;
+				},
+				replace: function (options, title, url) {
+					this.lastReplaceParams = {
+						options: options,
+						title: title,
+						url: url
+					};
+					this.replaceCalled++;
+				},
+				reset: function () {
+					this.backCalled = 0;
+					this.replaceCalled = 0;
+					this.lastReplaceParams = {};
+				}
+			},
+			pathMock = {
+				location: "",
+				getLocationCalled: 0,
+				addHashSearchParamsCalled: 0,
+				lastAddHashSearchParams: {},
+				getLocation: function () {
+					this.getLocationCalled++;
+					return this.location;
+				},
+				addHashSearchParams: function (url, key) {
+					this.lastAddHashSearchParams = {
+						url: url,
+						key: key
+					};
+				},
+				reset: function () {
+					this.location = "";
+					this.getLocationCalled = 0;
+					this.addHashSearchParamsCalled = 0;
+					this.lastAddHashSearchParams = {};
+				},
+				convertUrlToDataUrl: function (url, key, base) {
+					return originalPath.convertUrlToDataUrl(url, key, base);
+				},
+				isPath: function (path) {
+					return originalPath.isPath(path);
+				}
+			},
+			routerMock = {
+				unlockCalled: 0,
+				lockCalled: 0,
+				container: {
+					getActivePage: function () {
+						return {
+							element: document.getElementById("qunit-fixture").querySelector(".ui-page")
 						};
-						this.replaceCalled++;
-					},
-					reset: function () {
-						this.backCalled = 0;
-						this.replaceCalled = 0;
-						this.lastReplaceParams = {};
 					}
 				},
-				pathMock = {
-					location: "",
-					getLocationCalled: 0,
-					addHashSearchParamsCalled: 0,
-					lastAddHashSearchParams: {},
-					getLocation: function () {
-						this.getLocationCalled++;
-						return this.location;
-					},
-					addHashSearchParams: function (url, key) {
-						this.lastAddHashSearchParams = {
-							url: url,
-							key: key
-						};
-					},
-					reset: function () {
-						this.location = "";
-						this.getLocationCalled = 0;
-						this.addHashSearchParamsCalled = 0;
-						this.lastAddHashSearchParams = {};
-					},
-					convertUrlToDataUrl: function (url, key, base) {
-						return originalPath.convertUrlToDataUrl(url, key, base);
-					},
-					isPath: function (path) {
-						return originalPath.isPath(path);
-					}
+				getContainer: function () {
+					return this.container;
 				},
-				routerMock = {
-					unlockCalled: 0,
-					lockCalled: 0,
-					container: {
-						getActivePage: function () {
-							return {
-								element: document.getElementById("qunit-fixture").querySelector(".ui-page")
-							};
-						}
-					},
-					getContainer: function () {
-						return this.container;
-					},
-					unlock: function () {
-						this.unlockCalled++;
-					},
-					lock: function () {
-						this.lockCalled++;
-					},
-					getRoute: function (routeName) {
-						if (routeName === "popup") {
-							return route;
-						}
-						return originalRouter().getRoute(routeName);
-					},
-					close: function () {
-						return originalRouter().close();
+				unlock: function () {
+					this.unlockCalled++;
+				},
+				lock: function () {
+					this.lockCalled++;
+				},
+				getRoute: function (routeName) {
+					if (routeName === "popup") {
+						return route;
 					}
-				};
+					return originalRouter().getRoute(routeName);
+				},
+				close: function () {
+					return originalRouter().close();
+				}
+			};
 
 		function initHTML() {
 			var html = "<div class=\"ui-page\">\
@@ -126,12 +126,12 @@
 				route._history = historyMock;
 				route._path = pathMock;
 
-				originalRouter = tau.engine.getRouter;
-				tau.engine.getRouter = function () {
+				originalRouter = tau.router.getInstance;
+				tau.router.Router.getInstance = function () {
 					return routerMock;
 				};
 				originalAsyncState = !!tau.getConfig("noAsync");
-				tau.setConfig("noAsync", true);		
+				tau.setConfig("noAsync", true);
 
 				initHTML();
 			},
@@ -141,7 +141,7 @@
 				route._history = originalHistory;
 				route._path = originalPath;
 				closePopupInRoute(route);
-				tau.engine.getRouter = originalRouter;
+				tau.router.getInstance = originalRouter;
 				tau.setConfig("noAsync", originalAsyncState);
 				tau.engine._clearBindings();
 			}
@@ -154,7 +154,7 @@
 
 		test("active popup", function (assert) {
 			var popupMock = tau.engine.instanceWidget(document.getElementById("first-popup"), "Popup"),
-					testOpts = {fromHashChange: false, history: true};
+				testOpts = {fromHashChange: false, history: true};
 
 			route.setActive(popupMock);
 			assert.deepEqual(route.getActiveElement().id, popupMock.element.id, "the active popup is mock data");

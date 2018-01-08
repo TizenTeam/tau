@@ -20,7 +20,7 @@
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -91,10 +91,14 @@
 				return result;
 			};
 
-			function getDataName(name) {
-				var namespace = ns.getConfig(NAMESPACE);
+			function getDataName(name, skipData) {
+				var _namespace = ns.getConfig(NAMESPACE),
+					prefix = "";
 
-				return "data-" + (namespace ? namespace + "-" : "") + name;
+				if (!skipData) {
+					prefix = "data-";
+				}
+				return prefix + (_namespace ? _namespace + "-" : "") + name;
 			}
 
 			/**
@@ -132,12 +136,13 @@
 			 * @method getNSData
 			 * @param {HTMLElement} element Base element
 			 * @param {string} name Name of attribute
+			 * @param {boolean} skipData
 			 * @member ns.util.DOM
 			 * @return {?string|boolean}
 			 * @static
 			 */
-			DOM.getNSData = function (element, name) {
-				var value = element.getAttribute(getDataName(name));
+			DOM.getNSData = function (element, name, skipData) {
+				var value = element.getAttribute(getDataName(name, skipData));
 
 				if (value === "true") {
 					return true;
@@ -269,4 +274,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}());

@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("listview", {
+	module("profile/mobile/widget/mobile/Listview", {
 		setup: function () {
 			tau.engine.run();
 		},

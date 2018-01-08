@@ -34,7 +34,6 @@
 <div id="container"><div id="contents"><div class="content">
 <h1>{{title}}</h1>
 
-
 {{{brief}}}
 {{#since}}
 <table class="note">
@@ -48,6 +47,16 @@
 	</tbody>
 </table>
 {{/since}}
+
+{{#extends}}
+	<p>Widget extends: <a href="{{{extendsFile}}}">{{{extends}}}</a></p>
+{{/extends}}
+
+{{#customElementName}}
+	<h3>Custom element</h3>
+	<pre class="prettyprint">&lt;{{{customElementName}}} ...&gt; ... &lt;/{{{customElementName}}}&gt;</pre>
+{{/customElementName}}
+
 <h2>Table of Contents</h2>
 <ol class="toc">
 	{{#toc}}
@@ -74,17 +83,21 @@
 		<tbody>
 		<tr>
 			<th>Option</th>
+			<th>Custom element attribute</th>
 			<th>Type</th>
 			<th>Default value</th>
 			<th>Description</th>
 		</tr>
 		{{#options}}
+			{{#name}}
 			<tr>
+				<td class="option"><span style="font-family: Courier New,Courier,monospace">data-{{name}}</span></td>
 				<td class="option"><span style="font-family: Courier New,Courier,monospace">{{name}}</span></td>
 				<td class="option">{{#types}}{{types}}{{/types}}</td>
 				<td class="option">{{defaultValue}}</td>
 				<td class="option">{{{description}}}</td>
 			</tr>
+			{{/name}}
 		{{/options}}
 		</tbody>
 	</table>
@@ -134,8 +147,9 @@
 	<dl>
 {{#methods}}
 			{{#isPublic}}
-				<dt class="method"><code><b><span class="methodName"
-																   id="method-{{name}}">{{name}}</span></b></code></dt>
+				<dt class="method">
+					<code><b><span class="methodName" id="method-{{name}}">{{name}}</span></b></code>
+				</dt>
 				<dd>
 					<div class="brief">
 						{{{brief}}}

@@ -1,4 +1,4 @@
-/*global ns:false, define:false*/
+/*global define, ns */
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

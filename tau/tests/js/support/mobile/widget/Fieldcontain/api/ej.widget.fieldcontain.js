@@ -1,6 +1,6 @@
 (function (ns) {
 	'use strict';
-	module("profile/mobile/widget/mobile/Fieldcontain");
+	module("support/mobile/widget/Fieldcontain");
 	test("ns.widget.mobile.Fieldcontain - check the existence of objects/functions", function () {
 		var field, Fieldcontain;
 		equal(typeof ns, "object", "ns exists");

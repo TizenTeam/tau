@@ -1,4 +1,4 @@
-module("core/util/deferred");
+module("core/util/globalize");
 
 var globalize = tau.util.globalize;
 

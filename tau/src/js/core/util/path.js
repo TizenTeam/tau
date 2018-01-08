@@ -788,8 +788,8 @@
 						if (urlObject.protocol !== "") {
 							return (urlObject.hash &&
 							(allowEmbeddedOnlyBaseDoc ?
-							urlObject.hrefNoHash === path.documentUrl.hrefNoHash :
-							urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
+								urlObject.hrefNoHash === path.documentUrl.hrefNoHash :
+								urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
 						return (/^#/).test(urlObject.href);
 					}

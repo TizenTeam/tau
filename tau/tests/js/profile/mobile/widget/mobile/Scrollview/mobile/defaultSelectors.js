@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("scrollview", {
+	module("profile/mobile/widget/mobile/Scrollview", {
 		setup: function () {
 			tau.engine.run();
 		},

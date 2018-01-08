@@ -101,7 +101,7 @@
 (function (document, ns) {
 	"use strict";
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 
 
 	define(
@@ -369,7 +369,7 @@
 				"mobile"
 			);
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Progress;
 		}
 	);

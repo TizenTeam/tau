@@ -1,8 +1,8 @@
-/*global module, test, $, ok, equal, tau, window */
-(function () {
+/*global module, test, asyncTest, ok, equal, tau, window */
+(function(ns) {
 	"use strict";
 
-	module("gridview", {
+	module("profile/mobile/widget/mobile/GridView", {
 		setup: function () {
 			tau.engine.run();
 		},

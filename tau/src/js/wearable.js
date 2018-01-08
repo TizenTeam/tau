@@ -26,6 +26,7 @@
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance");
+			//>>excludeStart("tauUI", pragmas.tauUI);
 			// namespace
 			"./core/core",
 			// config
@@ -36,7 +37,7 @@
 			"./core/info",
 			// router
 			"./core/router/Router",
-			"./core/router/history",
+			"./core/history/manager",
 			// routes
 			"./core/router/route/page",
 			"./core/router/route/popup",
@@ -51,6 +52,7 @@
 			"./core/util/date",
 			// widget list
 			// core widgets
+			"./core/widget/customElements",
 			"./core/widget/core/PageContainer",
 			"./core/widget/core/Button",
 			"./core/widget/core/Checkbox",
@@ -109,6 +111,13 @@
 			"./core/event/gesture/Pinch",
 			"./core/event/gesture/LongPress",
 			// Modules to be loaded after
+			//>>excludeEnd("tauUI");
+			//>>excludeStart("tauMVC", pragmas.tauMVC);
+			"./core/util/pathToRegexp",
+			"./core/controller",
+			//>>excludeEnd("tauMVC");
+			"./core/template/html",
+			"./core/info",
 			"./core/init"
 		],
 		function () {

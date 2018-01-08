@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("virtuallistview", {
+	module("profile/mobile/widget/mobile/VirtualListview", {
 		setup: function () {
 			tau.engine.run();
 		},

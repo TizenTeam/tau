@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("dropdownmenu", {
+	module("profile/mobile/widget/mobile/DropdownMenu", {
 		setup: function () {
 			tau.engine.run();
 		},
@@ -10,7 +10,7 @@
 			tau.engine._clearBindings();
 		}
 	});
-	test("DropdownMenu" , function () {
+	test("SelectMenu" , function () {
 		var selectTag = document.getElementById("select2"),
 			eventsCalled = {},
 			id = selectTag.id,

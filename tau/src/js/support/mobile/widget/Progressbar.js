@@ -95,7 +95,7 @@
 (function (document, ns) {
 	"use strict";
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 
 
 	define(
@@ -335,7 +335,7 @@
 				"tizen"
 			);
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.ProgressBar;
 		}
 	);

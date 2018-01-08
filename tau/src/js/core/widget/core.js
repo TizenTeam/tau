@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -24,7 +24,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./core"
+			"../widget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -1,4 +1,3 @@
-/*jslint nomen: true */
 /* global require, module, __dirname */
 /*
  * Generating docs Ej
@@ -57,10 +56,14 @@ function stringLength(string) {
 	return string.length;
 }
 
+function returnTagString(tag) {
+	return tag.string;
+}
+
 module.exports = function (grunt) {
 	"use strict";
 
-	grunt.registerMultiTask("docs-html", "", function () {
+	grunt.registerMultiTask("docs-html", "Generates API docs in SDK format", function () {
 		var done = this.async(),
 			docsStructure = {},
 			profile = this.data.profile,
@@ -206,6 +209,7 @@ module.exports = function (grunt) {
 			shortName = docsStructure.name.split(".").pop();
 			mu.compileAndRender(templateDir + "widget.mustache", {
 				title: shortName,
+				customElementName: shortName !== "BaseWidget" ? "tau-" + shortName.toLowerCase() : null,
 				version: versionString,
 				namespace: docsStructure.name,
 				descriptions: docsStructure.descriptions,
@@ -228,8 +232,11 @@ module.exports = function (grunt) {
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
-				grunt.file.write(newFile + "html/ui_fw_api/" + profile[0].toUpperCase() + profile.substring(1) + "_UIComponents/" + file, string);
+				var fullFilePath = newFile + "html/ui_fw_api/" + profile[0].toUpperCase() + profile.substring(1) + "_UIComponents/" + file
+
+				grunt.file.write(fullFilePath, string);
 				grunt.log.ok("Finished generating file for widget ", file);
+				grunt.verbose.writeln("Saved in: " + fullFilePath);
 				callback();
 			});
 		}
@@ -351,7 +358,8 @@ module.exports = function (grunt) {
 				showInheritedMethods: inheritedMethods.length,
 				properties: docsStructure.properties,
 				showProperties: docsStructure.properties.length,
-				since: docsStructure.since
+				since: docsStructure.since,
+				methodsCount: publicMethodsCount
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
@@ -416,7 +424,6 @@ module.exports = function (grunt) {
 			});
 		}
 
-
 		function createClassIndex(newFile, docsStructure, rows, callback) {
 			var string = "",
 				classDoc = docsStructure;
@@ -445,7 +452,6 @@ module.exports = function (grunt) {
 				callback();
 			});
 		}
-
 
 		function createIndex(newFile, docsStructure, rows, callback) {
 			var string = "",
@@ -573,6 +579,12 @@ module.exports = function (grunt) {
 			object.descriptions = descriptions;
 		}
 
+		function prepareNote(string) {
+			return string.replace(/!!!(.*)!!!/gm, function (match, p1) {
+				return "<div class='note'>" + p1 + "</div>";
+			});
+		}
+
 		function parseDox(file) {
 			var docs,
 				doxFile = file.replace("dist", "tmp/dox"),
@@ -644,6 +656,7 @@ module.exports = function (grunt) {
 					}
 					classObj.shortName = shortName;
 					docsStructure[tag.string] = classObj;
+
 					classObj.authors = block.tags.filter(function (tag) {
 						return tag.type === "author";
 					}).map(function (tag) {
@@ -651,14 +664,10 @@ module.exports = function (grunt) {
 					});
 					classObj.extends = block.tags.filter(function (tag) {
 						return tag.type === "extends";
-					}).map(function (tag) {
-						return tag.string;
-					})[0];
+					}).map(returnTagString)[0];
 					classObj.override = block.tags.filter(function (tag) {
 						return tag.type === "override";
-					}).map(function (tag) {
-						return tag.string;
-					})[0];
+					}).map(returnTagString)[0];
 					descriptionArray = (block.description.summary || "").split("\n");
 					classObj.title = descriptionArray[0].replace(/<.*?>/g, "");
 					classObj.brief = descriptionArray[2] && descriptionArray[2].replace(/<.*?>/g, "") || "";
@@ -668,12 +677,10 @@ module.exports = function (grunt) {
 					classObj.isInternal = !!(block.tags.filter(function (tag) {
 						return tag.type === "internal";
 					})[0]);
+
 					classObj.since = block.tags.filter(function (tag) {
 						return tag.type === "since";
-					}).map(function (tag) {
-						return tag.string;
-					})[0];
-					classObj.deprecated = block.tags.filter(function (tag) {
+					}).map(returnTagString)[0];classObj.deprecated = block.tags.filter(function (tag) {
 						return tag.type === "deprecated";
 					}).map(function (tag) {
 						return tag.string;
@@ -738,12 +745,21 @@ module.exports = function (grunt) {
 						defaultValue,
 						memberOf = block.tags.filter(function (tag) {
 							return tag.type === "member";
-						}).map(function (tag) {
-							return tag.string;
-						})[0],
+						}).map(returnTagString)[0],
 						canBeNull = false;
 
 					classObj = docsStructure[memberOf];
+					property = {};
+					property.isPrivate = !!(block.tags.filter(function (tag) {
+						return tag.type === "private";
+					})[0]);
+					property.isInternal = !!(block.tags.filter(function (tag) {
+						return tag.type === "internal";
+					})[0]);
+					property.isProtected = !!(block.tags.filter(function (tag) {
+						return tag.type === "protected";
+					})[0]);
+					property.isPublic = !(property.isPrivate || property.isProtected || (property.isInternal && (template !== "dld")));
 					if (classObj) {
 						propertiesArray = tag.string.split(" ");
 						type = propertiesArray.shift().replace(/[{}]/g, "").replace(/\|/g, " | ").replace(/^\?/, function replacer() {
@@ -761,8 +777,6 @@ module.exports = function (grunt) {
 							propertiesArray = name.split("=");
 							name = propertiesArray.shift();
 							defaultValue = propertiesArray.shift();
-
-							property = {};
 
 							property.types = type;
 							property.defaultValue = defaultValue;
@@ -795,7 +809,9 @@ module.exports = function (grunt) {
 							}
 						}
 					} else {
-						errorLogger("no memberOf for property " + tag.string + " in \n" + block.code);
+						if (property.isPublic) {
+							grunt.log.error("no memberOf for property ", tag.string);
+						}
 					}
 				});
 				block.tags.filter(function (tag) {
@@ -839,6 +855,7 @@ module.exports = function (grunt) {
 					var classObj,
 						method,
 						inherited,
+						length,
 						name = tag.string,
 						memberOf = block.tags.filter(function (tag) {
 							return tag.type === "member";
@@ -866,7 +883,8 @@ module.exports = function (grunt) {
 							name = tag.name,
 							canBeNull = false,
 							isOptional = false,
-							nameArray;
+							nameArray,
+							desriptionParts;
 
 						tag.types = type.replace(/\|/g, " | ").replace(/^\?/, function replacer() {
 							canBeNull = true;
@@ -881,19 +899,32 @@ module.exports = function (grunt) {
 						});
 						nameArray = tag.name.split("=");
 						tag.name = nameArray.shift();
+						tag.isSubParam = tag.name.indexOf(".") > -1;
 						tag.defaultValue = nameArray.shift();
+						if (/^[^"]*"[^"]*$/.test(tag.defaultValue)) {
+							desriptionParts = tag.description.match(/^([^"]*")] (.*)$/);
+							tag.defaultValue += " " + desriptionParts[1];
+							tag.description = desriptionParts[2];
+						}
 						tag.isOptional = isOptional;
 						tag.canBeNull = canBeNull;
 						return tag;
 					});
 					if (method.params.length) {
-						method.params[method.params.length - 1].isLast = true;
+						length = method.params.length - 1;
+						while (method.params[length].isSubParam && length > 0) {
+							length--;
+						}
+						method.params[length].isLast = true;
 					}
 					method.hasParams = !!method.params.length;
 
 					method.since = block.tags.filter(function (tag) {
 						return tag.type === "since";
 					}).map(function (tag) {
+						if (tag.string === "2.4") {
+							method.new = true;
+						}
 						return tag.string;
 					})[0];
 					method.deprecated = block.tags.filter(function (tag) {
@@ -936,12 +967,13 @@ module.exports = function (grunt) {
 					if (docsStructure.hasOwnProperty(i)) {
 						modules.push(docsStructure[i]);
 						name = docsStructure[i].name;
-						// change ej or ns to tau
+						// change first namespace part to `tau`
 						namespaceArray = name.split(".").slice(1);
 						namespaceArray.unshift("tau");
 						name = namespaceArray.join(".");
 						docsStructure[i].name = name;
 						grunt.log.ok("processing: ", i, name);
+
 						if (name.match(widgetRegExp) &&
 							(name !== "tau.widget" && name !== "tau.widget.mobile" && name !== "tau.widget.wearable" &&
 									name !== "tau.widget.core" && name !== "tau.widget.tv") &&

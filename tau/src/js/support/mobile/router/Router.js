@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -27,17 +27,16 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/engine"
+			"../../../core/router/Router"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var engine = ns.engine,
-				router = engine.getRouter();
+			var router = ns.router.Router.getInstance();
 
 			function defineActivePage(router) {
 				Object.defineProperty(router, "activePage", {
 					get: function () {
-						return router.container.activePage
+						return router.container.activePage;
 					}
 				});
 			}

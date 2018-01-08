@@ -1,4 +1,4 @@
-module("profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar", {
+module("profile/wearable/widget/wearable/IndexScrollbar", {
 	});
 
 	test ( "API ej.widget.wearable.IndexScrollbar" , function () {

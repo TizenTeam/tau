@@ -10,10 +10,10 @@
 		"../../../../../libs/BezierCurve"
 	],
 		function (bezierCurve) {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 			var utils = ns.util,
 				requestAnimationFrame = utils.requestAnimationFrame,
-				/**
+			/**
 				 * Util to change value of object property in given time
 				 * @class Animation
 				 */
@@ -131,10 +131,10 @@
 					option.direction = from < option.to ? 1 : -1;
 				}
 				option.startTime = new Date().getTime() + option.delay;
-				// calculate value change in full time
-				// save last time of recalculate options
+			// calculate value change in full time
+			// save last time of recalculate options
 				option.lastCalculationTime = option.startTime;
-				// set timing function
+			// set timing function
 				option.nextCalculationTime = option.startTime + 16;
 				option.timing = firstDefined(option.timing, config.timing, linear);
 
@@ -172,7 +172,7 @@
 				self.start();
 			}
 
-			/**
+		/**
 			 * Set animate
 			 * @param {Object...} options list of animations configs
 			 * @return {Animate}
@@ -180,7 +180,7 @@
 			prototype.set = function (options) {
 				var self = this,
 					config,
-					// converts arguments to array
+				// converts arguments to array
 					args = [].slice.call(arguments),
 					copiedArgs;
 
@@ -188,54 +188,54 @@
 				config = args.pop();
 
 				if (!Array.isArray(config)) {
-					// if last arguments is object then we use it as global animation config
+				// if last arguments is object then we use it as global animation config
 					self._animate.config = config;
 				} else {
-					// otherwise this is description of one animation loop and back to args array
+				// otherwise this is description of one animation loop and back to args array
 					args.push(config);
 					config = null;
 				}
 
 				self._config = config;
 
-				// copy array to be sure that we have new reference objects
+			// copy array to be sure that we have new reference objects
 				copiedArgs = [].slice.call(args);
 
 				if (config) {
 					if (config.loop) {
-						// when animation is in loop then we create callback on animation and to restart animation
+					// when animation is in loop then we create callback on animation and to restart animation
 						self._animate.callback = animateLoopCallback.bind(null, self, copiedArgs);
 					} else if (config.withRevert) {
 						self._animate.callback = animateRevertCallback.bind(null, self, copiedArgs);
 					} else {
-						// otherwise we use callback from options
+					// otherwise we use callback from options
 						self._animate.callback = options.callback || config.callback;
 					}
 				}
 
-				// cache options in object
+			// cache options in object
 				self._animate.chain = args;
 
 				return self;
 			};
 
-			/**
+		/**
 			 * Start animation
 			 * @param {Function} [callback] function called after finish animation
 			 */
 			prototype.start = function (callback) {
 				var self = this;
 
-				// init animate options
+			// init animate options
 				self._initAnimate();
 
-				// setting callback function
+			// setting callback function
 				callback = self._animate.callback || callback;
 
 				if (self._animate.chain.length) {
-					// if we have many animations in chain that we set callback
-					// to start next animation from chain after finish current
-					// animation
+				// if we have many animations in chain that we set callback
+				// to start next animation from chain after finish current
+				// animation
 					self._animationTimeout = self._calculateAnimate.bind(self, self.start.bind(self, callback));
 				} else {
 					self._animationTimeout = self._calculateAnimate.bind(self, callback);
@@ -244,15 +244,15 @@
 				return self;
 			};
 
-			/**
+		/**
 			 * Stop animations
 			 */
 			prototype.stop = function () {
 				var self = this;
 
-				// reset current animation config
+			// reset current animation config
 				self._animateConfig = null;
-				// clear timeout
+			// clear timeout
 				self._animationTimeout = null;
 				return self;
 			};
@@ -262,11 +262,11 @@
 					current;
 
 				if (option && option.startTime < time) {
-					// if option is not delayed
+				// if option is not delayed
 					timeDiff = time - option.startTime;
 
 					if (timeDiff >= option.duration) {
-						// if current is bigger then end we finish loop and we take next animate from chain
+					// if current is bigger then end we finish loop and we take next animate from chain
 						timeDiff = option.duration;
 						if (option.callback) {
 							option.callback();
@@ -276,31 +276,31 @@
 						option.diff, option.from, option.current);
 					if (current !== null) {
 						option.current = current;
-						// we set next calculation time
+					// we set next calculation time
 						option.propertyObject[option.simpleProperty] = option.current;
-						// inform widget about redraw
+					// inform widget about redraw
 						return 1;
 					}
 					if (timeDiff >= option.duration) {
-						// inform about remove animation config
+					// inform about remove animation config
 						return 2;
 					}
 				}
 				return 0;
 			}
 
-			/**
+		/**
 			 * Method called in loop to calculate current state of animation
 			 * @param {Function} callback
 			 * @private
 			 */
 			prototype._calculateAnimate = function (callback) {
 				var self = this,
-					// current animation config
+				// current animation config
 					animateConfig = self._animateConfig,
-					// number of animations which is not finished
+				// number of animations which is not finished
 					notFinishedAnimationsCount,
-					// flag inform that redraw is necessary
+				// flag inform that redraw is necessary
 					redraw = false,
 					i = 0,
 					length,
@@ -311,12 +311,12 @@
 					notFinishedAnimationsCount = animateConfig.length;
 					length = animateConfig.length;
 
-					// calculating options changed in animation
+				// calculating options changed in animation
 					while (i < length) {
 						calculatedOption = calculateOption(animateConfig[i], time);
 						if (calculatedOption === 2) {
 							notFinishedAnimationsCount--;
-							// remove current config and recalculate loop arguments
+						// remove current config and recalculate loop arguments
 							animateConfig.splice(i, 1);
 							length--;
 							i--;
@@ -326,17 +326,17 @@
 						}
 						i++;
 					}
-					// redraw is necessary
+				// redraw is necessary
 					if (redraw && self._tickFunction) {
 						self._tickFunction(self._object);
 					}
 					if (notFinishedAnimationsCount) {
-						// setting next loop state
+					// setting next loop state
 						if (self._animationTimeout) {
 							requestAnimationFrame(self._animationTimeout);
 						}
 					} else {
-						// animation is finished
+					// animation is finished
 						if (callback) {
 							callback();
 						}
@@ -344,7 +344,7 @@
 				}
 			};
 
-			/**
+		/**
 			 * Set function which will be called after animation change property of object
 			 * @param {Function} tickFunction
 			 * @return {Animation}
@@ -364,7 +364,7 @@
 			};
 
 			utils.Animate = Animate;
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Animate;
 		});
 	//>>excludeEnd("tauBuildExclude");

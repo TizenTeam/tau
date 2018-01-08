@@ -1,4 +1,4 @@
-/*global window, ns, define, Object, Element */
+/*global window, ns, define, Object, Element, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -100,7 +100,7 @@
 						value.__tauHash = value.__tauHash || ns.getUniqueId();
 					}
 					hash = (typeof value) + "-" + (value instanceof Object ?
-							value.__tauHash : value.toString());
+						value.__tauHash : value.toString());
 
 					if (value instanceof Element) {
 						value.setAttribute("data-ns-hash", hash);

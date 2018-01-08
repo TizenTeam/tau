@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("button", {
+	module("profile/mobile/widget/mobile/Button", {
 		setup: function () {
 			tau.engine.run();
 		},
@@ -12,12 +12,15 @@
 	});
 
 	function isButton(element, selector, valid) {
+		var binding = tau.engine.getBinding(element, "Button"),
+			attr = tau.util.DOM.getNSData(element, "tau-bound");
 		if (valid) {
-			ok(!!(tau.engine.getBinding(element, 'Button')), "Button was created by selector: " + selector);
-			equal(element.getAttribute('data-tau-bound'), "Button", "Button widget bound: " + selector);
+			ok(binding, "Button was created by selector: " + selector);
+			equal(binding.element, element, "Proper element bound: " + selector);
+			notEqual(attr.indexOf("Button"), -1, "Button widget bound: " + selector);
 		} else {
-			equal(!!(tau.engine.getBinding(element, 'Button')), false, "Button was created by selector: " + selector);
-			notEqual(element.getAttribute('data-tau-bound'), "Button", "Button widget bound: " + selector);
+			equal(binding, null, "Button was created by selector: " + selector);
+			equal(!!((attr && attr.indexOf("Button") > -1) || attr ), false, "Button widget bound: " + selector);
 		}
 	}
 

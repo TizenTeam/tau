@@ -29,9 +29,9 @@
 		"./Detector"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 
-			/**
+		/**
 			 * Local alias for {@link ns.event.gesture}
 			 * @property {Object}
 			 * @member ns.event.gesture.LongPress
@@ -39,7 +39,7 @@
 			 * @static
 			 */
 			var gesture = ns.event.gesture,
-				/**
+			/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
 				 * @member ns.event.gesture.LongPress
@@ -49,21 +49,21 @@
 				Detector = gesture.Detector,
 
 				LongPress = Detector.plugin.create({
-					/**
+				/**
 					 * Gesture name
 					 * @property {string} [name="longpress"]
 					 * @member ns.event.gesture.LongPress
 					 */
 					name: "longpress",
 
-					/**
+				/**
 					 * Gesture Index
 					 * @property {number} [index=200]
 					 * @member ns.event.gesture.LongPress
 					 */
 					index: 600,
 
-					/**
+				/**
 					 * Default values for longPress gesture
 					 * @property {Object} defaults
 					 * @property {number} [defaults.timeThreshold=400]
@@ -77,21 +77,21 @@
 						preventClick: true
 					},
 
-					/**
+				/**
 					 * IsTriggered
 					 * @property {boolean} [isTriggered=false]
 					 * @member ns.event.gesture.LongPress
 					 */
 					isTriggered: false,
 
-					/**
+				/**
 					 * longPressTimeOutId
 					 * @property {number} [longPressTimeOutId=0]
 					 * @member ns.event.gesture.LongPress
 					 */
 					longPressTimeOutId: 0,
 
-					/**
+				/**
 					 * Handler for longPress gesture
 					 * @method handler
 					 * @param {Event} gestureEvent gesture event
@@ -134,7 +134,7 @@
 
 			gesture.LongPress = LongPress;
 
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return LongPress;
 		}
 	);

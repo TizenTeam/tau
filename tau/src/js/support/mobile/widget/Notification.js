@@ -321,6 +321,9 @@
 					i,
 					l;
 
+				//Set options
+				options.type = element.getAttribute("data-type") || options.type;
+
 				//Wrap it!
 				notifyWrapper = document.createElement(wrapperTag);
 				uiElements.wrapper = notifyWrapper;

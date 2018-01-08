@@ -24,7 +24,7 @@
  * @class ns.widget.mobile.Popup
  * @extends ns.widget.core.BaseWidget
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -34,6 +34,7 @@
 			"../../util/object",
 			"../../util/deferred",
 			"../../util/selectors",
+			"../../router/Router",
 			"../BaseWidget",
 			"../core"
 		],
@@ -81,6 +82,13 @@
 				 * @private
 				 */
 				eventUtils = ns.event,
+				/**
+				 * Alias for Router, loose requirement
+				 * @property {ns.router.Router} Router
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				Router = ns.router && ns.router.Router,
 
 				POPUP_SELECTOR = "[data-role='popup'], .ui-popup",
 
@@ -514,7 +522,7 @@
 				var self = this,
 					activeClass = classes.active,
 					elementClassList = self.element.classList,
-					route = engine.getRouter().getRoute("popup"),
+					route = Router && Router.getInstance().getRoute("popup"),
 					options;
 
 				// NOTE: popup's options object is stored in window.history at the router module,
@@ -524,14 +532,18 @@
 				// set state of popup and add proper class
 				if (active) {
 					// set global variable
-					route.setActive(self, options);
+					if (route) {
+						route.setActive(self, options);
+					}
 					// add proper class
 					elementClassList.add(activeClass);
 					// set state of popup 	358
 					self.state = states.OPENED;
 				} else {
 					// no popup is opened, so set global variable on "null"
-					route.setActive(null, options);
+					if (route) {
+						route.setActive(null, options);
+					}
 					// remove proper class
 					elementClassList.remove(activeClass);
 					// set state of popup
@@ -600,7 +612,7 @@
 
 					newOptions = objectUtils.merge(self.options, options);
 					if (!newOptions.dismissible) {
-						engine.getRouter().lock();
+						ns.router.Router.getInstance().lock();
 					}
 
 
@@ -632,7 +644,7 @@
 				if (self._isActive()) {
 					clearTimeout(self._closeTimeout);
 					if (!newOptions.dismissible) {
-						engine.getRouter().unlock();
+						ns.router.Router.getInstance().unlock();
 					}
 					self._hide(newOptions);
 				}
@@ -784,7 +796,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this,
-					router = engine.getRouter();
+					router = ns.router.Router.getInstance();
 
 				switch (event.type) {
 					case "pagebeforehide":
@@ -833,7 +845,7 @@
 				event.stopPropagation();
 
 				if (options.dismissible) {
-					engine.getRouter().close(null, {rel: "popup"});
+					ns.router.Router.getInstance().close(null, {rel: "popup"});
 				}
 			};
 
@@ -1002,4 +1014,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

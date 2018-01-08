@@ -1,13 +1,11 @@
 /* global test, equal, tau */
 (function (ns) {
-	test("API of CircleProgressBar Widget", function () {
-		var widget,
-			circleProgress;
-
-		equal(typeof ns, "object", "Class tau exists");
-		equal(typeof ns.widget, "object", "Class tau.widget exists");
-		equal(typeof ns.widget.wearable, "object", "Class tau.widget.wearable exists");
-		equal(typeof ns.widget.wearable.CircleProgressBar, "function", "Class tau.widget.wearable.CircleProgressBar exists");
+    module("profile/wearable/widget/wearable/CircleProgressBar/api/circleprogressbar");test("API of CircleProgressBar Widget", function () {
+        var widget, circleProgress;
+        equal(typeof ns, "object", "Class tau exists");
+        equal(typeof ns.widget, "object", "Class tau.widget exists");
+        equal(typeof ns.widget.wearable, "object", "Class tau.widget.wearable exists");
+        equal(typeof ns.widget.wearable.CircleProgressBar, "function", "Class tau.widget.wearable.CircleProgressBar exists");
 
 		widget = ns.engine.instanceWidget(document.getElementById("circleprogress"), "CircleProgressBar");
 		circleProgress = ns.widget.wearable.CircleProgressBar;

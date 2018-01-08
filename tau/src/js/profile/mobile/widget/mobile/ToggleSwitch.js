@@ -144,7 +144,7 @@
 
 				element.selectedIndex = (self._ui.input.checked) ? 1 : 0;
 
-				if (element.nodeName.toLowerCase() === "select") {
+				if (self._type === "select") {
 					events.trigger(element, "change");
 				}
 			}
@@ -191,9 +191,16 @@
 			function buildToggleBasedOnSelectTag(element, divHandler, toggleContainer) {
 				var inputElement;
 
+				element.style.display = "none";
 				element.parentNode.insertBefore(toggleContainer, element);
 				inputElement = setUpInput();
+
+				if (element.hasAttribute("disabled")) {
+					inputElement.setAttribute("disabled", "disabled");
+				}
+
 				inputElement.className = classes.toggle;
+				toggleContainer.className = classes.toggleContainer;
 
 				toggleContainer.appendChild(inputElement);
 				toggleContainer.appendChild(divHandler);
@@ -213,10 +220,34 @@
 			 */
 			function buildToggleBasedOnInputTag(element, divHandler, toggleContainer) {
 				element.className = classes.toggle;
+				toggleContainer.className = classes.toggleContainer;
 
 				element.parentNode.insertBefore(toggleContainer, element);
 				toggleContainer.appendChild(element);
 				toggleContainer.appendChild(divHandler);
+			}
+
+			/**
+			 * Build Toggle based on Custom Element
+			 * @method buildToggleBasedOnCustomElement
+			 * @param {HTMLElement} divHandler
+			 * @param {HTMLElement} toggleContainer
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function buildToggleBasedOnCustomElement(divHandler, toggleContainer) {
+				var inputElement = setUpInput();
+
+				inputElement.className = classes.toggle;
+				toggleContainer.className = classes.toggleContainer;
+
+				toggleContainer.appendChild(inputElement);
+				toggleContainer.appendChild(divHandler);
+
+				if (toggleContainer.hasAttribute("disabled")) {
+					inputElement.setAttribute("disabled", "disabled");
+				}
 			}
 
 			/**
@@ -229,21 +260,24 @@
 			 */
 			ToggleSwitch.prototype._build = function (element) {
 				var divHandler = createElement("div"),
-					controlType = element.nodeName.toLowerCase(),
-					toggleContainer = createElement("div");
+					toggleContainer = createElement("div"),
+					controlType = element.nodeName.toLowerCase();
 
-				toggleContainer.className = classes.toggleContainer;
-				divHandler.className = classes.toggleHandler;
 
 				if (controlType === "input") {
 					buildToggleBasedOnInputTag(element, divHandler, toggleContainer);
 				}
 				if (controlType === "select") {
-					//hide select
-					element.style.display = "none";
-
 					buildToggleBasedOnSelectTag(element, divHandler, toggleContainer);
 				}
+				if (controlType === "tau-toggleswitch") {
+					buildToggleBasedOnCustomElement(divHandler, element);
+				}
+
+				divHandler.className = classes.toggleHandler;
+
+				this._type = controlType;
+
 				return element;
 			};
 
@@ -332,16 +366,19 @@
 			ToggleSwitch.prototype._destroy = function () {
 				var self = this,
 					element = self.element,
-					tagName = element.nodeName.toLowerCase(),
+					tagName = self._type,
 					container = element.parentElement;
 
 				self._ui.input.removeEventListener("change",
 					self._onChangeValue, true);
 
 				removeAttributesWhenDestroy(element);
+
 				//remove visible representative
-				container.parentElement.insertBefore(element, container);
-				container.parentElement.removeChild(container);
+				if (tagName === "input" || tagName === "select") {
+					container.parentElement.insertBefore(element, container);
+					container.parentElement.removeChild(container);
+				}
 
 				if (tagName === "input") {
 					element.classList.remove(classes.toggle);
@@ -359,7 +396,7 @@
 				"input[data-role='toggleswitch']," +
 				"select[data-role='toggleswitch']," +
 				"select.ui-toggleswitch," +
-				" input.ui-toggleswitch",
+				"input.ui-toggleswitch",
 				[],
 				ToggleSwitch,
 				"mobile"

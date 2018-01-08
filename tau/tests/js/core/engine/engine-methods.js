@@ -67,10 +67,11 @@
 		ok(tempBinding2 instanceof ns.test.widget2, "New widget on that same HTMLElement is an instance of Test2");
 	});
 
-	test("Checking .instanceWidget method with empty element", function () {
+	test("Checking .instanceWidget method with empty element", 3, function () {
 		var widget = engine.instanceWidget("Button");
 
 		ok(widget, "Widget was created");
+		ok(widget instanceof  ns.widget.BaseWidget, "Widget is an instance of BaseWidget");
 		ok(widget.element, "Widget has element");
 	});
 	test("Checking .getBinding method - one parameter", function () {

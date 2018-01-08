@@ -1032,6 +1032,10 @@
 				}
 			};
 
+			prototype._onPageInit = function () {
+				this._init();
+			};
+
 			prototype._buildArcListviewSelection = function (page) {
 				// find or add selection for current list element
 				var arcListviewSelection = page.querySelector(selectors.SELECTION);
@@ -1073,7 +1077,26 @@
 			 * @protected
 			 */
 			prototype._build = function (element) {
+				if (engine.getBinding(element, "Listview")) {
+					return null;
+				}
+				if (engine.getBinding(element, "SnapListview")) {
+					ns.warn("Can't create Listview on SnapListview element");
+					return null;
+				}
+				return element;
+			};
+
+			/**
+			 * Widget init method
+			 * @method _init
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
+			prototype._init = function () {
 				var self = this,
+					element = self.element,
+					options = self.options,
 					arcListviewCarousel,
 					page,
 					scroller,
@@ -1081,11 +1104,13 @@
 					carousel = self._carousel,
 					visibleItensCount = parseInt(self.options.visibleItems, 10);
 
-				if (!engine.getBinding(element, "SnapListview")) {
-					// find outer parent elements
-					page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
-					scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
+				// find outer parent elements
+				page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
+				ui.page = page;
 
+				scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
+
+				if (scroller) {
 					element.classList.add(WIDGET_CLASS, classes.PREFIX + visibleItensCount);
 
 					// find list elements with including group indexes
@@ -1097,70 +1122,57 @@
 
 					// append carousel outside scroller element
 					scroller.parentElement.appendChild(arcListviewCarousel);
+					self._ui.arcListviewCarousel.addEventListener("vclick", self, true);
 
 					// cache HTML elements
-					ui.page = page;
 					ui.scroller = scroller;
-					return element;
-				} else {
-					ns.warn("Can't create Listview on SnapListview element");
-					return null;
+
+					ArcListview.calcFactors(options.ellipsisA, options.ellipsisB);
+
+					// init items;
+					self._setAnimatedItems();
+					self._scrollAnimationEnd = true;
+					momentum = 1;
+					self._refresh();
+					self._scroll();
+					self._initBouncingEffect();
 				}
-
-			};
-
-			/**
-			 * Widget init method
-			 * @method _init
-			 * @memberof ns.widget.wearable.ArcListview
-			 * @protected
-			 */
-			prototype._init = function () {
-				var self = this,
-					options = self.options;
-
-				ArcListview.calcFactors(options.ellipsisA, options.ellipsisB);
-
-				// init items;
-				self._setAnimatedItems();
-				self._scrollAnimationEnd = true;
-				momentum = 1;
-				self._refresh();
-				self._scroll();
-				self._initBouncingEffect();
 			};
 
 			/**
 			 * Event handeler for widget
-			 * @param {Event} ev
+			 * @param {Event} event
 			 * @method handleEvent
 			 * @memberof ns.widget.wearable.ArcListview
 			 * @protected
 			 */
-			prototype.handleEvent = function (ev) {
-				var self = this;
+			prototype.handleEvent = function (event) {
+				var self = this,
+					page = self._ui.page;
 
-				switch (ev.type) {
-					case "touchmove" :
-						self._onTouchMove(ev);
-						break;
-					case "rotarydetent" :
-						self._onRotary(ev);
-						break;
-					case "touchstart" :
-						self._onTouchStart(ev);
-						break;
-					case "touchend" :
-						self._onTouchEnd(ev);
-						break;
-					case "change" :
-						self._onChange(ev);
-						break;
-					case "vclick" :
-						self._onClick(ev);
-						break;
-					default:
-						break;
+				if (event.type === "pageinit") {
+					self._onPageInit(event);
+				} else if (page && page.classList.contains("ui-page-active")) {
+					// disable events on non active page
+					switch (event.type) {
+						case "touchmove" :
+							self._onTouchMove(event);
+							break;
+						case "rotarydetent" :
+							self._onRotary(event);
+							break;
+						case "touchstart" :
+							self._onTouchStart(event);
+							break;
+						case "touchend" :
+							self._onTouchEnd(event);
+							break;
+						case "change" :
+							self._onChange(event);
+							break;
+						case "vclick" :
+							self._onClick(event);
+					}
 				}
 			};
 
@@ -1179,10 +1191,12 @@
 				page.addEventListener("touchstart", self, true);
 				page.addEventListener("touchmove", self, true);
 				page.addEventListener("touchend", self, true);
-				self._ui.arcListviewCarousel.addEventListener("vclick", self, true);
+				page.addEventListener("pageinit", self, true);
+				if (self._ui.arcListviewCarousel) {
+					self._ui.arcListviewCarousel.addEventListener("vclick", self, true);
+				}
 				document.addEventListener("rotarydetent", self, true);
 				element.addEventListener("change", self, true);
-				page.addEventListener("pageshow", self, true);
 			};
 
 			/**
@@ -1199,10 +1213,10 @@
 				page.removeEventListener("touchstart", self, true);
 				page.removeEventListener("touchmove", self, true);
 				page.removeEventListener("touchend", self, true);
+				page.removeEventListener("pageinit", self, true);
 				self._ui.arcListviewCarousel.removeEventListener("vclick", self, true);
 				document.removeEventListener("rotarydetent", self, true);
 				element.removeEventListener("change", self, true);
-				page.removeEventListener("pageshow", self, true);
 			};
 
 			/**

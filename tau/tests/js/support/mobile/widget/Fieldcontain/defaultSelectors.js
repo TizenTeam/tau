@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("fieldcontain", {
+	module("support/mobile/widget/Fieldcontain", {
 		setup: function () {
 			tau.engine.run();
 		},

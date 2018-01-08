@@ -49,6 +49,188 @@
 				contentRegex = /(\$\{content\})/gi;
 
 			/**
+			 * Checks if elemenent was converted via WebComponentsJS,
+			 * this will return false if WC support is native
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @static
+			 * @member ns.util.DOM
+			 */
+			function isNodeWebComponentPolyfilled(node) {
+				var keys = [];
+
+				if (!node) {
+					return false;
+				}
+				// hacks
+				keys = Object.keys(node).join(":");
+				return (keys.indexOf("__impl") > -1 || keys.indexOf("__upgraded__") > -1 ||
+						keys.indexOf("__attached__") > -1);
+			}
+
+			/**
+			 * Returns wrapped element which was normal HTML element
+			 * by WebComponent polyfill
+			 * @param {HTMLElement} element
+			 * @return {?HTMLElement}
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function wrapWebComponentPolyfill(element) {
+				var wrap = window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.wrap;
+
+				if (element && wrap) {
+					return wrap(element);
+				}
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.error("Wrap method not available");
+				//>>excludeEnd("tauDebug");
+
+				return element;
+			}
+
+			/**
+			 * Returns normal element which was wrapped
+			 * by WebComponent polyfill
+			 * @param {HTMLElement} element
+			 * @return {?HTMLElement}
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function unwrapWebComponentPolyfill(element) {
+				var unwrap = window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.unwrap;
+
+				if (element && unwrap) {
+					return unwrap(element);
+				}
+
+				ns.error("Unwrap method not available");
+				return element;
+			}
+			/**
+			 * Creates a selector for given node
+			 * @param {HTMLElement} node
+			 * @return {string}
+			 * @member ns.util.DOM
+			 * @method getNodeSelector
+			 */
+			function getNodeSelector(node) {
+				var attributes = node.attributes,
+					attributeLength = attributes.length,
+					attr = null,
+					i = 0,
+					selector = node.tagName.toLowerCase();
+
+				for (; i < attributeLength; ++i) {
+					attr = attributes.item(i);
+					selector += "[" + attr.name + "=\"" + attr.value + "\"]";
+				}
+				return selector;
+			}
+
+			/**
+			 * Creates selector path (node and its parents) for given node
+			 * @param {HTMLElement} node
+			 * @return {string}
+			 * @member ns.util.DOM
+			 * @method getNodeSelectorPath
+			 */
+			function getNodeSelectorPath(node) {
+				var path = getNodeSelector(node),
+					parent = node.parentNode;
+
+				while (parent) {
+
+					path = getNodeSelector(parent) + ">" + path;
+
+					parent = parent.parentNode;
+					if (parent === document) {
+						parent = null;
+					}
+				}
+				return path;
+			}
+
+			DOM.getNodeSelector = getNodeSelector;
+			DOM.getNodeSelectorPath = getNodeSelectorPath;
+
+			/**
+			 * Compares a node to another node
+			 * note: this is needed because of broken WebComponents node wrapping
+			 * @param {HTMLElement} nodeA
+			 * @param {HTMLElement} nodeB
+			 * @return {boolean}
+			 * @member ns.util.DOM
+			 * @method isNodeEqual
+			 */
+			DOM.isNodeEqual = function (nodeA, nodeB) {
+				var nodeAPolyfilled = null,
+					nodeBPolyfilled = null,
+					foundNodeA = nodeA,
+					foundNodeB = nodeB,
+					unwrap = (window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.unwrap); // hack
+
+				if (nodeA === null || nodeB === null) {
+					return false;
+				} else {
+					nodeAPolyfilled = isNodeWebComponentPolyfilled(nodeA);
+					nodeBPolyfilled = isNodeWebComponentPolyfilled(nodeB);
+				}
+
+				if (nodeAPolyfilled) {
+					if (unwrap) {
+						foundNodeA = unwrap(nodeA);
+					} else {
+						foundNodeA = document.querySelector(getNodeSelectorPath(nodeA));
+					}
+				}
+				if (nodeBPolyfilled) {
+					if (unwrap) {
+						foundNodeB = unwrap(nodeB);
+					} else {
+						foundNodeB = document.querySelector(getNodeSelectorPath(nodeB));
+					}
+				}
+
+				return foundNodeA === foundNodeB;
+			};
+
+			/**
+			 * Checks if elemenent was converted via WebComponentsJS,
+			 * this will return false if WC support is native
+			 * @method isNodeWebComponentPolyfilled
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @static
+			 * @member ns.util.DOM
+			 */
+			DOM.isNodeWebComponentPolyfilled = isNodeWebComponentPolyfilled;
+
+			DOM.unwrapWebComponentPolyfill = unwrapWebComponentPolyfill;
+			DOM.wrapWebComponentPolyfill = wrapWebComponentPolyfill;
+
+			DOM.isElement = function (element) {
+				var raw = element;
+
+				if (!raw) {
+					return false;
+				}
+
+				// Dirty hack for bogus WebComponent polyfill
+				if (typeof raw.localName === "string" && raw.localName.length > 0) {
+					return true;
+				}
+
+				if (!(element instanceof Element)) {
+					if (isNodeWebComponentPolyfilled(element)) {
+						raw = unwrapWebComponentPolyfill(element);
+					}
+				}
+
+				return raw instanceof Element;
+			};
+
+			/**
 			 * Appends node or array-like node list array to context
 			 * @method appendNodes
 			 * @member ns.util.DOM

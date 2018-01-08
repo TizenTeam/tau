@@ -43,7 +43,9 @@
 			 */
 			if (len) {
 				for (i = 0; i < len; i++) {
-					listHelper[i].destroy();
+					if (listHelper[i]) {
+						listHelper[i].destroy();
+					}
 				}
 				listHelper = [];
 			}

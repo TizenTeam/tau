@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("notification", {
+	module("support/mobile/widget/Notification", {
 		setup: function () {
 			tau.engine.run();
 		},

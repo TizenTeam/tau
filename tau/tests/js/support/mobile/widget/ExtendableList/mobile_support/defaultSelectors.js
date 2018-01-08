@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("extendablelist", {
+	module("support/profile/mobile/widget/ExtendableList", {
 		setup: function () {
 			tau.engine.run();
 		},

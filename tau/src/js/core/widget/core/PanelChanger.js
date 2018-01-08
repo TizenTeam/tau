@@ -36,7 +36,7 @@
 			"../../event",
 			"../../util/selectors",
 			"../../util/object",
-			"../../router/history",
+			"../../history/manager",
 			"../BaseWidget",
 			"../core",
 			"./Page",
@@ -387,7 +387,7 @@
 			 * @protected
 			 */
 			prototype._onPagebeforeshow = function () {
-				var routePanel = engine.getRouter().getRoute("panel");
+				var routePanel = ns.router.Router.getInstance().getRoute("panel");
 
 				routePanel.setActive(this._ui._activePanel);
 			};

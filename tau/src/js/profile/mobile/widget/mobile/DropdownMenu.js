@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, HTMLSelectElement */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -547,7 +547,7 @@
 				self._selectedIndex = element.selectedIndex;
 
 				if (create) {
-					selectedOption = ui.elDefaultOption || element[element.selectedIndex];
+					selectedOption = ui.elDefaultOption || element[element.selectedIndex] || element.options.item(element.selectedIndex);
 
 					self._buildWrapper(element);
 					self._buildPlaceholder(element, ui.elSelectWrapper, elementId,
@@ -1041,7 +1041,10 @@
 				":not([data-role='toggleswitch'])",
 				["open", "close"],
 				DropdownMenu,
-				"mobile"
+				"mobile",
+				false,
+				false,
+				HTMLSelectElement
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

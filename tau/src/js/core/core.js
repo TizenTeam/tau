@@ -1,5 +1,3 @@
-/*global window, define */
-/* eslint-disable no-console */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* global window, define */
+/* eslint-disable no-console */
 /**
  * #Core namespace
  * Object contains main framework methods.
@@ -43,6 +43,11 @@
 			ns = window.ns || window.tau || {},
 			nsConfig = window.nsConfig || window.tauConfig || {};
 
+		ns.info = ns.info || {
+			profile: "custom"
+		};
+		ns.tauPerf = ns.tauPerf || {};
+
 		window.ns = ns;
 		window.nsConfig = nsConfig;
 
@@ -52,7 +57,7 @@
 		rootNamespace = nsConfig.rootNamespace;
 		fileName = nsConfig.fileName;
 
-			/**
+		/**
 		 * Return unique id
 		 * @method getUniqueId
 		 * @static
@@ -123,7 +128,7 @@
 		 * get from nsConfig
 		 * @method getConfig
 		 * @param {string} key
-		 * @param {*} defaultValue
+		 * @param {*} [defaultValue] value returned when config is not set
 		 * @return {*}
 		 * @static
 		 * @member ns

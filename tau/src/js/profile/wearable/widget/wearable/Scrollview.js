@@ -55,6 +55,7 @@
 			"../../../../core/event",
 			"../../../../core/widget/core/scroller/effect/Bouncing",
 			"../../../../core/util/DOM/manipulation",
+			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
 		function () {

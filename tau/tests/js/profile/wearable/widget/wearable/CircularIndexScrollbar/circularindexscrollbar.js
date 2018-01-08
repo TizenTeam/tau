@@ -1,6 +1,8 @@
 (function (window, document) {
 	"use strict";
 
+	module("profile/wearable/widget/wearable/CircularIndexScrollbar");
+
 	test("circularindexscrollbar class check", 3, function() {
 		var el = document.getElementById("widget4"),
 			widget = tau.widget.CircularIndexScrollbar(el);

@@ -29,7 +29,7 @@
 		"../../util/object"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 			var gesture = ns.event.gesture,
 
 				objectMerge = ns.util.object.merge,
@@ -55,18 +55,18 @@
 
 			Detector.Sender = {
 				sendEvent: function () {
-					// Empty function for creating interface
+				// Empty function for creating interface
 				}
 			};
 
-			/**
+		/**
 			 * Create plugin namespace.
 			 * @property {Object} plugin
 			 * @member ns.event.gesture.Detector
 			 */
 			Detector.plugin = {};
 
-			/**
+		/**
 			 * Methods creates plugin
 			 * @method create
 			 * @param {Object} gestureHandler
@@ -95,10 +95,10 @@
 				return detector;
 			};
 
-			// definition
+		// definition
 			gesture.Detector = Detector;
 
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

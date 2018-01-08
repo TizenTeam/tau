@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -156,7 +156,7 @@
 (function (window, ns, $) {
 	"use strict";
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 
 
 	define(
@@ -676,7 +676,7 @@
 				"mobile"
 			);
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Loader;
 		}
 	);

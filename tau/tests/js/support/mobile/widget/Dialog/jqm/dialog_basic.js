@@ -1,6 +1,6 @@
 /*global asyncTest, module, jQuery, expect, ok, start*/
 (function ($) {
-	module("profile/mobile/widget/mobile/Dialog");
+	module("support/mobile/widget/Dialog");
 
 	asyncTest("Returning from a dialog results in the page from which it opened", function () {
 		expect(2);

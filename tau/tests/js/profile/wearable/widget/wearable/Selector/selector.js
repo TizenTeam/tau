@@ -7,7 +7,7 @@ QUnit.config.reorder = false;
 
 (function (ns) {
 	"use strict";
-	module("Selector tests", {
+	module("profile/wearable/widget/wearable/Selector", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

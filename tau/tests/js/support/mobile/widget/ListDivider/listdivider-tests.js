@@ -3,7 +3,7 @@
 (function (window, document) {
 	"use strict";
 
-	module("ListDivider support tests", {
+	module("support/mobile/widget/ListDivider", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

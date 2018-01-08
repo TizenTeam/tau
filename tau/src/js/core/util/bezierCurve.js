@@ -1,4 +1,3 @@
-/*global window: false, ns:false, define: false, Math: false */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window: false, define: false, Math: false, ns */
 /**
  * #Bezier Curves Utility
  * Class supports calculating Bezier Curves.

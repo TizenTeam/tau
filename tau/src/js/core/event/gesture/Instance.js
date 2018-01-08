@@ -25,8 +25,8 @@
 		"../../util/object"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
-			/**
+		//>>excludeEnd("tauBuildExclude");
+		/**
 			 * Local alias for {@link ns.event.gesture}
 			 * @property {Object}
 			 * @member ns.event.gesture.Instance
@@ -34,7 +34,7 @@
 			 * @static
 			 */
 			var gesture = ns.event.gesture,
-				/**
+			/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
 				 * @member ns.event.gesture.Instance
@@ -42,7 +42,7 @@
 				 * @static
 				 */
 				Detector = gesture.Detector,
-				/**
+			/**
 				 * Local alias for {@link ns.event.gesture.Manager}
 				 * @property {Object}
 				 * @member ns.event.gesture.Instance
@@ -50,7 +50,7 @@
 				 * @static
 				 */
 				Manager = gesture.Manager,
-				/**
+			/**
 				 * Local alias for {@link ns.event}
 				 * @property {Object}
 				 * @member ns.event.gesture.Instance
@@ -58,7 +58,7 @@
 				 * @static
 				 */
 				events = ns.event,
-				/**
+			/**
 				 * Alias for method {@link ns.util.object.merge}
 				 * @property {Function} merge
 				 * @member ns.event.gesture.Instance
@@ -67,7 +67,7 @@
 				 */
 				merge = ns.util.object.merge,
 
-				/**
+			/**
 				 * #Gesture.Instance class
 				 * Creates instance of gesture manager on element.
 				 * @param {HTMLElement} element
@@ -86,7 +86,7 @@
 				};
 
 			Instance.prototype = {
-				/**
+			/**
 				 * Set options
 				 * @method setOptions
 				 * @param {Object} options options
@@ -98,7 +98,7 @@
 					return this;
 				},
 
-				/**
+			/**
 				 * Add detector
 				 * @method addDetector
 				 * @param {Object} detectorStrategy strategy
@@ -118,7 +118,7 @@
 					return this;
 				},
 
-				/**
+			/**
 				 * Remove detector
 				 * @method removeDetector
 				 * @param {Object} detectorStrategy strategy
@@ -139,7 +139,7 @@
 					return this;
 				},
 
-				/**
+			/**
 				 * Triggers the gesture event
 				 * @method trigger
 				 * @param {string} gestureName gestureName name
@@ -150,7 +150,7 @@
 					return events.trigger(this.element, gestureName, eventInfo, false);
 				},
 
-				/**
+			/**
 				 * Get HTML element assigned to gesture event instance
 				 * @method getElement
 				 * @member ns.event.gesture.Instance
@@ -159,7 +159,7 @@
 					return this.element;
 				},
 
-				/**
+			/**
 				 * Get gesture event detectors assigned to instance
 				 * @method getGestureDetectors
 				 * @member ns.event.gesture.Instance
@@ -168,7 +168,7 @@
 					return this.eventDetectors;
 				},
 
-				/**
+			/**
 				 * Destroy instance
 				 * @method destroy
 				 * @member ns.event.gesture.Instance
@@ -184,7 +184,7 @@
 
 			gesture.Instance = Instance;
 
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Instance;
 		}
 	);

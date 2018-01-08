@@ -1,4 +1,4 @@
-/*global window, ns, define, XMLHttpRequest */
+/*global window, ns, define, XMLHttpRequest, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *

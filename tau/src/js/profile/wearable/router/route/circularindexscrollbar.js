@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -26,13 +26,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/path",
 			"../../../../core/util/selectors",
 			"../../../../core/util/object",
 			"../../../../core/router/route",
-			"../../../../core/router/history",
+			"../../../../core/history",
 			"../../widget/wearable/CircularIndexScrollbar"
 		],
 		function () {
@@ -40,7 +39,6 @@
 			var util = ns.util,
 				path = util.path,
 				history = ns.router.history,
-				engine = ns.engine,
 				routeCircularIndexScrollbar = {},
 				circularindexscrollbarHashKey = "circularindexscrollbar=true",
 				circularindexscrollbarHashKeyReg = /([&|\?]circularindexscrollbar=true)/,
@@ -86,7 +84,7 @@
 			 */
 			routeCircularIndexScrollbar.find = function (absUrl) {
 				var dataUrl = path.convertUrlToDataUrl(absUrl),
-					activePage = engine.getRouter().getContainer().getActivePage(),
+					activePage = ns.router.Router.getInstance().getContainer().getActivePage(),
 					circularIndexScrollbar;
 
 				circularIndexScrollbar = activePage.element.querySelector("#" + dataUrl);

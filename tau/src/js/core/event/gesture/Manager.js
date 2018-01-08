@@ -30,9 +30,9 @@
 		"../../util/object"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 
-			/**
+		/**
 			 * Local alias for {@link ns.event.gesture}
 			 * @property {Object}
 			 * @member ns.event.gesture.Manager
@@ -77,7 +77,7 @@
 			}
 
 			Manager.prototype = {
-				/**
+			/**
 				 * Bind start events
 				 * @method _bindStartEvents
 				 * @param {ns.event.gesture.Instance} _instance gesture instance
@@ -94,7 +94,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Bind move, end and cancel events
 				 * @method _bindEvents
 				 * @member ns.event.gesture.Manager
@@ -113,7 +113,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Unbind start events
 				 * @method _unbindStartEvents
 				 * @param {ns.event.gesture.Instance} _instance gesture instance
@@ -130,7 +130,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Unbind move, end and cancel events
 				 * @method _bindEvents
 				 * @member ns.event.gesture.Manager
@@ -149,7 +149,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Detect that event should be processed by handleEvent
 				 * @param {Event} event Input event object
 				 * @return {null|string}
@@ -169,7 +169,7 @@
 					return eventType;
 				},
 
-				/**
+			/**
 				 * Handle event
 				 * @method handleEvent
 				 * @param {Event} event
@@ -199,7 +199,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Handler for gesture start
 				 * @method _start
 				 * @param {Event} event
@@ -247,7 +247,7 @@
 					self._detect(detectors, startEvent);
 				},
 
-				/**
+			/**
 				 * Handler for gesture move
 				 * @method _move
 				 * @param {Event} event
@@ -265,7 +265,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Handler for gesture end
 				 * @method _end
 				 * @param {Event} event
@@ -275,10 +275,10 @@
 				_end: function (event) {
 					var self = this,
 						newEvent = utilObject.merge(
-							{},
+						{},
 							self.gestureEvents.last,
 							self._createDefaultEventData(gesture.Event.END, event)
-						);
+					);
 
 					if (newEvent.pointers.length === 0) {
 						self._detect(self.gestureDetectors, newEvent);
@@ -292,7 +292,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Handler for gesture cancel
 				 * @method _cancel
 				 * @param {Event} event
@@ -303,10 +303,10 @@
 					var self = this;
 
 					event = utilObject.merge(
-						{},
+					{},
 						self.gestureEvents.last,
 						self._createDefaultEventData(gesture.Event.CANCEL, event)
-					);
+				);
 
 					self._detect(self.gestureDetectors, event);
 
@@ -318,7 +318,7 @@
 					self._blockMouseEvent = false;
 				},
 
-				/**
+			/**
 				 * Detect gesture
 				 * @method _detect
 				 * @param {Array} detectors
@@ -348,7 +348,7 @@
 						}
 					});
 
-					// remove finished detectors.
+				// remove finished detectors.
 					finishedDetectors.forEach(function (detector) {
 						var idx = self.gestureDetectors.indexOf(detector);
 
@@ -361,9 +361,9 @@
 						}
 					});
 
-					// remove all detectors except the detector that return block result
+				// remove all detectors except the detector that return block result
 					if (self.detectorRequestedBlock) {
-						// send to cancel event.
+					// send to cancel event.
 						self.runningDetectors.forEach(function (detector) {
 							var cancelEvent = utilObject.fastMerge({}, event);
 
@@ -378,7 +378,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Reset of gesture manager detector
 				 * @method _resetDetecting
 				 * @member ns.event.gesture.Manager
@@ -399,7 +399,7 @@
 					self._unbindEvents();
 				},
 
-				/**
+			/**
 				 * Create default event data
 				 * @method _createDefaultEventData
 				 * @param {string} type event type
@@ -439,7 +439,7 @@
 					};
 				},
 
-				/**
+			/**
 				 * Create gesture event
 				 * @method _createGestureEvent
 				 * @param {string} type event type
@@ -480,7 +480,7 @@
 							x: defaultEvent.pointer.clientX - lastEvent.pointer.clientX,
 							y: defaultEvent.pointer.clientY - lastEvent.pointer.clientY
 						},
-						/* pause time threshold.util. tune the number to up if it is slow */
+					/* pause time threshold.util. tune the number to up if it is slow */
 						timeDifference = gesture.defaults.estimatedPointerTimeDifference,
 						estimated;
 
@@ -495,7 +495,7 @@
 							defaultEvent.timeStamp - velocityEvent.timeStamp,
 							defaultEvent.pointer.clientX - velocityEvent.pointer.clientX,
 							defaultEvent.pointer.clientY - velocityEvent.pointer.clientY
-						));
+					));
 						velocity.event = defaultEvent;
 					}
 
@@ -506,7 +506,7 @@
 							(timeDifference * velocity.y * (deltaFromLast.y < 0 ? -1 : 1)))
 					};
 
-					// Prevent that point goes back even though direction is not changed.
+				// Prevent that point goes back even though direction is not changed.
 					if ((deltaFromLast.x < 0 && estimated.x > lastEvent.estimatedX) ||
 						(deltaFromLast.x > 0 && estimated.x < lastEvent.estimatedX)) {
 						estimated.x = lastEvent.estimatedX;
@@ -546,7 +546,7 @@
 					return defaultEvent;
 				},
 
-				/**
+			/**
 				 * Register instance of gesture
 				 * @method register
 				 * @param {ns.event.gesture.Instance} instance gesture instance
@@ -562,7 +562,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Unregister instance of gesture
 				 * @method unregister
 				 * @param {ns.event.gesture.Instance} instance gesture instance
@@ -587,7 +587,7 @@
 					}
 				},
 
-				/**
+			/**
 				 * Destroy instance of Manager
 				 * @method _destroy
 				 * @member ns.event.gesture.Manager
@@ -613,7 +613,7 @@
 			};
 
 			gesture.Manager = Manager;
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Manager;
 		}
 	);

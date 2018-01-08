@@ -157,9 +157,6 @@ module.exports = function (grunt) {
 		"themeConverter:wearable"]);
 
 	grunt.loadTasks("tools/app/tasks");
-	// Load framework custom tasks
-	grunt.loadTasks("../tools/grunt/tasks");
-
 
 	grunt.registerTask("default", ["release"]);
 };

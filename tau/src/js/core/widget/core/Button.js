@@ -1,4 +1,19 @@
-/*global window, define, ns */
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* global define, ns */
 /**
  * #Button
  * Shows a control that can be used to generate an action event.
@@ -165,8 +180,10 @@
 	define(
 		[
 			"../../engine",
+			"../../util/selectors",
 			"../core",
 			"../../util/DOM/css",
+			"./Page",
 			"../BaseWidget"
 		],
 		function () {
@@ -502,13 +519,16 @@
 			 * @member ns.widget.core.Button
 			 */
 			prototype._enable = function (element) {
-				var options = this.options;
+				var self = this,
+					options = self.options;
 
 				if (element) {
 					if (element.tagName.toLowerCase() === "button") {
 						element.disabled = false;
 					}
-					element.removeAttribute("disabled");
+					if (!this.isCustomElement) {
+						element.removeAttribute("disabled");
+					}
 					element.classList.remove(classes.DISABLED);
 					options.disabled = false;
 				}
@@ -528,7 +548,9 @@
 					if (element.tagName.toLowerCase() === "button") {
 						element.disabled = true;
 					}
-					element.setAttribute("disabled", "disabled");
+					if (!this.isCustomElement) {
+						element.setAttribute("disabled", "disabled");
+					}
 					element.classList.add(classes.DISABLED);
 					options.disabled = true;
 				}
@@ -542,6 +564,28 @@
 				[],
 				Button,
 				"core"
+			);
+
+			engine.defineWidget(
+				"inputButton",
+				"",
+				[],
+				Button,
+				"core",
+				false,
+				false,
+				HTMLInputElement
+			);
+
+			engine.defineWidget(
+				"formButton",
+				"",
+				[],
+				Button,
+				"core",
+				false,
+				false,
+				HTMLButtonElement
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.core.Button;

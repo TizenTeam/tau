@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("circularview", {
+	module("support/mobile/widget/Circularview", {
 		setup: function () {
 			tau.engine.run();
 		},

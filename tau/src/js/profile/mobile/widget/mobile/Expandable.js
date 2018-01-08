@@ -106,7 +106,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
+			/**
 				 * @property {Object} BaseWidget alias variable
 				 * @private
 				 * @static

@@ -192,6 +192,8 @@
 						indexLen = indices.length,
 						indexHeight = this.options.indexHeight,
 						moreChar = this.options.moreChar,
+						// Height of the last index is total height - all other indexes
+						lastElementHeight = this.container.clientHeight - ((indexLen - 1) * indexHeight),
 						addMoreCharLineHeight = this.options.moreCharLineHeight,
 						text,
 						frag,
@@ -205,8 +207,10 @@
 						text = m.length === 1 ? origIndices[m.start] : moreChar;
 						li = document.createElement("li");
 						li.innerText = text.toUpperCase();
-						li.style.height = indexHeight + "px";
+
+						li.style.height = ((i === indexLen - 1) ? lastElementHeight : indexHeight) + "px";
 						li.style.lineHeight = text === moreChar ? indexHeight + addMoreCharLineHeight + "px" : indexHeight + "px";
+
 						frag.appendChild(li);
 					}
 					this.element.appendChild(frag);

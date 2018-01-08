@@ -90,7 +90,7 @@
 				}
 			};
 			widget._setNativeMenu(element, true);
-			assert.deepEqual(widget._ui.elOptions, element.querySelectorAll("option"), "optionElements" +
+			assert.equal(widget._ui.elOptions.length, element.querySelectorAll("option").length, "optionElements" +
 				" is set correctly");
 			assert.equal(widget.options.nativeMenu, true, "options.nativeMenu is set correctly");
 		});

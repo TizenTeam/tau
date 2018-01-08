@@ -22,15 +22,15 @@
  */
 (function () {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../core/router/route",
-			"../../../../core/router/history"
+			"../../../../core/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var history = ns.router.history,
+			var history = ns.history,
 				routeGrid = {
 					orderNumber: 1000,
 					filter: ".ui-grid",

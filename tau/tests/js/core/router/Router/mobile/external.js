@@ -2,7 +2,7 @@
 (function (document) {
 	"use strict";
 
-	module("profile/mobile/router/PageExternal");
+	module("core/router/Router");
 
 	if (!window.navigator.userAgent.match("PhantomJS")) {
 		asyncTest("By default first page is active", 6, function () {

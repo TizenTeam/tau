@@ -48,7 +48,7 @@
 					 * @member ns.jqm.support
 					 */
 					init: function () {
-						var router = ns.engine.getRouter();
+						var router = ns.router.Router.getInstance();
 
 						if ($) {
 							ns.support = object.merge($.support, support);

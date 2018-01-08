@@ -43,6 +43,7 @@
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance")
+			//>>excludeStart("tauUI", pragmas.tauUI);
 			"./core/core",
 			"./profile/mobile/config",
 			"./core/config",
@@ -79,6 +80,7 @@
 			"./core/event/gesture/Swipe",
 			"./core/event/gesture/Pinch",
 			"./core/event/gesture/LongPress",
+			"./core/widget/customElements",
 			"./core/widget/core/scroller/Scroller",
 			"./core/widget/core/scroller/scrollbar/ScrollBar",
 			"./core/widget/core/SectionChanger",
@@ -119,9 +121,16 @@
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./core/router/route/panel",
-			"./core/router/history",
+			"./core/history/manager",
 			"./profile/wearable/expose",
 			// Modules to be loaded after
+			//>>excludeEnd("tauUI");
+			//>>excludeStart("tauMVC", pragmas.tauMVC);
+			"./core/util/pathToRegexp",
+			"./core/controller",
+			//>>excludeEnd("tauMVC");
+			"./core/template/html",
+			"./core/info",
 			"./core/init",
 			// globalize
 			"./core/util/globalize"

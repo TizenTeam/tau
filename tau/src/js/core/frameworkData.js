@@ -14,6 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #Framework Data Object
@@ -22,21 +25,23 @@
  */
 (function (document, ns) {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"./core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-
 			var slice = Array.prototype.slice,
 				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
 				FRAMEWORK_TAU = "tau",
-				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.min)?\.js)$/,
-				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.js)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js)$/,
-				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.css)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css)$/,
-				TIZEN_THEMES_REGEXP = /^(white|black|default)$/i,
+				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.full|\.mvc)?(\.min)?\.js)$/,
+				// Regexp detect framework js file
+				LIB_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.js$/,
+				// Regexp detect framework css file
+				CSS_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.css$/,
+				// Regexp detect correct theme name
+				TIZEN_THEMES_REGEXP = /^(changeable|white|black|default)$/i,
 				MINIFIED_REGEXP = /\.min\.js$/,
 				frameworkData = {
 					/**

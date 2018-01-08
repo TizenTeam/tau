@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -21,7 +21,7 @@
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -33,7 +33,7 @@
 			"../../util/object",
 			"../../widget/core/Page",
 			"../route",
-			"../history"
+			"../../history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -42,7 +42,7 @@
 				DOM = util.DOM,
 				object = util.object,
 				utilSelector = util.selectors,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				baseElement,
 				routePage = {},
@@ -91,7 +91,7 @@
 			};
 
 			/**
-			 * Property defining selector for filtering only page elements
+			 * Property defining selector without spaces for filtering only page elements.
 			 * @property {string} filter
 			 * @member ns.router.route.page
 			 * @static
@@ -151,6 +151,13 @@
 					url = DOM.getNSData(toPage, "url");
 				}
 
+				// if no url is set, apply the address of chosen page to data-url attribute
+				// and use it as url, as this is needed for history state
+				if (!url && options.href) {
+					url = options.href;
+					DOM.setNSData(toPage, "url", url);
+				}
+
 				pageTitle = DOM.getNSData(toPage, "title") ||
 					utilSelector.getChildrenBySelector(toPage, ".ui-header > .ui-title").textContent ||
 					pageTitle;
@@ -193,7 +200,7 @@
 			 */
 			routePage.find = function (absUrl) {
 				var self = this,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),
 					dataUrl = self._createDataUrl(absUrl),
 					initialContent = self.getFirstElement(),
 					pageContainer = router.getContainer(),
@@ -352,7 +359,7 @@
 			 * @static
 			 */
 			routePage.getContainer = function () {
-				return engine.getRouter().getContainer();
+				return ns.router.Router.getInstance().getContainer();
 			};
 
 			/**
@@ -404,4 +411,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

@@ -59,7 +59,7 @@
 			"../../event",
 			"../../event/gesture/Instance",
 			"../../event/gesture/Drag",
-			"../../router/history",
+			"../../history/manager",
 			"../core", // fetch namespace
 			"./Page",
 			"../BaseWidget"
@@ -544,11 +544,11 @@
 
 				if (self._active) {
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
-					event.detail.estimatedX - ui.barElement.offsetLeft :
-					self._barElementHeight -
+						event.detail.estimatedX - ui.barElement.offsetLeft :
+						self._barElementHeight -
 					(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
 
-						value = self.options.orientation === DEFAULT.HORIZONTAL ?
+					value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
 						self._interval * validPosition / self._barElementHeight;
 
@@ -568,12 +568,12 @@
 				var self = this,
 					ui = self._ui,
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
-					event.detail.estimatedX - ui.barElement.offsetLeft :
-					self._barElementHeight -
+						event.detail.estimatedX - ui.barElement.offsetLeft :
+						self._barElementHeight -
 					(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
 					value = self.options.orientation === DEFAULT.HORIZONTAL ?
-					self._interval * validPosition / self._barElementWidth :
-					self._interval * validPosition / self._barElementHeight;
+						self._interval * validPosition / self._barElementWidth :
+						self._interval * validPosition / self._barElementHeight;
 
 				ui.handlerElement.classList.add(classes.SLIDER_HANDLER_ACTIVE);
 				value += self._min;

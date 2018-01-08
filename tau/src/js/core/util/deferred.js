@@ -1,4 +1,4 @@
-/*global window, ns, define, RegExp */
+/*global window, ns, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *

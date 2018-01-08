@@ -326,7 +326,7 @@
 					assert.ok("Called function from flow");
 				};
 
-			expect(5);
+			expect(6);
 
 			helpers.stub(ArcListview, "calcFactors", function (a, b) {
 				assert.equal(a, listWidget.options.ellipsisA, "a was correct assign");
@@ -341,6 +341,8 @@
 
 			listWidget._init();
 
+			assert.equal(element.classList.contains("ui-arc-listview"), true, "class ui-arc-listview is added ");
+
 			helpers.restoreStub(ArcListview, "calcFactors");
 		});
 
@@ -353,6 +355,7 @@
 
 			expect(6);
 			listWidget.element = element;
+			listWidget._ui.page = element.parentElement.parentElement.parentElement;
 			listWidget._onTouchMove = testStub;
 			listWidget._onRotary = testStub;
 			listWidget._onTouchStart = testStub;
@@ -391,7 +394,7 @@
 		QUnit.test("_bindEvents", function (assert) {
 			var listWidget = new ArcListview(),
 				element = document.getElementById("arc-list"),
-				page = element.parentElement.parentElement,
+				page = element.parentElement.parentElement.parentElement,
 				arcListviewCarousel = element.parentElement;
 
 			listWidget.element = element;
@@ -402,7 +405,7 @@
 			if (ns.util.scrolling) {
 				ns.util.scrolling.disable();
 			}
-			expect(7);
+			expect(6);
 
 			listWidget.handleEvent = function (_event) {
 				assert.ok(_event, "Event was catched");
@@ -414,7 +417,6 @@
 			helpers.triggerEvent(arcListviewCarousel, "vclick");
 			helpers.triggerEvent(document, "rotarydetent");
 			helpers.triggerEvent(element, "change");
-			helpers.triggerEvent(page, "pageshow");
 
 			listWidget._unbindEvents();
 
@@ -423,7 +425,7 @@
 		QUnit.test("_unbindEvents", function (assert) {
 			var listWidget = new ArcListview(),
 				element = document.getElementById("arc-list"),
-				page = element.parentElement.parentElement,
+				page = element.parentElement.parentElement.parentElement,
 				arcListviewCarousel = element.parentElement;
 
 			listWidget.element = element;
@@ -452,7 +454,7 @@
 				element = document.getElementById("arc-list"),
 				element2 = document.getElementById("arc-list-2");
 
-			expect(3);
+			expect(1);
 
 			if (ns.util.scrolling) {
 				ns.util.scrolling.disable();
@@ -464,15 +466,11 @@
 
 			ArclistWidget._build(element);
 
-			assert.equal(element.classList.contains("ui-arc-listview"), true, "class ui-arc-listview is added ");
-
-			helpers.stub(ns.engine, "getBinding", function () {
-				return true;
+			helpers.stub(ns.engine, "getBinding", function (element, name) {
+				return name === "SnapListview";
 			});
 
 			ArclistWidget._build(element2);
-
-			assert.equal(element2.classList.contains("ui-arc-listview"), false, "class ui-arc-listview is added ");
 
 			helpers.restoreStub(ns, "warn");
 			helpers.restoreStub(ns.engine, "getBinding");

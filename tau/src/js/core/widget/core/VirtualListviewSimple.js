@@ -320,7 +320,7 @@
 
 						scrollBegin = scrollBegin - inBoundsDiff + options.edgeEffect(inBoundsDiff, // position diff
 							options.orientation, // orientation
-							(scrollBegin < 0) ? "start" : "end",  // edge
+							(scrollBegin < 0) ? "start" : "end", // edge
 							scrollBegin, // raw position
 							self);
 

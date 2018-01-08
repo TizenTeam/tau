@@ -90,11 +90,15 @@
 			engine.defineWidget(
 				"Checkbox",
 				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch'])" +
-				":not(.ui-toggleswitch), input.ui-checkbox",
+				":not(.ui-toggleswitch):not(.ui-toggle-switch), input.ui-checkbox",
 				[],
 				Checkbox,
-				""
+				"core",
+				false,
+				false,
+				HTMLInputElement
 			);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Checkbox;
 		}

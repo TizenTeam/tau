@@ -6,7 +6,6 @@
 	define(
 		[
 			"../../core/core",
-			"../../core/engine",
 			"../../core/util/object",
 			"./widget/mobile/Loader",
 			"../../core/router/Router"
@@ -14,10 +13,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var engine = ns.engine,
-				eventType = engine.eventType,
-				object = ns.util.object,
-				router = null;
+			var object = ns.util.object;
 
 			/**
 			 * Look to ns.router.Page#open
@@ -26,6 +22,8 @@
 			 * @member ns
 			 */
 			ns.changePage = function (toPage, options) {
+				var router = ns.router.Router.getInstance();
+
 				if (router) {
 					router.open(toPage, options);
 				}
@@ -48,6 +46,8 @@
 			 * @member ns
 			 */
 			ns.openPopup = function (to, options) {
+				var router = ns.router.Router.getInstance();
+
 				if (router) {
 					router.open(to, object.merge({}, options, {
 						rel: "popup"
@@ -76,29 +76,13 @@
 			 * @member tau
 			 */
 			ns.getActivePage = function () {
+				var router = ns.router.Router.getInstance();
+
 				if (router) {
 					return router.getActivePageElement();
 				}
 				return null;
 			};
-
-			/**
-			 * Initialize router on router init
-			 */
-			function init() {
-				router = engine.getRouter();
-			}
-
-			/**
-			 * Remove events listeners on framework destroy
-			 */
-			function destroy() {
-				document.removeEventListener(eventType.ROUTER_INIT, init, true);
-				document.removeEventListener(eventType.DESTROY, destroy, true);
-			}
-
-			document.addEventListener(eventType.ROUTER_INIT, init, true);
-			document.addEventListener(eventType.DESTROY, destroy, true);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

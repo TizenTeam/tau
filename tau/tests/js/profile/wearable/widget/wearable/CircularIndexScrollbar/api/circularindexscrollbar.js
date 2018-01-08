@@ -1,4 +1,4 @@
-module("tau.widget.CircularIndexScrollbar", {});
+module("profile/wearable/widget/wearable/CircularIndexScrollbar", {});
 
 test ("API of CircularIndexScrllbar Widget", function() {
 	var widget;

@@ -76,8 +76,8 @@
 				 */
 				easeOutExpo: function (currentTime, startValue, changeInValue, duration) {
 					return (currentTime === duration) ?
-					startValue + changeInValue :
-					changeInValue * (-Math.pow(2, -10 * currentTime / duration) + 1) +
+						startValue + changeInValue :
+						changeInValue * (-Math.pow(2, -10 * currentTime / duration) + 1) +
 					startValue;
 				},
 				/**

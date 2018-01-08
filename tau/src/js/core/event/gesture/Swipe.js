@@ -29,27 +29,27 @@
 		"./utils"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 
 			var gesture = ns.event.gesture,
 				Result = gesture.Result,
 				Detector = gesture.Detector,
 				Swipe = Detector.plugin.create({
-					/**
+				/**
 					 * Gesture name
 					 * @property {string} [name="swipe"]
 					 * @member ns.event.gesture.Swipe
 					 */
 					name: "swipe",
 
-					/**
+				/**
 					 * Gesture Index
 					 * @property {number} [index=400]
 					 * @member ns.event.gesture.Swipe
 					 */
 					index: 400,
 
-					/**
+				/**
 					 * Default values for swipe gesture
 					 * @property {Object} defaults
 					 * @property {number} [defaults.timeThreshold=400]
@@ -63,7 +63,7 @@
 						orientation: gesture.Orientation.HORIZONTAL
 					},
 
-					/**
+				/**
 					 * Handler for swipe gesture
 					 * @method handler
 					 * @param {Event} gestureEvent gesture event
@@ -92,7 +92,7 @@
 
 			gesture.Swipe = Swipe;
 
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 
 			return Swipe;
 		}

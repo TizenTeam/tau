@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("controlgroup", {
+	module("support/mobile/widget/Controlgroup", {
 		setup: function () {
 			tau.engine.run();
 		},

@@ -239,16 +239,17 @@
 				Page = ns.widget.core.Page,
 				pageClass = Page.classes.uiPage,
 				pageActiveClass = Page.classes.uiPageActive,
+				pageEvents = Page.events,
 				Scrollview = function () {
 					var self = this,
 						ui;
 					/**
-					 * @property {Object} state Scrollview internal state object
-					 * @property {Function} state.currentTransition Instance transition function
+					 * @property {Object} _scrollState Scrollview internal state object
+					 * @property {Function} _scrollState.currentTransition Instance transition function
 					 * @readonly
 					 */
 
-					self.state = {
+					self._scrollState = {
 						currentTransition: null
 					};
 					/**
@@ -464,6 +465,9 @@
 				makePositioned(view);
 
 				element.classList.add(classes.clip);
+
+				// Adding ui-content class for the proper styling with CE
+				element.classList.add("ui-content");
 
 				switch (direction) {
 					case "x":
@@ -764,7 +768,7 @@
 			 * @member ns.widget.core.Scrollview
 			 */
 			Scrollview.prototype.translateTo = function (x, y, duration) {
-				translate(this.state, this.element, x, y, duration);
+				translate(this._scrollState, this.element, x, y, duration);
 			};
 
 			/**
@@ -1007,7 +1011,7 @@
 						jumpLeftCallback = function () {
 							self.scrollTo(0, element.scrollTop, 250);
 						};
-						page.addEventListener("pageshow", repositionJumpsCallback, false);
+						page.addEventListener(pageEvents.SHOW, repositionJumpsCallback, false);
 						if (jumpTop) {
 							jumpTop.firstChild.addEventListener("vclick", jumpTopCallback, false);
 						}
@@ -1061,7 +1065,7 @@
 
 				if (scrollJump) {
 					if (page && repositionJumpsCallback) {
-						page.removeEventListener("pageshow", repositionJumpsCallback, false);
+						page.removeEventListener(pageEvents.SHOW, repositionJumpsCallback, false);
 					}
 					if (jumpTop && jumpTopCallback) {
 						jumpTop.firstChild.removeEventListener("vclick", jumpTopCallback, false);

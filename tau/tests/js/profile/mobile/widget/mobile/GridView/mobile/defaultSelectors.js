@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("GridView", {
+	module("profile/mobile/widget/mobile/GridView", {
 		setup: function () {
 			tau.engine.run();
 		},

@@ -27,9 +27,9 @@
 		"../gesture"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 
-			/**
+		/**
 			 * Local alias for {@link ns.event.gesture}
 			 * @property {Object}
 			 * @member ns.event.gesture.utils
@@ -40,7 +40,7 @@
 
 			gesture.utils = {
 
-				/**
+			/**
 				 * Get center from array of touches
 				 * @method getCenter
 				 * @param {Event[]} touches description
@@ -54,7 +54,7 @@
 						valuesY = [];
 
 					[].forEach.call(touches, function (touch) {
-						// I prefer clientX because it ignore the scrolling position
+					// I prefer clientX because it ignore the scrolling position
 						valuesX.push(!isNaN(touch.clientX) ? touch.clientX : touch.pageX);
 						valuesY.push(!isNaN(touch.clientY) ? touch.clientY : touch.pageY);
 					});
@@ -65,7 +65,7 @@
 					};
 				},
 
-				/**
+			/**
 				 * Get velocity
 				 * @method getVelocity
 				 * @param {number} deltaTime Delta of time
@@ -83,7 +83,7 @@
 					};
 				},
 
-				/**
+			/**
 				 * Get angel between position of two touches
 				 * @method getAngle
 				 * @param {Event} touch1 first touch
@@ -98,7 +98,7 @@
 					return Math.atan2(y, x) * 180 / Math.PI;
 				},
 
-				/**
+			/**
 				 * Get direction indicated by position of two touches
 				 * @method getDirectiqon
 				 * @param {Event} touch1 first touch
@@ -116,7 +116,7 @@
 					return touch1.clientY - touch2.clientY > 0 ? gesture.Direction.UP : gesture.Direction.DOWN;
 				},
 
-				/**
+			/**
 				 * Get distance indicated by position of two touches
 				 * @method getDistance
 				 * @param {Event} touch1 first touch
@@ -131,7 +131,7 @@
 					return Math.sqrt((x * x) + (y * y));
 				},
 
-				/**
+			/**
 				 * Get scale indicated by position of the first and the last touch
 				 * @method getScale
 				 * @param {Event} start start touch
@@ -140,14 +140,14 @@
 				 * @member ns.event.gesture.utils
 				 */
 				getScale: function (start, end) {
-					// need two fingers...
+				// need two fingers...
 					if (start.length >= 2 && end.length >= 2) {
 						return this.getDistance(end[0], end[1]) / this.getDistance(start[0], start[1]);
 					}
 					return 1;
 				},
 
-				/**
+			/**
 				 * Get value of rotation indicated by position
 				 * of the first and the last touch
 				 * @method getRotation
@@ -157,7 +157,7 @@
 				 * @member ns.event.gesture.utils
 				 */
 				getRotation: function (start, end) {
-					// need two fingers
+				// need two fingers
 					if (start.length >= 2 && end.length >= 2) {
 						return this.getAngle(end[1], end[0]) -
 							this.getAngle(start[1], start[0]);
@@ -165,7 +165,7 @@
 					return 0;
 				},
 
-				/**
+			/**
 				 * Check if the direction is vertical
 				 * @method isVertical
 				 * @param {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN} direction start touch
@@ -176,7 +176,7 @@
 					return direction === gesture.Direction.UP || direction === gesture.Direction.DOWN;
 				},
 
-				/**
+			/**
 				 * Check if the direction is horizontal
 				 * @method isHorizontal
 				 * @param {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN} direction start touch
@@ -187,7 +187,7 @@
 					return direction === gesture.Direction.LEFT || direction === gesture.Direction.RIGHT;
 				},
 
-				/**
+			/**
 				 * Check if the direction is horizontal
 				 * @method getOrientation
 				 * @param {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN} direction
@@ -198,7 +198,7 @@
 					return this.isVertical(direction) ? gesture.Orientation.VERTICAL : gesture.Orientation.HORIZONTAL;
 				}
 			};
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

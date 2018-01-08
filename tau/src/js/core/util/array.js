@@ -21,7 +21,7 @@
  *
  * @class ns.util.array
  */
-(function (window, document, ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -269,4 +269,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(ns));

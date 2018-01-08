@@ -1,5 +1,7 @@
 var colors = tau.util.colors;
 
+module("core/util/colors");
+
 test("check the existence of objects/functions", function () {
     equal(typeof tau, "object", "tau exists");
     equal(typeof tau.util, "object", "tau.util exists");

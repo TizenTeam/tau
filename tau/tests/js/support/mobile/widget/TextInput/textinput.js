@@ -1,7 +1,7 @@
 (function (window, document) {
 	"use strict";
 
-	module("TextInput tests", {
+	module("support/mobile/widget/TextInput", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

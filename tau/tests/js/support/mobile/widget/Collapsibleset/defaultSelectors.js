@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("collapsibleset", {
+	module("support/mobile/widget/Collapsibleset", {
 		setup: function () {
 			tau.engine.run();
 		},

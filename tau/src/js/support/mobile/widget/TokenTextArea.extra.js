@@ -188,7 +188,7 @@
 
 (function (window, ns) {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../core/engine",
@@ -1414,7 +1414,7 @@
 				"tizen"
 			);
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.TokenTextarea;
 		}
 	);

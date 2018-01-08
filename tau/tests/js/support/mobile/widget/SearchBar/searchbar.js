@@ -3,7 +3,7 @@
 (function (window, document) {
 	"use strict";
 
-	module("SearchBar support tests", {
+	module("support/mobile/widget/SearchBar", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

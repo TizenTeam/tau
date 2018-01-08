@@ -14,7 +14,7 @@
 		});
 
 		QUnit.test("open", function (assert) {
-			helpers.stub(ns.router.history, "replace", function (options, url, title) {
+			helpers.stub(ns.history, "replace", function (options, url, title) {
 				assert.deepEqual(options, {
 					"rel": "grid",
 					"url": "url"
@@ -27,7 +27,7 @@
 				title: "title",
 				rel: "grid"
 			});
-			helpers.restoreStub(ns.router.history, "replace");
+			helpers.restoreStub(ns.history, "replace");
 		});
 
 		QUnit.test("onHashChange", function (assert) {

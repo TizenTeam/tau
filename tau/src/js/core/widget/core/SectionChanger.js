@@ -1,4 +1,3 @@
-/*global window, define, ns*/
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint nomen: true, plusplus: true */
+/*global window, define, ns*/
 /**
  * # Section Changer
  * Section changer component provides an application architecture, which has multiple sections on one page.

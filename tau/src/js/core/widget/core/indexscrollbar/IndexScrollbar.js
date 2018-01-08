@@ -286,29 +286,32 @@
 			"../../../event",
 			"../../../event/vmouse",
 			"../../../util/object",
+			"../../../util/selectors",
 			"../../../util/DOM/css",
 			"../indexscrollbar",
 			"./IndexBar",
 			"./IndexIndicator",
-			"../../BaseWidget"
+			"../../BaseWidget",
+			"../Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var IndexScrollbar = function () {
-					// Support calling without 'new' keyword
-					this.element = null;
-					this.indicator = null;
-					this.indexBar1 = null;	// First IndexBar. Always shown.
-					this.indexBar2 = null;	// 2-depth IndexBar. shown if needed.
+					var self = this;// Support calling without 'new' keyword
 
+					self.indicator = null;
+					self.indexBar1 = null;	// First IndexBar. Always shown.
+					self.indexBar2 = null;	// 2-depth IndexBar. shown if needed.
 
-					this.index = null;
-					this.touchAreaOffsetLeft = 0;
-					this.indexElements = null;
-					this.selectEventTriggerTimeoutId = null;
-					this.ulMarginTop = 0;
+					self._ui = {};
 
-					this.eventHandlers = {};
+					self.index = null;
+					self.touchAreaOffsetLeft = 0;
+					self.indexElements = null;
+					self.selectEventTriggerTimeoutId = null;
+					self.ulMarginTop = 0;
+
+					self.eventHandlers = {};
 
 				},
 				BaseWidget = ns.widget.BaseWidget,
@@ -320,6 +323,7 @@
 				 * @static
 				 */
 				events = ns.event,
+				selectors = ns.util.selectors,
 				/**
 				 * Alias for class {@link ns.util.object}
 				 * @property {Object} utilsObject
@@ -339,6 +343,8 @@
 
 				IndexBar = ns.widget.core.indexscrollbar.IndexBar,
 				IndexIndicator = ns.widget.core.indexscrollbar.IndexIndicator,
+				Page = ns.widget.core.Page,
+				pageSelector = ns.engine.getWidgetDefinition("Page").selector,
 				EventType = {
 					/**
 					 * Event triggered after select index by user
@@ -428,9 +434,10 @@
 
 					element.classList.add(options.indexScrollbarClass);
 
+					self._ui.page = selectors.getClosestBySelector(element, pageSelector);
 					self._setIndex(element, options.index);
 					self._setMaxIndexLen(element, options.maxIndexLen);
-					self._setInitialLayout();	// This is needed for creating sub objects
+					self._setInitialLayout(); // This is needed for creating sub objects
 					self._createSubObjects();
 
 					self._updateLayout();
@@ -448,17 +455,20 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_refresh: function () {
-					if (this._isExtended()) {
-						this._unbindEvent();
-						this.indicator.hide();
-						this._extended(false);
+					var self = this;
+
+					if (self._isExtended()) {
+						self._unbindEvent();
+						self.indicator.hide();
+						self._extended(false);
 					}
 
-					this._updateLayout();
-					this.indexBar1.options.index = this.options.index;
-					this.indexBar1.refresh();
-					this._bindEvents();
-					this._extended(true);
+					self._updateLayout();
+					self.indexBar1.options.index = self.options.index;
+					self.indexBar1.refresh();
+					self.indicator.fitToContainer();
+					self._bindEvents();
+					self._extended(true);
 				},
 
 				/**
@@ -602,10 +612,12 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_updateLayout: function () {
-					this._setInitialLayout();
-					this._draw();
+					var self = this;
 
-					this.touchAreaOffsetLeft = this.element.offsetLeft - 10;
+					self._setInitialLayout();
+					self._draw();
+
+					self.touchAreaOffsetLeft = self.element.offsetLeft - 10;
 				},
 
 				/**
@@ -801,6 +813,23 @@
 					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
+				_bindOnPageShow: function () {
+					var self = this;
+
+					self.eventHandlers.onPageShow = self.refresh.bind(self);
+					if (self._ui.page) {
+						self._ui.page.addEventListener(Page.events.BEFORE_SHOW, self.eventHandlers.onPageShow, false);
+					}
+				},
+
+				_unbindOnPageShow: function () {
+					var self = this;
+
+					if (self.eventHandlers.onPageShow && self._ui.page) {
+						self._ui.page.removeEventListener(Page.events.BEFORE_SHOW, self.eventHandlers.onPageShow, false);
+					}
+				},
+
 				/**
 				 * This method binds events to widget.
 				 * @method _bindEvents
@@ -808,8 +837,11 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_bindEvents: function () {
-					this._bindResizeEvent();
-					this._bindEventToTriggerSelectEvent();
+					var self = this;
+
+					self._bindResizeEvent();
+					self._bindEventToTriggerSelectEvent();
+					self._bindOnPageShow();
 				},
 
 				/**
@@ -819,8 +851,11 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_unbindEvent: function () {
-					this._unbindResizeEvent();
-					this._unbindEventToTriggerSelectEvent();
+					var self = this;
+
+					self._unbindResizeEvent();
+					self._unbindEventToTriggerSelectEvent();
+					self._unbindOnPageShow();
 				},
 
 				/**
@@ -1026,8 +1061,8 @@
 				 */
 				_getPositionFromEvent: function (ev) {
 					return ev.type.search(/^touch/) !== -1 ?
-					{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
-					{x: ev.clientX, y: ev.clientY};
+						{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
+						{x: ev.clientX, y: ev.clientY};
 				},
 
 				/**

@@ -1,6 +1,12 @@
 /************************
 Listview
 *************************/
+
+tau-virtuallistview, tau-listview {
+	.default_list();
+	list-style-type: none;
+}
+
 .ui-listview li {
 	font-size: @font_size_list_item;
 	line-height: 48 * @unit_base;
@@ -77,20 +83,19 @@ Listview
 		}
 
 
-		a.ui-btn {
-			background-position: center center;
-			height: 85 * @unit_base;
-			overflow: hidden;
-			background-repeat: no-repeat;
-			background-size: 88 * @unit_base 88 * @unit_base;
-			position: relative;
-			flex: 1 1 auto;
-			border-bottom: @unit_base solid B0553;
-			border-right: @unit_base solid B0553;
-
+		a, tau-button {
+			&.ui-btn {
+				background-position: center center;
+				height: 85 * @unit_base;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: 88 * @unit_base 88 * @unit_base;
+				position: relative;
+				flex: 1 1 auto;
+				border-bottom: @unit_base solid B0553;
+				border-right: @unit_base solid B0553;
+			}
 		}
-
-
 	}
 
 	input[type=text],

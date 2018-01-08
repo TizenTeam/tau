@@ -31,6 +31,7 @@
 			"../../../../core/util/object",
 			"../../../../core/event",
 			"../../../../core/event/gesture/Drag",
+			"../../BaseWidget",
 			"./effect/Bouncing",
 			"../scroller"
 		],

@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("swipe", {
+	module("support/mobile/widget/Swipe", {
 		setup: function () {
 			tau.engine.run();
 		},

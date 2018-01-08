@@ -1,4 +1,4 @@
-module("profile/mobile/router/Page");
+module("core/router/Router");
 
 asyncTest('By default first page is active', 3, function () {
 	function checkFirstPage () {

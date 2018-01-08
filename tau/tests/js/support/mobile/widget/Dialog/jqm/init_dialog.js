@@ -2,7 +2,7 @@
  * mobile init dialog tests
  */
 (function($){
-	module( "core/core" );
+	module( "support/mobile/widget/Dialog" );
 
 	// issue #3275
 	test( "A document containing no pages and a dialog role div will enhance the div as a dialog", function() {

@@ -1,5 +1,5 @@
 /* global module, test, ok, equal, tau */
-module("CircleProgressBar tests", {
+module("profile/wearable/widget/wearable/CircleProgressBar", {
 	teardown: function () {
 		tau.engine._clearBindings();
 	}

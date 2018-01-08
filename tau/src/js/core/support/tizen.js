@@ -21,7 +21,7 @@
  */
 (function (window, document) {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../core"

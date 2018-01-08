@@ -21,25 +21,24 @@
  * @class ns.router.route.drawer
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
-(function (document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
-			"../../util/DOM/attributes",
 			"../../util/path",
-			"../../util/selectors",
-			"../../util/object",
 			"../route",
-			"../history",
+			"../Router",
+			"../../history",
 			"../../widget/core/Drawer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
+				Router = ns.router.Router,
 				path = ns.util.path,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				routeDrawer = {},
 				drawerHashKey = "drawer=true",
@@ -99,7 +98,7 @@
 			 */
 			routeDrawer.find = function (absUrl) {
 				var dataUrl = path.convertUrlToDataUrl(absUrl),
-					activePage = engine.getRouter().getContainer().getActivePage(),
+					activePage = Router.getInstance().getContainer().getActivePage(),
 					drawer;
 
 				drawer = activePage.element.querySelector("#" + dataUrl);
@@ -160,7 +159,7 @@
 					this.active = false;
 					return true;
 				}
-				return null;
+				return false;
 			};
 
 			ns.router.route.drawer = routeDrawer;
@@ -170,4 +169,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}());

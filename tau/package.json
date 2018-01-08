@@ -53,6 +53,7 @@
   },
   "main": "Gruntfile.js",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "easyimage": "^2.1.0",
     "escomplex": "^2.0.0-alpha",
     "eslint": "^3.11.1",

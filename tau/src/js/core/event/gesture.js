@@ -1,5 +1,3 @@
-/*global window, define, ns, CustomEvent */
-/*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* global window, define, ns, CustomEvent */
 /*
  * @class ns.event.gesture
  */
@@ -23,13 +22,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
 		"../event"
-	],
-		function () {
-			//>>excludeEnd("tauBuildExclude");
-			var event = ns.event,
-				gesture = function (elem, options) {
-					return new ns.event.gesture.Instance(elem, options);
-				};
+	], function () {
+		//>>excludeEnd("tauBuildExclude");
+		var event = ns.event,
+			gesture = function (elem, options) {
+				return new ns.event.gesture.Instance(elem, options);
+			};
 
 			/**
 			 * Default values for Gesture feature
@@ -42,13 +40,13 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.defaults = {
-				triggerEvent: false,
-				updateVelocityInterval: 16,
-				estimatedPointerTimeDifference: 15
-			};
+		gesture.defaults = {
+			triggerEvent: false,
+			updateVelocityInterval: 16,
+			estimatedPointerTimeDifference: 15
+		};
 
-			/**
+		/**
 			 * Dictionary of orientation
 			 * @property {Object} Orientation
 			 * @property {1} Orientation.VERTICAL vertical orientation
@@ -56,12 +54,12 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.Orientation = {
-				VERTICAL: "vertical",
-				HORIZONTAL: "horizontal"
-			};
+		gesture.Orientation = {
+			VERTICAL: "vertical",
+			HORIZONTAL: "horizontal"
+		};
 
-			/**
+		/**
 			 * Dictionary of direction
 			 * @property {Object} Direction
 			 * @property {1} Direction.UP up
@@ -71,14 +69,14 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.Direction = {
-				UP: "up",
-				DOWN: "down",
-				LEFT: "left",
-				RIGHT: "right"
-			};
+		gesture.Direction = {
+			UP: "up",
+			DOWN: "down",
+			LEFT: "left",
+			RIGHT: "right"
+		};
 
-			/**
+		/**
 			 * Dictionary of gesture events state
 			 * @property {Object} Event
 			 * @property {"start"} Event.START start
@@ -89,15 +87,15 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.Event = {
-				START: "start",
-				MOVE: "move",
-				END: "end",
-				CANCEL: "cancel",
-				BLOCKED: "blocked"
-			};
+		gesture.Event = {
+			START: "start",
+			MOVE: "move",
+			END: "end",
+			CANCEL: "cancel",
+			BLOCKED: "blocked"
+		};
 
-			/**
+		/**
 			 * Dictionary of gesture events flags
 			 * @property {Object} Result
 			 * @property {number} [Result.PENDING=1] is pending
@@ -107,22 +105,22 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.Result = {
-				PENDING: 1,
-				RUNNING: 2,
-				FINISHED: 4,
-				BLOCK: 8
-			};
+		gesture.Result = {
+			PENDING: 1,
+			RUNNING: 2,
+			FINISHED: 4,
+			BLOCK: 8
+		};
 
-			/**
+		/**
 			 * Create plugin namespace.
 			 * @property {Object} plugin
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.plugin = {};
+		gesture.plugin = {};
 
-			/**
+		/**
 			 * Create object of Detector
 			 * @method createDetector
 			 * @param {string} gesture
@@ -132,17 +130,17 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			gesture.createDetector = function (gesture, eventSender, options) {
-				if (!gesture.plugin[gesture]) {
-					throw gesture + " gesture is not supported";
-				}
-				return new gesture.plugin[gesture](eventSender, options);
-			};
+		gesture.createDetector = function (gesture, eventSender, options) {
+			if (!gesture.plugin[gesture]) {
+				throw gesture + " gesture is not supported";
+			}
+			return new gesture.plugin[gesture](eventSender, options);
+		};
 
-			event.gesture = gesture;
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return event.gesture;
-		}
+		event.gesture = gesture;
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		return event.gesture;
+	}
 	);
 	//>>excludeEnd("tauBuildExclude");
 }(ns));

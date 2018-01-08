@@ -2,7 +2,7 @@
 (function (document) {
 	"use strict";
 
-	module("toggleswitch", {
+	module("profile/mobile/widget/mobile/ToggleSwitch", {
 		setup: function () {
 			tau.engine.run();
 		},

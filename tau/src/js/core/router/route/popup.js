@@ -32,7 +32,8 @@
 			"../../util/DOM/attributes",
 			"../../util/object",
 			"../../widget/core/Popup",
-			"../history",
+			"../../history",
+			"../Router",
 			"../route"
 		],
 		function () {
@@ -103,7 +104,7 @@
 					 * @protected
 					 * @static
 					 */
-					_history: ns.router.history
+					_history: ns.history
 				},
 				/**
 				 * Alias for {@link ns.engine}
@@ -259,7 +260,7 @@
 			routePopup.open = function (toPopup, options, event) {
 				var self = this,
 					popup,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),
 					events = self.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
@@ -342,7 +343,7 @@
 						popupOptions.ext = options.ext || popupOptions.ext;
 						// unlock the router if it was locked
 						if (!popupOptions.dismissible) {
-							engine.getRouter().unlock();
+							ns.router.Router.getInstance().unlock();
 						}
 						// and call history.back()
 						routePopup._history.back();
@@ -403,7 +404,7 @@
 			routePopup.find = function (absUrl) {
 				var self = this,
 					dataUrl = self._createDataUrl(absUrl),
-					activePage = engine.getRouter().getContainer().getActivePage(),
+					activePage = ns.router.Router.getInstance().getContainer().getActivePage(),
 					popup;
 
 				popup = activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);

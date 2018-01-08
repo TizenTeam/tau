@@ -336,7 +336,8 @@
 	if (typeof define === "function") {
 		define(
 			[
-				"../../../../../src/js/core/engine"
+				"../../../../../src/js/core/engine",
+				"../../../../../src/js/core/router/route/popup"
 			],
 			function (engine) {
 				return runTest.bind(null, engine);

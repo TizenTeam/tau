@@ -26,6 +26,7 @@
 	define(
 		[
 			"../core/engine",
+			"../core/router/Router",
 			"../core/util/path",
 			"./namespace"
 		],
@@ -34,7 +35,7 @@
 
 			var engine = ns.engine,
 				$ = ns.jqm.jQuery,
-				eventType = engine.eventType,
+				eventType = ns.router.Router.eventType,
 				jqmRouter = {
 					/**
 					 * Enables support jQM before router init.
@@ -43,7 +44,7 @@
 					 */
 					beforeinit: function () {
 						var container,
-							router = engine.getRouter();
+							router = ns.router.Router.getInstance();
 
 						if ($) {
 							if ($.mobile) {
@@ -127,7 +128,7 @@
 					init: function () {
 						var transitions,
 							name,
-							router = engine.getRouter(),
+							router = ns.router.Router.getInstance(),
 							containerWidget;
 
 						if ($) {

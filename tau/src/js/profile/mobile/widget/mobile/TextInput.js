@@ -1,4 +1,4 @@
-/*global window, define, ns */
+/*global window, define, ns, HTMLTextAreaElement, HTMLInputElement */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -105,7 +105,7 @@
  */
 (function (document, ns) {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../../core/engine",
@@ -706,7 +706,22 @@
 					", input:not([type])." + classes.uiTextInput,
 				[],
 				TextInput,
-				"mobile"
+				"mobile",
+				false,
+				false,
+				HTMLInputElement
+			);
+
+			ns.widget.mobile.TextArea = TextInput;
+			engine.defineWidget(
+				"TextArea",
+				null,
+				[],
+				TextInput,
+				"mobile",
+				false,
+				false,
+				HTMLTextAreaElement
 			);
 
 			engine.defineWidget(
@@ -716,7 +731,7 @@
 				TextInput,
 				"mobile"
 			);
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.TextInput;
 		}
 	);

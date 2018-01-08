@@ -8,6 +8,8 @@ $ ( document ).ready ( function ( ) {
 
 	$('#page1').one('pageshow', function() {
 
+		module("profile/mobile/widget/mobile/Button");
+
 		test( "button elements in the keepNative set shouldn't be enhanced", function() {
 			deepEqual( $("button.should-be-native").siblings("div.ui-slider").length, 0 );
 		});

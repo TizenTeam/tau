@@ -29,9 +29,9 @@
 		"./Detector"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 
-			/**
+		/**
 			 * Local alias for {@link ns.event.gesture}
 			 * @property {Object}
 			 * @member ns.event.gesture.Pinch
@@ -39,7 +39,7 @@
 			 * @static
 			 */
 			var gesture = ns.event.gesture,
-				/**
+			/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
 				 * @member ns.event.gesture.Pinch
@@ -59,28 +59,28 @@
 				},
 
 				Pinch = Detector.plugin.create({
-					/**
+				/**
 					 * Gesture name
 					 * @property {string} [name="pinch"]
 					 * @member ns.event.gesture.Pinch
 					 */
 					name: "pinch",
 
-					/**
+				/**
 					 * Gesture Index
 					 * @property {number} [index=300]
 					 * @member ns.event.gesture.Pinch
 					 */
 					index: 300,
 
-					/**
+				/**
 					 * Array of posible pinch events
 					 * @property {Object} eventNames
 					 * @member ns.event.gesture.Pinch
 					 */
 					eventNames: eventNames,
 
-					/**
+				/**
 					 * Default values for pinch gesture
 					 * @property {Object} defaults
 					 * @property {number} [defaults.velocity=0.6]
@@ -92,14 +92,14 @@
 						timeThreshold: 400
 					},
 
-					/**
+				/**
 					 * Triggered
 					 * @property {boolean} [isTriggered=false]
 					 * @member ns.event.gesture.Pinch
 					 */
 					isTriggered: false,
 
-					/**
+				/**
 					 * Handler for pinch gesture
 					 * @method handler
 					 * @param {Event} gestureEvent gesture event
@@ -169,7 +169,7 @@
 				});
 
 			ns.event.gesture.Pinch = Pinch;
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Pinch;
 		}
 	);

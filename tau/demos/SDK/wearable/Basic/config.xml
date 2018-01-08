@@ -5,7 +5,6 @@
     <name>Basic</name>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal"/>
-    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:profile name="wearable"/>
     <tizen:setting hwkey-event="enable"/>
 </widget>

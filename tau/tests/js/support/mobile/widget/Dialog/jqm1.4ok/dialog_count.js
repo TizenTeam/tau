@@ -3,7 +3,7 @@
  */
 (function($) {
 
-	module('profile/mobile/widget/mobile/Dialog');
+	module('support/mobile/widget/Dialog');
 
 	test( "When the page loads, any dialogs in the page should be initialized", function() {
 		expect( 1 );

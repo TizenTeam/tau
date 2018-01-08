@@ -196,8 +196,10 @@
 				objectUtils = util.object,
 				Set = util.Set,
 				BaseWidget = function () {
+					this.state = "created";
 					return this;
 				},
+				getNSData = domUtils.getNSData,
 				prototype = {},
 				/**
 				 * Property with string represent function type
@@ -305,6 +307,8 @@
 				 * @member ns.widget.BaseWidget
 				 */
 
+				self.state = "configuring";
+
 				self.options = self.options || {};
 				/**
 				 * Base element of widget
@@ -312,15 +316,20 @@
 				 * @member ns.widget.BaseWidget
 				 */
 				self.element = self.element || null;
+
 				self._configureDefinition(definition);
 
 				if (typeof self._configure === TYPE_FUNCTION) {
 					self._configure(element);
 				}
 
+				self.isCustomElement = !!element.createdCallback;
+
 				self._getCreateOptions(element);
 
 				objectUtils.fastMerge(self.options, options);
+
+				self.state = "configured";
 			};
 
 			/**
@@ -333,20 +342,29 @@
 			 */
 			prototype._getCreateOptions = function (element) {
 				var self = this,
-					options = self.options;
+					options = self.options,
+					tag = element.localName.toLowerCase();
 
-				if (options !== undefined) {
+				if (options) {
 					Object.keys(options).forEach(function (option) {
-						// Get value from data-{namespace}-{name} element's attribute
-						// based on widget.options property keys
-						var value = domUtils.getNSData(element, utilString.camelCaseToDashes(option));
+						var attributeName = utilString.camelCaseToDashes(option),
+							baseValue = getNSData(element, attributeName, true),
+							prefixedValue = getNSData(element, attributeName);
 
-						if (value !== null) {
-							options[option] = value;
+						if (prefixedValue !== null) {
+							options[option] = prefixedValue;
 						} else {
 							if (typeof options[option] === "boolean") {
 								self._readBooleanOptionFromElement(element, option);
 							}
+						}
+
+						if (option === "type" && tag === "input") { // dont set conflicting props
+							return;
+						}
+
+						if (baseValue !== null) {
+							options[option] = baseValue;
 						}
 					});
 				}
@@ -384,6 +402,8 @@
 
 				eventUtils.trigger(element, self.widgetEventPrefix + "beforecreate");
 
+				self.state = "building";
+
 				id = element.id;
 				if (id) {
 					self.id = id;
@@ -406,6 +426,7 @@
 				element.setAttribute(engineDataTau.built, dataBuilt);
 				element.setAttribute(engineDataTau.name, dataName);
 
+				self.state = "built";
 				return node;
 			};
 
@@ -432,6 +453,8 @@
 
 				self.id = element.id;
 
+				self.state = "initiating";
+
 				if (typeof self._init === TYPE_FUNCTION) {
 					self._init(element);
 				}
@@ -441,7 +464,7 @@
 				} else {
 					self.enable();
 				}
-
+				self.state = "initiated";
 				return self;
 			};
 
@@ -600,6 +623,10 @@
 				var self = this;
 
 				element = element || self.element;
+
+				// the widget is in during destroy process
+				self.state = "destroying";
+
 				if (typeof self._destroy === TYPE_FUNCTION) {
 					self._destroy(element);
 				}
@@ -609,6 +636,8 @@
 				if (element) {
 					engine.removeBinding(element, self.name);
 				}
+				// the widget was destroyed
+				self.state = "destroyed";
 			};
 
 			/**

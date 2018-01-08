@@ -20,10 +20,10 @@
  */
 var path = require("path"),
 	autoprefixer = require("autoprefixer"),
-	async = require("async");
+	async = require("async"),
+	ceconverter = require(path.join(__dirname, "/tools/converter/index"));
 
 module.exports = function (grunt) {
-	"use strict";
 	var pkg = grunt.file.readJSON("package.json"),
 		themes = grunt.file.readJSON("themes.json"),
 		name = pkg.name,
@@ -354,7 +354,55 @@ module.exports = function (grunt) {
 						name: "wearable",
 						out: path.join(buildDir.wearable.js, name) + ".js",
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				wearableMVC: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "wearable",
+						out: path.join(buildDir.wearable.js, name) + ".mvc.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: true
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				wearableFull: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "wearable",
+						out: path.join(buildDir.wearable.js, name) + ".full.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
@@ -376,7 +424,55 @@ module.exports = function (grunt) {
 						name: "mobile",
 						out: path.join(buildDir.mobile.js, name) + ".js",
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				mobileMVC: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "mobile",
+						out: path.join(buildDir.mobile.js, name) + ".mvc.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: true
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				mobileFull: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "mobile",
+						out: path.join(buildDir.mobile.js, name) + ".full.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
@@ -402,7 +498,9 @@ module.exports = function (grunt) {
 						],
 						out: path.join(buildDir.mobile.js, name + ".support-2.3") + ".js",
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
@@ -426,7 +524,9 @@ module.exports = function (grunt) {
 							"core/event"
 						],
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
@@ -916,7 +1016,110 @@ module.exports = function (grunt) {
 				}
 			},
 
-			performance: {}
+			performance: {
+
+			},
+
+			multitau: {
+				options: {
+					src: "dist"
+				},
+				UIComponentsMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/SDK/mobile/UIComponents/lib/tau/mobile"
+					}
+				},
+				UIComponentsCEMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/SDK/mobile/UIComponentsCE/lib/tau/mobile"
+					}
+				},
+				UIComponentsWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/UIComponents/lib/tau/wearable"
+					}
+				},
+				UIComponentsCEWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/UIComponentsCE/lib/tau/wearable"
+					}
+				},
+				UIComponentsWearableCircular: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/circular/CircularUIComponents/lib/tau/wearable"
+					}
+				},
+				UIComponentsCEWearableCircular: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/circular/CircularUIComponentsCE/lib/tau/wearable"
+					}
+				},
+				TAUControllerWithRouterMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUControllerWithRouter/lib/tau"
+					}
+				},
+				TAUControllerWithRouterWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUControllerWithRouter/lib/tau"
+					}
+				},
+				TAUApplicationFrameworkMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUApplicationFramework/lib/tau"
+					}
+				},
+				TAUApplicationFrameworkWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUApplicationFramework/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUControllerWithOutRouter/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUControllerWithOutRouter/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterWithPolymerMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUControllerWithOutRouterWithPolymer/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterWithPolymerWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUControllerWithOutRouterWithPolymer/lib/tau"
+					}
+				},
+				TAUMultiProfilesTemplateLoadMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUMultiProfilesTemplateLoad/lib/tau"
+					}
+				},
+				TAUMultiProfilesTemplateLoadWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUMultiProfilesTemplateLoad/lib/tau"
+					}
+				}}
 		};
 
 	grunt.initConfig(initConfig);
@@ -1087,6 +1290,7 @@ module.exports = function (grunt) {
 
 	// Load framework custom tasks
 	grunt.loadTasks("tools/grunt/tasks");
+	grunt.loadTasks("demos/tools/app/tasks");
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
@@ -1097,7 +1301,8 @@ module.exports = function (grunt) {
 	grunt.registerTask("css-mobile", "Prepare CSS for mobile profile", ["clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
 	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile_support", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
 	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "themeConverter:wearable_circle", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme", "postcss"]);
-	grunt.registerTask("js", "Prepare JS", ["clean:js", "requirejs:mobile", "requirejs:wearable", "requirejs:mobile_support", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation"]);
+	grunt.registerTask("js", "Prepare JS", ["clean:js", "requirejs:mobile", "requirejs:wearable",
+		"requirejs:mobile_support", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation"]);
 	grunt.registerTask("js-mobile", "Prepare JS for mobile", ["clean:js", "requirejs:mobile", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-mobile_support", "Prepare JS for mobile 2.3", ["clean:js", "requirejs:mobile", "requirejs:mobile_support", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-wearable", "Prepare JS wearable", ["clean:js", "requirejs:wearable", "jsmin", "themesjs:wearable"]);
@@ -1108,12 +1313,55 @@ module.exports = function (grunt) {
 	grunt.registerTask("docs-wearable", ["js-wearable", "analize-docs:wearable", "copy:sdk-docs"]);
 	grunt.registerTask("docs", ["docs-wearable", "docs-mobile_support", "docs-mobile"]);
 
-	grunt.registerTask("build", "Build whole project", ["css", "globalize", "js", "license", "version"]);
+	grunt.registerTask("build", "Build whole project", ["css", "js", "license", "version"]);
 	grunt.registerTask("build-mobile", "Build mobile project", ["css-mobile", "js-mobile", "license", "version"]);
 	grunt.registerTask("build-mobile_support", "Build mobile project for 2.3", ["css-mobile_support", "js-mobile_support", "license", "version"]);
 	grunt.registerTask("build-wearable", "Build wearable project", ["css-wearable", "js-wearable", "license", "version"]);
 
 	grunt.registerTask("release", "Build, est and prepare docs", ["lint", "build", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "test:wearable"]);
+
+	//convert to CE
+	grunt.registerTask("convert-app", "Replace html tags with custom elements, example: grunt convert-app:full path to source:full path to destination:profile", function (sourcePath, targetPath, profile) {
+		profile = profile || "mobile";
+
+		//convert application
+		ceconverter(sourcePath, targetPath, profile);
+	});
+
+	grunt.registerTask("ce-test-mobile", ["build",
+		"multitau:UIComponentsMobile",
+		"multitau:UIComponentsCEMobile",
+		"karma:CEUIComponentsMobile"]);
+
+	grunt.registerTask("ce-test-wearable", ["build",
+		"multitau:UIComponentsWearable",
+		"multitau:UIComponentsCEWearable",
+		"karma:CEUIComponentsWearable"]);
+	grunt.registerTask("ce-test-wearable-circular", ["build",
+		"multitau:UIComponentsWearableCircular",
+		"multitau:UIComponentsCEWearableCircular",
+		"karma:CEUIComponentsWearableCircular"]);
+
+	grunt.registerTask("apptest", ["build",
+		"multitau:TAUControllerWithRouterMobile",
+		"multitau:TAUControllerWithOutRouterMobile",
+		"multitau:TAUControllerWithOutRouterWithPolymerMobile",
+		"multitau:TAUMultiProfilesTemplateLoadMobile",
+		"multitau:TAUApplicationFrameworkMobile",
+		"karma:app",
+		"multitau:TAUControllerWithRouterWearable",
+		"multitau:TAUControllerWithOutRouterWearable",
+		"multitau:TAUControllerWithOutRouterWithPolymerWearable",
+		"multitau:TAUMultiProfilesTemplateLoadWearable",
+		"multitau:TAUApplicationFrameworkWearable",
+		"karma:app"]);
+
+	grunt.registerTask("verify", [
+		"apptest",
+		"ce-test-mobile",
+		"ce-test-wearable",
+		"test"
+	]);
 	grunt.registerTask("default", "->release", ["release"]);
 	grunt.registerTask("ci", "Code style validation for CI", ["eslint:js-ci", "lesslint:less-ci", "eslint:jsdoc-ci"]);
 };

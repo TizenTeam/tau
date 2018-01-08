@@ -31,9 +31,9 @@
 		"../../util/object"
 	],
 		function () {
-			//>>excludeEnd("tauBuildExclude");
+		//>>excludeEnd("tauBuildExclude");
 
-			/**
+		/**
 			 * Local alias for {@link ns.event.gesture}
 			 * @property {Object}
 			 * @member ns.event.gesture.Drag
@@ -41,7 +41,7 @@
 			 * @static
 			 */
 			var gesture = ns.event.gesture,
-				/**
+			/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
 				 * @member ns.event.gesture.Drag
@@ -51,7 +51,7 @@
 				gestureUtils = gesture.utils,
 
 				Detector = gesture.Detector,
-				/**
+			/**
 				 * Alias for method {@link ns.util.object.merge}
 				 * @property {Function} merge
 				 * @member ns.event.gesture.Drag
@@ -68,7 +68,7 @@
 					prepare: "dragprepare"
 				},
 
-				// TODO UA test will move to support.
+			// TODO UA test will move to support.
 				isTizenWebkit2Browser = !!window.navigator.userAgent.match(/tizen/i) && (function () {
 					var result = true,
 						version;
@@ -90,21 +90,21 @@
 
 				Drag = Detector.plugin.create({
 
-					/**
+				/**
 					 * Gesture name
 					 * @property {string} [name="drag"]
 					 * @member ns.event.gesture.Drag
 					 */
 					name: "drag",
 
-					/**
+				/**
 					 * Gesture Index
 					 * @property {number} [index=500]
 					 * @member ns.event.gesture.Drag
 					 */
 					index: 500,
 
-					/**
+				/**
 					 * Default values for drag gesture
 					 * @property {Object} defaults
 					 * @property {boolean} [defaults.blockHorizontal=false]
@@ -120,14 +120,14 @@
 						delay: 0
 					},
 
-					/**
+				/**
 					 * Triggered
 					 * @property {boolean} [isTriggered=false]
 					 * @member ns.event.gesture.Drag
 					 */
 					isTriggered: false,
 
-					/**
+				/**
 					 * Handler for drag gesture
 					 * @method handler
 					 * @param {Event} gestureEvent gesture event
@@ -144,7 +144,7 @@
 
 						if (!this.isTriggered && gestureEvent.eventType === gesture.Event.MOVE) {
 							if (Math.abs(gestureEvent.deltaX) < threshold && Math.abs(gestureEvent.deltaY) < threshold) {
-								// Branching statement for specifying Tizen 2.X and Tizen 3.0
+							// Branching statement for specifying Tizen 2.X and Tizen 3.0
 								if (isChromeBrowser) {
 									gestureEvent.preventDefault();
 								}
@@ -234,7 +234,7 @@
 				});
 
 			ns.event.gesture.Drag = Drag;
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 
 			return Drag;
 		}

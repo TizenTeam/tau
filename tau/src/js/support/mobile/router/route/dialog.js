@@ -20,7 +20,7 @@
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,7 +32,7 @@
 			"../../../../core/util/object",
 			"../../widget/Dialog",
 			"../../../../core/router/route",
-			"../../../../core/router/history"
+			"../../../../core/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -41,7 +41,7 @@
 				DOM = util.DOM,
 				object = util.object,
 				utilSelector = util.selectors,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				baseElement,
 				routeDialog = {},
@@ -136,7 +136,7 @@
 				var pageTitle = document.title,
 					url,
 					state = {},
-					router = engine.getRouter();
+					router = ns.router.Router.getInstance();
 
 				if (toPage === router.getRoute("page").getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
@@ -187,7 +187,7 @@
 			 */
 			routeDialog.find = function (absUrl) {
 				var self = this,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),
 					dataUrl = self._createDataUrl(absUrl),
 					firstPageElement = router.getFirstPage(),
 					pageContainer = router.getContainer(),
@@ -352,7 +352,7 @@
 			 * @static
 			 */
 			routeDialog.getContainer = function () {
-				return engine.getRouter().getContainer();
+				return ns.router.Router.getInstance().getContainer();
 			};
 
 			/**
@@ -383,4 +383,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

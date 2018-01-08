@@ -241,7 +241,7 @@
  */
 (function (document, ns) {
 	"use strict";
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../../core/engine",
@@ -251,7 +251,7 @@
 			"../../../core/widget/BaseWidget"
 		],
 		function () {
-//>>excludeEnd("tauBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var SearchBar = function () {
 					return this;
 				},
@@ -840,7 +840,7 @@
 				SearchBar,
 				"mobile"
 			);
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.SearchBar;
 		}
 	);

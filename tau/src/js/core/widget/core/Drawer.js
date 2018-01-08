@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -51,7 +51,7 @@
 			"../../util/DOM/css",
 			"../../event",
 			"../../event/gesture",
-			"../../router/history",
+			"../../history",
 			"../core", // fetch namespace
 			"./Page",
 			"../BaseWidget"
@@ -66,7 +66,6 @@
 			 * @static
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
-				engine = ns.engine,
 				/**
 				 * @property {Object} selectors Alias for class ns.util.selectors
 				 * @member ns.widget.core.Drawer
@@ -77,7 +76,7 @@
 				selectors = ns.util.selectors,
 				utilDOM = ns.util.DOM,
 				events = ns.event,
-				history = ns.router.history,
+				history = ns.history,
 				Gesture = ns.event.gesture,
 				Page = ns.widget.core.Page,
 				STATE = {
@@ -515,7 +514,7 @@
 			 */
 			prototype._setActive = function (active) {
 				var self = this,
-					route = engine.getRouter().getRoute("drawer");
+					route = ns.router.getInstance().getRoute("drawer");
 
 				if (active) {
 					route.setActive(self);
@@ -589,12 +588,15 @@
 					element = self.element,
 					elementStyle = element.style,
 					ui = self._ui,
-					overlayStyle = ui.drawerOverlay ? ui.drawerOverlay.style : false;
+					overlayStyle = ui.drawerOverlay ? ui.drawerOverlay.style : null,
+					height;
 
 				options.width = options.width || ui.targetElement.offsetWidth;
+				height = ui.targetElement.offsetHeight;
 
-				elementStyle.width = options.width + "px";
-				elementStyle.height = ui.targetElement.offsetHeight + "px";
+				elementStyle.width = (options.width !== 0) ? options.width + "px" : "100%";
+				elementStyle.height = (height !== 0) ? height + "px" : "100%";
+				elementStyle.top = "0";
 
 				if (overlayStyle) {
 					overlayStyle.width = window.innerWidth + "px";
@@ -609,6 +611,7 @@
 					element.classList.add(classes.left);
 					self._translate(-options.width, 0);
 				}
+
 				self._state = STATE.CLOSED;
 			};
 
@@ -774,7 +777,7 @@
 					drawerClassList = self.element.classList;
 
 				if (self._state !== STATE.CLOSED) {
-					if (!reverse && self._state === STATE.OPENED) {
+					if (!reverse && self._state === STATE.OPENED && !ns.getConfig("disableRouter")) {
 						// This method was fired by JS code or this widget.
 						history.back();
 						return;

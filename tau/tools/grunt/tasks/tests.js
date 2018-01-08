@@ -181,8 +181,24 @@ module.exports = function (grunt) {
 
 	grunt.config.merge({
 		karma: {
+			CEUIComponentsMobile: {
+				configFile: "./tests/karma/uicomponents.mobile.conf.js",
+				singleRun: true
+			},
+			CEUIComponentsWearable: {
+				configFile: "./tests/karma/uicomponents.wearable.conf.js",
+				singleRun: true
+			},
+			CEUIComponentsWearableCircular: {
+				configFile: "./tests/karma/uicomponents.wearable.circular.conf.js",
+				singleRun: true
+			},
+			app: {
+				configFile: "tests/karma/app.conf.js",
+				singleRun: true
+			},
 			unit: {
-				configFile: "tests/karma/qunit.conf.js",
+				configFile: "tests/karma/all.conf.js",
 				runnerPort: 9999,
 				singleRun: true
 			}

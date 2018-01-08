@@ -1,5 +1,3 @@
-/*global window, ns, define, CustomEvent */
-/*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,7 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
+/* global ns, define, CustomEvent */
 /**
  * #Events
  *
@@ -33,7 +33,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-
 			/**
 			 * Checks if specified variable is a array or not
 			 * @method isArray
@@ -143,12 +142,12 @@
 				 * handlers which handled this event, called preventDefault.
 				 * Otherwise it returns true.
 				 * @method trigger
-				 * @param {HTMLElement} element
+				 * @param {HTMLElement|HTMLDocument} element
 				 * @param {string} type
 				 * @param {?*} [data=null]
 				 * @param {boolean=} [bubbles=true]
 				 * @param {boolean=} [cancelable=true]
-				 * @return {boolean=}
+				 * @return {boolean}
 				 * @member ns.event
 				 * @static
 				 */
@@ -170,7 +169,7 @@
 				/**
 				 * Prevent default on original event
 				 * @method preventDefault
-				 * @param {CustomEvent} event
+				 * @param {Event} event
 				 * @member ns.event
 				 * @static
 				 */
@@ -187,7 +186,7 @@
 				/**
 				 * Stop event propagation
 				 * @method stopPropagation
-				 * @param {CustomEvent} event
+				 * @param {Event} event
 				 * @member ns.event
 				 * @static
 				 */
@@ -204,7 +203,7 @@
 				/**
 				 * Stop event propagation immediately
 				 * @method stopImmediatePropagation
-				 * @param {CustomEvent} event
+				 * @param {Event} event
 				 * @member ns.event
 				 * @static
 				 */
@@ -324,6 +323,13 @@
 
 				/**
 				 * Add event listener to element with prefixes for all browsers
+				 *
+				 *	@example
+				 * 		tau.event.prefixedFastOn(document, "animationEnd", function() {
+				 *			console.log("animation ended");
+				 *		});
+				 *		// write "animation ended" on console on event "animationEnd", "webkitAnimationEnd", "mozAnimationEnd", "msAnimationEnd", "oAnimationEnd"
+				 *
 				 * @method fastPrefixedOn
 				 * @param {HTMLElement} element
 				 * @param {string} type
@@ -344,6 +350,11 @@
 
 				/**
 				 * Remove event listener to element with prefixes for all browsers
+				 *
+				 *	@example
+				 *		tau.event.prefixedFastOff(document, "animationEnd", functionName);
+				 *		// remove listeners functionName on events "animationEnd", "webkitAnimationEnd", "mozAnimationEnd", "msAnimationEnd", "oAnimationEnd"
+				 *
 				 * @method fastPrefixedOff
 				 * @param {HTMLElement} element
 				 * @param {string} type
@@ -458,11 +469,15 @@
 						elements = [element];
 					}
 					elementsLength = elements.length;
+					// pair type with listener
 					listeners = getEventsListeners(type, listener);
 					typesLength = listeners.length;
+					// on each element
 					for (i = 0; i < elementsLength; i++) {
+						// if element has possibility of add listener
 						if (typeof elements[i].addEventListener === "function") {
 							callbacks[i] = [];
+							// for each event type
 							for (j = 0; j < typesLength; j++) {
 								callbacks[i][j] = (function (i, j) {
 									var args = arraySlice.call(arguments);

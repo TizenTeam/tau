@@ -1,7 +1,7 @@
 /*global tau */
 (function () {
 	var page = document.getElementById("number-picker-page"),
-		element = page.querySelector("input[type=\"number\"]"),
+		element = document.getElementById("sample-number-picker"),
 		widget = null;
 
 	function init() {

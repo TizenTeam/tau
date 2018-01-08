@@ -1,4 +1,4 @@
-/*global window, define, ns, Node, HTMLElement */
+/*global window, define, ns, Node */
 /*jslint nomen: true, plusplus: true, bitwise: false */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -14,6 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #Engine
@@ -28,8 +31,11 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
+ * @author Hyunkook, Cho <hk0713.cho@samsung.com>
+ * @author Hyeoncheol Choi <hc7.choi@samsung.com>
+ * @author Piotr Ostalski <p.ostalski@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -37,18 +43,13 @@
 			"require",
 			"./core",
 			"./event",
+			"./history/manager",
 			"./util/selectors",
 			"./util/object",
 			"./util/array"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * @method slice Array.slice
-			 * @private
-			 * @static
-			 * @member ns.engine
-			 */
 			var slice = [].slice,
 				/**
 				 * @property {Object} eventUtils {@link ns.event}
@@ -57,16 +58,18 @@
 				 * @member ns.engine
 				 */
 				eventUtils = ns.event,
-				objectUtils = ns.util.object,
-				selectors = ns.util.selectors,
+				util = ns.util,
+				objectUtils = util.object,
+				historyManager = ns.history.manager,
+				selectors = util.selectors,
 				arrayUtils = ns.util.array,
 				/**
-				 * @property {Object} widgetDefs Object with widgets definitions
+				 * @property {Object} widgetDefinitions Object with widgets definitions
 				 * @private
 				 * @static
 				 * @member ns.engine
 				 */
-				widgetDefs = {},
+				widgetDefinitions = {},
 				/**
 				 * @property {Object} widgetBindingMap Object with widgets bindings
 				 * @private
@@ -168,18 +171,9 @@
 					WIDGET_BUILT: "widgetbuilt",
 					DESTROY: "taudestroy",
 					BOUND: "bound",
-					WIDGET_INIT: "init",
-					BEFORE_ROUTER_INIT: "beforerouterinit",
-					ROUTER_INIT: "routerinit"
+					WIDGET_INIT: "init"
 				},
-				engine,
-				/**
-				 * @property {Object} router Router object
-				 * @private
-				 * @static
-				 * @member ns.engine
-				 */
-				router;
+				engine;
 
 			/**
 			 * This function prepares selector for widget' definition
@@ -210,12 +204,12 @@
 			 * @member ns.engine
 			 * @static
 			 */
-			function defineWidget(name, selector, methods, widgetClass, namespace, redefine, widgetNameToLowercase) {
+			function defineWidget(name, selector, methods, widgetClass, namespace, redefine, widgetNameToLowercase, BaseElement) {
 				var definition;
 				// Widget name is absolutely required
 
 				if (name) {
-					if (!widgetDefs[name] || redefine) {
+					if (!widgetDefinitions[name] || redefine) {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
 						ns.log("defining widget:", name);
 						//>>excludeEnd("tauDebug");
@@ -228,12 +222,13 @@
 							selectors: selector ? selector.split(",").map(selectorChange) : [],
 							widgetClass: widgetClass || null,
 							namespace: namespace || "",
-							widgetNameToLowercase: widgetNameToLowercase === undefined ? true : !!widgetNameToLowercase
+							widgetNameToLowercase: widgetNameToLowercase === undefined ? true : !!widgetNameToLowercase,
+							BaseElement: BaseElement
 						};
 
-						widgetDefs[name] = definition;
+						widgetDefinitions[name] = definition;
 						if (namespace) {
-							widgetDefs[namespace + "." + name] = definition;
+							widgetDefinitions[namespace + "." + name] = definition;
 						}
 						eventUtils.trigger(document, "widgetdefined", definition, false);
 						return true;
@@ -254,7 +249,7 @@
 			 * @static
 			 * @param {Object} binding
 			 * @param {HTMLElement} element
-			 * @param {string} [type] widget name
+			 * @param {string} [type] widget name, if is empty then return first built widget
 			 * @return {?Object}
 			 * @member ns.engine
 			 */
@@ -284,7 +279,7 @@
 					// NOTE: element can exists outside document
 					bindingElement = widgetInstance.element;
 					if (bindingElement && !bindingElement.ownerDocument.getElementById(bindingElement.id)) {
-						ns.warn("Element ", bindingElement.id, " is outside DOM!");
+						ns.warn("Element ", bindingElement.tagName.toLowerCase() + "#" + bindingElement.id, " is outside DOM!");
 					}
 					//>>excludeEnd("tauDebug");
 
@@ -312,6 +307,10 @@
 
 				if (typeof element === TYPE_STRING) {
 					element = document.getElementById(id);
+				}
+
+				if (type === "ArcListview") {
+					type = "Listview";
 				}
 
 				if (element) {
@@ -530,7 +529,7 @@
 			 * Remove binding for widget based on element.
 			 * @method removeBinding
 			 * @param {HTMLElement|string} element
-			 * @param {string} type widget name
+			 * @param {?string} [type=null] widget name
 			 * @return {boolean}
 			 * @static
 			 * @member ns.engine
@@ -834,7 +833,7 @@
 					ns.error("Processing hollow widget without name on element:", element);
 				}
 				//>>excludeEnd("tauDebug");
-				definition = definition || (name && widgetDefs[name]) || {
+				definition = definition || (name && widgetDefinitions[name]) || {
 					"name": name
 				};
 				return processWidget(element, definition, options);
@@ -849,6 +848,7 @@
 			 * @static
 			 */
 			function compareByDepth(nodeA, nodeB) {
+				/*jshint -W016 */
 				var mask = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
 
 				if (nodeA.element === nodeB.element) {
@@ -858,7 +858,7 @@
 				if (nodeA.element.compareDocumentPosition(nodeB.element) & mask) {
 					return 1;
 				}
-
+				/*jshint +W016 */
 				return -1;
 			}
 
@@ -872,8 +872,8 @@
 			 */
 			function processBuildQueueItem(queueItem) {
 				// HTMLElement doesn't have .element property
-				// widgetDefs will return undefined when called widgetDefs[undefined]
-				processHollowWidget(queueItem.element || queueItem, widgetDefs[queueItem.widgetName]);
+				// widgetDefinitions will return undefined when called widgetDefinitions[undefined]
+				processHollowWidget(queueItem.element || queueItem, widgetDefinitions[queueItem.widgetName]);
 			}
 
 			/**
@@ -884,10 +884,11 @@
 			 * @member ns.engine
 			 */
 			function createWidgets(context) {
-				var builtWithoutTemplates = slice.call(context.querySelectorAll(querySelectorWidgets)),
+				// find widget which are built
+				var builtWidgetElements = slice.call(context.querySelectorAll(querySelectorWidgets)),
 					normal,
 					buildQueue = [],
-					selectorKeys = Object.keys(widgetDefs),
+					selectorKeys = Object.keys(widgetDefinitions),
 					excludeSelector,
 					i,
 					j,
@@ -905,14 +906,14 @@
 					"#" + (context.id || "--no-id--"));
 				//>>excludeEnd("tauDebug");
 
-				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
-				builtWithoutTemplates.forEach(processBuildQueueItem);
+				// process built widgets
+				builtWidgetElements.forEach(processBuildQueueItem);
 
-				/* NORMAL */
+				// process widgets didn't build
 				for (i = 0; i < len; ++i) {
 					widgetName = selectorKeys[i];
 					if (widgetName.indexOf(".") === -1) {
-						definition = widgetDefs[widgetName];
+						definition = widgetDefinitions[widgetName];
 						definitionSelectors = definition.selectors;
 						if (definitionSelectors.length) {
 							excludeSelector = excludeBuiltAndBound(widgetName);
@@ -1013,14 +1014,8 @@
 			 * @member ns.engine
 			 */
 			function build() {
-				if (router) {
-					// @TODO: Consider passing viewport options via script tag arguments (web-ui-fw style).
-					setViewport();
-
-					eventUtils.trigger(document, eventType.BEFORE_ROUTER_INIT, router, false);
-					router.init(justBuild);
-					eventUtils.trigger(document, eventType.ROUTER_INIT, router, false);
-				}
+				historyManager.enable();
+				setViewport();
 			}
 
 			/**
@@ -1030,9 +1025,7 @@
 			 * @member ns.engine
 			 */
 			function stop() {
-				if (router) {
-					router.destroy();
-				}
+				historyManager.disable();
 			}
 
 			/**
@@ -1109,7 +1102,7 @@
 				 * @member ns.engine
 				 */
 				getDefinitions: function () {
-					return widgetDefs;
+					return widgetDefinitions;
 				},
 				/**
 				 * Returns definition of widget
@@ -1120,7 +1113,7 @@
 				 * @return {Object}
 				 */
 				getWidgetDefinition: function (name) {
-					return widgetDefs[name];
+					return widgetDefinitions[name];
 				},
 				defineWidget: defineWidget,
 				getBinding: getBinding,
@@ -1150,8 +1143,10 @@
 				 */
 				run: function () {
 					//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-					window.tauPerf.start("framework");
-					window.tauPerf.get("framework", "run()");
+					if (window.tauPerf) {
+						window.tauPerf.start("framework");
+						window.tauPerf.get("framework", "run()");
+					}
 					//>>excludeEnd("tauPerformance");
 					stop();
 
@@ -1171,32 +1166,10 @@
 				},
 
 				/**
-				 * Return router
-				 * @method getRouter
-				 * @return {Object}
-				 * @static
-				 * @member ns.engine
-				 */
-				getRouter: function () {
-					return router;
-				},
-
-				/**
-				 * Initialize router. This method should be call in file with router class definition.
-				 * @method initRouter
-				 * @param {Function} RouterClass Router class
-				 * @static
-				 * @member ns.engine
-				 */
-				initRouter: function (RouterClass) {
-					router = new RouterClass();
-				},
-
-				/**
 				 * Build instance of widget and binding events
 				 * Returns error when empty element is passed
 				 * @method instanceWidget
-				 * @param {HTMLElement} [element]
+				 * @param {HTMLElement|string} [element]
 				 * @param {string} name
 				 * @param {Object} [options]
 				 * @return {?Object}
@@ -1218,10 +1191,13 @@
 						binding = getBinding(element, name);
 					}
 					// If didn't found binding build new widget
-					if (!binding && widgetDefs[name]) {
-						definition = widgetDefs[name];
+					if (!binding && widgetDefinitions[name]) {
+						definition = widgetDefinitions[name];
 						element = processHollowWidget(element, definition, options);
 						binding = getBinding(element, name);
+					} else if (binding !== null) {
+						// if widget was built early we should set options delivered to constructor
+						binding.option(options);
 					}
 					return binding;
 				},
@@ -1268,4 +1244,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

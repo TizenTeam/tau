@@ -1279,7 +1279,7 @@
 				});
 
 				// change history
-				ns.engine.getRouter().open(element, {
+				ns.router.Router.getInstance().open(element, {
 					url: "#image", rel: "grid"
 				});
 			};
@@ -1306,7 +1306,7 @@
 				});
 
 				// change history
-				ns.engine.getRouter().open(element, {
+				ns.router.Router.getInstance().open(element, {
 					url: "#thumbnail", rel: "grid"
 				});
 			};

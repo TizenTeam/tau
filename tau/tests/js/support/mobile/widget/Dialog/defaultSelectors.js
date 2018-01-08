@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("Dialog", {
+	module("support/mobile/widget/Dialog", {
 		setup: function () {
 			tau.engine.run();
 		},

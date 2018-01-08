@@ -46,6 +46,7 @@
 			// ns.setConfig('container', document.body); // for defining application container
 			// same as above, but for wearable version
 			ns.setConfig("pageContainer", document.body, true);
+			ns.setConfig("findProfileFile", false, true);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
