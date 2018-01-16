@@ -60,20 +60,17 @@ function prepareElements(metricsNode) {
 function fillSLOC(fileNode, callback) {
 	var path = fileNode.$.path;
 
-	path = path.substr(path.indexOf("tau/") + 4);
-
 	fs.readFile(path, "utf8", function (err, code) {
 		var stats,
 			complexity,
 			metricsNode;
 
-		if (typeof code === "string") {
-			stats = sloc(code, "js");
-		} else {
-			stats = sloc("", "js");
-			console.error("Problem for file ", path);
+		if (typeof code !== "string") {
+			console.error("Problem for file ", path, ", \ncontents: \n", code);
+			code = "";
 		}
 
+		stats = sloc(code, "js");
 		complexity = escomplex.analyse(code);
 		metricsNode = fileNode.metrics[0].$;
 

@@ -20,7 +20,7 @@ if (mode === "gerrit") {
 
 cmd.chain(
 	function (cb) {
-		fs.readFile("tau/report/test/karma/coverage/lcov/lcov.info", "UTF-8", function (err, data) {
+		fs.readFile("report/test/karma/coverage/lcov/lcov.info", "UTF-8", function (err, data) {
 			var lines;
 
 			if (err) {
@@ -28,9 +28,9 @@ cmd.chain(
 			}
 
 			lines = data.split("\n").map(function (line) {
-				return line.replace(/SF:\/.*\/tau\/src\/js/, "SF:tau/src/js");
+				return line.replace(/SF:\/.*\/src\/js/, "SF:src/js");
 			}).join("\n");
-			fs.writeFile("tau/report/test/karma/coverage/lcov/lcov.info", lines, function (err) {
+			fs.writeFile("report/test/karma/coverage/lcov/lcov.info", lines, function (err) {
 				if (err) {
 					throw err;
 				}
