@@ -956,3 +956,15 @@ input[type="checkbox"]#checkboxControl {
 	height: 120px;
 	padding-bottom: 0px;
 }
+
+/* -------------------------Text Input Sample-------------------*/
+
+#page-text-input .text-input-content {
+	margin-top: 0;
+	padding-top: 50px;
+}
+
+#page-text-input .text-input-content input {
+	margin: 7px;
+	width: 320px;
+}

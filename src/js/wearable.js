@@ -86,6 +86,7 @@
 			"./profile/wearable/widget/wearable/ArcListview",
 			"./profile/wearable/widget/wearable/ColorPicker",
 			"./profile/wearable/widget/wearable/DatePicker",
+			"./profile/wearable/widget/wearable/TextInput",
 			// helpers
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",

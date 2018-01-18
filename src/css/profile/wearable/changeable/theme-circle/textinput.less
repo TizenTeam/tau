@@ -1,0 +1,40 @@
+input[type=text], input[type=password], input[type=search], input[type=email] {
+	mask-image: url("images/TextInput/b_list_edit_field_bg.png");
+	mask-size: 100% 100%;
+	width: 288 * @unit_base;
+	height: 62 * @unit_base;
+	padding: 13 * @unit_base 16 * @unit_base;
+	color: @color_textinput_text;
+	font-size: 28 * @unit_base;
+	background-color: @color_textinput_bg;
+	border: none;
+	outline: none;
+
+	&:disabled {
+		color: @color_textinput_text_disabled;
+	}
+
+	&:focus + .ui-footer {
+		display: none;
+	}
+
+	&:active {
+		background-color: @color_textinput_text_active;
+	}
+}
+
+.ui-listview,
+.ui-arc-listview-carousel {
+	input[type=text], input[type=password], input[type=search], input[type=email] {
+		&:focus {
+			background-color: transparent;
+			color: @color_textinput_text_cursor;
+			text-fill-color: @color_textinput_text_focus;
+			font-size: 30 * @unit_base;
+		}
+
+		&:active {
+			background-color: @color_textinput_bg;
+		}
+	}
+}
