@@ -95,48 +95,48 @@ jobs = {
 		webuifw,
 		[MobileUIComponent, TAUMasterDetail, TAUMultiPage, TAUSinglePage],
 		[
-			SrcDest("web-ui-fw/tau/demos/SDK/mobile/UIComponents", "tizen-winset/project"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-winset/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/dist/animation", "tizen-winset/project/lib/tau/animation"),
-			#SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_Globalize", "tizen-globalize/project"),
-			#SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MasterDetail", "tau-master-detail/project"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tau-master-detail/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MultiPage", "tau-multi-page/project"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tau-multi-page/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/demos/SDK/mobile/SinglePage", "tau-single-page/project"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tau-single-page/project/lib/tau")
+			SrcDest("web-ui-fw/examples/mobile/UIComponents", "tizen-winset/project"),
+			SrcDest("web-ui-fw/dist/mobile", "tizen-winset/project/lib/tau"),
+			SrcDest("web-ui-fw/dist/animation", "tizen-winset/project/lib/tau/animation"),
+			#SrcDest("web-ui-fw/examples/mobile/Tizen_Web_UI_FW_Globalize", "tizen-globalize/project"),
+			#SrcDest("web-ui-fw/dist/mobile", "tizen-globalize/project/lib/tau"),
+			SrcDest("web-ui-fw/examples/mobile/MasterDetail", "tau-master-detail/project"),
+			SrcDest("web-ui-fw/dist/mobile", "tau-master-detail/project/lib/tau"),
+			SrcDest("web-ui-fw/examples/mobile/MultiPage", "tau-multi-page/project"),
+			SrcDest("web-ui-fw/dist/mobile", "tau-multi-page/project/lib/tau"),
+			SrcDest("web-ui-fw/examples/mobile/SinglePage", "tau-single-page/project"),
+			SrcDest("web-ui-fw/dist/mobile", "tau-single-page/project/lib/tau")
 		], ["cd web-ui-fw/tau", "npm install", "grunt build"],
 		[
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-winset/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tizen-winset/project/lib/tau/LICENSE.Flora"),
-			#SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-globalize/project/lib/tau/VERSION"),
-			#SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tizen-globalize/project/lib/tau/LICENSE.Flora"),
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-master-detail/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-master-detail/project/lib/tau/LICENSE.Flora"),
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-multi-page/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-multi-page/project/lib/tau/LICENSE.Flora"),
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-single-page/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-single-page/project/lib/tau/LICENSE.Flora")
+			SrcDest("web-ui-fw/dist/VERSION", "tizen-winset/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "tizen-winset/project/lib/tau/LICENSE.Flora"),
+			#SrcDest("web-ui-fw/dist/VERSION", "tizen-globalize/project/lib/tau/VERSION"),
+			#SrcDest("web-ui-fw/dist/LICENSE.Flora", "tizen-globalize/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/dist/VERSION", "tau-master-detail/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "tau-master-detail/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/dist/VERSION", "tau-multi-page/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "tau-multi-page/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/dist/VERSION", "tau-single-page/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "tau-single-page/project/lib/tau/LICENSE.Flora")
 		]),
 	"wearable": Job(
 		webuifw,
 		[WearableUIComponent, TAUBasic, TAUList],
 		[
-			SrcDest("web-ui-fw/tau/demos/SDK/wearable/UIComponents", "wearable-widget-sample/project"),
-			SrcDest("web-ui-fw/tau/dist/wearable", "wearable-widget-sample/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/demos/SDK/wearable/TemplateBasic", "tau-basic/project"),
-			SrcDest("web-ui-fw/tau/dist/wearable", "tau-basic/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/demos/SDK/wearable/TemplateList", "tau-list/project"),
-			SrcDest("web-ui-fw/tau/dist/wearable", "tau-list/project/lib/tau")
+			SrcDest("web-ui-fw/examples/wearable/UIComponents", "wearable-widget-sample/project"),
+			SrcDest("web-ui-fw/dist/wearable", "wearable-widget-sample/project/lib/tau"),
+			SrcDest("web-ui-fw/examples/wearable/TemplateBasic", "tau-basic/project"),
+			SrcDest("web-ui-fw/dist/wearable", "tau-basic/project/lib/tau"),
+			SrcDest("web-ui-fw/examples/wearable/TemplateList", "tau-list/project"),
+			SrcDest("web-ui-fw/dist/wearable", "tau-list/project/lib/tau")
 		], ["cd web-ui-fw/tau", "npm install", "grunt build"],
 		[
-			SrcDest("web-ui-fw/tau/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "wearable-widget-sample/project/lib/tau/LICENSE.Flora"),
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-basic/project/lib/tau/LICENSE.Flora"),
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-list/project/lib/tau/LICENSE.Flora")
+			SrcDest("web-ui-fw/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "wearable-widget-sample/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "tau-basic/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/dist/LICENSE.Flora", "tau-list/project/lib/tau/LICENSE.Flora")
 		])
 }
 

@@ -49,7 +49,9 @@
     "rjs-build-analysis": "~0.0.3",
     "shelljs": "latest",
     "underscore": "1.6.0",
-    "xml2js": "~0.4.4"
+    "xml2js": "~0.4.4",
+    "grunt-dom-munger": "^3.4.0",
+    "node-inspector": "^1.0.0"
   },
   "main": "Gruntfile.js",
   "dependencies": {

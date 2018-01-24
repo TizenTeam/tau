@@ -64,13 +64,13 @@ pipeline {
                 unstash 'dist'
 								sh "rm -rf artifacts"
 								sh "mkdir -p artifacts/dist/mobile"
-								sh "mkdir -p artifacts/demos/SDK/mobile"
-								sh "cp -a demos/SDK/mobile/* artifacts/demos/SDK/mobile/"
+								sh "mkdir -p artifacts/examples/mobile"
+								sh "cp -a examples/mobile/* artifacts/examples/mobile/"
 								sh "cp -a dist/mobile/* artifacts/dist/mobile/"
 								sh "cp -a dist/mobile/theme/changeable artifacts/dist/mobile/theme/default"
 								sh "mkdir -p artifacts/dist/wearable"
-								sh "mkdir -p artifacts/demos/SDK/wearable"
-								sh "cp -a demos/SDK/wearable/* artifacts/demos/SDK/wearable/"
+								sh "mkdir -p artifacts/examples/wearable"
+								sh "cp -a examples/wearable/* artifacts/examples/wearable/"
 								sh "cp -a dist/wearable/* artifacts/dist/wearable/"
 								sh "cp -a dist/wearable/theme/changeable artifacts/dist/wearable/theme/default"
 								archive 'artifacts/**'

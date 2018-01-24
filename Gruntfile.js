@@ -33,6 +33,18 @@ module.exports = function (grunt) {
 		dist = "dist",
 		src = "src",
 
+		themeConverterXMLPath = path.join("tools", "grunt", "xml"),
+
+		mediaType = grunt.option("media") || "circle",
+
+		// Path to build framework
+		wearableAppRoot = path.join("examples/wearable/UIComponentsWorking/"),
+
+		MEDIA_QUERY = {
+			"ALL": "all",
+			"CIRCLE": "all and (-tizen-geometric-shape: circle)"
+		},
+
 		// Rules for jsdoc check
 		jsdocRules = {
 			"jsdoc/check-param-names": 1,
@@ -67,7 +79,6 @@ module.exports = function (grunt) {
 				theme: path.join(buildRoot, "wearable", "theme")
 			}
 		},
-		themeConverterXMLPath = path.join("tools", "grunt", "xml"),
 
 		rootNamespace = name,
 		config = rootNamespace + "Config",
@@ -281,6 +292,20 @@ module.exports = function (grunt) {
 						reporterOutput: "report/eslint/junit-" + grunt.option("jshintno") + ".xml"
 					},
 					src: grunt.option("jshintfile")
+				},
+				dom_munger: {
+					circle: {
+						options: {
+							update: {selector: "link[href*='.circle.']", attribute: "media", value: MEDIA_QUERY.ALL}
+						},
+						src: path.join(wearableAppRoot, "**/*.html")
+					},
+					default: {
+						options: {
+							update: {selector: "link[href*='.circle.']", attribute: "media", value: MEDIA_QUERY.CIRCLE}
+						},
+						src: path.join(wearableAppRoot, "**/*.html")
+					}
 				},
 				jsdoc: {
 					options: {
@@ -572,6 +597,33 @@ module.exports = function (grunt) {
 							dest: path.join(buildRoot, "mobile", "theme", "changeable", "tau.support-2.3.template")
 						}
 					]
+				},
+				examples: {
+					files: [{
+						expand: true,
+						cwd: "examples/wearable/UIComponentsWorking/",
+						src: "**/*.html",
+						dest: "examples/wearable/UIComponentsWorking/"
+					}],
+					options: {
+						replacements: [
+							{
+								pattern: /\<link rel=\"stylesheet\" href=\"(.*)lib\/tau\/wearable\/theme\/default\/tau.css\">/gi,
+								replacement: function (fullStr, path) {
+									return "<link rel=\"stylesheet\/less\" type=\"text\/css\" href=\"" + path +
+										"../../../../src/css/profile/wearable/changeable/theme-changeable/theme.less\" />";
+								}
+							},
+							{
+								pattern: /\<link rel=\"stylesheet\" media=\".*\" href=\"(.*)lib\/tau\/wearable\/theme\/default\/tau.circle.css\"\>/gi,
+								replacement: function (fullStr, path) {
+									return "<link rel=\"stylesheet\/less\" type=\"text\/css\" href=\"" + path +
+										"../../../../src/css/profile/wearable/changeable/theme-changeable/theme.circle.less\" /><script src=\"" + path +
+										"../../../../libs/less.js\" type=\"text\/javascript\"><\/script>";
+								}
+							}
+						]
+					}
 				}
 			},
 
@@ -659,6 +711,26 @@ module.exports = function (grunt) {
 					},
 					src: path.join(buildDir.wearable.theme, "changeable", "tau.template"),
 					dest: path.join(buildDir.wearable.theme, "brown", "tau.css")
+				},
+
+				wearable_examples: {
+					createColorMapFile: false,
+					options: {
+						index: "0",
+						style: "Dark",
+						inputColorTableXML: path.join(themeConverterXMLPath, "wearable", "blue", "InputColorTable.xml"),
+						changeableColorTableXML: path.join(themeConverterXMLPath, "wearable", "blue", "ChangeableColorTable1.xml")
+					},
+					files: [
+						{
+							src: "src/css/profile/wearable/changeable/theme-changeable/theme.color.less",
+							dest: "src/css/profile/wearable/changeable/theme-changeable/theme.color.converted.less"
+						},
+						{
+							src: "src/css/profile/wearable/changeable/theme-circle/theme.changeable.less",
+							dest: "src/css/profile/wearable/changeable/theme-circle/theme.changeable.converted.less"
+						}
+					]
 				}
 			},
 
@@ -716,6 +788,14 @@ module.exports = function (grunt) {
 			},
 
 			copy: {
+				examples: {
+					files: [{
+						expand: true,
+						cwd: "examples/wearable/UIComponents/",
+						src: "**/*",
+						dest: "examples/wearable/UIComponentsWorking/"
+					}]
+				},
 				wearableChangeableImages: {
 					files: files.image.getImageFiles("wearable", "changeable")
 				},
@@ -863,6 +943,54 @@ module.exports = function (grunt) {
 			},
 
 			"string-replace": {
+				examples: {
+					files: [{
+						expand: true,
+						cwd: "SDK/wearable/UIComponents/",
+						src: "**/*.html",
+						dest: "SDK/wearable/UIComponentsWorking/"
+					}],
+					options: {
+						replacements: [
+							{
+								pattern: /\<script src=\"(.*)lib\/tau\/wearable\/js\/tau.js\"><\/script>/gi,
+								replacement: function (fullStr, path) {
+									return "<script src=\"" + path + "../../../libs/less.js\" type=\"text\/javascript\"></script>" +
+									"<script type=\"text/javascript\" src=\"" + path +
+										"../../../libs/require.js\" data-main=\"" + path +
+										"../../../src/js/wearable.js\"></script>";
+								}
+							}
+						]
+					}
+				},
+				examples_less: {
+					files: [{
+						expand: true,
+						cwd: "examples/wearable/UIComponentsWorking/",
+						src: "**/*.html",
+						dest: "examples/wearable/UIComponentsWorking/"
+					}],
+					options: {
+						replacements: [
+							{
+								pattern: /\<link rel=\"stylesheet\" href=\"(.*)lib\/tau\/wearable\/theme\/default\/tau.css\">/gi,
+								replacement: function (fullStr, path) {
+									return "<link rel=\"stylesheet\/less\" type=\"text\/css\" href=\"" + path +
+										"../../../src/css/profile/wearable/changeable/theme-changeable/theme.less\" />";
+								}
+							},
+							{
+								pattern: /\<link rel=\"stylesheet\" media=\".*\" href=\"(.*)lib\/tau\/wearable\/theme\/default\/tau.circle.css\"\>/gi,
+								replacement: function (fullStr, path) {
+									return "<link rel=\"stylesheet\/less\" type=\"text\/css\" href=\"" + path +
+										"../../../src/css/profile/wearable/changeable/theme-changeable/theme.circle.less\" /><script src=\"" + path +
+										"../../../libs/less.js\" type=\"text\/javascript\"><\/script>";
+								}
+							}
+						]
+					}
+				},
 				jsduck: {
 					files: {
 						"tmp/jsduck/": "dist/**/tau.js"
@@ -1273,6 +1401,7 @@ module.exports = function (grunt) {
 	grunt.initConfig(initConfig);
 
 	// npm tasks
+	grunt.loadNpmTasks("grunt-dom-munger");
 	grunt.loadNpmTasks("grunt-contrib-clean");
 	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.loadNpmTasks("grunt-contrib-concat");
@@ -1288,16 +1417,23 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-debug-task");
 	grunt.loadNpmTasks("grunt-postcss");
 
-	// Load framework custom tasks
 	grunt.loadTasks("tools/grunt/tasks");
 	grunt.loadTasks("demos/tools/app/tasks");
+
+	grunt.registerTask("dev", ["dom_munger:" + mediaType]);
+	grunt.registerTask("release", ["dom_munger:default"]);
+
+	grunt.registerTask("prepare-working", ["copy:examples", "string-replace:examples", "string-replace:examples_less", "dom_munger:circle",
+		"themeConverter:wearable_examples"]);
+
+	grunt.loadTasks("tools/app/tasks");
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
 	grunt.registerTask("lint", "Validate code", ["eslint:js"/*, "eslint:jsdoc" jsdoc issues are reported only into CI process, enable this task after fix all jsdoc issues*/]);
 	grunt.registerTask("jsmin", "Minify JS files", ["findFiles:js.setMinifiedFiles", "uglify"]);
 	grunt.registerTask("image-changeable", ["copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages"]);
-	grunt.registerTask("css", "Prepare full CSS for whole project", ["clean:theme", "less", "themeConverter", "cssmin", "image-changeable", "symlink", "postcss"]);
+	grunt.registerTask("css", "Prepare full CSS for whole project", ["clean:theme", "less", "themeConverter:mobile", "themeConverter:mobile_support", "themeConverter:wearable", "themeConverter:wearable_circle", "themeConverter:wearable_old", "cssmin", "image-changeable", "symlink", "postcss"]);
 	grunt.registerTask("css-mobile", "Prepare CSS for mobile profile", ["clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
 	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile_support", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
 	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "themeConverter:wearable_circle", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme", "postcss"]);

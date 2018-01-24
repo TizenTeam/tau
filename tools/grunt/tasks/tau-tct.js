@@ -142,7 +142,7 @@ module.exports = function (grunt) {
 		},
 		exec: {
 			wgt: {
-				command: "cd demos && grunt prepare-app --app=../tests/tau-runner/ --tizen-3-0=true --profile=wearable --no-run=true && cd ..",
+				command: "grunt prepare-app --app=../tests/tau-runner/ --tizen-3-0=true --profile=wearable --no-run=true && cd ..",
 				stdout: true
 			}
 		},
@@ -185,7 +185,7 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.loadTasks("demos/tools/app/tasks");
+	grunt.loadTasks("tools/app/tasks");
 
 	grunt.registerTask("copyTctWgt", "copy tct wgts", function (number) {
 		grunt.config.merge({
@@ -276,7 +276,7 @@ module.exports = function (grunt) {
 
 
 		for (i = 1; i <= len; i++) {
-			shell.exec("cd demos && grunt prepare-app --app=../tests/tct-packages/" + i + "/tau-runner/" +
+			shell.exec("grunt prepare-app --app=../tests/tct-packages/" + i + "/tau-runner/" +
 				" --tizen-3-0=true --profile=" + profile + " --no-run=true --app-dest=../tests/tct-packages/" + i + "/ && cd ..");
 		}
 	});

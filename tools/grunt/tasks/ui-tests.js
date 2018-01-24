@@ -226,9 +226,12 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("ui-tests-prepare-app", "Runner of UI tests", function (index) {
 		var task = tasks[index],
-			screenshots;
+			screenshots,
+			cfgSrc = "tests/UI-tests/app/" + task.profile + "/config/" + task.type + ".xml",
+			cfgDst = "tests/UI-tests/app/" + task.profile + "/config.xml";
 
-		grunt.file.copy("tests/UI-tests/app/" + task.profile + "/config/" + task.type + ".xml", "tests/UI-tests/app/" + task.profile + "/config.xml");
+		grunt.log.ok("copy config file from: " + cfgSrc + ", to: " + cfgDst);
+		grunt.file.copy(cfgSrc, cfgDst);
 
 		screenshots = prepareScreenShots(task);
 
@@ -278,13 +281,10 @@ module.exports = function (grunt) {
 
 		tasks.forEach(function (task, index) {
 			var configObject = {run: {}},
-				args = ["prepare-app", "--app=../tests/UI-tests/app"],
+				args = ["prepare-app", "--app=tests/UI-tests/app/" + task.profile],
 				toRun = true;
 
 			configObject.run["uiTests" + index] = {
-				options: {
-					cwd: "demos/"
-				},
 				cmd: "grunt"
 			};
 

@@ -7,8 +7,9 @@ var TIME_TICK = 0,
 	xml2js = require("xml2js"),
 	child = require("child_process"),
 	easyimg = require("easyimage"),
-	deviceMap = require("../../../demos/tools/app/data/deviceMap.js"),
-	deviceTypes = require("../../../demos/tools/app/data/deviceTypes.js"),
+	deviceMap = require("../../../tools/app/data/deviceMap.js"),
+	deviceTypes = require("../../../tools/app/data/deviceTypes.js"),
+	newEmulatorDeviceName = "emulator-mobile",
 
 	requestFileName = "test-request.txt",
 	responseFileName = "test-response.txt",
@@ -24,6 +25,7 @@ var TIME_TICK = 0,
 	globalAppId,
 	localRequestFile = null,
 	deviceParam,
+	deviceName,
 
 	tempFolder = null,
 
@@ -41,7 +43,7 @@ var TIME_TICK = 0,
 
 function exec(command, callback, options) {
 	options = options || {};
-	console.log(command);
+	//console.log.subhead(command);
 	child.exec(command, options, function (error, stdout, stderr) {
 		callback(error, stdout, stderr);
 	});
@@ -302,13 +304,6 @@ function removeAllScreenshots(deviceParam, done) {
 	});
 }
 
-// easyimg.exec use function console.debug which not exists in node.js
-// using easyimg.exececute doesn't crop circle of image
-// add of this function is quick fix to correct working
-console.debug = (...args) => {
-	console.log.apply(this, args);
-};
-
 function createCircle(path, size, outputTempFilePath, outputFilePath, callback) {
 	if (type === "c-3.0") {
 		easyimg.exec("convert " + path + " \\( -size " +
@@ -373,27 +368,8 @@ function clean(filename, dir, done) {
 	})
 }
 
-function convertImage(profile, screen, dir, done) {
-	var width = screen.width || 257,
-		height = screen.height || 457;
-
-	exec("convert " + dir + "_raw.png -crop " + deviceSizes[profile] + " " + dir + "_crop.png", function () {
-		fs.exists(dir + "_crop-0.png", function (exists) {
-			var filename = dir + (exists ? "_crop-0.png" : "_crop.png");
-
-			exec("convert " + filename + " -resize " + width + "x" + height + "\\! " + dir + ".png", function () {
-				exec("sdb" + deviceParam + " root off", function () {
-					createCircle(dir + ".png", width, dir + "_.png", dir + ".png", function () {
-						clean(filename, dir, done);
-					});
-				});
-			});
-		});
-	});
-}
-
 function screenshotTizen3(profile, type, app, screen, done) {
-	exec("sdb" + deviceParam + " root on", function () {
+	exec("sdb" + deviceParam + " root on &", function () {
 		exec("sdb" + deviceParam + " shell enlightenment_info -reslist", function (error, result) {
 			var regexp = new RegExp("^.*" + globalAppId + ".*$", "gm"),
 				match = result.match(regexp)[0],
@@ -403,21 +379,33 @@ function screenshotTizen3(profile, type, app, screen, done) {
 				var regexp = new RegExp("^.*\\\s" + PID + "\\\s.*$", "gm"),
 					matches = result.match(regexp),
 					match = "",
+					extension = "", //new Tizen emulator requires "_0" added to the filename
 					winID;
 
 				if (matches) {
 					match = matches[matches.length - 1];
 					winID = match.split(/\s+/)[2];
 
+					extension = (deviceName === newEmulatorDeviceName) ? "_0.png " : ".png ";
+
 					saveWindow(deviceParam, app, profile, type, screen, function (dir, resultDir) {
-						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + ".png " + dir + "_raw.png", function (error) {
-							if (error) {
-								exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + "_0.png " + dir + "_raw.png", function () {
-									convertImage(profile, screen, dir, done);
+						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + extension + dir + "_raw.png", function () {
+							var width = screen.width || 257,
+								height = screen.height || 457;
+
+							exec("convert " + dir + "_raw.png -crop " + deviceSizes[profile] + " " + dir + "_crop.png", function () {
+								fs.exists(dir + "_crop-0.png", function (exists) {
+									var filename = dir + (exists ? "_crop-0.png" : "_crop.png");
+
+									exec("convert " + filename + " -resize " + width + "x" + height + "\\! " + dir + ".png", function () {
+										exec("sdb" + deviceParam + " root off", function () {
+											createCircle(dir + ".png", width, dir + "_.png", dir + ".png", function () {
+												clean(filename, dir, done);
+											});
+										});
+									});
 								});
-							} else {
-								convertImage(profile, screen, dir, done);
-							}
+							});
 						});
 					}, function () {
 						// onError
