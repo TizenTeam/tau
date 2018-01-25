@@ -1,0 +1,57 @@
+.calendar-widget {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.calendar-widget > * {
+	width: 12%;
+	height: 12%;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	margin-left: 2%;
+	margin-top: 2%;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 1.4rem;
+	font-family: Arial, Tahoma, Verdana, serif;
+	color: rgb(190, 190, 190);
+}
+
+.calendar-widget .past {
+	background: rgb(62 ,36, 130);
+}
+
+.calendar-widget .today {
+	background: rgb(104, 130, 36);
+}
+
+.calendar-widget .future {
+	background: rgb(36, 121, 130);
+}
+
+.calendar-widget .sunday {
+	border: 1px solid rgb(190, 190, 190);
+}
+
+.calendar-widget > *:last-child:after {
+	content: "";
+	height: 0;
+	visibility: hidden;
+	clear: left;
+}
+
+.calendar-widget .month {
+	font-size: 1.2rem;
+	width: 100%;
+}
+
+.calendar-widget .header {
+	font-size: 1.1rem;
+	height: auto;
+}

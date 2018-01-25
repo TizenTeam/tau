@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8">
+	<script build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<script type="text/javascript" src="../lib/tau/tv/js/tau.js" data-
+			build-remove="false"></script>
+	<link rel="stylesheet" href="../lib/tau/tv/theme/default/tau.css">
+	<link rel="stylesheet" href="./style.css">
+	<title>TV UI Demo</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<link rel="apple-touch-icon" href="../icon-tizen.png"/>
+</head>
+
+<body class="ui-pagecontainer" data-background="img/bg.jpg">
+<div class="ui-page" id="main" data-role="page">
+	<header class="ui-header" data-role="header">
+		<h2 class="ui-title">Tizen Advanced UI TV Demo</h2>
+	</header>
+	<div class="ui-content" data-role="content" data-scroll="none">
+		<div class="ui-column-left">
+			<ul class="ui-listview">
+				<li><a href="#blocks" data-rel="dynamic">Basics</a></li>
+				<li><a href="#forms" data-rel="dynamic">Forms</a></li>
+				<li><a href="#containers" data-rel="dynamic">Containers</a></li>
+			</ul>
+		</div>
+		<div class="ui-column-right">
+			<ul class="ui-grid ui-dynamic-box ui-dynamic-box-active" id="blocks">
+				<li class="grid-icon"><a href="page/index.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Page</a></li>
+				<li class="grid-icon"><a href="drawer/index.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Drawer</a></li>
+				<li class="grid-icon"><a href="popup/index.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Popup</a></li>
+				<li class="grid-icon"><a href="popup/popover.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Popover</a></li>
+				<li class="grid-icon"><a href="contextualmenu/index.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Contextual menu</a></li>
+				<li class="grid-icon"><a href="progress/progress.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Progress</a></li>
+			</ul>
+			<ul class="ui-grid ui-dynamic-box" id="forms">
+				<li class="grid-icon"><a href="buttons/buttons.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Button</a></li>
+				<li class="grid-icon"><a href="buttons/tooltip.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Tooltip</a></li>
+				<li class="grid-icon"><a href="textinput/entry.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Text Input</a>
+				</li>
+				<li class="grid-icon"><a href="spincontrol/spincontrol.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Spin Control (Number Input)</a>
+				</li>
+				<li class="grid-icon"><a href="slider/slider.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Slider</a></li>
+				<li class="grid-icon"><a href="checkboxradio/checkbox.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Checkbox</a></li>
+				<li class="grid-icon"><a href="checkboxradio/radio.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Radio</a></li>
+				<li class="grid-icon"><a href="searchbar/index.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">SearchBar</a></li>
+				<li class="grid-icon"><a href="selectmenu/selectmenu.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Drop down Menu</a></li>
+			</ul>
+			<ul class="ui-grid ui-dynamic-box" id="containers">
+				<li class="grid-icon"><a href="list/index.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">List</a></li>
+				<li class="grid-icon"><a href="virtualgrid/index.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Virtual Grid</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("tizenhwkey" , function( event ) {
+		var tizen = window.tizen,
+			application = tizen.application;
+		if (event.keyName === "back"
+				&& tizen
+				&& application) {
+			if (tau.activePage.id === "main") {
+				application.getCurrentApplication().exit();
+			} else if (tau.engine.getRouter().hasActivePopup()) {
+				tau.closePopup();
+			} else {
+				history.back();
+			}
+		}
+	});
+</script>
+</body>
+</html>

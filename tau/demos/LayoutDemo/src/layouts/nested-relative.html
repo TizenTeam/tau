@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<title>Layout Widgets - Float (default: left)</title>
+	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
+	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet" href="../../../src/css/custom.css">
+</head>
+<body>
+<div data-role="page" id="nested-relative-page" class="layout-page">
+	<header>
+		<h1>Nested relative layout</h1>
+	</header>
+	<div data-role="content">
+		<div id="sample-box" class="ui-box" data-layout="relative">
+			<div class="example-child-box e" data-position="center" style="width: 700px; height: 500px;">
+				<div class="ui-box" data-layout="relative">
+					<div class="example-child-box a" data-position="center">a</div>
+					<div class="example-child-box b" data-position="center-right">b</div>
+					<div class="example-child-box c" data-position="bottom-left">c</div>
+				</div>
+			</div>
+			<div class="example-child-box f" data-position="top-left" style="width: 300px; height: 200px;">
+				<div class="ui-box" data-layout="relative">
+					<div class="example-child-box a" data-position="center-top">a</div>
+					<div class="example-child-box b" data-position="center-left">b</div>
+					<div class="example-child-box c" data-position="top-right">c</div>
+				</div>
+			</div>
+			<div class="example-child-box eb" data-position="right-center" style="width: 300px;">
+				<div class="ui-box" data-layout="relative">
+					<div class="example-child-box a" data-position="center-top">a</div>
+					<div class="example-child-box b" data-position="center-left">b</div>
+					<div class="example-child-box c" data-position="top-right">c</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

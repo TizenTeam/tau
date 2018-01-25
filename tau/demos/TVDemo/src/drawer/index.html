@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script data-build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js"
+			data-build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+
+	<title>TV UI Demo</title>
+</head>
+
+<body class="ui-pagecontainer" data-background="../img/bg.jpg">
+<div class="ui-page ui-page-active" id="main-drawer" data-role="page">
+	<div class="ui-content"></div>
+	<div data-role="drawer" data-position="left" id="left-drawer"
+		 data-width="700" data-close-on-click="false" data-overlay="false">
+		<a class="ui-btn ui-drawer-close"
+		   id="close" data-inline="true" data-role="button"></a>
+		<ul class="ui-listview" style="float: left;">
+			<li>
+				<a href="simple.html">Simple HomeBar</a>
+			</li>
+			<li>
+				<a href="simple-with-icons.html">Simple HomeBar with icons</a>
+			</li>
+			<li>
+				<a href="simple-with-icons-with-add.html">Simple HomeBar with
+					icons and add button</a>
+			</li>
+			<li>
+				<a href="dynamic-with-icons.html">HomeBar with dynamic bar</a>
+			</li>
+			<li>
+				<a href="dynamic-with-header.html">HomeBar with header and
+					dynamic bar</a>
+			</li>
+		</ul>
+	</div>
+	<script>
+		(function () {
+			var mainPage = document.getElementById("main-drawer"),
+					closeButton = document.getElementById("close"),
+					drawerElement = document.getElementById("left-drawer"),
+					drawer = tau.widget.Drawer(drawerElement);
+
+			mainPage.addEventListener("pageshow", function () {
+				setTimeout(function () {
+					drawer.open();
+				}, 1000);
+			});
+			mainPage.addEventListener("vclick", function () {
+				if (!drawer.isOpen()) {
+					drawer.open();
+				}
+			});
+			closeButton.addEventListener("vclick", function () {
+				drawer.close();
+			});
+		}());
+	</script>
+</div>
+</body>
+</html>

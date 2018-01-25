@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/LegacyMobile2.0" version="0.1.0" viewmodes="maximized">
+    <access origin="*"></access>
+    <tizen:application id="P2TlXoz2qi.LegacyMobile20" package="P2TlXoz2qi" required_version="2.0"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="icon-tizen.png"/>
+    <name>LegacyMobile2.0</name>
+    <tizen:privilege name="http://tizen.org/privilege/fullscreen"/>
+    <tizen:profile name="mobile"/>
+    <tizen:setting screen-orientation="portrait" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+</widget>

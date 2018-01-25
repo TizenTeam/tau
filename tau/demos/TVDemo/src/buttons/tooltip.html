@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<script data-build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<title>TV UI Tooltip</title>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-
+			build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+</head>
+
+<body class="ui-pagecontainer" data-background="../img/bg.jpg">
+<div id="ctxpopupPage" class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Tooltip</h2>
+	</header>
+	<div class="ui-content content-padding">
+		<a href="#" data-role="button" data-icon="source" data-iconpos="top"
+		   class="ui-color-live" data-inline="true" data-tooltip="Tooltip text"
+		   data-tooltip-arrow="b" style="margin-left:50px;" id="tooltip-top"></a>
+		<a href="#" data-role="button" data-icon="source" data-iconpos="top"
+		   class="ui-color-live" data-inline="true" data-tooltip="Tooltip text"
+		   data-tooltip-arrow="t" style="margin-left:50px;" id="tooltip-bottom"
+		   data-tooltip-timeout="10000"></a>
+	</div>
+</div>
+</body>
+</html>

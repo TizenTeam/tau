@@ -1,0 +1,35 @@
+.fieldcontain {
+	padding-bottom: 1.25em;
+}
+
+.fieldcontain label {
+	display: block;
+	font-size: 100%;
+	padding-top: .1em;
+	padding-right: .25em;
+	text-align: right;
+	float: left;
+}
+
+.fieldcontain input,.fieldcontain textarea {
+	display: block;
+	font-size: 100%;
+}
+
+.table {
+	display: table;
+	width: 100%;
+}
+
+.row {
+	display: table-row;
+	padding-top: 20px;
+}
+
+.cell {
+	width: 50%;
+	display: table-cell;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 30px;
+}

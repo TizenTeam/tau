@@ -1,0 +1,295 @@
+input::-webkit-input-placeholder {
+	max-width: 100% !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	color: @color_editfield_placeholder_text;
+}
+
+textarea::-webkit-input-placeholder {
+	color: @color_editfield_placeholder_text;
+}
+
+.ui-input-text {
+	border: 0;
+
+	label& {
+		font-size: @font_size_list_editfield_text;
+	}
+
+	input&,
+	textarea& {
+		.appearance(none);
+		background-color: @color_editfield_bg;
+		box-sizing: border-box;
+		color: @color_editfield_text;
+		display: block;
+		font-size: @font_size_list_editfield_text;
+		height: 96 * @unit_base;
+		line-height: 38 * @unit_base;
+		width: 100%;
+		margin: 0;
+
+		&:disabled,
+		&.ui-disabled {
+			color: @color_editfield_disabled_text;
+		}
+
+		&:focus,
+		&.ui-focus {
+			color: @color_editfield_selected_text;
+
+			&::-webkit-input-placeholder {
+				color: @color_editfield_placeholder_selected_text;
+			}
+		}
+
+		// Decoration underline ---------------------------------
+		& + .ui-text-line {
+			background: @color_editfield_outline;
+			display: block;
+			box-sizing: border-box;
+			height: 2px;
+			position: relative;
+			top: -19 * @unit_base;
+			margin: 0 * @unit_base 15 * @unit_base -2 * @unit_base;
+		}
+
+		&:disabled + .ui-text-line,
+		&.ui-disabled + .ui-text-line {
+			background: @color_editfield_disabled_outline;
+		}
+
+		&:focus + .ui-text-line,
+		&.ui-focus + .ui-text-line {
+			background: @color_editfield_selected_outline;
+		}
+		// Decoration underline ---------------------------- end
+
+		// Clear button ----------------------------------------
+		&.ui-input-clear-active {
+			padding-right: 66 * @unit_base;
+		}
+
+		& ~ .ui-input-clear {
+			display: block;
+			width: 36 * @unit_base;
+			height: 36 * @unit_base;
+			margin-right: 15 * @unit_base;
+			float: right;
+			// Move to top by - input's padding-bottom + clear height
+			margin-top: -(36 + 29) * @unit_base;
+			background-color: @color_searchbar_clear_icon;
+			.mask-size(contain);
+			.mask-image('images/controls/00_core_button_icon_clear.png');
+
+			&:active,
+			&:hover {
+				background-color: @color_searchbar_clear_icon_press;
+			}
+		}
+
+		& ~ .ui-input-clear-hidden {
+			display: none;
+		}
+
+		&.ui-disabled ~ .ui-input-clear,
+		&:disabled ~ .ui-input-clear {
+			background-color: @color_editfield_clear_icon_disabled;
+
+			&:active,
+			&:hover {
+				background-color: @color_editfield_clear_icon_disabled;
+			}
+		}
+		// Clear button ------------------------------------- end
+	}
+
+	input& {
+		padding: 29 * @unit_base 15 * @unit_base;
+
+		&:not(.ui-tokentextarea-input) {
+			display: block;
+			width: 100%;
+		}
+	}
+
+	textarea& {
+		min-height: 96 * @unit_base;
+		padding: 10 * @unit_base 15 * @unit_base 14 * @unit_base;
+		resize: none;
+		white-space: normal;
+		.transition(height 200ms linear);
+	}
+}
+
+input.ui-tokentextarea-input {
+	font-size: @font_size_tokentextarea_input_text;
+	background-color: @color_editfield_bg;
+}
+
+input.ui-input-text.ui-focus,
+textarea.ui-input-text.ui-focus {
+	&[type="month"],
+	&[type="week"],
+	&[type="datetime-local"] {
+		border: 1 * @unit_base solid @color_editfield_selected_outline;
+		outline-color: @color_editfield_selected_outline;
+	}
+}
+
+.ui-header.ui-header-searchbar {
+	.ui-title {
+		max-width: none;
+		float: none;
+	}
+	.input-search-bar {
+		background-color: @color_searchbar_bg;
+		height: 96 * @unit_base;
+	}
+	.ui-input-clear.ui-input-clear-hidden.ui-btn-icon-notext {
+		left: auto;
+	}
+	.ui-btn {
+
+		&.ui-btn-box-s.ui-btn-up-s,
+		&.ui-btn-box-s.ui-btn-hover-s {
+			.core_button_bg();
+			top : 15 * @unit_base;
+			.ui-btn-inner.ui-btn-icon-only .ui-icon {
+				width: 30 * @unit_base;
+				height: 30 * @unit_base;
+				margin-left: -13.5 * @unit_base;
+				margin-top: -12 * @unit_base;
+				background-color: @color_button_icon;
+			}
+		}
+		.ui-icon {
+			margin: 0;
+		}
+	}
+	.ui-btn.ui-btn-box-s.ui-btn-down-s {
+		.core_button_bg_pressed();
+		.ui-icon {
+			margin: 0;
+		}
+	}
+}
+
+.ui-input-search {
+	position: relative;
+
+	&.ui-search-bar-icon {
+		// Icon size + right spacing
+		margin-right: (46 + 15) * @unit_base;
+	}
+
+	.ui-btn-icon-notext.ui-input-clear {
+		display: inline-block;
+		width: 36 * @unit_base;
+		height: 34 * @unit_base;
+
+		.ui-btn-inner {
+			padding: 14 * @unit_base
+				16 * @unit_base
+				9 * @unit_base
+				16 * @unit_base;
+		}
+	}
+	.ui-btn-inner {
+		.ui-icon-deleteSearch {
+			margin: -2 * @unit_base;
+			width: 45 * @unit_base;
+			height: 45 * @unit_base;
+		}
+	}
+}
+
+/* search bar */
+.ui-page > div > .ui-field-contain > .input-search-bar,
+.ui-page > .ui-field-contain > .input-search-bar {
+	margin: -48*@unit_base -15*@unit_base -32*@unit_base -15*@unit_base;
+}
+
+.input-search-bar {
+	position: relative;
+	background-color: @color_searchbar_bg;
+	vertical-align: middle;
+
+	.ui-input-search {
+		font-size: @font_size_searchbar_text;
+		display: block;
+		position: relative;
+		background-color: @color_searchbar_bg;
+	}
+
+	.ui-input-text {
+		background-color: @color_searchbar_bg;
+	}
+
+	.ui-input-search-default {
+		margin-right: 148 * @unit_base;
+	}
+
+	.ui-input-search-wide {
+		margin-right: 0;
+	}
+
+	.ui-input-cancel {
+		display: inline-block;
+		position: absolute;
+
+		background-color: @color_searchbar_button_bg;
+
+		top: 4 * @unit_base;
+		right: 0 * @unit_base;
+		height: 72 * @unit_base;
+		margin-right: 16 * @unit_base;
+
+		vertical-align: middle;
+		padding: 0;
+
+		width: 136 * @unit_base;
+
+		&.ui-btn-down-s {
+			background-color: @color_searchbar_button_bg_press;
+		}
+		.ui-btn-inner {
+			padding-top: 6 * @unit_base;
+			padding-bottom: 6 * @unit_base;
+		}
+
+		&.ui-btn-cancel-hide {
+			right: -75 * @unit_base;
+			visibility: hidden;
+		}
+
+		&.ui-btn-cancel-show {
+			right: 0;
+			visibility: visible;
+		}
+	}
+	.ui-btn-search-front-icon {
+		position: absolute;
+		top: ((96 - 46) / 2) * @unit_base;
+		right: 15 * @unit_base;
+		width: 46 * @unit_base;
+		height: 46 * @unit_base;
+	}
+}
+
+.ui-icon-deleteSearch {
+	background-repeat: no-repeat;
+	background-size: 45 * @unit_base 45 * @unit_base;
+	background-color: @color_searchbar_clear_icon;
+	.mask-image('images/controls/00_field_btn_clear.png');
+	.mask-size(45 * @unit_base 45 * @unit_base);
+
+	&:active {
+		background-color: @color_searchbar_clear_icon_press;
+	}
+}
+
+.ui-input-clear-hidden {
+	display: none;
+}

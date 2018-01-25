@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<script data-build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<title>TV UI</title>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+</head>
+
+<body class="ui-pagecontainer" data-background="../img/bg.jpg">
+<div id="contextPage" class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Contextual menu</h2>
+	</header>
+	<div class="ui-content content-padding">
+		<ul class="ui-listview">
+			<li>
+				<a href="#" class="ui-btn">Open contextual menu</a>
+			</li>
+
+		</ul>
+	</div>
+	<div id="context" class="ui-contextual-menu">
+		<div class="ui-contextual-menu-main">
+			Place for main content
+		</div>
+		<div class="ui-contextual-menu-buttons">
+			<a href="#" data-icon="tv-show">share this</a>
+			<a href="#" data-icon="movie">share this</a>
+			<a href="#" data-icon="live">share this</a>
+			<a href="#" data-icon="live">share this</a>
+			<a href="#" data-icon="live">share this</a>
+		</div>
+		<div class="ui-contextual-menu-related">
+			<ul>
+				<li class="ui-list-divider">Related channels</li>
+				<li>
+					<a href="#">
+						Someone like you
+					</a>
+				</li>
+				<li class="ui-list-divider">Related channels</li>
+				<li>
+					<a>
+						1 USB device connected
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						Facebook
+					</a>
+				</li>
+				<li class="ui-list-divider">NOTIFICATION</li>
+				<li>
+					<a href="#">
+						The tonight show
+						<span class="li-text-sub">09:20 PM</span>
+						<span class="li-text-sub">Completed update | FOX</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="contextual.js"></script>
+</div>
+</body>
+</html>

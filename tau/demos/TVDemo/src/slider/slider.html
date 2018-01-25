@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8">
+	<script build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-
+			build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+
+	<title>TV UI Demo</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<link rel="apple-touch-icon" href="../../icon-tizen.png"/>
+</head>
+
+<body class="ui-pagecontainer">
+	<div class="ui-page">
+		<header>
+		<h2 class="ui-title">Slider</h2>
+	</header>
+		<div class="ui-content content-padding">
+			<label>Normal slider
+				<input id="mySlider1" name="mySlider1" type="range" value="5" min="0" max="10" />
+			</label>
+			<label>Disabled slider
+				<input id="mySlider_disable" name="mySlider1" disabled="disabled" type="range" value="3" min="0" max="10" />
+			</label>
+			<label>Slider without popup
+				<input id="mySlider2" name="mySlider2" type="range" value="50" min="0" max="100"
+					data-popup="false" data-icon="text" data-text-left="0" data-text-right="100"/>
+			</label>
+
+			<label>Icon slider
+				<input id="mySlider3" name="mySlider3" type="range" value="5"
+					min="0" max="10" data-icon="bright"/>
+				<input id="mySlider4" name="mySlider4" type="range" value="5"
+				min="0" max="10" data-icon="volume"/>
+			</label>
+
+			<label>data-highlight="false"
+				<input id="mySlider9" name="mySlider9" type="range" value="5" min="0"
+					max="10" data-highlight="false" />
+			</label>
+		</div>
+	</div>
+</body>
+</html>

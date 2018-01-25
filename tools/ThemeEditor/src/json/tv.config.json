@@ -1,0 +1,33 @@
+{
+	"themes": {
+			"black": "res/less/tv/default/theme-black/"
+	},
+	"devList": [
+		{
+			"name": "1920 x 1080",
+			"displayWidth": 1920,
+			"displayHeight": 1080,
+			"pixelRatio": 1
+		}
+	],
+	"previewProperties": {
+			"maxBadgeCount": 5,
+			"initialZoom": 0.5,
+			"badges": [
+				{
+					"name": "1920 x 1080",
+					"displayWidth": 1920,
+					"displayHeight": 1080,
+					"pixelRatio": 1,
+					"previewUrl": "../../../tau/demos/TVDemo/src/"
+				}
+			],
+			"defaultBadge":
+				{
+					"name": "1920 x 1080",
+					"displayWidth": 1920,
+					"displayHeight": 1080,
+					"pixelRatio": 1
+				}
+	}
+}

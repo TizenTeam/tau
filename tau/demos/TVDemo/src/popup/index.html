@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<script build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<title>TV UI</title>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-
+			build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+</head>
+
+<body class="ui-pagecontainer" data-background="../img/bg.jpg">
+<div id="popupPage" class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Popup</h2>
+	</header>
+	<div class="ui-content" data-handler="true">
+		<ul class="ui-listview">
+			<li>
+				<a data-role="button" href="notificationpopup.html">Notification popups</a>
+			</li>
+			<li>
+				<a href="#popupToast" class="ui-btn" data-rel="popup">Popup toast</a>
+			</li>
+			<li>
+				<a href="#longPopupToast" class="ui-btn" data-rel="popup">Long popup toast</a>
+			</li>
+			<li>
+				<a href="#textOnlyPopup" class="ui-btn" data-rel="popup">Text-only popup</a>
+			</li>
+			<li>
+				<a href="#extendedTextOnlyPopup" class="ui-btn" data-rel="popup">Extended text-only popup</a>
+			</li>
+			<li>
+				<a href="#extended2TextOnlyPopup" class="ui-btn" data-rel="popup">Extended multi-line text-only popup</a>
+			</li>
+			<li>
+				<a href="#loadingPopup" class="ui-btn" data-rel="popup">Loading popup</a>
+			</li>
+			<li>
+				<a href="#multiLineLoadingPopup" class="ui-btn" data-rel="popup">Multi-line loading popup</a>
+			</li>
+			<li>
+				<a href="#extendedLoadingPopup" class="ui-btn" data-rel="popup">Extended loading popup</a>
+			</li>
+			<li>
+				<a href="#multiLineExtendedLoadingPopup" class="ui-btn" data-rel="popup">Multi-line extended loading popup</a>
+			</li>
+			<li>
+				<a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn popup</a>
+			</li>
+			<li>
+				<a href="#2btnPopup" class="ui-btn" data-rel="popup">2btn popup</a>
+			</li>
+			<li>
+				<a href="#radioPopup" class="ui-btn" data-rel="popup">Radio popup</a>
+			</li>
+			<li>
+				<a href="#checkPopup" class="ui-btn"  data-rel="popup">Checkbox popup</a>
+			</li>
+			<li>
+				<a href="#listPopup" class="ui-btn" data-rel="popup">List popup 1</a>
+			</li>
+			<li>
+				<a href="#listNoTitlePopup" class="ui-btn" data-rel="popup">List popup 2</a>
+			</li>
+			<li>
+				<a href="#inputPopup" class="ui-btn" data-rel="popup">Popup with input</a>
+			</li>
+			<li>
+				<a href="./custompopup.html" class="ui-btn">Custom popups</a>
+			</li>
+			<li>
+				<a href="#noboxPopup" class="ui-btn" data-rel="popup">Popup without box</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="textOnlyPopup" class="ui-popup">
+		<div>
+			Text only popup
+		</div>
+	</div>
+
+	<div id="extendedTextOnlyPopup" class="ui-popup">
+		<div> <!-- [optional] class="ui-popup-content" -->
+			<h1>Title example</h1>
+			<p>Check the antenna cable connection.</p>
+		</div>
+	</div>
+
+	<div id="extended2TextOnlyPopup" class="ui-popup">
+		<div>
+			<h1>Title example</h1>
+			<p>Check the antenna cable connection.</p>
+			<p>Disconnect and reconnect the antenna cable, wait few seconds...</p>
+		</div>
+	</div>
+
+
+	<div id="loadingPopup" class="ui-popup ui-popup-progress">
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Loading</span>
+		</div>
+	</div>
+
+	<div id="multiLineLoadingPopup" class="ui-popup ui-popup-progress">
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Disconnect and reconnect the antenna cable, wait few seconds...</span>
+		</div>
+	</div>
+
+	<div id="extendedLoadingPopup" class="ui-popup ui-popup-progress">
+		<header>Air casting</header>
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Sending to Torn's Galaxy phone</span>
+		</div>
+		<footer>
+			<a data-role="button" id="extendedLoadingPopup-cancel" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="multiLineExtendedLoadingPopup" class="ui-popup ui-popup-progress">
+		<header>Air casting</header>
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Disconnect and reconnect the antenna cable, wait few seconds...</span>
+		</div>
+		<footer>
+			<a data-role="button" id="multiLineExtendedLoadingPopup-cancel" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="1btnPopup" class="ui-popup">
+		<header>Power saving mode</header>
+		<div>
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<footer>
+			<a data-role="button" id="1btnPopup-cancel" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="2btnPopup" class="ui-popup">
+		<header>Power saving mode</header>
+		<div>
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<footer class="ui-grid-col-2">
+			<a data-role="button" id="2btnPopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+			<a data-role="button" id="2btnPopup-ok" class="ui-btn" data-rel="back">OK</a>
+		</footer>
+	</div>
+
+	<div id="radioPopup" class="ui-popup ui-popup-listview">
+		<header>Ringtones</header>
+		<div style="overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li class="li-has-radio">
+					<input type="radio" name="radioset" id="radio-1" checked="checked" />
+					<label for="radio-1"> Tone 1 </label>
+				</li>
+				<li class="li-has-radio">
+					<input type="radio" name="radioset" id="radio-2" />
+					<label for="radio-2"> Tone 2 </label>
+				</li>
+				<li class="li-has-radio">
+					<input type="radio" name="radioset" id="radio-3" />
+					<label for="radio-3"> Tone 3 </label>
+				</li>
+				<li class="li-has-radio">
+					<input type="radio" name="radioset" id="radio-4" />
+					<label for="radio-4"> Tone 4 </label>
+				</li>
+				<li class="li-has-radio">
+					<input type="radio" name="radioset" id="radio-5" />
+					<label for="radio-5"> Tone 5 </label>
+				</li>
+			</ul>
+		</div>
+		<footer>
+			<a data-role="button" id="radioPopup-close" class="ui-btn" data-rel="back">Close</a>
+		</footer>
+	</div>
+
+	<div id="checkPopup" class="ui-popup ui-popup-listview">
+		<header>When?</header>
+		<div style="overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li class="li-has-checkbox">
+					<input id="week-1" type="checkbox"/>
+					<label for="week-1">Monday</label>
+				</li>
+				<li class="li-has-checkbox">
+					<input id="week-2" type="checkbox"/>
+					<label for="week-2">Tuesday</label>
+				</li>
+				<li class="li-has-checkbox">
+					<input id="week-3" type="checkbox"/>
+					<label for="week-3">Wednesday</label>
+				</li>
+				<li class="li-has-checkbox">
+					<input id="week-4" type="checkbox"/>
+					<label for="week-4">Thursday</label>
+				</li>
+				<li class="li-has-checkbox">
+					<input id="week-5" type="checkbox"/>
+					<label for="week-5">Friday</label>
+				</li>
+				<li class="li-has-checkbox">
+					<input id="week-6" type="checkbox"/>
+					<label for="week-6">Saturday</label>
+				</li>
+				<li class="li-has-checkbox">
+					<input id="week-7" type="checkbox"/>
+					<label for="week-7">Sunday</label>
+				</li>
+			</ul>
+		</div>
+		<footer>
+			<a data-role="button" id="checkPopup-close" class="ui-btn" data-rel="back">Close</a>
+		</footer>
+	</div>
+
+	<div id="listPopup" class="ui-popup ui-popup-listview">
+		<header>Change to</header>
+		<div style="overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li><a href="">Phone</a></li>
+				<li><a href="">Headset</a></li>
+				<li><a href="">Keyboard</a></li>
+				<li><a href="">Touchpad</a></li>
+				<li><a href="">Touchball</a></li>
+			</ul>
+		</div>
+		<footer>
+			<a data-role="button" id="listPopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="listNoTitlePopup" class="ui-popup ui-popup-listview">
+		<div style="overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li>Ringtones 1</li>
+				<li>Ringtones 2</li>
+				<li>Ringtones 3</li>
+				<li>Ringtones 4</li>
+				<li>Ringtones 5</li>
+				<li>Ringtones 6</li>
+				<li>Ringtones 7</li>
+			</ul>
+		</div>
+		<footer>
+			<a data-role="button" id="listNoTitlePopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="popupToast" class="ui-popup ui-popup-toast">
+		<div>
+			Saving contacts to sim on Samsung.
+		</div>
+	</div>
+
+	<div id="longPopupToast" class="ui-popup ui-popup-toast">
+		<div>
+			<p>Saving contacts to sim on Samsung. Do not turn off your TV. Saving contacts to sim on Samsung.
+				Restart will be done automatically. Saving contacts to sim on Samsung. Do not turn off your TV. Saving contacts
+				to sim on Samsung. Do not turn off your TV. </p>
+			<p>Restart will be done automatically.</p>
+		</div>
+	</div>
+
+	<div id="inputPopup" class="ui-popup">
+		<header>Power saving mode</header>
+		<div>
+			<input />
+		</div>
+		<footer class="ui-grid-col-2">
+			<a data-role="button" id="inputPopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+			<a data-role="button" id="inputPopup-ok" class="ui-btn" data-rel="back">OK</a>
+		</footer>
+	</div>
+
+	<div id="noboxPopup" class="ui-popup ui-popup-no-box">
+		<header>
+			No source
+		</header>
+		<div>
+			To connect source, plug a source into TV or set up the the network on configuration.
+		</div>
+	</div>
+</div>
+</body>
+</html>

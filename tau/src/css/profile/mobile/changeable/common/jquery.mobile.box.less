@@ -1,0 +1,92 @@
+.ui-box {
+	&-float {
+		.align-content(flex-start);
+		display: flex;
+		.flex-wrap(wrap);
+		&-left {
+			.justify-content(flex-start);
+		}
+		&-right {
+			.justify-content(flex-end);
+		}
+		&-center {
+			.justify-content(center);
+		}
+		&-top {
+			.align-items(flex-start);
+		}
+		&-middle {
+			.align-items(center);
+		}
+		&-bottom {
+			.align-items(flex-end);
+		}
+	}
+
+	&-relative {
+		position: relative;
+		height: 100%;
+
+		> *:not(script) {
+			position: absolute;
+		}
+
+		> .position {
+			&-top {
+				top: 0;
+			}
+
+			&-left {
+				left: 0;
+			}
+
+			&-right {
+				right: 0;
+			}
+
+			&-bottom {
+				bottom: 0;
+			}
+
+			&-center {
+				&.position-bottom,
+				&.position-top {
+					left: 50%;
+					.transform(translate(-50%, 0));
+				}
+
+				&.position-left,
+				&.position-right {
+					top: 50%;
+					.transform(translate(0, -50%));
+				}
+
+				// Instead of redefining every property for -center class
+				// :not if none other position class is defined
+				&:not(.position-top):not(.position-right):not(.position-bottom):not(.position-left) {
+					top: 50%;
+					left: 50%;
+					.transform(translate(-50%, -50%));
+				}
+			}
+		}
+	}
+	&-float-middle {
+		.align-items(center);
+	}
+	&-float-bottom {
+		.align-items(flex-end);
+	}
+	&-linear-horizont {
+		display: flex;
+		flex-direction: row;
+	}
+	&-linear-vertical {
+		display: flex;
+		flex-direction: column;
+	}
+}
+&.ui-box-linear-wrap {
+	flex-wrap: wrap;
+}
+

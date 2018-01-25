@@ -1,0 +1,71 @@
+input:not([type=number]):not([type=checkbox]):not([type=radio]), textarea {
+	background-color: @color_input_bg;
+	color: @color_input_text;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 32 * @virtual_px;
+	font: bold;
+	border: solid 2 * @virtual_px rgb(177, 177, 177);
+
+	&:focus {
+		color: @color_input_text_focus;
+	}
+}
+
+textarea {
+	height: 117 * @virtual_px;
+}
+
+input[type]:not([type=number]).small {
+	font-size: 24 * @virtual_px;
+}
+
+input[type=password].pin {
+  background-color: @color_input_bg;
+  color: @color_input_text;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 45 * @virtual_px;
+  font: bold;
+  width: 58 * @virtual_px;
+  height: 58 * @virtual_px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	.appearance(none);
+}
+input[type=number] {
+	color: @color_input_number_text;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 29 * @virtual_px;
+	font: bold;
+	background: url(images/input/spin_button.png) no-repeat center center;
+	border: @virtual_px solid @color_input_border;
+	padding: 15 * @virtual_px;
+	background-color: @color_input_bg;
+	&:focus {
+		background-color: @color_input_number_bg_focus;
+		color: @color_input_number_text_focus;
+		border: @virtual_px solid @color_input_number_border_focus;
+	}
+}
+.ui-number-input {
+  padding-top: 15 * @virtual_px;
+  padding-bottom: 22 * @virtual_px;
+}
+
+.ui-listview li {
+	input:not([type=number]):not([type=checkbox]):not([type=radio]) {
+		margin: -10 * @virtual_px 0;
+
+		&[type=password].pin {
+			margin: -17 * @virtual_px 0;
+		}
+	}
+
+	input[type=number] {
+		margin: -19 * @virtual_px 0;
+	}
+}

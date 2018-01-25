@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8">
+	<script build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-
+			build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+
+	<title>TV UI Demo</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<link rel="apple-touch-icon" href="../../icon-tizen.png"/>
+</head>
+
+<body class="ui-pagecontainer">
+<div class="ui-page ui-page-active" data-role="page">
+	<div class="ui-content content-padding" data-handler="true">
+		<a href="#" data-role="button">Button</a>
+		<br/>
+		<a href="#" data-role="button" class="ui-button-text">Text button</a>
+		</br>
+		<a href="#" data-role="button" data-inline="true">Inline button</a>
+		<a href="#" data-role="button" data-inline="true" disabled="disabled">Inline disabled button</a>
+		<a data-role="button" data-inline="true" class="ui-button-text">Text inline button</a>
+		<a href="#" data-role="button" data-inline="true" disabled="disabled" class="ui-button-text">Disabled inline text button</a>
+		<br/><br/>
+		<a href="#" data-role="button" data-icon="source" data-iconpos="top"
+		   data-rel="dynamic" class="ui-btn ui-color-live" data-inline="true">Source</a>
+		<a data-rel="dynamic" href="#" data-role="button" data-icon="live"
+		   data-iconpos="top" data-inline="true">Live on TV</a>
+		<a href="#" data-icon="tv-show" data-iconpos="top" data-role="button"
+		   data-inline="true">Recorded</a>
+		<a href="#" data-role="button" data-icon="movie" data-iconpos="top" disabled="disabled"
+		   data-inline="true">Movies</a>
+		<a data-rel="dynamic" href="#" data-role="button" data-icon="app"
+		   data-iconpos="top" data-inline="true">Application</a>
+
+		<br/><br/>
+		<a href="#" data-role="button" data-icon="source" data-iconpos="top"
+		   data-rel="dynamic" class="ui-btn ui-color-live long" data-inline="true" style="width:200px;">Find new source</a>
+		<a data-rel="dynamic" href="#" data-role="button" data-icon="live" disabled="disabled"
+		   data-iconpos="top" data-inline="true" style="width:200px;">Change TV program</a>
+		<a href="#" data-icon="tv-show" data-iconpos="top" data-role="button"
+		   data-inline="true" style="width:200px;">Set new record</a>
+		<a href="#" data-role="button" data-icon="movie" data-iconpos="top"
+		   data-inline="true" style="width:200px;">Find new movie</a>
+		<a data-rel="dynamic" href="#" data-role="button" data-icon="app"
+		   data-iconpos="top" data-inline="true" style="width:200px;">Start application</a>
+
+	</div>
+</div>
+</body>
+</html>

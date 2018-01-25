@@ -1,0 +1,578 @@
+.ui-btn {
+	position: relative;
+	display: block;
+	padding: 30 * @virtual_px 20 * @virtual_px 25 * @virtual_px 20 * @virtual_px;
+	font-size: 28 * @virtual_px;
+	font-weight: bolder;
+	line-height: @fixed_button_line_height;
+	text-align: center;
+	white-space: nowrap;
+	cursor: pointer;
+	vertical-align: middle;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border: 0 none;
+	min-height: @fixed_button_minimum_height;
+	min-width: @fixed_button_minimum_width;
+	border-radius: 4 * @virtual_px;
+	background-color: @color_button_basic_normal;
+	.ui-default;
+
+	&.ui-multiline {
+		padding-top: @fixed_button_multiline_padding_top;
+		padding-bottom: @fixed_button_multiline_padding_bottom;
+	}
+
+	&.ui-btn-inline {
+		display: inline-block;
+	}
+
+	&.ui-btn-icon {
+		background-position: center center;
+		height: @fixed_button_icon_height;
+		text-indent: -1000em;
+		overflow: hidden;
+		background-repeat: no-repeat;
+		background-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
+	}
+
+	.ui-btn-inner {
+		display: block;
+		position: relative;
+		zoom: 1;
+		line-height: 26 * @virtual_px;
+		margin: 0;
+		min-width: @fixed_button_inner_minimum_width;
+
+		.ui-btn-text {
+			display: block;
+			span {
+				display: block;
+				font-size: 22 * @virtual_px;
+				bottom: 0;
+				margin-top: 5 * @virtual_px;
+			}
+		}
+
+		.LESStext-ellipsis();
+	}
+	/*hiding native button,inputs */
+	.ui-btn-hidden {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		.appearance(button);
+		opacity: .1;
+		cursor: pointer;
+		background: transparent;
+		font-size: 1 * @virtual_px;
+		border: none;
+		line-height: 999 * @virtual_px;
+	}
+
+
+	a&.ui-state-disabled, &:disabled {
+		background-color: rgba(red(@color_button_basic_normal), green(@color_button_basic_normal), blue(@color_button_basic_normal), 0.4);
+	}
+}
+
+.ui-listview {
+	.ui-btn {
+		background-color: inherit;
+	}
+}
+
+.ui-btn[data-icon], .ui-drawer-close, li a.ui-btn{
+	font-weight: inherit;
+	background-color: inherit;
+	color: @color_button_with_icon;
+	overflow: hidden;
+}
+
+.ui-default {
+	color: @color_button_basic_txt_normal;
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_default_text_disable;
+		cursor: default;
+	}
+}
+
+.ui-color-red {
+	color: @color_button_red_text;
+	background-color: @color_button_red_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_red_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_red_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_red_text_disable;
+		background-color: @color_button_red_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-orange {
+	color: @color_button_orange_text;
+	background-color: @color_button_orange_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_orange_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_orange_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_orange_text_disable;
+		background-color: @color_button_orange_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-color-green {
+	color: @color_button_green_text;
+	background-color: @color_button_green_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_green_press_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_green_focus_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_green_text_disable;
+		background-color: @color_button_green_disable_bg;
+		cursor: default;
+	}
+}
+
+.ui-btn, .ui-btn:active {
+	.ui-background {
+		outline: none;
+		background-color: @color_default;
+		color: @color_button_basic_txt_focus;
+	}
+}
+
+a.ui-btn {
+	text-decoration: none;
+	box-sizing: border-box;
+}
+
+button.ui-btn, input.ui-btn {
+	box-sizing: border-box;
+	.appearance(none);
+	width: 100%;
+
+	&.ui-inline {
+		display: inline-block;
+		width: auto;
+	}
+}
+
+.ui-grid-col-btn (@counter) when (@counter > 0) {
+	.ui-grid-col-btn((@counter - 1));
+
+	.ui-grid-col-@{counter} > .ui-btn {
+		border-left: solid 1 * @virtual_px @color_bg;
+		&:first-child {
+			border-left: 0 * @virtual_px none;
+		}
+	}
+}
+
+.ui-grid-col-btn(3);
+
+.ui-grid-row > .ui-btn {
+	margin-top: 1 * @virtual_px;
+
+	&:first-child {
+		margin-top: 0 * @virtual_px;
+	}
+}
+
+.ui-btn-icon-notext {
+	width: 36 * @virtual_px;
+	height: 36 * @virtual_px;
+}
+
+.ui-btn-icon-notext .ui-btn-inner {
+	padding: 2 * @virtual_px 1 * @virtual_px 2 * @virtual_px 3 * @virtual_px;
+}
+
+.ui-btn-icon-notext .ui-btn-inner .ui-icon {
+	margin-left: -16 * @virtual_px;
+	margin-top: -16 * @virtual_px;
+}
+
+.ui-btn-icon-notext .ui-btn-text {
+	position: absolute;
+	left: -999 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-left .ui-btn-inner,
+.ui-footer .ui-btn-icon-left .ui-btn-inner,
+.ui-bar .ui-btn-icon-left .ui-btn-inner {
+	padding-left: 27 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-right .ui-btn-inner,
+.ui-footer .ui-btn-icon-right .ui-btn-inner,
+.ui-bar .ui-btn-icon-right .ui-btn-inner {
+	padding-right: 27 * @virtual_px;
+}
+
+.ui-btn-icon-top .ui-btn-inner {
+	padding-top: 27 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-top .ui-btn-inner,
+.ui-footer .ui-btn-icon-top .ui-btn-inner,
+.ui-bar .ui-btn-icon-top .ui-btn-inner {
+	padding-top: 27 * @virtual_px;
+}
+
+.ui-btn-icon-bottom .ui-btn-inner {
+	padding-bottom: 33 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-bottom .ui-btn-inner,
+.ui-footer .ui-btn-icon-bottom .ui-btn-inner,
+.ui-bar .ui-btn-icon-bottom .ui-btn-inner {
+	padding-bottom: 27 * @virtual_px;
+}
+
+/*btn icon positioning*/
+.ui-btn-icon-notext .ui-icon {
+	display: block;
+}
+
+.ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon, .ui-btn-icon-circle .ui-icon {
+	position: absolute;
+}
+
+.ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon {
+	position: absolute;
+	left: 50%;
+	margin-left: -40 * @virtual_px;
+}
+
+.ui-btn-icon-left .ui-icon {
+	left: 7 * @virtual_px;
+}
+
+.ui-btn-icon-circle .ui-icon {
+	left: 0 * @virtual_px;
+}
+
+/* wongi_1018: for circle icon center positioning. */
+.ui-btn-icon-right .ui-icon {
+	right: 4 * @virtual_px;
+	top: 0;
+}
+
+.ui-btn-icon-top .ui-icon {
+	top: 0 * @virtual_px;
+	margin-top: 0;
+}
+
+.ui-btn-icon-bottom .ui-icon {
+	bottom: 0 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-right .ui-icon,
+.ui-footer .ui-btn-icon-right .ui-icon,
+.ui-bar .ui-btn-icon-right .ui-icon {
+	right: 4 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-top .ui-icon,
+.ui-footer .ui-btn-icon-top .ui-icon,
+.ui-bar .ui-btn-icon-top .ui-icon {
+	top: 4 * @virtual_px;
+}
+
+.ui-header .ui-btn-icon-bottom .ui-icon,
+.ui-footer .ui-btn-icon-bottom .ui-icon,
+.ui-bar .ui-btn-icon-bottom .ui-icon {
+	bottom: 4 * @virtual_px;
+}
+
+.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt {
+	padding-top: 88 * @virtual_px;
+}
+
+.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt {
+	padding-bottom: 88 * @virtual_px;
+}
+
+/* icons sizing */
+.ui-btn .ui-icon {
+	width: 80 * @virtual_px;
+	height: 80 * @virtual_px;
+}
+
+/* Padding for Icon with text */
+.ui-btn .ui-btn-text.ui-btn-text-padding-left {
+	padding-left: 26 * @virtual_px;
+}
+
+.ui-btn .ui-btn-text.ui-btn-text-padding-right {
+	padding-right: 26 * @virtual_px;
+}
+
+.ui-btn .ui-btn-text.ui-btn-text-padding-top {
+	padding-top: 26 * @virtual_px;
+	padding-bottom: 6 * @virtual_px;
+	text-align: center;
+}
+
+.ui-icon {
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	background-position: 0% 0%;
+	background-size: 100% !important;
+}
+
+.ui-icon {
+	.mask-image('images/icons/bg_ico_76_shadow.png', 'images/icons/app_ico_bg.png');
+	.mask-size(80 * @virtual_px 80 * @virtual_px);
+	z-index: 0;
+}
+
+/****************************************
+ICON LIVE
+****************************************/
+.ui-icon-live,
+.ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-live {
+	background: rgb(69, 143, 255) url(images/icons/ico_live_foc.png);
+}
+
+.ui-listview li a.ui-btn.ui-btn-icon-live,
+.ui-btn-icon-live {
+
+		.ui-background {
+			background-color: rgb(69, 143, 255);
+		}
+
+	&.ui-focus {
+		.ui-btn-inner .ui-icon.ui-icon-live,
+		.ui-icon {
+			background-color: white;
+		}
+	}
+}
+
+/****************************************
+ICON SHOW
+****************************************/
+.ui-icon-tv-show,
+.ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-tv-show {
+	background: rgb(255, 168, 0) url(images/icons/ico_tv_show_foc.png);
+}
+
+.ui-listview li a.ui-btn.ui-btn-icon-tv-show,
+.ui-btn-icon-tv-show {
+	.ui-background {
+		background-color: rgb(255, 168, 0);
+	}
+
+	&.ui-focus {
+		.ui-btn-inner .ui-icon.ui-icon-tv-show,
+		.ui-icon {
+			background-color: white;
+		}
+	}
+}
+
+/****************************************
+ICON MOVE
+****************************************/
+.ui-icon-movie,
+.ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-movie {
+	background: rgb(255, 99, 86) url(images/icons/ico_moive_foc.png);
+}
+
+.ui-listview li a.ui-btn.ui-btn-icon-movie,
+.ui-btn-icon-movie {
+
+		.ui-background {
+			background-color: rgb(255, 99, 86);
+		}
+
+	&.ui-focus {
+		.ui-btn-inner .ui-icon.ui-icon-movie,
+		.ui-icon {
+			background-color: white;
+		}
+	}
+}
+
+/****************************************
+ICON SOURCE
+****************************************/
+.ui-icon-source,
+.ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-source {
+	background: rgb(155, 122, 255) url(images/icons/ico_source_foc.png);
+}
+
+.ui-listview li a.ui-btn.ui-btn-icon-source,
+.ui-btn-icon-source {
+		.ui-background {
+			background-color: @color_button_icon_source;
+		}
+
+	&.ui-focus {
+		.ui-btn-inner .ui-icon.ui-icon-source,
+		.ui-icon {
+			background-color: white;
+		}
+	}
+}
+
+/****************************************
+ICON APP
+****************************************/
+.ui-icon-app,
+.ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-app {
+	background: rgb(71, 210, 188) url(images/icons/ico_app_foc.png);
+}
+
+.ui-listview li a.ui-btn.ui-btn-icon-app,
+.ui-btn-icon-app {
+		.ui-background {
+			background-color: @color_button_icon_app;
+		}
+
+	&.ui-focus {
+		.ui-btn-inner .ui-icon.ui-icon-app,
+		.ui-icon {
+			background-color: white;
+		}
+	}
+}
+
+.ui-btn-icon-right {
+	progress {
+		margin-right: 100 * @virtual_px;
+		width: auto;
+	}
+}
+
+
+/****************************************
+ANIMATION
+****************************************/
+
+.ui-btn {
+	.ui-background {
+		position: absolute;
+		.transition(200ms ease);
+	}
+
+	/* FOCUS */
+	&.ui-focus {
+		/* animation from down to up */
+		&-up {
+			.ui-background {
+				top: 100%;
+				height: 0;
+				width: 100%;
+				left: 0;
+				.transition-property(top, height);
+			}
+		}
+		/* animation from up to down */
+		&-down {
+			.ui-background {
+				height:0;
+				width: 100%;
+				left: 0;
+				top: 0;
+				.transition-property(top, height);
+			}
+		}
+		/* animation from rigth to left */
+		&-left{
+			.ui-background {
+				width: 0;
+				height: 100%;
+				left: 100%;
+				top: 0;
+				.transition-property(top, height);
+			}
+		}
+		/* animation from left to right */
+		&-right {
+			.ui-background {
+				width:0;
+				height: 100%;
+				left: 0;
+				top: 0;
+				.transition-property(top, height);
+			}
+		}
+	}
+
+	&.ui-focus {
+		.ui-background {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	/* BLUR */
+	/* animation from down to up */
+	&.ui-blur-up {
+		.ui-background {
+			top: 0;
+			height:0;
+			left: 0;
+			width: 100%;
+			.transition-property(top, height);
+		}
+	}
+	/* animation from up to down */
+	&.ui-blur-down {
+		.ui-background {
+			top: 100%;
+			height: 0;
+			left: 0;
+			width: 100%;
+			.transition-property(top, height);
+		}
+	}
+	/* animation from rigth to left */
+	&.ui-blur-left{
+		.ui-background {
+			width: 0;
+			left: 0;
+			top: 0;
+			height: 100%;
+			.transition-property(top, height);
+		}
+	}
+	/* animation from left to right */
+	&.ui-blur-right {
+		.ui-background {
+			width:0;
+			left: 100%;
+			top: 0;
+			height: 100%;
+			.transition-property(top, height);
+		}
+	}
+}

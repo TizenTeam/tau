@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>TV UI</title>
+	<link rel="stylesheet"  href="../../lib/tau/tv/theme/default/tau.css">
+</head>
+<body>
+	<div class="ui-page">
+		<header class="ui-header">
+			<h2 class="ui-title">Progress & Processing</h2>
+		</header>
+		<div class="ui-content content-padding">
+			<progress data-infinite="true" data-appeariance="bar" max="100" value="100" ></progress>
+			<br>
+			<progress max="100" value="90"></progress>
+			<br>
+
+			<div class="ui-progress-text-container">
+				<div class="ui-progress-proportion">00/20</div>
+				<progress  max="100" value="50"></progress>
+				<div  class="ui-progress-ratio">50%</div>
+			</div>
+
+			<progress max="100" value="90" class="ui-progress-color"></progress>
+
+			<div class="ui-progress-text-container">
+				<progress  max="100" value="50" class="ui-progress-color"></progress>
+				<div  class="ui-progress-ratio">50%</div>
+			</div>
+
+			<progress max="100" value="90" class="ui-progress-big"></progress>
+			<br>
+			<div class="ui-progress-text-container">
+				<progress  max="100" value="50" class="ui-progress-big"></progress>
+				<div  class="ui-progress-ratio">50%</div>
+			</div>
+			<div class="ui-progress-text-container ui-progress-big">
+				<div class="ui-progress-proportion">00/20</div>
+				<progress  max="100" value="50"></progress>
+				<div  class="ui-progress-ratio">50%</div>
+			</div>
+			<progress max="100" value="90" class="ui-progress-color ui-progress-big"></progress>
+			<br>
+			<div class="ui-progress-text-container">
+				<progress  max="100" value="50" class="ui-progress-color ui-progress-big"></progress>
+				<div  class="ui-progress-ratio">50%</div>
+			</div>
+			<progress data-appeariance="circle"></progress>
+			<div class="ui-processing-text">
+				Description about progress
+			</div>
+		</div>
+	</div>
+</body>
+<script build-remove="false">
+	var tauConfig = {
+		autoBuildOnPageChange: true
+	};
+</script>
+<script type="text/javascript" src="../../lib/tau/tv/js/tau.js"></script>
+</html>

@@ -1,0 +1,24 @@
+/* Transitions originally inspired by those from jQtouch, nice work, folks */
+.ui-viewport-transitioning,
+.ui-viewport-transitioning .ui-page {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	.border-box();
+}
+
+.ui-pre-in {
+	z-index: 100;
+	visibility: visible;
+	display: block;
+	top: 0;
+	left: 0;
+}
+.in {
+	.animation-timing-function(ease-out);
+	.animation-duration(350ms);
+}
+.out {
+	.animation-timing-function(ease-in);
+	.animation-duration(225ms);
+}

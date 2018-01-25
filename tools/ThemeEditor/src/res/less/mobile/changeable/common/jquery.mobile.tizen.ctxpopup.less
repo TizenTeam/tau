@@ -1,0 +1,336 @@
+.ui-popup-screen.ui-ctxpopup-screen {
+	opacity: 0;
+}
+.ui-ctxpopup {
+	display: table;
+
+	:focus {
+		outline:none;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-top {
+		top: 2 * @unit_base;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-left {
+		left: 2 * @unit_base;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-right {
+		right: 2 * @unit_base;
+	}
+
+	.ui-ctxpopup-row .ui-triangle-bottom {
+		bottom: 2 * @unit_base;
+	}
+
+	.ui-ctxpopup-row {
+		display: table-row;
+
+		.ui-ctxpopup-cell {
+			display: table-cell;
+		}
+
+		.ui-popupwindow-padding {
+			background: @color_ctxpopup_background;
+			border: none;
+			.box-shadow(0 * @unit_base 0 * @unit_base 12 * @unit_base rgba(0, 0, 0, .6));
+		}
+
+	}
+
+	.ui-listview li.ui-btn-up-s, .ui-listview li.ui-btn-hover-s {
+		background: transparent;
+	}
+
+	.ui-listview {
+		max-width: 620 * @unit_base;
+		border: none;
+	}
+
+	.ui-listview .ui-li {
+		color: @color_ctxpopup_text;
+		font-size: @font_size_ctxpopup_text;
+		border-top: 1 * @unit_base solid @color_ctxpopup_list_item_border_top;
+		border-bottom: 1 * @unit_base solid @color_ctxpopup_list_item_border_bottom;
+		margin-left: 0;
+		margin-right: 0;
+		&:first-child {
+			border-top-width: 0;
+		}
+		&:last-child {
+			border-bottom-width: 0;
+		}
+		&.ui-li-anchor {
+			&>a {
+				box-sizing: border-box;
+			}
+			&:not(:last-child){
+				border-bottom: 1px solid @color_ctxpopup_divider;
+			}
+			&.ui-li-active {
+				background-color: @color_ctxpopup_btn_press;
+			}
+		}
+	}
+
+	.ui-listview li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit, .ui-listview li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	color: @color_ctxpopup_text;
+	font-size: @font_size_ctxpopup_text;
+	}
+
+	.horizontal {
+		color: @color_ctxpopup_text;
+		.icon .ui-btn {
+			padding: 0;
+			background: transparent ! important;
+			.ui-btn-icon-only {
+				width: 96 * @unit_base;
+				height: 64 * @unit_base;
+				padding: 0;
+			}
+
+			.ui-icon {
+				top: 0;
+				height: inherit;
+				width: inherit;
+				margin: 0;
+				background-position: center;
+				.LESSbackground-size( 48 * @unit_base, 48 * @unit_base );
+			}
+		}
+
+		.text {
+			padding: 0 10 * @unit_base;
+			min-width: 48 * @unit_base;
+		}
+
+
+		a.ui-link {
+			color: @color_ctxpopup_text;
+			text-decoration: none;
+		}
+
+		ul {
+			padding: 0;
+			display: inline-block;
+			list-style: none;
+			vertical-align: middle;
+			margin: 0;
+		}
+
+		li {
+			line-height: 32 * @unit_base;
+			min-height: 32 * @unit_base;
+			min-width: 48 * @unit_base;
+
+		float: left;
+			display: inline-block;
+			border-right: 1 * @unit_base solid @color_ctxpopup_border_right;
+			border-left: 1 * @unit_base solid @color_ctxpopup_border_left;
+			text-align: center;
+			border-bottom-width: 0;
+			border-top-width: 0;
+		}
+
+		li:first-of-type {
+			border-top-right-radius: 0 ! important;
+			border-left: none;
+		}
+
+		li:last-of-type {
+			border-bottom-left-radius: 0 ! important;
+			border-right: none;
+		}
+
+		.ui-li {
+			&:first-child {
+				border-left-width: 0;
+			}
+			&:last-child {
+				border-right-width: 0;
+			}
+			border-bottom-width: 0;
+			border-top-width: 0;
+		}
+
+		li:active, td:active {
+			background: @color_ctxpopup_btn_press;
+		}
+	}
+
+	.button {
+		table .ui-btn {
+			margin: 0 * @unit_base;
+			padding: 0;
+			height: 56 * @unit_base;
+			width: 132 * @unit_base;
+		}
+	}
+
+}
+
+:not(.ui-slider-popup-container) {
+	.ui-arrow {
+		border: 4 * @unit_base solid @color_ctxpopup_background_border;
+		width: 14.14 * @unit_base;
+		height: 14.14 * @unit_base;
+		background: inherit !important;
+		position: absolute;
+		.rotate(45deg);
+		z-index: -1;
+		&.top {
+			//border-color: transparent transparent @color_ctxpopup_background transparent;
+			margin: -8 * @unit_base;
+		}
+		&.left {
+			//border-color: transparent transparent transparent @color_ctxpopup_background;
+			margin: -6 * @unit_base;
+		}
+		&.right {
+			//border-color: transparent @color_ctxpopup_background transparent transparent;
+			margin: -6 * @unit_base;
+		}
+		&.bottom {
+			//border-color: @color_ctxpopup_background transparent transparent transparent;
+			margin: -6 * @unit_base;
+		}
+	}
+}
+
+.ui-ctxpopup-container {
+	z-index: 1200;
+	display: inline-block;
+	position: absolute;
+	padding: 0;
+	outline: 0;
+	border: 1 * @unit_base solid @color_ctxpopup_background_border;
+	background: @color_ctxpopup_background;
+	box-shadow: 1 * @unit_base 2 * @unit_base 1 * @unit_base #333333;
+	max-width: 100%;
+	box-sizing: border-box;
+	.ui-popup {
+		border: none;
+		border-color: inherit;
+		border-radius: 10 * @unit_base;
+		background: @color_ctxpopup_background;
+		padding : 0 8 * @unit_base 0;
+		position: relative;
+		&.ui-selectmenu {
+			padding: 0;
+		}
+	}
+	.ui-listview .ui-li .ui-btn-inner {
+		border-width: 0;
+	}
+}
+
+.poptop {
+	.transform-origin(0% 0%);
+}
+
+.poptop.in {
+	opacity: 1;
+	.scale(1);
+	.animation(scalepopin 350ms);
+}
+
+.poptop.out {
+	opacity: 0;
+	.animation(fadeout 100ms);
+}
+
+.poptop.in.reverse {
+	.animation-name(fadein);
+}
+
+.poptop.out.reverse {
+	.scale(0.8);
+	.animation-name(scalepopout);
+}
+
+.popbottom {
+	.transform-origin(0% 100%);
+}
+
+.popbottom.in {
+	opacity: 1;
+	.scale(1);
+	.animation(scalepopin 350ms);
+}
+
+.popbottom.out {
+	opacity: 0;
+	.animation(fadeout 100ms);
+}
+
+.popbottom.in.reverse {
+	.animation-name(fadein);
+}
+
+.popbottom.out.reverse {
+	.scale(0.8);
+	.animation-name(scalepopout);
+}
+
+.m-ctxpopup-scalepopin() {
+	from {
+		.scale(0.8);
+		opacity: 0;
+	}
+	to {
+		.scale(1);
+		opacity: 1;
+	}
+}
+.m-ctxpopup-scalepopout() {
+	from {
+		.scale(1);
+		opacity: 1;
+	}
+	to {
+		.scale(0.8);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@-moz-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@-ms-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@-o-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@-webkit-keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+
+@-moz-keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+
+@-ms-keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+
+@-o-keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+
+@keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+

@@ -1,0 +1,100 @@
+@font_size_list_item: 40 * @unit_base;
+/************************
+Listview
+*************************/
+.ui-listview li {
+	font-size: @font_size_list_item;
+	line-height: 48 * @unit_base;
+	width: 100%;
+	min-height: 100 * @unit_base;
+	padding: 21*@unit_base 8*@unit_base 20*@unit_base 16*@unit_base;
+	border-bottom: 1px solid @color_listview_border;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: relative;
+	color: @color_listview_text;
+
+	> * {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		.user-select(none);
+		color: @color_listview_text;
+	}
+}
+.ui-listview li > a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: -21*@unit_base -16*@unit_base;	// Fill-up to the parent li
+	padding: 26*@unit_base 16*@unit_base;	// Compensate lost padding of li
+	.LESSbox-boxsizing( content-box );	// Change size calculation criteria
+}
+
+.ui-listview li.ui-li-active {
+	background-color: @color_list_press_bg;
+	color: @color_listview_text_press;
+}
+
+.ui-listview .li-divider {
+	height: 30 * @unit_base;
+	min-height: 30 * @unit_base;
+	line-height: 30 * @unit_base;
+	padding: 0 8 * @unit_base 0 16 * @unit_base;
+	background-color: @color_list_divider_bg;
+	color: @color_list_divider_text;
+	font-size: 24 * @unit_base;
+}
+
+.ui-listview .ui-li-has-action-icon {
+	.ui-action-text{
+		.calc-width(~"100% - "74 * @unit_base);
+		height: 100%;
+		position: absolute;
+		left: 0;
+		padding-left: 16 * @unit_base;
+		padding-top: 20 * @unit_base;
+		padding-bottom: 20 * @unit_base;
+		margin-top: -20 * @unit_base;
+	}
+
+	.ui-action-divider {
+		position: absolute;
+		height: 60 * @unit_base;
+		width: 2 * @unit_base;
+		background-color: @color_text;
+		right: 72 * @unit_base;
+		top: 20%;
+	}
+
+	.ui-action-delete, .ui-action-setting, .ui-action-add {
+		position: absolute;
+		height: 100%;
+		width: 72 * @unit_base;
+		right:0;
+		top: 0;
+		.mask-size(56 * @unit_base 56 * @unit_base);
+		.mask-repeat(no-repeat);
+		.mask-position(center center);
+		padding-top: 45 * @unit_base;
+		padding-bottom: 45 * @unit_base;
+	}
+
+	.ui-action-delete {
+		.mask-image('./images/listview/tw_list_delete_holo_dark.png');
+		background-color: @color_list_actionicon_image_normal;
+	}
+	.ui-action-setting {
+		.mask-image('./images/listview/tw_list_setting_holo_dark.png');
+		background-color: @color_list_actionicon_image_normal;
+	}
+	.ui-action-add {
+		.mask-image('./images/listview/tw_list_add_holo_dark.png');
+		background-color: @color_list_actionicon_image_normal;
+	}
+
+	.ui-action-text:active, .ui-action-delete:active, .ui-action-setting:active, .ui-action-add:active {
+		background-color: @color_list_actionicon_divider;
+	}
+}

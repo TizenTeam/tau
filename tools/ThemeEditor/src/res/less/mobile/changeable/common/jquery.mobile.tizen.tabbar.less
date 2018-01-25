@@ -1,0 +1,191 @@
+/***************************************************************************
+					Tabbar
+***************************************************************************/
+
+.ui-header.ui-title-tabbar-multiline .ui-tabbar {
+	height : 104 * @unit_base;
+	a.ui-btn {
+		height: 104 * @unit_base;
+		.ui-btn-inner {
+			height: 104 * @unit_base;
+			.ui-icon {
+				height: 46 * @unit_base;
+				width: 46 * @unit_base;
+				top: 0;
+				margin-top: 14 * @unit_base;
+				margin-left: 0;
+			}
+			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
+				height: 28 * @unit_base;
+				padding-top: 63 * @unit_base;
+				padding-bottom: 0;
+				line-height: 28 * @unit_base;
+			}
+		}
+	}
+}
+.ui-tabbar-divider{
+	background: @color_tabbar_divider;
+	height: 1px;
+}
+.ui-header .ui-tabbar {
+	z-index : 1000;
+	height : 72 * @unit_base;
+
+	background : @color_tabbar_bg;
+
+	.ui-tabbar-li {
+		display: inline-block;
+		float: left;
+	}
+
+	a.ui-btn {
+		position: relative;
+		right: 0;
+		top: 0;
+		margin: 0;
+		height: 72 * @unit_base;
+		max-width : none;
+		background : @color_tabbar_btn_bg_normal;
+		color : @color_tabbar_text_normal;
+
+		&.ui-btn-active {
+			color : @color_tabbar_text_selected;
+			.ui-btn-inner {
+				.ui-icon {
+					background : @color_tabbar_btn_selected;
+				}
+
+				.ui-btn-text {
+					border-bottom: 3 * @unit_base solid;
+				}
+			}
+		}
+
+		.ui-btn-inner {
+			padding-top : 0;
+			padding-bottom : 0;
+			height: 72 * @unit_base;
+
+			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
+				position:absolute;
+				padding-top: 37 * @unit_base;
+				padding-bottom: 6 * @unit_base;
+				font-size: @font_size_tabbar_text;
+			}
+			&:not(.ui-btn-icon-only) .ui-btn-text {
+				position:absolute;
+				padding-top: 18 * @unit_base;
+				padding-bottom: 1 * @unit_base;
+				height: 36 * @unit_base;
+				display: block;
+				line-height: 36 * @unit_base;
+				font-size: @font_size_tabbar_text_only;
+				/* Horizontal centering when positon is absolute */
+				left: 50%;
+				.transform(translate(-50%, 0));
+			}
+
+			&.ui-btn-icon-only {
+				margin: auto;
+			}
+		}
+
+		.ui-icon {
+			width: 46 * @unit_base;
+			height: 46 * @unit_base;
+			margin-left: 0;
+
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+
+	a.ui-btn.ui-btn-down-s {
+		background : @color_tabbar_btn_bg_press;
+		.ui-btn-text {
+			background : @color_tabbar_btn_bg_press;
+		}
+		.ui-icon {
+			background : @color_tabbar_btn_press;
+		}
+	}
+
+	a.ui-btn.ui-btn-up-s, a.ui-btn.ui-btn-hover-s {
+		.ui-icon {
+			background : @color_tabbar_btn_normal;
+		}
+	}
+
+	.ui-btn-inner {
+		font-size: @font_size_tabbar_text;
+
+		.ui-icon {
+			top : 7 * @unit_base;
+			/* Horizontal centering when positon is absolute */
+			left : 50%;
+			.transform(translate(-50%, 0));
+		}
+	}
+
+	&.ui-tabbar-notext {
+		a.ui-btn {
+			padding-top : 0;
+			padding-bottom : 0;
+		}
+		.ui-btn-inner {
+			height : 58 * @unit_base;
+			.ui-icon {
+				top : 13 * @unit_base;;
+			}
+		}
+	}
+}
+.ui-header.ui-title-tabbar {
+	height : 144 * @unit_base;
+	.ui-tabbar {
+		border-top: 1px solid @color_tabbar_divider;
+		.ui-tabbar-active {
+			.ui-btn-text {
+				color: @color_tabbar_text_selected;
+			}
+		}
+	}
+	.ui-scrollview-clip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.ui-scrollview-view {
+		.tabbar-scroll-ul {
+			margin: 0;
+			padding: 0;
+		}
+		.tabbar-scroll-li  {
+			display: inline-block;
+			.ui-tabbar-active {
+				.ui-btn-inner {
+					.ui-btn-text {
+						border-bottom: 3px solid @color_tabbar_select_bar;
+					}
+				}
+			}
+		}
+		.tabbar-scroll-li:not(:first-child) {
+			/*
+			* (-7 * @unit_base) value has decimal point.
+			* That occured to element position incorrectly in various browser in which include tizen webkit browser.
+			* So, margin-left value should be fixed integer px unit.
+			*/
+			margin-left: -5px;
+		}
+	}
+}
+.ui-footer {
+	.ui-navbar {
+		li {
+			padding-left: 6 * @unit_base;
+			padding-right: 6 * @unit_base;
+			box-sizing: border-box;
+		}
+	}
+}

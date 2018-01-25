@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<script data-build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<title>TV UI Custom Popup</title>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+</head>
+
+<body class="ui-pagecontainer" data-background="../img/bg.jpg">
+<div id="customPopupPage" class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Custom popups</h2>
+	</header>
+	<div class="ui-content">
+		<ul class="ui-listview">
+			<li>
+				<a href="#twitterPopup" class="ui-btn" data-rel="popup">Twitter popup</a>
+			</li>
+			<li>
+				<a href="#facebookPopup" class="ui-btn" data-rel="popup">Facebook popup</a>
+			</li>
+			<li>
+				<a href="#googlePopup" class="ui-btn" data-rel="popup">Google+ popup</a>
+			</li>
+			<li>
+				<a href="#twitterPopupNoHeader" class="ui-btn" data-rel="popup">Twitter popup no header</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="twitterPopup" data-role="popup" class="ui-popup-custom" data-main-color="#55acee" data-header-icon="./images/twitter_logo.png">
+		<header>
+			Twitter Login
+		</header>
+		<div>
+			<h1>Please enter your twitter ID and password</h1>
+			<div class="row">
+				<input type="text" placeholder="USER ID" />
+			</div>
+			<div class="row">
+				<input type="password" placeholder="PASSWORD" />
+			</div>
+		</div>
+		<footer class="ui-grid-col-2">
+			<a data-role="button" id="twitterPopup-signIn" class="ui-btn" data-rel="back">Sign In</a>
+			<a data-role="button" id="twitterPopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="twitterPopupNoHeader" data-role="popup" class="ui-popup-custom" data-main-color="#55acee" data-header-icon="./images/twitter_logo.png">
+		<div>
+			<h1>Please enter your twitter ID and password</h1>
+			<div class="row">
+				<input type="text" placeholder="USER ID" />
+			</div>
+			<div class="row">
+				<input type="password" placeholder="PASSWORD" />
+			</div>
+		</div>
+		<footer class="ui-grid-col-2">
+			<a data-role="button" id="twitterPopup2-signIn" class="ui-btn" data-rel="back">Sign In</a>
+			<a data-role="button" id="twitterPopup2-cancel" class="ui-btn" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="facebookPopup" data-role="popup" class="ui-popup-custom" data-main-color="#3b5998" data-header-icon="./images/facebook_logo.png">
+		<header>
+			Facebook Login
+		</header>
+		<div>
+			<h1>Please enter your twitter ID and password</h1>
+			<div class="row">
+				<input type="text" placeholder="USER ID" />
+			</div>
+			<div class="row">
+				<input type="password" placeholder="PASSWORD" />
+			</div>
+		</div>
+		<footer class="ui-grid-col-2">
+			<a data-role="button" id="facebookPopup-signIn" class="ui-btn" data-rel="back">Sign In</a>
+			<a data-role="button" id="facebookPopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="googlePopup" data-role="popup" class="ui-popup-custom" data-main-color="#dd4b39" data-header-icon="./images/google_plus_logo.png">
+		<header>
+			Google+ Login
+		</header>
+		<div>
+			<h1>Please enter your twitter ID and password</h1>
+			<div class="row">
+				<input type="text" placeholder="USER ID" />
+			</div>
+			<div class="row">
+				<input type="password" placeholder="PASSWORD" />
+			</div>
+		</div>
+		<footer class="ui-grid-col-2">
+			<a data-role="button" id="googlePopup-signIn" class="ui-btn" data-rel="back">Sign In</a>
+			<a data-role="button" id="googlePopup-cancel" class="ui-btn" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+</div>
+</body>
+</html>

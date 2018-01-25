@@ -1,0 +1,201 @@
+/****************************************
+Popup Transition
+****************************************/
+.ui-popup {
+	&.slideup.in {
+		.animation-name(popupslideinfrombottom);
+		.animation-duration(250ms);
+		.transition-timing-function(ease-in-out);
+	}
+	&.slideup.out {
+		.animation-name(popupslideouttobottom);
+		.animation-duration(250ms);
+		.transition-timing-function(ease-in-out);
+	}
+}
+
+.w-pupup-popupslideinfrombottom() {
+    from { .transform(translateY(100%)); }
+    to { .transform(translateY(0%)); }
+}
+
+.w-popup-slideouttobottom() {
+    from { .transform(translateY(0%)); }
+    to { .transform(translateY(100%)); }
+}
+
+@-webkit-keyframes popupslideinfrombottom {
+	.w-pupup-popupslideinfrombottom();
+}
+
+@-moz-keyframes popupslideinfrombottom {
+	.w-pupup-popupslideinfrombottom();
+}
+
+@-ms-keyframes popupslideinfrombottom {
+	.w-pupup-popupslideinfrombottom();
+}
+
+@-o-keyframes popupslideinfrombottom {
+	.w-pupup-popupslideinfrombottom();
+}
+
+@keyframes popupslideinfrombottom {
+	.w-pupup-popupslideinfrombottom();
+}
+
+@-webkit-keyframes popupslideouttobottom {
+	.w-popup-slideouttobottom();
+}
+
+@-moz-keyframes popupslideouttobottom {
+	.w-popup-slideouttobottom();
+}
+
+@-ms-keyframes popupslideouttobottom {
+	.w-popup-slideouttobottom();
+}
+
+@-o-keyframes popupslideouttobottom {
+	.w-popup-slideouttobottom();
+}
+
+@keyframes popupslideouttobottom {
+	.w-popup-slideouttobottom();
+}
+
+/****************************************
+Popup Overlay Transition
+****************************************/
+.ui-popup-overlay {
+	&.slideup.in {
+		.animation(fadein 250ms);
+	}
+	&.slideup.out {
+		.animation(fadeout 250ms);
+	}
+}
+
+/****************************************
+Option Popup Transition
+****************************************/
+.ui-popup.ui-popup-arrow-t,
+.ui-popup.ui-popup-arrow-l,
+.ui-popup.ui-popup-arrow-r {
+	&.slideup.in {
+		.animation(ctxpopupslideinfrombottom 250ms ease-in-out);;
+	}
+	&.slideup.out {
+		.animation(ctxpopupslideouttobottom 250ms ease-in-out);;
+	}
+}
+.ui-popup.ui-popup-arrow-b {
+	&.slideup.in {
+		.animation(ctxpopupslideinfromtop 250ms ease-in-out);
+	}
+	&.slideup.out {
+		.animation(ctxpopupslideouttotop 250ms ease-in-out);
+	}
+}
+
+.w-popup-ctxpopupslideinfrombottom() {
+	from { transform: translateY(20%); opacity: 0.0;}
+	to { transform: translateY(0%); opacity: 1.0; }
+}
+
+.w-popup-ctxpopupslideouttobottom() {
+	from { transform: translateY(0%); opacity: 1.0;}
+	to { transform: translateY(20%); opacity: 0.0;}
+}
+
+.w-popup-ctxpopupslideinfromtop() {
+	from { transform: translateY(-20%); opacity: 0.0;}
+	to { transform: translateY(0%); opacity: 1.0; }
+}
+
+.w-popup-ctxpopupslideouttotop() {
+	from { transform: translateY(0%); opacity: 1.0;}
+	to { transform: translateY(-20%); opacity: 0.0;}
+}
+
+
+@-webkit-keyframes ctxpopupslideinfrombottom {
+	.w-popup-ctxpopupslideinfrombottom();
+}
+
+@-moz-keyframes ctxpopupslideinfrombottom {
+	.w-popup-ctxpopupslideinfrombottom();
+}
+
+@-ms-keyframes ctxpopupslideinfrombottom {
+	.w-popup-ctxpopupslideinfrombottom();
+}
+
+@-o-keyframes ctxpopupslideinfrombottom {
+	.w-popup-ctxpopupslideinfrombottom();
+}
+
+@keyframes ctxpopupslideinfrombottom {
+	.w-popup-ctxpopupslideinfrombottom();
+}
+
+@-webkit-keyframes ctxpopupslideouttobottom {
+	.w-popup-ctxpopupslideouttobottom();
+}
+
+@-moz-keyframes ctxpopupslideouttobottom {
+	.w-popup-ctxpopupslideouttobottom();
+}
+
+@-ms-keyframes ctxpopupslideouttobottom {
+	.w-popup-ctxpopupslideouttobottom();
+}
+
+@-o-keyframes ctxpopupslideouttobottom {
+	.w-popup-ctxpopupslideouttobottom();
+}
+
+@keyframes ctxpopupslideouttobottom {
+	.w-popup-ctxpopupslideouttobottom();
+}
+
+@-webkit-keyframes ctxpopupslideinfromtop {
+	.w-popup-ctxpopupslideinfromtop();
+}
+
+@-ms-keyframes ctxpopupslideinfromtop {
+	.w-popup-ctxpopupslideinfromtop();
+}
+
+@-ms-keyframes ctxpopupslideinfromtop {
+	.w-popup-ctxpopupslideinfromtop();
+}
+
+@-o-keyframes ctxpopupslideinfromtop {
+	.w-popup-ctxpopupslideinfromtop();
+}
+
+@keyframes ctxpopupslideinfromtop {
+	.w-popup-ctxpopupslideinfromtop();
+}
+
+@-webkit-keyframes ctxpopupslideouttotop {
+	.w-popup-ctxpopupslideouttotop();
+}
+
+@-moz-keyframes ctxpopupslideouttotop {
+	.w-popup-ctxpopupslideouttotop();
+}
+
+@-ms-keyframes ctxpopupslideouttotop {
+	.w-popup-ctxpopupslideouttotop();
+}
+
+@-o-keyframes ctxpopupslideouttotop {
+	.w-popup-ctxpopupslideouttotop();
+}
+
+@keyframes ctxpopupslideouttotop {
+	.w-popup-ctxpopupslideouttotop();
+}
+

@@ -1,0 +1,75 @@
+/* FIXME : developer can control ratio of main content and sub content.
+		   Currently, It is fixed with 7:3.
+*/
+
+html, body {	margin: 0;	padding: 0;	}
+h1, h2, h3, h4, h5, h6, p { margin: 0; font-family: Sans-Serif; }
+fieldset,img { border: 0; }
+
+.container, .header, .content, .main, .sub {	height:100%;	width: 100%;	}
+
+.header {	height: 10%;	}
+.header + .content {	height: 90%;	}
+
+
+/*********** color layout testing ************/
+.header {	background-color: red;	}
+.content { background-color: gray; }
+.main {	background-color: blue;	}
+.sub {	background-color: pink;	}
+.side { background-color: green;	}
+/*************************************/
+
+.content {
+	width: 80%;
+	float: left;
+}
+.side {
+	width: 20%;
+	height : 100%;
+	float: left;
+}
+.main {
+	height: 70%;
+}
+.sub {
+	height: 30%;
+}
+
+
+/* landscape : 320 x 160 */
+@media all and (min-width: 161px) and (max-height: 160px)
+{
+	.main {
+		float: right;
+		width: 70%;
+		height: 100%;
+		display: inline-block;
+	}
+	.sub {
+		float: left;
+		width: 30%;
+		height: 100%;
+		display: inline-block;
+	}
+}
+
+/* portrait : 160 x 320 */
+@media all and (max-width: 160px) and (min-height:161px)
+{
+	.header + .content {
+		height: 70%;
+	}
+	.main {
+		height: 60%;
+	}
+	.sub {
+		height: 40%;
+	}
+	.side {
+		height: 20%;
+	}
+	.content, .side {
+		width: 100%;
+	}
+}

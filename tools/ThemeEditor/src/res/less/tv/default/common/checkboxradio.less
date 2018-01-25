@@ -1,0 +1,90 @@
+.basic-checkboxradio() {
+    .appearance(none);
+    height: 38 * @virtual_px;
+    opacity: 0.0;
+    width: 38 * @virtual_px;
+}
+
+.basic-label() {
+    display: inline-block;
+    height: 38 * @virtual_px;
+    line-height: 38 * @virtual_px;
+    margin-left: -38 * @virtual_px;
+    min-width: 38 * @virtual_px;
+    padding-bottom: 38 * @virtual_px;
+    padding-left: 57 * @virtual_px;
+}
+
+input[type=checkbox] {
+    .basic-checkboxradio();
+    & + label {
+        .basic-label();
+        background: url('images/Checkboxradio/checkbox_uncheck_nor.png') no-repeat 0 0;
+        color: "#FFFFFF";
+    }
+    &:disabled + label {
+        .basic-label();
+        background: url('images/Checkboxradio/checkbox_uncheck_nor.png') no-repeat 0 0;
+        opacity: 0.2;
+    }
+    &:checked + label {
+        .basic-label();
+        background: url('images/Checkboxradio/checkbox_check_nor.png') no-repeat 0 0;
+        color: "#FFFFFF";
+    }
+    &:checked:disabled + label {
+        .basic-label();
+        background: url('images/Checkboxradio/checkbox_check_nor.png') no-repeat 0 0;
+        opacity: 0.2;
+    }
+}
+
+input[type=checkbox]:focus,
+input[type=checkbox].focus {
+    &:checked + label {
+        background: url('images/Checkboxradio/checkbox_check_foc.png') no-repeat 0 0;
+    }
+    & + label {
+        background: url('images/Checkboxradio/checkbox_uncheck_foc.png') no-repeat 0 0;
+    }
+}
+
+input[type=radio] {
+    .basic-checkboxradio();
+    & + label {
+        .basic-label();
+        background: url('images/Checkboxradio/radiobtn_off_nor.png') no-repeat 0 0;
+        color: "#FFFFFF";
+    }
+    &:disabled + label {
+        .basic-label();
+        background: url('images/Checkboxradio/radiobtn_off_nor.png') no-repeat 0 0;
+        opacity: 0.2;
+    }
+    &:checked + label {
+        .basic-label();
+        background: url('images/Checkboxradio/radiobtn_on_nor.png') no-repeat 0 0;
+        color: "#FFFFFF";
+    }
+    &:checked:disabled + label {
+        .basic-label();
+        background: url('images/Checkboxradio/radiobtn_on_nor.png') no-repeat 0 0;
+        opacity: 0.2;
+    }
+}
+
+input[type=radio].focus {
+    .basic-checkboxradio();
+    &:checked + label {
+        .basic-label();
+        background: url('images/Checkboxradio/radiobtn_on_foc.png') no-repeat 0 0;
+    }
+    & + label {
+        .basic-label();
+        background: url('images/Checkboxradio/radiobtn_off_foc.png') no-repeat 0 0;
+    }
+}
+
+.checkboxradio-container {
+	height: 32 * @virtual_px;
+}

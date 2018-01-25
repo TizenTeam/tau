@@ -1,0 +1,164 @@
+/*
+ * toggle switch
+ */
+.ui-switch-activation, .ui-switch-inneroffset, .ui-switch-handler {
+	display: block;
+	.mask-image('images/Controller_icon/toggle_changeable.png');
+	.mask-repeat(no-repeat);
+}
+
+.ui-switch {
+	width: 100%;
+	color: @color_switch_text;
+}
+
+.ui-toggleswitch {
+	display: block;
+	width: @fixed_toggleswitch_width;
+	margin: 0 auto;
+}
+
+.ui-switch-text {
+	margin-top: @fixed_toggleswitch_text_margin_top;
+	margin-bottom: @fixed_toggleswitch_text_margin_bottom;
+	padding: 0 30;
+	font-size: @fixed_toggleswitch_text_font_size;
+	text-align: center;
+}
+.ui-switch-input {
+	display: none;
+}
+
+.ui-switch-inneroffset {
+	width: 110px;
+	height: 88px;
+	position: absolute;
+}
+
+.ui-switch-inneroffset:active {
+	background-color: @color_toggle_off_handler_press;
+}
+
+.ui-switch-activation {
+	width: @fixed_toggleswitch_width;
+	height: @fixed_toggleswitch_height;
+	.mask-position(0 0);
+	background-color: @color_toggle_off_bg;
+	margin: 0 auto;
+	margin-top: @fixed_toggleswitch_act_margin_top;
+
+	.ui-switch-inneroffset {
+		.mask-position(0 -120px);
+		background-color: @color_toggle_off_handler;
+		margin-left: 9px;
+		margin-top: 11px;
+	}
+
+	.ui-switch-inneroffset:active {
+		background-color: @color_toggle_off_handler_press;
+	}
+
+	.ui-switch-handler {
+		position: relative;
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		.mask-position(0 -218px);
+		background-color: @color_toggle_off_handler_off;
+		left: 0%;
+	}
+}
+
+.ui-switch-activation:active {
+	width: @fixed_toggleswitch_width;
+	height: @fixed_toggleswitch_height;
+	background-color: @color_toggle_off_bg_press;
+	margin: z0 auto;
+	margin-top: @fixed_toggleswitch_act_margin_top;
+
+	.ui-switch-handler:active {
+		position: relative;
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		background-color: @color_toggle_off_handler_off_press;
+		left: 0%
+	}
+}
+
+.ui-switch-activation:disable {
+	width: @fixed_toggleswitch_width;
+	height: @fixed_toggleswitch_height;
+	background-color: @color_toggle_off_bg_dim;
+	margin: 0 auto;
+	margin-top: @fixed_toggleswitch_act_margin_top;
+
+	.ui-switch-handler:disable {
+		position: relative;
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		background-color: @color_toggle_off_handler_off_dim;
+		left: 0%;
+	}
+}
+
+.ui-switch-input:checked ~ & {
+	display: none;
+
+	.ui-switch-activation {
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+		.mask-position(0 0);
+		background-color: @color_toggle_on_bg;
+		margin: 0 auto;
+		margin-top: @fixed_toggleswitch_act_margin_top;
+
+		.ui-switch-inneroffset {
+			.mask-position(0 -120px);
+			background-color: @color_toggle_on_handler;
+			margin-left: 89px;
+			margin-top: 11px;
+		}
+
+		.ui-switch-inneroffset:active {
+			background-color: @color_toggle_on_handler_press;
+		}
+
+		.ui-switch-handler {
+			position: relative;
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
+			.mask-position(0 -316px);
+			background-color: @color_toggle_on_handler_on;
+			left: 0;
+		}
+	}
+	.ui-switch-activation:active {
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+		margin: 0 auto;
+		margin-top: @fixed_toggleswitch_act_margin_top;
+		background-color: @color_toggle_on_bg_press;
+
+		.ui-switch-handler:active {
+			position: relative;
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
+			background-color: @color_toggle_on_handler_on_press;
+			left: 0;
+		}
+	}
+	.ui-switch-activation:disable {
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+		margin: 0 auto;
+		margin-top: @fixed_toggleswitch_act_margin_top;
+		background-color: @color_toggle_on_bg_dim;
+
+		.ui-switch-handler:disable {
+			position: relative;
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
+			background-color: @color_toggle_on_handler_on_dim;
+			left: 0;
+		}
+	}
+}
