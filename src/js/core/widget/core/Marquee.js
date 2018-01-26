@@ -166,12 +166,12 @@
 					autoRun: true
 				},
 				GRADIENTS = {
-					LEFT: "-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
-					" rgba(255, 255, 255, 1) 100%)",
-					BOTH: "-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1)" +
-					" 15%, rgba(255, 255, 255, 1) 85%, transparent 100%",
-					RIGHT: "-webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255," +
-					" 255, 255, 1) 85%, transparent 100%)"
+					LEFT: "-webkit-linear-gradient(left, transparent 0, rgb(255, 255, 255) 15%," +
+					" rgb(255, 255, 255) 100%)",
+					BOTH: "-webkit-linear-gradient(left, transparent 0, rgb(255, 255, 255)" +
+					" 15%, rgb(255, 255, 255) 85%, transparent 100%",
+					RIGHT: "-webkit-linear-gradient(left, rgb(255, 255, 255) 0, rgb(255," +
+					" 255, 255) 85%, transparent 100%)"
 				};
 
 			Marquee.classes = classes;
@@ -484,7 +484,7 @@
 							self.trigger(eventType.MARQUEE_START);
 						}
 					} else {
-						animation.stop();
+						animation.pause();
 						self.trigger(eventType.MARQUEE_STOPPED);
 					}
 					options.animation = value;
@@ -559,6 +559,10 @@
 			 * @member ns.widget.core.Marquee
 			 */
 			prototype.stop = function () {
+				var self = this,
+					animation = self._animation;
+
+				animation.pause();
 				this.option("animation", "stopped");
 			};
 
@@ -582,9 +586,10 @@
 				var self = this,
 					stateDOM = self._stateDOM;
 
-				self.stop();
-				stateDOM.style.webkitMaskImage = GRADIENTS.LEFT;
+				this.option("animation", "stopped");
+				stateDOM.style.webkitMaskImage = GRADIENTS.RIGHT;
 				stateDOM.children[0].style.webkitTransform = "translateX(0)";
+				self._render();
 			};
 
 			Marquee.prototype = prototype;

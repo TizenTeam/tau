@@ -25,6 +25,8 @@
 						chain: [],
 						chainIndex: 0
 					};
+					// This is used to keep track of elapsed time of paused animation
+					self._pausedTimeDiff = null;
 					self._animateConfig = null;
 				},
 				linear = function (x, a, b) {
@@ -104,7 +106,7 @@
 
 				option.duration = firstDefined(option.duration, config.duration);
 				option.delay = firstDefined(option.delay, config.delay, 0);
-				propertyObject = firstDefined(option.object, self._object);
+				propertyObject = firstDefined(option.object, this._object);
 				option.simpleProperty = option.property;
 				option.property.split(".").forEach(function (property) {
 					if (typeof propertyObject[property] === "object" && propertyObject[property] !== null) {
@@ -131,12 +133,16 @@
 					option.current = from;
 					option.direction = from < option.to ? 1 : -1;
 				}
-				option.startTime = new Date().getTime() + option.delay;
-			// calculate value change in full time
-			// save last time of recalculate options
+
+				// calculate value change in full timeoption.startTime = Date.now() + option.delay;
+
+				if (this._pausedTimeDiff) {
+					option.startTime = Date.now() - this._pausedTimeDiff;
+					this._pausedTimeDiff = 0;
+				}
+				// save last time of recalculate options
 				option.lastCalculationTime = option.startTime;
 			// set timing function
-				option.nextCalculationTime = option.startTime + 16;
 				option.timing = firstDefined(option.timing, config.timing, linear);
 
 				animateConfig.push(option);
@@ -148,7 +154,7 @@
 					options = self._animate.chain[self._animate.chainIndex++];
 
 				if (options) {
-					options.forEach(eachOption.bind(null, self._config, animateConfig));
+					options.forEach(eachOption.bind(self, self._config, animateConfig));
 					self._animateConfig = animateConfig;
 				} else {
 					self._animateConfig = null;
@@ -262,6 +268,15 @@
 			// clear timeout
 				self._animationTimeout = null;
 				return self;
+			};
+
+			prototype.pause = function () {
+				var self = this;
+
+				if (self._animateConfig) {
+					self._pausedTimeDiff = Date.now() - self._animateConfig[0].startTime;
+					self.stop();
+				}
 			};
 
 			function calculateOption(option, time) {

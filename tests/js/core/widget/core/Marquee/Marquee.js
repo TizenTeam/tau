@@ -240,24 +240,24 @@
 			};
 			assert.equal(
 				marquee._calculateEndToEndGradient(0, 10, 0, ""),
-				"-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
-				" rgba(255, 255, 255, 1) 100%)",
+				"-webkit-linear-gradient(left, transparent 0, rgb(255, 255, 255) 15%," +
+				" rgb(255, 255, 255) 100%)",
 				"0, 10, 0, ''");
 			assert.equal(
 				marquee._calculateEndToEndGradient(0.5, 10, 0, ""),
-				"-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
-				" rgba(255, 255, 255, 1) 85%, transparent 100%",
+				"-webkit-linear-gradient(left, transparent 0, rgb(255, 255, 255) 15%," +
+				" rgb(255, 255, 255) 85%, transparent 100%",
 				"0.5, 10, 0, ''");
 			assert.equal(
 				marquee._calculateEndToEndGradient(1, 10, 0, ""),
-				"-webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%," +
+				"-webkit-linear-gradient(left, rgb(255, 255, 255) 0, rgb(255, 255, 255) 85%," +
 				" transparent 100%)",
 				"1, 10, 0, ''");
 			assert.equal(
 				marquee._calculateEndToEndGradient(1, 10, 0, "-webkit-linear-gradient(left," +
-					" rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)"),
-				null, "1, 10, 0, -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0," +
-				" rgba(255, 255, 255, 1) 85%, transparent 100%)");
+				" rgb(255, 255, 255) 0, rgb(255, 255, 255) 85%, transparent 100%)"),
+				null, "1, 10, 0, -webkit-linear-gradient(left, rgb(255, 255, 255) 0," +
+				" rgb(255, 255, 255) 85%, transparent 100%)");
 		});
 
 		test("_calculateStandardGradient", 4, function (assert) {
@@ -271,24 +271,24 @@
 			};
 			assert.equal(
 				marquee._calculateStandardGradient(0, 10, 0, ""),
-				"-webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%," +
+				"-webkit-linear-gradient(left, rgb(255, 255, 255) 0, rgb(255, 255, 255) 85%," +
 				" transparent 100%)",
 				"0, 10, 0, ''");
 			assert.equal(
 				marquee._calculateStandardGradient(0.5, 10, 0, ""),
-				"-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
-				" rgba(255, 255, 255, 1) 85%, transparent 100%",
+				"-webkit-linear-gradient(left, transparent 0, rgb(255, 255, 255) 15%," +
+				" rgb(255, 255, 255) 85%, transparent 100%",
 				"0.5, 10, 0, ''");
 			assert.equal(
 				marquee._calculateStandardGradient(1, 10, 0, ""),
-				"-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
-				" rgba(255, 255, 255, 1) 100%)",
+				"-webkit-linear-gradient(left, transparent 0, rgb(255, 255, 255) 15%," +
+				" rgb(255, 255, 255) 100%)",
 				"1, 10, 0, ''");
 			assert.equal(
 				marquee._calculateStandardGradient(1, 10, 0, "-webkit-linear-gradient(left," +
-					" transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 100%)"),
+					" transparent 0, rgb(255, 255, 255) 15%, rgb(255, 255, 255) 100%)"),
 				null, "1, 10, 0, -webkit-linear-gradient(left, transparent 0," +
-				" rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 100%)");
+				" rgb(255, 255, 255) 15%, rgb(255, 255, 255) 100%)");
 		});
 
 
@@ -374,7 +374,7 @@
 			animationObject[1].calculate();
 		});
 
-		test("reset", 3, function (assert) {
+		test("reset", 2, function (assert) {
 			var marquee = new Marquee();
 
 			marquee._stateDOM = {
@@ -396,8 +396,8 @@
 
 			assert.equal(
 				marquee._stateDOM.style.webkitMaskImage,
-				"-webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%," +
-				" rgba(255, 255, 255, 1) 100%)",
+				"-webkit-linear-gradient(left, rgb(255, 255, 255) 0, rgb(255," +
+				" 255, 255) 85%, transparent 100%)",
 				"_stateDOM.style.webkitMaskImage is correctly set");
 			assert.equal(
 				marquee._stateDOM.children[0].style.webkitTransform,
