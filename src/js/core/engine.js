@@ -43,7 +43,6 @@
 			"require",
 			"./core",
 			"./event",
-			"./history/manager",
 			"./util/selectors",
 			"./util/object",
 			"./util/array"
@@ -60,7 +59,6 @@
 				eventUtils = ns.event,
 				util = ns.util,
 				objectUtils = util.object,
-				historyManager = ns.history.manager,
 				selectors = util.selectors,
 				arrayUtils = ns.util.array,
 				/**
@@ -166,6 +164,7 @@
 				 */
 				eventType = {
 					INIT: "tauinit",
+					READY: "tauready",
 					WIDGET_BOUND: "widgetbound",
 					WIDGET_DEFINED: "widgetdefined",
 					WIDGET_BUILT: "widgetbuilt",
@@ -1014,7 +1013,7 @@
 			 * @member ns.engine
 			 */
 			function build() {
-				historyManager.enable();
+				eventUtils.trigger(document, eventType.READY);
 				setViewport();
 			}
 
@@ -1025,7 +1024,6 @@
 			 * @member ns.engine
 			 */
 			function stop() {
-				historyManager.disable();
 			}
 
 			/**

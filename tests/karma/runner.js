@@ -15,6 +15,9 @@ window.tauPerf = {
 	},
 	get: function () {
 
+	},
+	finish: function () {
+
 	}
 };
 

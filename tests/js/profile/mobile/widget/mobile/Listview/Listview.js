@@ -878,8 +878,6 @@
 			});
 			listview.handleEvent(eventStub);
 			helpers.restoreStub(listview, "_end");
-
-			helpers.restoreStub(ns.event, "preventDefault");
 		});
 	}
 

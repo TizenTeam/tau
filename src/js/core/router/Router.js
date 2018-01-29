@@ -158,6 +158,7 @@
 				 * @private
 				 */
 				history = ns.history,
+				historyManager = history.manager,
 				/**
 				 * Local alias for ns.history.manager.events
 				 * @property {Object} historyManagerEvents Alias for (@link ns.history.manager.events}
@@ -165,7 +166,7 @@
 				 * @static
 				 * @private
 				 */
-				historyManagerEvents = history.manager.events,
+				historyManagerEvents = historyManager.events,
 				/**
 				 * Local alias for ns.router.route
 				 * @property {Object} route Alias for namespace ns.router.route
@@ -620,6 +621,8 @@
 					}
 				}
 
+				historyManager.enable();
+
 				// init router's routes
 				self._initRoutes();
 
@@ -647,6 +650,8 @@
 			 */
 			Router.prototype.destroy = function () {
 				var self = this;
+
+				historyManager.disable();
 
 				window.removeEventListener("popstate", self.popStateHandler, false);
 				if (body) {
@@ -1280,10 +1285,10 @@
 			};
 
 			if (!ns.getConfig("disableRouter", false)) {
-				document.addEventListener(historyManagerEvents.ENABLED, function () {
+				document.addEventListener(engine.eventType.READY, function () {
 					Router.getInstance().init();
 				}, false);
-				document.addEventListener(historyManagerEvents.DISABLED, function () {
+				document.addEventListener(engine.eventType.DISTROY, function () {
 					Router.getInstance().destroy();
 				}, false);
 			}

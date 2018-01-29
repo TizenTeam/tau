@@ -232,24 +232,25 @@
 		// }
 
 		asyncTest("closePopup", function (assert) {
-			var onPageShow = function () {
+			var firstPopup = document.getElementById("firstPopup"),
+				onPageShow = function () {
 					document.removeEventListener("pageshow", onPageShow, true);
 					router.open("#firstPopup", {rel: "popup"});
 				},
 				onPopupShow = function () {
-					document.getElementById("firstPopup").removeEventListener("popupshow", onPopupShow);
+					firstPopup.removeEventListener("popupshow", onPopupShow);
 					router.getRoute("popup").close();
 				},
 				onPopupHide = function (event) {
 					assert.equal(event.target.classList.contains("ui-popup-active"), false,
 						"router.closePopup(\"#firstPopup\")");
-					document.getElementById("firstPopup").removeEventListener("popuphide", onPopupHide);
+					firstPopup.removeEventListener("popuphide", onPopupHide);
 					start();
 				};
 
 			document.addEventListener("pageshow", onPageShow, true);
-			document.getElementById("firstPopup").addEventListener("popupshow", onPopupShow);
-			document.getElementById("firstPopup").addEventListener("popuphide", onPopupHide);
+			firstPopup.addEventListener("popupshow", onPopupShow);
+			firstPopup.addEventListener("popuphide", onPopupHide);
 			router.init();
 		});
 
@@ -337,6 +338,7 @@
 		define(
 			[
 				"../../../../../src/js/core/engine",
+				"../../../../../src/js/core/router/route/page",
 				"../../../../../src/js/core/router/route/popup"
 			],
 			function (engine) {

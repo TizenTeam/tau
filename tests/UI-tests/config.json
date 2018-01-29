@@ -66,8 +66,7 @@
 				"name": "28-list-tab-3",
 				"time": 0,
 				"width": 360,
-				"height": 640,
-				"pass": true
+				"height": 640
 			},
 			{
 				"name": "30-tabs-with-icon",
@@ -789,8 +788,7 @@
 				"name": "ce-84-group-index",
 				"time": 200,
 				"width": 360,
-				"height": 640,
-				"pass": true
+				"height": 640
 			},
 			{
 				"name": "ce-85-group-index-with-checkbox",
@@ -864,8 +862,7 @@
 				"name": "ce-108-email-input",
 				"time": 0,
 				"width": 360,
-				"height": 640,
-				"pass": true
+				"height": 640
 			},
 			{
 				"name": "ce-110-dropdown-menu-small",
@@ -3716,8 +3713,7 @@
 				"name": "ce-24-page-indicator-circularly-horizontal-18-dots",
 				"time": 0,
 				"width": 360,
-				"height": 360,
-				"pass": true
+				"height": 360
 			},
 			{
 				"name": "ce-25-page-indicator-horizontal-dot-7",
@@ -4450,28 +4446,24 @@
 				"name": "ce-92-more-options-open",
 				"width": 360,
 				"height": 360,
-				"pass": true,
 				"threshold": 4.1
 			},
 			{
 				"name": "ce-95-more-options-open-with-subtext",
 				"width": 360,
 				"height": 360,
-				"pass": true,
 				"threshold": 4.1
 			},
 			{
 				"name": "ce-95-more-options-open-2-lines",
 				"width": 360,
 				"height": 360,
-				"pass": true,
 				"threshold": 4.1
 			},
 			{
 				"name": "ce-95-more-options-open-2-lines-subtext",
 				"width": 360,
 				"height": 360,
-				"pass": true,
 				"threshold": 4.1
 			},
 			{
@@ -4652,8 +4644,7 @@
 				"name": "ce-snap-listview",
 				"time": 5000,
 				"width": 360,
-				"height": 360,
-				"pass": true
+				"height": 360
 			}
 		]
 	}
