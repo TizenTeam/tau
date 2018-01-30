@@ -261,7 +261,7 @@
 			prototype.stop = function () {
 				var self = this;
 
-			// reset index of animations chain
+				// reset index of animations chain
 				self._animate.chainIndex = 0;
 				// reset current animation config
 				self._animateConfig = null;
@@ -358,7 +358,7 @@
 							requestAnimationFrame(self._animationTimeout);
 						}
 					} else {
-					// Animation state can be change to "stopped"
+						// Animation state can be change to "stopped"
 						self.stop();
 						// animation is finished
 						if (callback) {
