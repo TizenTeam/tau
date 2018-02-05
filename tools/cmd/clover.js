@@ -60,14 +60,22 @@ function prepareElements(metricsNode) {
 function fillSLOC(fileNode, callback) {
 	var path = fileNode.$.path;
 
+	if (path.indexOf("dist") > -1) {
+		path = path.substr(path.indexOf("dist/"));
+	} else {
+		path = path.substr(path.indexOf("src/js/"));
+	}
+
 	fs.readFile(path, "utf8", function (err, code) {
 		var stats,
 			complexity,
 			metricsNode;
 
-		if (typeof code !== "string") {
-			console.error("Problem for file ", path, ", \ncontents: \n", code);
-			code = "";
+		if (typeof code === "string") {
+			stats = sloc(code, "js");
+		} else {
+			stats = sloc("", "js");
+			console.error("Problem for file ", path, err);
 		}
 
 		stats = sloc(code, "js");

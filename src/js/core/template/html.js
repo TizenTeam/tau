@@ -35,7 +35,7 @@
 			function callbackFunction(callback, data, event) {
 				var request = event.target,
 					status = {},
-					element = null;
+					element;
 
 				if (request.readyState === 4) {
 					status.success = (request.status === 200 || (request.status === 0 && request.responseXML));

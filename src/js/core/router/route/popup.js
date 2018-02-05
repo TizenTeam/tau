@@ -302,7 +302,6 @@
 				if (self.hasActive()) {
 					document.addEventListener(events.POPUP_HIDE, openPopup, false);
 					if (!self.close()) {
-						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
 						openPopup();
 					}
 				} else {

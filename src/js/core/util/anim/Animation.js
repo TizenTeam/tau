@@ -150,14 +150,14 @@
 				 * @member ns.util.anim.Animation
 				 */
 				changeState = function (self, state) {
-					var options = null,
+					var options,
 						element = null,
 						onPlay = null,
-						style = null,
-						keyframes = null,
-						propString = "",
-						propsArray = null,
-						index = 0;
+						style,
+						keyframes,
+						propString,
+						propsArray,
+						index;
 
 					if (!self._applied) { // !set before keyframe fetch
 						self._apply();
@@ -238,7 +238,7 @@
 							timingFunction: "ease",
 							autoPlay: false
 						}, options || {}),
-						steps = null,
+						steps,
 						props,
 						endCallback = handleEnd.bind(null, this),
 						element = opts.element;
@@ -308,7 +308,7 @@
 					style = element.style,
 					propString = style.getPropertyValue(cssPropertyPrefix + "animation"),
 					propsArray = (propString && propString.split(",").map(trim)) || [],
-					id = null;
+					id;
 
 				self.keyframes = new Keyframes(self.steps);
 				id = self.keyframes.id;

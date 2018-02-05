@@ -103,10 +103,10 @@
 			function onLinkAction(event) {
 				var target = event.target,
 					link = selectorUtils.getClosestBySelector(target, LINK_SELECTOR),
-					href = null,
-					useDefaultUrlHandling = false,
-					options = {}, // this should be empty object but some utils that work on it
-					rel = null; // require hasOwnProperty :(
+					href,
+					useDefaultUrlHandling,
+					options, // this should be empty object but some utils that work on it
+					rel; // require hasOwnProperty :(
 
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.log("Link was clicked:", target.tagName || (target.documentElement && "document") + "#" + (target.id || "--no-id--"));
@@ -128,7 +128,7 @@
 						if (!triggerStateChange(options)) {
 							// mark as handled
 							// but not on back
-							if (!rel || (rel && rel !== "back")) {
+							if (!rel || (rel !== "back")) {
 								eventUtils.preventDefault(event);
 								return false;
 							}
@@ -147,7 +147,7 @@
 				var state = event.state,
 					lastState = history.activeState,
 					options = {},
-					reverse = false,
+					reverse,
 					continuation = true;
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 

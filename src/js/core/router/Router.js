@@ -777,7 +777,7 @@
 				var data = event.detail,
 					content = data.content,
 					options = data.options,
-					contentNode = null,
+					contentNode,
 					url = (options.href || options.url);
 
 				// if controller give content
@@ -898,7 +898,7 @@
 			Router.prototype.close = function (to, options) {
 				var rel = "back",
 					closingWidget = getHTMLElement(to),
-					rule = null;
+					rule;
 
 				if (options && options.rel) {
 					rel = options.rel;

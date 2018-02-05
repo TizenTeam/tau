@@ -166,10 +166,6 @@ module.exports = function (grunt) {
 			expand: true,
 			src: [path.join("tests", "libs", "dist")]
 		};
-		configProperty["test"] = {
-			expand: true,
-			src: ["report", "temp"]
-		};
 
 		grunt.config.set("clean", configProperty);
 	}
@@ -257,7 +253,6 @@ module.exports = function (grunt) {
 			src: ["tests/libs/dist/js/tau.js", "tests/libs/dist/js/tau.support-2.3.js"],
 			htmlReport: testReportPath + "/coverage/html/",
 			cloverReport: testReportPath + "/coverage/clover/",
-			coberturaReport: testReportPath + "/coverage/cobertura/",
 			instrumentedFiles: "temp/",
 			reportOnFail: true
 		});
@@ -289,8 +284,6 @@ module.exports = function (grunt) {
 				}
 			}
 			grunt.config.set("requirejs", configProperty);
-
-			grunt.task.run("clean:test");
 
 			if (profile) {
 				testProfile(profile, prepareForRunner);

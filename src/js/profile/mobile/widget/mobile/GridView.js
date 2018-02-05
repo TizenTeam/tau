@@ -203,7 +203,7 @@
 			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui,
-					popup = null;
+					popup;
 
 				ui.listElements = [].slice.call(self.element.getElementsByTagName("li"));
 				self._setItemWidth();

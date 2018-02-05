@@ -218,8 +218,8 @@
 					paddingRight,
 					elementWidth = element.offsetWidth;
 
-				paddingLeft = parseInt(elementStyle.paddingLeft);
-				paddingRight = parseInt(elementStyle.paddingRight);
+				paddingLeft = parseInt(elementStyle.paddingLeft, 10);
+				paddingRight = parseInt(elementStyle.paddingRight, 10);
 
 				position.min = -window.innerWidth + paddingLeft;
 				position.max = elementWidth - paddingRight;

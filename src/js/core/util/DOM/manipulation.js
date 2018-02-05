@@ -57,7 +57,7 @@
 			 * @member ns.util.DOM
 			 */
 			function isNodeWebComponentPolyfilled(node) {
-				var keys = [];
+				var keys;
 
 				if (!node) {
 					return false;
@@ -117,7 +117,7 @@
 			function getNodeSelector(node) {
 				var attributes = node.attributes,
 					attributeLength = attributes.length,
-					attr = null,
+					attr,
 					i = 0,
 					selector = node.tagName.toLowerCase();
 
@@ -164,8 +164,8 @@
 			 * @method isNodeEqual
 			 */
 			DOM.isNodeEqual = function (nodeA, nodeB) {
-				var nodeAPolyfilled = null,
-					nodeBPolyfilled = null,
+				var nodeAPolyfilled,
+					nodeBPolyfilled,
 					foundNodeA = nodeA,
 					foundNodeB = nodeB,
 					unwrap = (window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.unwrap); // hack

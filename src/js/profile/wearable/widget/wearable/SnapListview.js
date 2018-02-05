@@ -448,7 +448,6 @@
 
 				if (!scroller) {
 					self._initSnapListview(listview);
-					scroller = ui.scrollableParent.element || ui.page;
 				}
 				visibleOffset = ui.scrollableParent.height || ui.page.offsetHeight;
 

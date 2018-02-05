@@ -922,8 +922,8 @@
 				var to = item.to,
 					from = item.from,
 					position = item.position,
-					fromPosition = null,
-					toPosition = null;
+					fromPosition,
+					toPosition;
 
 				if (to && from) {
 					fromPosition = from.position;
@@ -999,9 +999,9 @@
 
 			function updateItemsFrom(items) {
 				var len = items.length,
-					item = null,
+					item,
 					i = 0,
-					from = null;
+					from;
 
 				for (; i < len; ++i) {
 					item = items[i];
@@ -1069,7 +1069,7 @@
 					items = self._items,
 					currentIndex = self._currentIndex,
 					itemsLength = items.length,
-					targetState = null,
+					targetState,
 					size = self._getItemSize("thumbnail"),
 					settings = self._settings,
 					scaleThumbnailX = settings.scaleThumbnailX,
@@ -1103,9 +1103,9 @@
 
 			function setItemsPositionTo(items, deltaX, scrollDimension, nonScrollDimension) {
 				var len = items.length,
-					item = null,
+					item,
 					i = 0,
-					to = null;
+					to;
 
 				for (; i < len; ++i) {
 					item = items[i];
@@ -1145,7 +1145,7 @@
 			function moveItemsToThumbnails(self) {
 				var items = self._items,
 					len = items.length,
-					to = null,
+					to,
 					i = 0;
 
 				for (; i < len; ++i) {
@@ -1165,7 +1165,7 @@
 				var self = this,
 					children = slice.call(self.element.children),
 					len = children.length,
-					child = null,
+					child,
 					items = self._items,
 					i = 0;
 
@@ -1174,7 +1174,7 @@
 					items[i] = createItem(child, items[i]);
 					child.classList.add("ui-positioned");
 				}
-			}
+			};
 
 			function getGridSize(self, mode) {
 				var size,

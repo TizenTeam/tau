@@ -135,7 +135,7 @@
 						// init deferred object
 						deferredTemplate = {},
 						// init params array
-						params = [];
+						params;
 					// if matches
 
 					if (matches && matches.length > 0) {
@@ -364,7 +364,7 @@
 					pathExists = routes.some(function (value) {
 						return value.path === path;
 					}),
-					route = null;
+					route;
 				// if path not exists in routes
 
 				if (!pathExists) {

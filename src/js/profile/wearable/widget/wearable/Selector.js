@@ -1282,12 +1282,10 @@
 							(i < lastOnLayerIndex) &&
 							(i >= firstOnLayerIndex) &&
 							!items[i].classList.contains(classes.ITEM_PLACEHOLDER)) {
-							if (i < lastOnLayerIndex && index >= lastOnLayerIndex) {
-								additionalDegree = DEFAULT.ITEM_START_DEGREE +
+							additionalDegree = DEFAULT.ITEM_START_DEGREE +
 									(options.itemDegree * maxItemNumber);
-								setItemTransform(items[i], additionalDegree, options.itemRadius,
-									-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
-							}
+							setItemTransform(items[i], additionalDegree, options.itemRadius,
+								-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
 							reorderedItems.push(i % maxItemNumber);
 						}
 					}

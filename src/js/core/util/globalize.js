@@ -85,7 +85,7 @@
 						document.getElementsByTagName("html")[0].getAttribute("lang") ||
 						window.navigator.language.split(".")[0] || // Webkit, Safari + workaround for Tizen
 						"en",
-					countryCode = null,
+					countryCode,
 					countryCodeIdx = lang.lastIndexOf("-"),
 					ignoreCodes = ["Cyrl", "Latn", "Mong"];	// Not country code!
 
