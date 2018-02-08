@@ -360,7 +360,7 @@
 					ui = self._ui,
 					ex = estimatedDeltaX,
 					deltaX = ex / elementOffsetWidth * 100,
-					animationFrame,
+					animationFrame = self._animationFrame,
 					validDirection,
 					stopPosition,
 					mark;
@@ -407,7 +407,7 @@
 				} else if (animationTimingFunction === "linear") {
 					ex = ex + self.options.animationSpeed * mark;
 				}
-				animationFrame = requestAnimationFrame(self._requestFrame.bind(self, ex, direction, animationTiming));
+				self._animationFrame = requestAnimationFrame(self._requestFrame.bind(self, ex, direction, animationTiming));
 			};
 			/**
 			 * Set the active view

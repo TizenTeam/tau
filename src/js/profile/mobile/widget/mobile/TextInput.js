@@ -35,6 +35,7 @@
  *		<form>
  *			<label for="text-1">Text input:</label>
  *			<input type="text" name="text-1" id="text-1" value="">
+ *			<input type="text" name="text-1" id="text-1" value="">
  *		</form>
  *
  * ####Create simple text input on TEXTAREA element
@@ -687,9 +688,6 @@
 				if (clearButton) {
 					clearButton.parentElement.removeChild(ui.textClearButtonElement);
 				}
-
-				ui = null;
-
 			};
 
 			ns.widget.mobile.TextInput = TextInput;

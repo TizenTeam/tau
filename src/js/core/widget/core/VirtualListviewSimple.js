@@ -141,7 +141,7 @@
 				}
 
 				if (!scrollview) {
-					scrollview = setupScrollview(element, options.orientation);
+					scrollview = setupScrollview(element);
 				}
 
 				return scrollview;

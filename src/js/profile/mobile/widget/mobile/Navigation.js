@@ -148,7 +148,7 @@
 
 				if (target) {
 					setTimeout(function () {
-						if (!target.classList.contains(classes.NAVIGATION_ACTIVE) && stack[stack.length - 1] != id) {
+						if (!target.classList.contains(classes.NAVIGATION_ACTIVE) && stack[stack.length - 1] !== id) {
 							self.pop(toRemoveLength);
 							self.trigger("navigate", {
 								id: id,
@@ -269,7 +269,7 @@
 					events.one(lastChild, "animationend webkitAnimationEnd", function () {
 						//both animation end events should trigger right after push but often only one triggered
 						//and second triggered after using pop method and thus removed unintentionally useful classes
-						if (lastChild != self._ui.container.lastElementChild) {
+						if (lastChild !== self._ui.container.lastElementChild) {
 							lastChildClassList.remove(classes.NAVIGATION_BACK_HIDE);
 							lastChildClassList.remove(classes.NAVIGATION_ACTIVE);
 						}

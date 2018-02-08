@@ -482,7 +482,7 @@
 						loadLocaleData(localeId)
 							.then(function (locale) {
 								Globalize.locale(locale);
-								Globalize(locale);
+								globalizeInstance = new Globalize(locale);
 								return locale;
 							}, deferred.reject)
 							.done(function (locale) {

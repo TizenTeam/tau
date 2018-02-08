@@ -200,20 +200,18 @@
 					// If we have the theme name defined we can use it right away
 					// without thinking about the naming convention
 					if (dataThemeName) {
-						theme = dataThemeName;
+						if (TIZEN_THEMES_REGEXP.test(dataThemeName)) {
+							theme = dataThemeName;
+						}
 					} else if (href && CSS_FILENAME_REGEXP.test(href)) {
 						// We try to find file matching library theme CSS
 						// If we have the theme name defined we can use it right away
-						if (dataThemeName && TIZEN_THEMES_REGEXP.test(dataThemeName)) {
-							theme = dataThemeName;
-						} else {
-							// We can only determine the current theme using path based approach when the .css file
-							// is located in at least one directory
-							if (hrefFragments.length >= 2) {
-								// When the second to last element matches known themes set the theme to that name
-								hrefDirPart = hrefFragments.slice(-2)[0].match(TIZEN_THEMES_REGEXP);
-								theme = hrefDirPart && hrefDirPart[0];
-							}
+						// We can only determine the current theme using path based approach when the .css file
+						// is located in at least one directory
+						if (hrefFragments.length >= 2) {
+							// When the second to last element matches known themes set the theme to that name
+							hrefDirPart = hrefFragments.slice(-2)[0].match(TIZEN_THEMES_REGEXP);
+							theme = hrefDirPart && hrefDirPart[0];
 						}
 					}
 
@@ -229,7 +227,7 @@
 				function findFrameworkDataInScripts(scriptElement) {
 					var src = scriptElement.getAttribute("src"),
 						profileName = "",
-						frameworkName = FRAMEWORK_TAU,
+						frameworkName,
 						themePath,
 						jsPath;
 
@@ -280,11 +278,7 @@
 				}
 
 				cssElements.forEach(findThemeInLinks);
-
 				scriptElements.forEach(findFrameworkDataInScripts);
-
-				cssElements = null;
-				scriptElements = null;
 			};
 
 			ns.frameworkData = frameworkData;

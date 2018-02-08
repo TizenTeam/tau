@@ -1,20 +1,18 @@
-/**
- * Pseudo element ::after is reserved for icon
- * Pseudo element ::before is reserved for press effect
- */
+// Pseudo element ::after is reserved for icon
+// Pseudo element ::before is reserved for press effect
 
 tau-button {
-  .default_button();
+  .default-button();
 }
 
-@btn_press_effect_size: (78 * 0.15) * @unit_base;
+@btn_press_effect_size: (78 * .15) * @unit_base;
 
 @keyframes btn_press_animation {
 	0% {
-		opacity: 0
+		opacity: 0;
 	}
 	100% {
-		opacity: 1
+		opacity: 1;
 	}
 }
 
@@ -33,7 +31,7 @@ tau-button {
 @keyframes btn_press_animation_nobg {
 	0% {
 		opacity: 1;
-		.transform(translate(-50%, -50%) scale(1.0));
+		.transform(translate(-50%, -50%) scale(1));
 	}
 	100% {
 		opacity: 1;
@@ -43,7 +41,7 @@ tau-button {
 
 @keyframes tabbar-press {
 	0% {
-		opacity: 0
+		opacity: 0;
 	}
 	3% {
 		opacity: 1;
@@ -52,7 +50,7 @@ tau-button {
 		opacity: 1;
 	}
 	100% {
-		opacity: 0
+		opacity: 0;
 	}
 }
 
@@ -71,7 +69,6 @@ a.ui-btn {
 
 .ui-btn {
 	position: relative;
-	display: block;
 	padding: 0 24 * @unit_base;
 	height: 78 * @unit_base;
 	line-height: 78 * @unit_base;

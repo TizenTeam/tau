@@ -1028,7 +1028,6 @@
 				} else {
 					ui.elSelect.removeEventListener("change", self._nativeChangeOptionBound);
 				}
-				ui = null;
 			};
 
 			ns.widget.mobile.DropdownMenu = DropdownMenu;

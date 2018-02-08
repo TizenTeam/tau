@@ -219,6 +219,7 @@
 					elementWidth = element.offsetWidth;
 
 				paddingLeft = parseInt(elementStyle.paddingLeft, 10);
+				paddingLeft = parseInt(elementStyle.paddingLeft, 10);
 				paddingRight = parseInt(elementStyle.paddingRight, 10);
 
 				position.min = -window.innerWidth + paddingLeft;
@@ -270,7 +271,8 @@
 
 				self._startX = event.detail.pointer.clientX;
 				// get current x value of translated3d
-				self._currentX = parseInt(window.getComputedStyle(element).webkitTransform.match(MATRIX_REGEXP)[5]);
+				self._currentX =
+					parseInt(window.getComputedStyle(element).webkitTransform.match(MATRIX_REGEXP)[5], 10);
 				element.classList.remove(classes.TRANSITIONS);
 				self._clearExpandWidget();
 			};

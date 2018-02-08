@@ -285,7 +285,7 @@
 				},
 
 				_initLayout: function () {
-					var sectionStyle = this.sections.style,
+					var sectionStyle,
 						left = 0,
 						top = 0,
 						i,
@@ -384,7 +384,7 @@
 
 				_resetLayout: function () {
 					var //scrollerStyle = this.scroller.style,
-						sectionStyle = this.sections.style,
+						sectionStyle,
 						i,
 						sectionLength;
 

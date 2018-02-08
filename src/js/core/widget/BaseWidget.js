@@ -143,7 +143,7 @@
  * @author Michał Szepielak <m.szepielak@samsung.com>
  * @class ns.widget.BaseWidget
  */
-(function (document, ns, undefined) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(

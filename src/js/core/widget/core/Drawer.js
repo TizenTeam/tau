@@ -856,7 +856,6 @@
 					drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
 				}
 				unbindDragEvents(self, self._eventBoundElement);
-				ui = null;
 			};
 
 			ns.widget.core.Drawer = Drawer;

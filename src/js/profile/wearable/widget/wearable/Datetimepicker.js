@@ -242,8 +242,6 @@
 					self.bottomControls = bottomControls;
 					self.wheelControls = wheelControls;
 
-					currentDate = null;
-
 					// Declare fields holders
 					self._dateFields = {};
 

@@ -281,11 +281,14 @@
 				//>>excludeEnd("tauDebug");
 
 				// Set start/end color: If user set color as option, that color will be used. If not, css based color of swipe will be used.
-				options.ltrStartColor = options.ltrStartColor || swipeLeftElementBg[0];
-				options.ltrEndColor = options.ltrEndColor || swipeLeftElementBg[1];
-				options.rtlStartColor = options.rtlStartColor || swipeRightElementBg[0];
-				options.rtlEndColor = options.rtlEndColor || swipeRightElementBg[1];
-
+				if (swipeLeftElementBg) {
+					options.ltrStartColor = options.ltrStartColor || swipeLeftElementBg[0];
+					options.ltrEndColor = options.ltrEndColor || swipeLeftElementBg[1];
+				}
+				if (swipeRightElementBg) {
+					options.rtlStartColor = options.rtlStartColor || swipeRightElementBg[0];
+					options.rtlEndColor = options.rtlEndColor || swipeRightElementBg[1];
+				}
 				this.resetLayoutCallback = null;
 				if (this.swipeElement.parentNode !== this.container) {
 					this.resetLayoutCallback = (function (parent, nextSibling, element) {

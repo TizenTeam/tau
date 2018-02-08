@@ -1038,7 +1038,7 @@
 						overflow;
 
 					if (!container) {
-						while (parentElement && parentElement != document.body) {
+						while (parentElement && parentElement !== document.body) {
 							overflow = doms.getCSSProperty(parentElement, "overflow-y");
 							if (overflow === "scroll" || (overflow === "auto" && parentElement.scrollHeight > parentElement.clientHeight)) {
 								return parentElement;

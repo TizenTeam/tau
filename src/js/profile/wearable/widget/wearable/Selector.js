@@ -217,10 +217,12 @@
 						element.appendChild(layer);
 						layers.push(layer);
 					}
-					layer.appendChild(items[i]);
-					if (utilDom.getNSData(items[i], "active")) {
-						items[i].classList.add(classes.ITEM_ACTIVE);
-						layer.classList.add(classes.LAYER_ACTIVE);
+					if (layer) {
+						layer.appendChild(items[i]);
+						if (utilDom.getNSData(items[i], "active")) {
+							items[i].classList.add(classes.ITEM_ACTIVE);
+							layer.classList.add(classes.LAYER_ACTIVE);
+						}
 					}
 				}
 				return layers;
