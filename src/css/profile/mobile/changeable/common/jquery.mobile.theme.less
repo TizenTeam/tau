@@ -1,6 +1,6 @@
-/***************************************************************************
-                    Content Top calculate
-***************************************************************************/
+//**************************************************************************
+//                    Content Top calculate
+//**************************************************************************
 
 .ui-page {
 	border-top: none;
@@ -10,82 +10,96 @@
 
 	font-family: @font_family;
 
-	.ui-link-inherit { color: 	#fff; }
+	.ui-link-inherit {
+		color: #fff;
+	}
 	.ui-link {
-		/* ui-body-link */
+		// ui-body-link
 		color: #2489CE;
 		font-weight: bold;
-		&:hover { color: #2489CE; }
-		&:active { color: #2489CE; }
-		&:visited {	color: #2489CE; }
+		&:hover {
+			color: #2489CE;
+		}
+		&:active {
+			color: #2489CE;
+		}
+		&:visited {
+			color: #2489CE;
+		}
 	}
 }
 
-/*
-/* Structure */
-/* links within "buttons"
------------------------------------------------------------------------------------------------------------*/
+// Structure 
+// links within "buttons"
+// ------------------------------------------------------------------------------------------------
 
 a.ui-link-inherit {
 	text-decoration: none !important;
 }
 
-/* Active class used as the "on" state across all themes
------------------------------------------------------------------------------------------------------------*/
+// Active class used as the "on" state across all themes
+// ------------------------------------------------------------------------------------------------
 
-/* button default color for active state */
+// button default color for active state
 .ui-btn-active {
-	/* global-active */
+	// global-active
 	color: @color_button_text_normal;
 	cursor: pointer;
 	text-decoration: none;
 	background: @color_button_bg_press;
-  	outline: none;
+	outline: none;
 
 	a.ui-link-inherit {
 		color: @color_button_text_normal;
 	}
 }
 
-
-/* corner rounding classes
------------------------------------------------------------------------------------------------------------*/
+// corner rounding classes
+//-------------------------------------------------------------------------------------------------
 
 .ui-corner-tl {
 	.LESSborder-radius-topleft(.3em);
 }
+
 .ui-corner-tr {
 	.LESSborder-radius-topright(.3em);
 }
+
 .ui-corner-bl {
 	.LESSborder-radius-bottomleft(.3em);
 }
+
 .ui-corner-br {
 	.LESSborder-radius-bottomright(.3em);
 }
+
 .ui-corner-top {
 	.LESSborder-radius-topleft(.3em);
 	.LESSborder-radius-topright(.3em);
 }
+
 .ui-corner-bottom {
 	.LESSborder-radius-bottomleft(.3em);
 	.LESSborder-radius-bottomright(.3em);
 }
+
 .ui-corner-right {
 	.LESSborder-radius-topright(.3em);
 	.LESSborder-radius-bottomright(.3em);
 }
+
 .ui-corner-left {
 	.LESSborder-radius-topleft(.3em);
 	.LESSborder-radius-bottomleft(.3em);
 }
+
 .ui-corner-none {
 	.LESSborder-radius-all(0);
 }
 
-/***************************************************************************
-                    Icon (Naviframe)
-***************************************************************************/
+//**************************************************************************
+//                    Icon (Naviframe)
+//**************************************************************************
 
 .ui-btn .ui-icon {
 
@@ -98,12 +112,14 @@ a.ui-link-inherit {
 		.mask-size(100%);
 	}
 }
-/* Interaction cues
------------------------------------------------------------------------------------------------------------*/
+
+// Interaction cues
+//-------------------------------------------------------------------------------------------------
 .ui-disabled {
 	.opacity(0.3);
 	zoom: 1;
 }
+
 .ui-disabled,
 .ui-disabled a {
 	cursor: default !important;

@@ -1,8 +1,8 @@
 
 .ui-handler {
-	position : fixed;
+	position: fixed;
 	.display-flex();
-	overflow : hidden;
+	overflow: hidden;
 	opacity: 0;
 	.transition(opacity 400ms ease-out);
 	height: 100%;
@@ -11,14 +11,14 @@
 
 	.ui-handler-track {
 		.user-select(none);
-		position : relative;
-		width : 100%;
-		height : 100%;
+		position: relative;
+		width: 100%;
+		height: 100%;
 		display: block;
 
 		.ui-handler-handle {
 			.user-select(none);
-			position : absolute;
+			position: absolute;
 			display: block;
 			background-color: transparent;
 
@@ -28,7 +28,7 @@
 				float: right;
 				.display-flex();
 				.align-items(center);
-				background-color : @color_scrollview_handler_bg;
+				background-color: @color_scrollview_handler_bg;
 				.LESSborder-radius-all(5 * @unit_base);
 				.transition-property(width border-width border-radius);
 				.transition-duration(100ms);
@@ -38,7 +38,7 @@
 		.ui-handler-handle.ui-active {
 			.ui-handler-thumb {
 				&:before {
-					content : "";
+					content: "";
 					position: absolute;
 					top: 0;
 					left: 0;
@@ -48,7 +48,7 @@
 					background-color: @color_scrollview_handler_thumb_01;
 				}
 				&:after {
-					content : "";
+					content: "";
 					position: absolute;
 					top: 0;
 					left: 0;
@@ -62,15 +62,15 @@
 	}
 
 	&.ui-handler-direction-x {
-		right : 10 * @unit_base;
-		bottom : 0 * @unit_base;
-		left : 10 * @unit_base;
-		height : 38 * @unit_base;
+		right: 10 * @unit_base;
+		bottom: 0 * @unit_base;
+		left: 10 * @unit_base;
+		height: 38 * @unit_base;
 		top: auto;
 
 		.ui-handler-handle {
-			min-width : 44 * @unit_base;
-			height : 32 * @unit_base;
+			min-width: 44 * @unit_base;
+			height: 32 * @unit_base;
 			margin-bottom: 6 * @unit_base;
 			top: auto;
 			bottom: 0;
@@ -78,19 +78,19 @@
 			.align-items(flex-end);
 
 			.ui-handler-expander {
-				height : 10 * @unit_base;
+				height: 10 * @unit_base;
 				width: 100%;
 				.justify-content(center);
 			}
 		}
 		.ui-handler-track {
 			.ui-handler-handle.ui-active {
-				min-width : 82 * @unit_base;
+				min-width: 82 * @unit_base;
 				margin-bottom: 6 * @unit_base;
 				.LESSborder-radius-all(16 * @unit_base);
 				.flex-direction(row);
 				.ui-handler-expander {
-					height : 32 * @unit_base;
+					height: 32 * @unit_base;
 					.LESSborder-radius-all(16 * @unit_base);
 				}
 			}
@@ -106,10 +106,10 @@
 	}
 
 	&.ui-handler-direction-y {
-		top : 0;
-		right : 0;
-		bottom : 0;
-		width : 38 * @unit_base;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 38 * @unit_base;
 		.flex-direction(column);
 
 		&:before {
@@ -122,11 +122,11 @@
 		.ui-handler-handle {
 			width: 32 * @unit_base;
 			margin-right: 6 * @unit_base;
-			min-height : 44 * @unit_base;
+			min-height: 44 * @unit_base;
 			left: auto;
 			right: 0;
 			.ui-handler-expander {
-				width : 10 * @unit_base;
+				width: 10 * @unit_base;
 				height: 100%;
 			}
 		}
@@ -141,7 +141,7 @@
 				.flex-direction(column);
 				.ui-handler-expander {
 					.LESSborder-radius-all(16 * @unit_base);
-					width : 32 * @unit_base;
+					width: 32 * @unit_base;
 				}
 			}
 		}
@@ -159,8 +159,8 @@
 		display: none;
 	}
 	.ui-handler-thumb {
-		width : 32 * @unit_base;
-		height : 32 * @unit_base;
+		width: 32 * @unit_base;
+		height: 32 * @unit_base;
 		position: relative;
 	}
 }
@@ -168,8 +168,6 @@
 .ui-handler-visible {
 	opacity: 1;
 }
-
-
 
 .scrollbar-disabled {
 	overflow: hidden !important;

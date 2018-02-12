@@ -1,16 +1,32 @@
-/* some unsets - more probably needed */
-.ui-page-container, .ui-page-container body { height: 100%; font-size: @font_size_default; }
-@media all and (max-width:359px) {
-	.ui-page-container, .ui-page-container body { font-size: floor(@font_size_default*320/360); }
+// some unsets - more probably needed
+.ui-page-container, .ui-page-container body {
+	height: 100%;
+	font-size: @font_size_default;
 }
 
-.ui-page-container fieldset, .ui-page { padding: 0; margin: 0; }
-.ui-page-container a img, .ui-page-container fieldset { border: 0; }
+@media all and (max-width: 359px) {
+	.ui-page-container, .ui-page-container body {
+		font-size: floor(@font_size_default*320/360);
+	}
+}
 
-/* responsive page widths */
-.ui-page-container {  margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+.ui-page-container fieldset, .ui-page {
+	padding: 0;
+	margin: 0;
+}
 
-/* "page" containers - full-screen views, one should always be in view post-pageload */
+.ui-page-container a img, .ui-page-container fieldset {
+	border: 0;
+}
+
+// responsive page widths
+.ui-page-container {
+	margin: 0;
+	overflow-x: hidden;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+// "page" containers - full-screen views, one should always be in view post-pageload
 [data-role=page],
 [data-role=dialog],
 .ui-page {
@@ -63,41 +79,57 @@
 	}
 }
 
-/* native overflow scrolling */
+// native overflow scrolling
 .ui-page.ui-mobile-touch-overflow,
 .ui-mobile-touch-overflow.ui-native-fixed .ui-content {
 	overflow: auto;
 	height: 100%;
 	-webkit-overflow-scrolling: touch;
 }
+
 .ui-page.ui-mobile-touch-overflow,
 .ui-page.ui-mobile-touch-overflow * {
-	/* some level of transform keeps elements from blinking out of visibility on iOS */
+	// some level of transform keeps elements from blinking out of visibility on iOS
 	.LESStransform(rotateY(0));
 }
+
 .ui-page.ui-mobile-pre-transition {
 	display: block;
 }
 
-/* loading screen */
-.ui-loading .ui-mobile-viewport { overflow: hidden !important; }
-.ui-loading .ui-loader { display: block; }
-.ui-loading .ui-page { overflow: hidden;  }
-.ui-loader { display: none; position: absolute; opacity: .85; z-index: @z_base_loader; left: 50%; width: 200px; margin-left: -130px; margin-top: -35px; padding: 10px 30px; }
-.ui-loader h1 { font-size: 32 * @unit_base; text-align: center; }
-.ui-loader .ui-icon { position: static; display: block; opacity: .9; margin: 0 auto; width: 35px; height: 35px; background-color: transparent; }
+.ui-blocker {
+	width: 100%;
+	height: 100%;
+	z-index: @z_base_maximum;
+}
 
-.ui-blocker { width:100%; height:100%; z-index:@z_base_maximum; }
+//fouc
+.ui-mobile-rendering > * {
+	visibility: hidden;
+}
 
-/*fouc*/
-.ui-mobile-rendering > * { visibility: hidden; }
+//headers, content panels
+.ui-bar, .ui-body {
+	position: relative;
+	padding: .4em 15px;
+	overflow: hidden;
+	display: block;
+	clear: both;
+}
 
-/*headers, content panels*/
-.ui-bar, .ui-body { position: relative; padding: .4em 15px;  overflow: hidden; display: block;  clear:both;  }
-.ui-bar { font-size: 16px; margin: 0; }
-.ui-bar h1, .ui-bar h2, .ui-bar h3, .ui-bar h4, .ui-bar h5, .ui-bar h6 { margin: 0; padding: 0; font-size: 16px; display: inline-block; }
+.ui-bar {
+	font-size: 16px;
+	margin: 0;
+}
 
-/*content area*/
+.ui-bar h1, .ui-bar h2, .ui-bar h3, .ui-bar h4, .ui-bar h5, .ui-bar h6 {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	display: inline-block;
+}
+
+//content area
 .ui-content {
 	border-width: 0;
 	overflow-y: visible;
@@ -111,7 +143,10 @@
 		}
 	}
 }
-.ui-page-fullscreen .ui-content { padding:0; }
+
+.ui-page-fullscreen .ui-content {
+	padding: 0;
+}
 
 .ui-mobile-touch-overflow.ui-native-fixed .ui-content {
 	padding-top: 2.5em;
@@ -121,6 +156,7 @@
 	height: auto;
 	position: absolute;
 }
+
 .ui-mobile-touch-overflow.ui-native-fullscreen .ui-content {
 	padding-top: 0;
 	padding-bottom: 0;
@@ -130,16 +166,24 @@
 	display: none;
 }
 
-/* hidden ui elements */
-.ui-screen-hidden { display: none; }
+// hidden ui elements
+.ui-screen-hidden {
+	display: none;
+}
 
-/* icons sizing */
-.ui-icon { width: 18px; height: 18px; }
+// icons sizing
+.ui-icon {
+	width: 18px;
+	height: 18px;
+}
 
-/* fullscreen class on ui-content div */
-.ui-fullscreen {  }
-.ui-fullscreen img { max-width: 100%; }
+.ui-fullscreen img {
+	max-width: 100%;
+}
 
-/* non-js content hiding */
-.ui-nojs { position: absolute; left: -9999px; }
+// non-js content hiding
+.ui-nojs {
+	position: absolute;
+	left: -9999px;
+}
 

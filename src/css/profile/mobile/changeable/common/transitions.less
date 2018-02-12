@@ -1,4 +1,4 @@
-/* Transitions originally inspired by those from jQtouch, nice work, folks */
+// Transitions originally inspired by those from jQtouch, nice work, folks
 .ui-mobile-viewport-transitioning,
 .ui-mobile-viewport-transitioning .ui-page {
 	width: 100%;
@@ -7,26 +7,33 @@
 }
 
 .in {
-	.animation-timing-function(ease-out);
-	.animation-duration(350ms);
+	animation-timing-function: ease-out;
+	animation-duration: 350ms;
 }
 
 .out {
-	.animation-timing-function(ease-in);
-	.animation-duration(225ms);
+	animation-timing-function: ease-in;
+	animation-duration: 225ms;
 }
 
-
-/* fade */
+// fade
 
 .m-transitions-fadein() {
-	from { opacity: 0; }
-	to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .m-transitions-fadeout() {
-	from { opacity: 1; }
-	to { opacity: 0; }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 @-webkit-keyframes fadein {
@@ -71,40 +78,39 @@
 
 .fade.out {
 	opacity: 0;
-	.animation-duration(125ms);
-	.animation-name(fadeout);
+	animation-duration: 125ms;
+	animation-name: fadeout;
 }
 
 .fade.in {
 	opacity: 1;
-	.animation-duration(225ms);
-	.animation-name(fadein);
+	animation-duration: 225ms;
+	animation-name: fadein;
 }
 
+// flip
 
-/* flip */
-
-/* The properties in this rule are only necessary for the 'flip' transition.
- * We need specify the perspective to create a projection matrix. This will add
- * some depth as the element flips. The depth number represents the distance of
- * the viewer from the z-plane. According to the CSS3 spec, 1000 is a moderate
- * value.
- */
+// The properties in this rule are only necessary for the 'flip' transition.
+// We need specify the perspective to create a projection matrix. This will add
+// some depth as the element flips. The depth number represents the distance of
+// the viewer from the z-plane. According to the CSS3 spec, 1000 is a moderate
+// value.
 
 .viewport-flip {
 	position: absolute;
 	.perspective(1000);
 }
+
 .flip {
 	.backface-visiblity(hidden);
 	.translate3d(0, 0, 0);
 }
 
 .flip.out {
-	.transform(rotateY(-90def) scale(0.9));
-	.animation-name(flipouttoleft);
-	.animation-duration(175ms);
-	&.ui-ctxpopup-container{
+	transform: rotateY(-90 def) scale(.9);
+	animation-name: flipouttoleft;
+	animation-duration: 175ms;
+	&.ui-ctxpopup-container {
 		border: 4 * @unit_base solid @color_ctxpopup_background_border;
 		border-radius: 10 * @unit_base;
 		box-shadow: none;
@@ -112,9 +118,9 @@
 }
 
 .flip.in {
-	.animation-name(flipintoright);
-	.animation-duration(225ms);
-	&.ui-ctxpopup-container{
+	animation-name: flipintoright;
+	animation-duration: 225ms;
+	&.ui-ctxpopup-container {
 		border: 4 * @unit_base solid @color_ctxpopup_background_border;
 		border-radius: 10 * @unit_base;
 		box-shadow: none;
@@ -123,32 +129,48 @@
 
 .ui-popup.flip.out,
 .flip.out.reverse {
-	.transform(rotateY(90deg) scale(0.9));
-	.animation-name(flipouttoright);
+	transform: rotateY(90deg) scale(.9);
+	animation-name: flipouttoright;
 }
 
 .flip.in.reverse {
-	.animation-name(flipintoleft);
+	animation-name: flipintoleft;
 }
 
 .m-transitions-flipouttoleft() {
-	from { .transform(rotateY(0)); }
-	to { .transform(rotateY(-90deg) scale(0.9)); }
+	from {
+		transform: rotateY(0);
+	}
+	to {
+		transform: rotateY(-90deg) scale(.9);
+	}
 }
 
 .m-transitions-flipouttoright() {
-	from { .transform(rotateY(0)); }
-	to { .transform(rotateY(90deg) scale(0.9)); }
+	from {
+		transform: rotateY(0);
+	}
+	to {
+		transform: rotateY(90deg) scale(.9);
+	}
 }
 
 .m-transitions-flipintoleft() {
-	from { .transform(rotateY(-90deg) scale(0.9)); }
-	to { .transform(rotateY(0)); }
+	from {
+		transform: rotateY(-90deg) scale(.9);
+	}
+	to {
+		transform: rotateY(0);
+	}
 }
 
 .m-transitions-flipintoright() {
-	from { .transform(rotateY(90deg) scale(0.9)); }
-	to { .transform(rotateY(0)); }
+	from {
+		transform: rotateY(90deg) scale(.9);
+	}
+	to {
+		transform: rotateY(0);
+	}
 }
 
 @-webkit-keyframes flipouttoleft {
@@ -227,61 +249,86 @@
 	.m-transitions-flipintoright();
 }
 
-/* flow transition */
+// flow transition
 @keyframes flipintoright {
 	.m-transitions-flipintoright();
 }
 
-
 .flow {
-		.box-shadow(0 0 20px rgba(0,0,0,.4));
-		.transform-origin(50% 50%);
+	.box-shadow(0 0 20px rgba(0, 0, 0, .4));
+	transform-origin: 50% 50%;
 }
+
 .ui-dialog.flow {
-		.box-shadow(none);
+	.box-shadow(none);
 }
+
 .flow.out {
-		.animation(flowouttoleft ease 350ms);
-		.transform(translate3d(-100%, 0, 0) scale(0.7));
+	animation: flowouttoleft ease 350ms;
+	transform: translate3d(-100%, 0, 0) scale(.7);
 }
 
 .flow.in {
-		.animation(flowinfromright ease 350ms);
-		.transform(translate3d(0, 0, 0) scale(1));
+	animation: flowinfromright ease 350ms;
+	transform: translate3d(0, 0, 0) scale(1);
 }
 
 .ui-popup.flow.out,
 .flow.out.reverse {
-		.translate3d(100%, 0, 0);
-		.animation-name(flowouttoright);
+	.translate3d(100%, 0, 0);
+	animation-name: flowouttoright;
 }
 
 .flow.in.reverse {
-		.animation-name(flowinfromleft);
+	animation-name: flowinfromleft;
 }
 
 .m-transitions-flowouttoleft() {
-	0% { .transform(translate3d(0, 0, 0) scale(1)) }
-	60%, 70% { .transform(translate3d(0, 0, 0) scale(0.7)); }
-	100% { .transform(translate3d(-100%, 0, 0) scale(0.7)); }
+	0% {
+		transform: translate3d(0, 0, 0) scale(1)
+	}
+	60%, 70% {
+		transform: translate3d(0, 0, 0) scale(.7);
+	}
+	100% {
+		transform: translate3d(-100%, 0, 0) scale(.7);
+	}
 }
 
 .m-transitions-flowouttoright() {
-	0% { .transform(translate3d(0, 0, 0) scale(1)); }
-	60%, 70% { .transform(translate3d(0, 0, 0) scale(0.7)); }
-	100% { .transform(translate3d(100%, 0, 0) scale(0.7)); }
+	0% {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	60%, 70% {
+		transform: translate3d(0, 0, 0) scale(.7);
+	}
+	100% {
+		transform: translate3d(100%, 0, 0) scale(.7);
+	}
 }
 
 .m-transitions-flowinfromleft() {
-	0% { .transform(translate3d(-100%, 0, 0) scale(0.7)); }
-	30%, 40% { .transform(translate3d(0, 0, 0) scale(0.7)); }
-	100% { .transform(translate3d(0, 0, 0) scale(1)); }
+	0% {
+		transform: translate3d(-100%, 0, 0) scale(.7);
+	}
+	30%, 40% {
+		transform: translate3d(0, 0, 0) scale(.7);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
 }
 
 .m-transitions-flowinfromright() {
-	0% { .transform(translate3d(100%, 0, 0) scale(0.7)); }
-	30%, 40% { .transform(translate3d(0, 0, 0) scale(0.7)); }
-	100% { .transform(translate3d(0, 0, 0) scale(1)); }
+	0% {
+		transform: translate3d(100%, 0, 0) scale(.7);
+	}
+	30%, 40% {
+		transform: translate3d(0, 0, 0) scale(.7);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
 }
 
 @-webkit-keyframes flowouttoleft {
@@ -364,18 +411,17 @@
 	.m-transitions-flowinfromright();
 }
 
-
-/* pop */
+// pop
 
 .pop {
-	.transform-origin(50% 50%);
+	transform-origin: 50% 50%;
 }
 
 .pop.in {
 	.scale(1);
 	opacity: 1;
-	.animation(popin 350ms);
-	&.ui-ctxpopup-container{
+	animation: popin 350ms;
+	&.ui-ctxpopup-container {
 		border: 4 * @unit_base solid @color_ctxpopup_background_border;
 		border-radius: 10 * @unit_base;
 		box-shadow: none;
@@ -383,8 +429,8 @@
 }
 
 .pop.out {
-	.animation(fadeout 100ms);
-	&.ui-ctxpopup-container{
+	animation: fadeout 100ms;
+	&.ui-ctxpopup-container {
 		border: 4 * @unit_base solid @color_ctxpopup_background_border;
 		border-radius: 10 * @unit_base;
 		box-shadow: none;
@@ -392,18 +438,18 @@
 }
 
 .pop.in.reverse {
-	.animation-name(fadein);
+	animation-name: fadein;
 }
 
 .ui-popup.pop.out,
 .pop.out.reverse {
-	.scale(0.8);
-	.animation-name(popout);
+	.scale(.8);
+	animation-name: popout;
 }
 
 .m-transitions-popin() {
 	from {
-		.scale(0.8);
+		.scale(.8);
 		opacity: 0;
 	}
 	to {
@@ -418,7 +464,7 @@
 		opacity: 1;
 	}
 	to {
-		.scale(0.8);
+		.scale(.8);
 		opacity: 0;
 	}
 }
@@ -462,50 +508,68 @@
 @keyframes popout {
 	.m-transitions-popout();
 }
-/* slide */
+
+// slide
 .slide.out, .slide.in {
-	.animation-timing-function(ease-out);
-	.animation-duration(350ms);
+	animation-timing-function: ease-out;
+	animation-duration: 350ms;
 }
+
 .slide.out {
 	.translate3d(-100%, 0, 0);
-	.animation-name(slideouttoleft);
+	animation-name: slideouttoleft;
 }
 
 .slide.in {
 	.translate3d(0, 0, 0);
-	.animation-name(slideinfromright);
+	animation-name: slideinfromright;
 }
 
 .ui-popup.slide.out,
 .slide.out.reverse {
 	.translate3d(100%, 0, 0);
-	.animation-name(slideouttoright);
+	animation-name: slideouttoright;
 }
 
 .slide.in.reverse {
 	.translate3d(0, 0, 0);
-	.animation-name(slideinfromleft);
+	animation-name: slideinfromleft;
 }
 
 .m-transitions-slideinfromright() {
-	from { .translate3d(100%, 0, 0); }
-	to { .translate3d(0, 0, 0); }
+	from {
+		.translate3d(100%, 0, 0);
+	}
+	to {
+		.translate3d(0, 0, 0);
+	}
 }
 
 .m-transitions-slideinfromleft() {
-	from { .translate3d(-100%, 0, 0); }
-	to { .translate3d(0, 0, 0); }
+	from {
+		.translate3d(-100%, 0, 0);
+	}
+	to {
+		.translate3d(0, 0, 0);
+	}
 }
 
 .m-transitions-slideouttoleft() {
-	from { .translate3d(0, 0, 0); }
-	to { .translate3d(-100%, 0, 0); }
+	from {
+		.translate3d(0, 0, 0);
+	}
+	to {
+		.translate3d(-100%, 0, 0);
+	}
 }
 
 .m-transitions-slideouttoright() {
-	from { .translate3d(0, 0, 0); }
-	to { .translate3d(100%, 0, 0); }
+	from {
+		.translate3d(0, 0, 0);
+	}
+	to {
+		.translate3d(100%, 0, 0);
+	}
 }
 
 @-webkit-keyframes slideinfromright {
@@ -588,35 +652,43 @@
 	.m-transitions-slideouttoright();
 }
 
-/* slide down */
+// slide down
 
 .slidedown.out {
-		.animation(fadeout 100ms);
+	animation: fadeout 100ms;
 }
 
 .slidedown.in {
-		.translate3d(0, 0, 0);
-		.animation(slideinfromtop 250ms);
+	.translate3d(0, 0, 0);
+	animation: slideinfromtop 250ms;
 }
 
 .slidedown.in.reverse {
-		.animation(fade 150ms);
+	animation: fade 150ms;
 }
 
 .ui-popup.slidedown.out,
 .slidedown.out.reverse {
-		.translate3d(0, -100%, 0);
-		.animation(slideouttotop 200ms);
+	.translate3d(0, -100%, 0);
+	animation: slideouttotop 200ms;
 }
 
 .m-transitions-slideinfromtop() {
-	from { .translate3d(0, -100%, 0); }
-	to { .translate3d(0, 0, 0); }
+	from {
+		.translate3d(0, -100%, 0);
+	}
+	to {
+		.translate3d(0, 0, 0);
+	}
 }
 
 .m-transitions-slideouttotop() {
-	from { .translate3d(0, 0, 0); }
-	to { .translate3d(0, -100%, 0); }
+	from {
+		.translate3d(0, 0, 0);
+	}
+	to {
+		.translate3d(0, -100%, 0);
+	}
 }
 
 @-webkit-keyframes slideinfromtop {
@@ -658,25 +730,26 @@
 @keyframes slideouttotop {
 	.m-transitions-slideouttotop();
 }
-/* slide up + fade */
+
+// slide up + fade
 
 .slideupfade.out {
-		.animation(fadeout 100ms);
+	animation: fadeout 100ms;
 }
 
 .slideupfade.in {
 	.translate3d(0, 0, 0);
-	.animation(slideupfadeinfrombottom 250ms);
+	animation: slideupfadeinfrombottom 250ms;
 }
 
 .slideupfade.in.reverse {
-		.animation(fadein 150ms);
+	animation: fadein 150ms;
 }
 
 .ui-popup.slideupfade.out,
 .slideupfade.out.reverse {
 	.translate3d(0, 5%, 0);
-	.animation(slideupfadeouttobottom 200ms);
+	animation: slideupfadeouttobottom 200ms;
 }
 
 .m-transitions-slideupfadeinfrombottom() {
@@ -741,25 +814,25 @@
 	.m-transitions-slideupfadeouttobottom();
 }
 
-/* slide down + fade */
+// slide down + fade
 
 .slidedownfade.out {
-	.animation(fadeout 100ms);
+	animation: fadeout 100ms;
 }
 
 .slidedownfade.in {
 	.translate3d(0, 0, 0);
-	.animation(slidedownfadeinfromtop 250ms);
+	animation: slidedownfadeinfromtop 250ms;
 }
 
 .slidedownfade.in.reverse {
-	.animation(fadein 150ms);
+	animation: fadein 150ms;
 }
 
 .ui-popup.slidedownfade.out,
 .slidedownfade.out.reverse {
 	.translate3d(0, -5%, 0);
-	.animation(slidedownfadeouttotop 200ms);
+	animation: slidedownfadeouttotop 200ms;
 }
 
 .m-transitions-slidedownfadeinfromtop() {
@@ -824,82 +897,98 @@
 	.m-transitions-slidedownfadeouttotop();
 }
 
-/* slide fade */
+// slide fade
 
 .slidefade.out {
 	.translate3d(-100%, 0, 0);
-	.animation(slideouttoleft 225ms);
+	animation: slideouttoleft 225ms;
 }
 
 .slidefade.in {
 	.translate3d(0, 0, 0);
-	.animation(fadein 200ms);
+	animation: fadein 200ms;
 }
 
 .ui-popup.slidefade.out,
 .slidefade.out.reverse {
 	.translate3d(100%, 0, 0);
-	.animation(slideouttoright 200ms);
+	animation: slideouttoright 200ms;
 }
 
 .slidefade.in.reverse {
 	.translate3d(0, 0, 0);
-	.animation(fadein 200ms);
+	animation: fadein 200ms;
 }
 
-/* The properties in this rule are only necessary for the 'flip' transition.
- * We need specify the perspective to create a projection matrix. This will add
- * some depth as the element flips. The depth number represents the distance of
- * the viewer from the z-plane. According to the CSS3 spec, 1000 is a moderate
- * value.
- */
+// The properties in this rule are only necessary for the 'flip' transition.
+// We need specify the perspective to create a projection matrix. This will add
+// some depth as the element flips. The depth number represents the distance of
+// the viewer from the z-plane. According to the CSS3 spec, 1000 is a moderate
+// value.
 
 .viewport-turn {
 	.perspective(1000);
 	position: absolute;
 }
+
 .turn {
 	.backface-visiblity(hidden);
 	.translate3d(0, 0, 0);
 }
 
 .turn.out {
-	.transform(rotateY(-90deg) scale(0.9));
-	.animation(flipouttoleft 125ms);
+	transform: rotateY(-90deg) scale(.9);
+	animation: flipouttoleft 125ms;
 }
 
 .turn.in {
-	.animation(flipintoright 250ms);
+	animation: flipintoright 250ms;
 }
 
 .ui-popup.turn.out,
 .turn.out.reverse {
-	.transform(rotateY(90deg) scale(0.9));
-	.animation-name(flipouttoright);
+	transform: rotateY(90deg) scale(.9);
+	animation-name: flipouttoright;
 }
 
 .turn.in.reverse {
-	.animation-name(flipintoleft);
+	animation-name: flipintoleft;
 }
 
 .m-transitions-flipouttoleft() {
-	from { .transform(rotateY(0)); }
-	to { .transform(rotateY(-90deg) scale(0.9)); }
+	from {
+		transform: rotateY(0);
+	}
+	to {
+		transform: rotateY(-90deg) scale(.9);
+	}
 }
 
 .m-transitions-flipouttoright() {
-	from { .transform(rotateY(0)); }
-	to { .transform(rotateY(90deg) scale(0.9)); }
+	from {
+		transform: rotateY(0);
+	}
+	to {
+		transform: rotateY(90deg) scale(.9);
+	}
 }
 
 .m-transitions-flipintoleft() {
-	from { .transform(rotateY(-90deg) scale(0.9)); }
-	to { .transform(rotateY(0)); }
+	from {
+		transform: rotateY(-90deg) scale(.9);
+	}
+	to {
+		transform: rotateY(0);
+	}
 }
 
 .m-transitions-flipintoright() {
-	from { .transform(rotateY(90deg) scale(0.9)); }
-	to { .transform(rotateY(0)); }
+	from {
+		transform: rotateY(90deg) scale(.9);
+	}
+	to {
+		transform: rotateY(0);
+	}
 }
 
 @-webkit-keyframes flipouttoleft {
@@ -982,32 +1071,31 @@
 	.m-transitions-flipintoright();
 }
 
-
-/* depth */
+// depth
 
 .depth {
-	.transform-origin(50% 50%);
+	transform-origin: 50% 50%;
 }
 
 .depth.out {
 	opacity: 0;
-	.animation(depthout 250ms ease);
+	animation: depthout 250ms ease;
 }
 
 .depth.in {
 	.scale(1);
 	opacity: 1;
-	.animation(depthin 350ms ease);
+	animation: depthin 350ms ease;
 }
 
 .depth.in.reverse {
-	.animation-name(depthinreverse);
+	animation-name: depthinreverse;
 }
 
 .ui-popup.depth.out,
 .depth.out.reverse {
-	.scale(0.9);
-	.animation-name(depthoutreverse);
+	.scale(.9);
+	animation-name: depthoutreverse;
 }
 
 .m-transitions-depthout() {
@@ -1041,7 +1129,7 @@
 		.scale(1.1);
 		opacity: 0;
 	}
-		30% {
+	30% {
 		.scale(1.1);
 		opacity: 0;
 	}
@@ -1141,4 +1229,3 @@
 @keyframes depthoutreverse {
 	.m-transitions-depthoutreverse();
 }
-

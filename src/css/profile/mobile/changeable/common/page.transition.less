@@ -41,68 +41,105 @@
 	z-index: 2000;
 	opacity: 0;
 }
+
 .ui-page.slide.in.reverse::after {
 	.animation(pagebgslideinreverse 400ms ease-out);
 }
+
 .ui-page.slide.out:not(.reverse)::after {
 	.animation(pagebgslideout 400ms ease-out);
 }
 
 .m-transitions-pagebgslideinreverse() {
-	from { opacity: .5; }
-	to { opacity: 0; }
+	from {
+		opacity: .5;
+	}
+	to {
+		opacity: 0;
+	}
 }
+
 .m-transitions-pagebgslideout() {
-	from { opacity: 0; }
-	to { opacity: .5; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: .5;
+	}
 }
 
 .m-transitions-pageslideouttoleft() {
-	from { .translate3d(0, 0, 0); }
-	to { .translate3d(-25%, 0, 0); }
+	from {
+		.translate3d(0, 0, 0);
+	}
+	to {
+		.translate3d(-25%, 0, 0);
+	}
 }
+
 .m-transitions-pageslideinfromright() {
-	from { .translate3d(100%, 0, 0); }
-	to { .translate3d(0, 0, 0); }
+	from {
+		.translate3d(100%, 0, 0);
+	}
+	to {
+		.translate3d(0, 0, 0);
+	}
 }
+
 .m-transitions-pageslideouttoright() {
-	from { .translate3d(0, 0, 0); }
-	to { .translate3d(100%, 0, 0); }
+	from {
+		.translate3d(0, 0, 0);
+	}
+	to {
+		.translate3d(100%, 0, 0);
+	}
 }
+
 .m-transitions-pageslideinfromleft() {
-	from { .translate3d(-25%, 0, 0); }
-	to { .translate3d(0, 0, 0); }
+	from {
+		.translate3d(-25%, 0, 0);
+	}
+	to {
+		.translate3d(0, 0, 0);
+	}
 }
 
 @-webkit-keyframes pageslideouttoleft {
 	.m-transitions-pageslideouttoleft();
 }
+
 @-moz-keyframes pageslideouttoleft {
 	.m-transitions-pageslideouttoleft();
 }
+
 @-ms-keyframes pageslideouttoleft {
 	.m-transitions-pageslideouttoleft();
 }
+
 @-o-keyframes pageslideouttoleft {
 	.m-transitions-pageslideouttoleft();
 }
+
 @keyframes pageslideouttoleft {
 	.m-transitions-pageslideouttoleft();
 }
 
-
 @-webkit-keyframes pageslideinfromright {
 	.m-transitions-pageslideinfromright();
 }
+
 @-moz-keyframes pageslideinfromright {
 	.m-transitions-pageslideinfromright();
 }
+
 @-ms-keyframes pageslideinfromright {
 	.m-transitions-pageslideinfromright();
 }
+
 @-o-keyframes pageslideinfromright {
 	.m-transitions-pageslideinfromright();
 }
+
 @keyframes pageslideinfromright {
 	.m-transitions-pageslideinfromright();
 }
@@ -110,15 +147,19 @@
 @-webkit-keyframes pageslideouttoright {
 	.m-transitions-pageslideouttoright();
 }
+
 @-moz-keyframes pageslideouttoright {
 	.m-transitions-pageslideouttoright();
 }
+
 @-ms-keyframes pageslideouttoright {
 	.m-transitions-pageslideouttoright();
 }
+
 @-o-keyframes pageslideouttoright {
 	.m-transitions-pageslideouttoright();
 }
+
 @keyframes pageslideouttoright {
 	.m-transitions-pageslideouttoright();
 }
@@ -126,15 +167,19 @@
 @-webkit-keyframes pageslideinfromleft {
 	.m-transitions-pageslideinfromleft();
 }
+
 @-moz-keyframes pageslideinfromleft {
 	.m-transitions-pageslideinfromleft();
 }
+
 @-ms-keyframes pageslideinfromleft {
 	.m-transitions-pageslideinfromleft();
 }
+
 @-o-keyframes pageslideinfromleft {
 	.m-transitions-pageslideinfromleft();
 }
+
 @keyframes pageslideinfromleft {
 	.m-transitions-pageslideinfromleft();
 }
@@ -142,15 +187,19 @@
 @-webkit-keyframes pagebgslideinreverse {
 	.m-transitions-pagebgslideinreverse();
 }
+
 @-moz-keyframes pagebgslideinreverse {
 	.m-transitions-pagebgslideinreverse();
 }
+
 @-ms-keyframes pagebgslideinreverse {
 	.m-transitions-pagebgslideinreverse();
 }
+
 @-o-keyframes pagebgslideinreverse {
 	.m-transitions-pagebgslideinreverse();
 }
+
 @keyframes pagebgslideinreverse {
 	.m-transitions-pagebgslideinreverse();
 }
@@ -158,19 +207,22 @@
 @-webkit-keyframes pagebgslideout {
 	.m-transitions-pagebgslideout();
 }
+
 @-moz-keyframes pagebgslideout {
 	.m-transitions-pagebgslideout();
 }
+
 @-ms-keyframes pagebgslideout {
 	.m-transitions-pagebgslideout();
 }
+
 @-o-keyframes pagebgslideout {
 	.m-transitions-pagebgslideout();
 }
+
 @keyframes pagebgslideout {
 	.m-transitions-pagebgslideout();
 }
-
 
 /* slide up */
 .ui-page {
@@ -198,11 +250,19 @@
 }
 
 @-webkit-keyframes pageslideinfrombottom {
-    from { -webkit-transform: translate3d(0, 100%, 0); }
-    to { -webkit-transform: translate3d(0, 0, 0); }
+	from {
+		-webkit-transform: translate3d(0, 100%, 0);
+	}
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
 }
 
 @-webkit-keyframes pageslideouttobottom {
-    from { -webkit-transform: translate3d(0, 0, 0); }
-    to { -webkit-transform: translate3d(0, 100%, 0); }
+	from {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+	to {
+		-webkit-transform: translate3d(0, 100%, 0);
+	}
 }

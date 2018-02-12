@@ -5,7 +5,7 @@ tau-gridview {
 .ui-gridview {
 	position: relative;
 	width: 720 * @unit_base;
-	@media(orientation: landscape){
+	@media (orientation: landscape) {
 		width: 1280 * @unit_base;
 	}
 	height: 100%;
@@ -21,21 +21,18 @@ tau-gridview {
 		opacity: 0;
 
 		&.ui-gridview-item-active {
-			-webkit-transition: -webkit-transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
-			transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
+			transition: transform .4s cubic-bezier(.25, .46, .45, 1);
 			opacity: 1;
 		}
 
 		&.ui-gridview-helper {
-			-webkit-transition: none;
 			transition: none;
 			transform: translate3d(0, 0, 0);
-			-webkit-transform: translate3d(0, 0, 0);
 		}
 
 		.ui-gridview-handler {
-			-webkit-mask-image: url("images/core_grid_button_reorder.png");
-			-webkit-mask-size: 100%;
+			mask-image: url("images/core_grid_button_reorder.png");
+			mask-size: 100%;
 			background-color: @color_button_add;
 			display: block;
 			position: absolute;
@@ -44,8 +41,7 @@ tau-gridview {
 			right: 9 * @unit_base;
 			top: 9 * @unit_base;
 			opacity: 0;
-			transition: opacity 0.4s linear;
-			-webkit-transition: opacity 0.4s linear;
+			transition: opacity .4s linear;
 		}
 
 		> label {
@@ -163,16 +159,13 @@ tau-gridview {
 			padding: 0;
 			margin: 0;
 			height: 504 * @unit_base;
-			@media (orientation: landscape) {
-
-			}
 		}
 
 	}
 
 }
 
-@media(orientation: landscape){
+@media (orientation: landscape) {
 	.ui-popup.ui-popup-gridview {
 		width: 720 * @unit_base;
 		left: 140 * @unit_base;

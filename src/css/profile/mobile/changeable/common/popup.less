@@ -1,6 +1,6 @@
-/*************************
-Normal Popup
-**************************/
+// *************************
+// Normal Popup
+// *************************
 .ui-popup {
 	display: none;
 	position: absolute;
@@ -93,9 +93,9 @@ Normal Popup
 	}
 }
 
-/************************
-Popup with listview
-*************************/
+// ************************
+// Popup with listview
+// ************************
 .ui-popup.ui-popup-listview {
 	background-image: url("images/page/core_theme_bg_01.png");
 	background-repeat: no-repeat;
@@ -130,9 +130,9 @@ Popup with listview
 	}
 }
 
-/************************
-Popup MoreMenu
-*************************/
+// ************************
+// Popup MoreMenu
+// ************************
 .ui-popup.ui-popup-moremenu {
 	max-height: 7 * 120 * @unit_base; // 7 list items
 	overflow: hidden;
@@ -142,9 +142,9 @@ Popup MoreMenu
 	}
 }
 
-/*************************
-Popup Overlay
-**************************/
+// *************************
+// Popup Overlay
+// *************************
 .ui-popup-overlay {
 	display: none;
 	background-image: url("images/popup/core_theme_bg_dim.png");
@@ -159,9 +159,9 @@ Popup Overlay
 	z-index: @z_base_popup;
 }
 
-/*************************
-Activity Popup
-**************************/
+// *************************
+// Activity Popup
+// *************************
 .ui-popup.ui-popup-activity .ui-popup-content {
 	text-align: right;
 
@@ -208,15 +208,15 @@ Activity Popup
 		margin-left: 32 * @unit_base;
 		background-color: @color_popup_activity_indicator_a;
 		mask-image: url("images/core_activity_indicator_a.svg"),
-				url("images/core_activity_indicator_b.svg"),
-				url("images/core_activity_indicator_c.svg");
+		url("images/core_activity_indicator_b.svg"),
+		url("images/core_activity_indicator_c.svg");
 		mask-size: 100% 100%, 100% 100%, 100% 100%;
 		float: right;
 		animation-name: popup-activity;
 		animation-duration: 1s;
 		animation-timing-function: linear;
 		animation-iteration-count: infinite;
-		}
+	}
 }
 
 .ui-popup.ui-popup-activity.ui-popup-activity-medium .ui-popup-content {
@@ -234,8 +234,8 @@ Activity Popup
 		background-color: @color_popup_activity_indicator_a;
 		float: left;
 		mask-image: url("images/core_activity_indicator_a.svg"),
-				url("images/core_activity_indicator_b.svg"),
-				url("images/core_activity_indicator_c.svg");
+		url("images/core_activity_indicator_b.svg"),
+		url("images/core_activity_indicator_c.svg");
 		mask-size: 100% 100%, 100% 100%, 100% 100%;
 		animation-name: popup-activity;
 		animation-duration: 1s;

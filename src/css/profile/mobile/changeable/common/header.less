@@ -1,4 +1,4 @@
-/* Header style */
+// Header style
 .ui-header, header {
 	position: relative;
 	width: 100%;
@@ -6,7 +6,7 @@
 	min-height: 110 * @unit_base;
 	overflow: hidden;
 	border: none;
-	background: @color_bar_header_bg; /* Header Background */
+	background: @color_bar_header_bg; // Header Background
 	color: @color_bar_title_text;
 	transform: translateZ(0);
 	flex-shrink: 0;
@@ -41,7 +41,7 @@
 		.order(0);
 		color: @color_bar_title_text;
 		font-size: @font_size_bar_title_text;
-		font-weight: 200; /* tizen font weight tuning */
+		font-weight: 200; // tizen font weight tuning
 		line-height: 67 * @unit_base;
 		font-stretch: condensed;
 		text-overflow: ellipsis;
@@ -112,6 +112,7 @@
 		}
 
 		&::before {
+			box-sizing: border-box;
 			position: absolute;
 			content: "";
 			width: 100%;
@@ -214,11 +215,11 @@
 
 @keyframes header_btn_press_animation {
 	0% {
-		transform: translate(-50%, -50%) scale(0.9);
+		transform: translate(-50%, -50%) scale(.9);
 		opacity: 0;
 	}
 	5% {
-		transform: translate(-50%, -50%) scale(0.9);
+		transform: translate(-50%, -50%) scale(.9);
 		opacity: 1;
 	}
 	100% {

@@ -1,96 +1,91 @@
 @unit_ux: @unit_base / 4;
 
-/*** less definitions ***/
-
 .ui-virtualgrid {
-	overflow : hidden;
-	position : absolute;
+	overflow: hidden;
+	position: absolute;
 }
 
 .ui-virtualgrid-wrapblock {
-	position : absolute;
-	left : 0;
+	position: absolute;
+	left: 0;
 }
 
 .ui-virtualgrid-wrapblock-x {
-	float : left;
+	float: left;
 	overflow: hidden;
 }
 
 .ui-virtualgrid-wrapblock-y {
-	float : left;
+	float: left;
 	overflow: hidden;
 }
 
 .ui-scrollbar-thumb-x {
-	width : 1.5rem !important;
+	width: 1.5rem !important;
 }
 
 .ui-scrollbar-thumb-y {
-	height : 1.5rem !important;
+	height: 1.5rem !important;
 }
 
 .ui-virtualgrid-overflow-indicator-x-top {
-	position : absolute;
-	display : block;
-	left : 0;
-	top : 0;
-	width : 56%;
-	height : 100%;
-	opacity : 0;
-	background-repeat : no-repeat;
-	.background-size(100% 100%);
-	background-image: url(./images/00_grid_overscrolling_left.png);
-	pointer-events : none;
+	position: absolute;
+	display: block;
+	left: 0;
+	top: 0;
+	width: 56%;
+	height: 100%;
+	opacity: 0;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url('./images/00_grid_overscrolling_left.png');
+	pointer-events: none;
 }
 
 .ui-virtualgrid-overflow-indicator-x-bottom {
-	position : absolute;
-	display : block;
-	right : 0;
-	bottom : 0;
-	width : 56%;
-	height : 100%;
-	opacity : 0;
-	background-repeat : no-repeat;
-	.background-size(100% 100%);
-	background-image: url(./images/00_grid_overscrolling_right.png);
-	pointer-events : none;
+	position: absolute;
+	display: block;
+	right: 0;
+	bottom: 0;
+	width: 56%;
+	height: 100%;
+	opacity: 0;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url('./images/00_grid_overscrolling_right.png');
+	pointer-events: none;
 }
 
 .ui-virtualgrid-overflow-indicator-y-top {
-	position : absolute;
-	display : block;
-	top : 0;
-	width : 100%;
-	height : 32%;
-	opacity : 0;
-	background-repeat : no-repeat;
-	.background-size(100% 100%);
-	background-image: url(./images/00_grid_overscrolling_top.png);
-	pointer-events : none;
+	position: absolute;
+	display: block;
+	top: 0;
+	width: 100%;
+	height: 32%;
+	opacity: 0;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url('./images/00_grid_overscrolling_top.png');
+	pointer-events: none;
 }
 
 .ui-virtualgrid-overflow-indicator-y-bottom {
-	position : absolute;
-	display : block;
-	bottom : 0;
-	width : 100%;
-	height : 32%;
-	opacity : 0;
-	background-repeat : no-repeat;
-	.background-size(100% 100%);
+	position: absolute;
+	display: block;
+	bottom: 0;
+	width: 100%;
+	height: 32%;
+	opacity: 0;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 	background-image: url(./images/00_grid_overscrolling_bottom.png);
-	pointer-events : none;
+	pointer-events: none;
 }
 
-/*
- * padding here set to zero - otherwise the list scrolls underneith the top heading and can be seen above it
- */
+// padding here set to zero - otherwise the list scrolls underneith the top heading and can be seen above it
 .ui-content.ui-virtualgrid-content {
-  padding : 0;
+	padding: 0;
 }
-
 
 .ui-virtualgrid {
 
@@ -154,7 +149,7 @@
 			width: 304 * @unit_ux;
 			height: 304 * @unit_ux;
 			overflow: hidden;
-			background-color: rgb(26,70,95);
+			background-color: rgb(26, 70, 95);
 			position: relative;
 			img {
 				width: 200 * @unit_ux;
@@ -202,7 +197,7 @@
 			.grid-thumbnail-subtext {
 				overflow: hidden;
 				text-overflow: ellipsis;
-				color: rgb(128,128,128);
+				color: rgb(128, 128, 128);
 				font-size: 22 * @unit_ux;
 				margin-top: -6 * @unit_ux;
 				display: block;
@@ -246,7 +241,7 @@
 			.ui-btn-inner {
 				border: solid rgb(255, 169, 85) 10 * @unit_ux;
 			}
-			.ui-btn-text{
+			.ui-btn-text {
 				margin: -10  * @unit_ux;
 			}
 		}

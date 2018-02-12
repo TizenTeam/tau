@@ -1,4 +1,4 @@
-/* Basic checkbox */
+// Basic checkbox
 input[type="checkbox"].ui-checkbox:not(.ui-toggle-switch) {
 	position: relative;
 	height: 50 * @unit_base;
@@ -53,7 +53,7 @@ input[type="checkbox"].ui-checkbox:not(.favorite) {
 	}
 }
 
-/* Favorite checkbox */
+// Favorite checkbox
 input[type="checkbox"].ui-checkbox.favorite {
 	border: none;
 	width: 80 * @unit_base;
@@ -71,12 +71,12 @@ input[type="checkbox"].ui-checkbox.favorite {
 
 	&::after {
 		background-color: @color_checkboxradio_favorite_on;
-	 	opacity: 0;
-	 	mask-image: url("images/controls/core_icon_favorite_on.svg");
-		transition:transform 300ms ease-out 100ms, opacity 500ms ease-out;
-	 	transform: scale(0);
-	  	backface-visibility: hidden;
-	 }
+		opacity: 0;
+		mask-image: url("images/controls/core_icon_favorite_on.svg");
+		transition: transform 300ms ease-out 100ms, opacity 500ms ease-out;
+		transform: scale(0);
+		backface-visibility: hidden;
+	}
 	&:checked:disabled::after {
 		background-color: @color_checkboxradio_favorite_dim;
 		transform: none;
@@ -92,10 +92,10 @@ input[type="checkbox"].ui-checkbox.favorite {
 	}
 
 	&:checked:disabled::before {
-		background-color : transparent;
+		background-color: transparent;
 	}
 
-	&:disabled::before{
+	&:disabled::before {
 		background-color: @color_checkboxradio_favorite_dim;
 	}
 }
