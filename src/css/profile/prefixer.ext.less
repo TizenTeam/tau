@@ -6,6 +6,7 @@
 	-o-mask-image: url(@url1), url(@url2), url(@url3);
 	mask-image: url(@url1), url(@url2), url(@url3);
 }
+
 .mask-image(@url1, @url2) {
 	-webkit-mask-image: url(@url1), url(@url2);
 	-moz-mask-image: url(@url1), url(@url2);
@@ -54,7 +55,7 @@
 	mask-box-image-source: url(@value);
 }
 
-.mask-box-image-source(@value) when (@value = none){
+.mask-box-image-source(@value) when (@value = none) {
 	-webkit-mask-box-image-source: none;
 	-moz-mask-box-image-source: none;
 	-ms-mask-box-image-source: none;
@@ -170,7 +171,7 @@
 
 .gradient-circural(@position, @startColor, @endColor, @radius) {
 	background-image: -webkit-gradient(radial, @position, 0, 50% 50%, @radius, from(@startColor), to(@endColor));
-  background-image: -moz-radial-gradient(@position, circle, @startColor 0, @endColor ~"@{radius}px");
+	background-image: -moz-radial-gradient(@position, circle, @startColor 0, @endColor ~"@{radius}px");
 	background-image: -ms-radial-gradient(@position, circle cover, @startColor, @endColor ~"@{radius}%");
 	background-image: -o-radial-gradient(@position, circle cover, @startColor, @endColor ~"@{radius}%");
 	background-image: radial-gradient(~"circle at @{position}", @startColor, @endColor ~"@{radius}%");
@@ -184,9 +185,6 @@
 .appearance(@value) {
 	-webkit-appearance: @value;
 	-moz-appearance: @value;
-	-ms-appearance: @value;
-	-o-appearance: @value;
-	appearance: @value;
 }
 
 // prefixer's tprop function fails with 2 arguments, and we dont want strings
@@ -325,19 +323,19 @@
 }
 
 .flex-direction(@dir) {
-	-webkit-flex-direction : @dir;
-	-moz-flex-direction : @dir;
-	-ms-flex-direction : @dir;
-	-o-flex-direction : @dir;
-	flex-direction : @dir;
+	-webkit-flex-direction: @dir;
+	-moz-flex-direction: @dir;
+	-ms-flex-direction: @dir;
+	-o-flex-direction: @dir;
+	flex-direction: @dir;
 }
 
 .flex-wrap(@wrap) {
-	-webkit-flex-wrap : @wrap;
-	-moz-flex-wrap : @wrap;
-	-ms-flex-wrap : @wrap;
-	-o-flex-wrap : @wrap;
-	flex-wrap : @wrap;
+	-webkit-flex-wrap: @wrap;
+	-moz-flex-wrap: @wrap;
+	-ms-flex-wrap: @wrap;
+	-o-flex-wrap: @wrap;
+	flex-wrap: @wrap;
 }
 
 .order(@value) {
@@ -357,27 +355,27 @@
 }
 
 .justify-content(@value) {
-	-webkit-justify-content : @value;
-	-moz-justify-content : @value;
-	-ms-justify-content : @value;
-	-o-justify-content : @value;
-	justify-content : @value;
+	-webkit-justify-content: @value;
+	-moz-justify-content: @value;
+	-ms-justify-content: @value;
+	-o-justify-content: @value;
+	justify-content: @value;
 }
 
 .align-content(@value) {
-	-webkit-align-content : @value;
-	-moz-align-content : @value;
-	-ms-align-content : @value;
-	-o-align-content : @value;
-	align-content : @value;
+	-webkit-align-content: @value;
+	-moz-align-content: @value;
+	-ms-align-content: @value;
+	-o-align-content: @value;
+	align-content: @value;
 }
 
 .align-items(@value) {
-	-webkit-align-items : @value;
-	-moz-align-items : @value;
-	-ms-align-items : @value;
-	-o-align-items : @value;
-	align-items : @value;
+	-webkit-align-items: @value;
+	-moz-align-items: @value;
+	-ms-align-items: @value;
+	-o-align-items: @value;
+	align-items: @value;
 }
 
 .align-self(@value) {
@@ -408,7 +406,6 @@
 	-webkit-backface-visibility: @value;
 	-moz-backface-visibility: @value;
 	-ms-backface-visibility: @value;
-	-o-backface-visibility: @value;
 	backface-visiblity: @value;
 }
 
