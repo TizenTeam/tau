@@ -1,4 +1,3 @@
-
 /*
  * Common definition for theme
  */
@@ -13,10 +12,10 @@ so, we set @font_size_default as 17px on gear2 and it was changed to 16px since 
 This value only used for @rem_base, not for html font-size
 html font-size is set by WRT base font-size
 ***************************************************************/
-@font_size_default: 16px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
+@font_size_default: 16px; // Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
 
 @rem_base: (1rem/@font_size_default);
-@em_base: 1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
+@em_base: 1em/@font_size_default; // WARNING: Don't use em unit!	This value is to be removed.
 @px_base: 1px;
 
 @unit_base: @rem_base;
@@ -40,7 +39,12 @@ html font-size is set by WRT base font-size
 	left: -999px;
 }
 
-.screen-hidden { visibility: hidden; position: absolute; top: -10000em; left: -10000em;}
+.screen-hidden {
+	visibility: hidden;
+	position: absolute;
+	top: -10000em;
+	left: -10000em;
+}
 
 /***************************************************************************
                    Default Style.
@@ -78,10 +82,10 @@ img {
 .LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:         linear-gradient(@from, @startcolor, @endcolor);
+	background-image: -moz-linear-gradient(@from, @startcolor, @endcolor);
+	background-image: -ms-linear-gradient(@from, @startcolor, @endcolor);
+	background-image: -o-linear-gradient(@from, @startcolor, @endcolor);
+	background-image: linear-gradient(@from, @startcolor, @endcolor);
 }
 
 .LESSbackground-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #5c5c5c) {
@@ -103,46 +107,53 @@ img {
 
 // Mixin : border ***************************
 .LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
-	-moz-border-image:  url(@url) @width @height @repeat;
+	-moz-border-image: url(@url) @width @height @repeat;
 	-webkit-border-image: url(@url) @width @height @repeat;
 	-o-border-image: url(@url) @width @height @repeat;
 	-ms-border-image: url(@url) @width @height @repeat;
 	border-image: url(@url) @width @height @repeat;
 }
+
 .LESSborder-radius-topleft(@radius) {
-	-moz-border-radius-topleft: 		@radius;
-	-webkit-border-top-left-radius: 	@radius;
-	border-top-left-radius: 			@radius;
+	-moz-border-radius-topleft: @radius;
+	-webkit-border-top-left-radius: @radius;
+	border-top-left-radius: @radius;
 }
+
 .LESSborder-radius-topright(@radius) {
-	-moz-border-radius-topright: 		@radius;
-	-webkit-border-top-right-radius: 	@radius;
-	border-top-right-radius: 			@radius;
+	-moz-border-radius-topright: @radius;
+	-webkit-border-top-right-radius: @radius;
+	border-top-right-radius: @radius;
 }
+
 .LESSborder-radius-bottomleft(@radius) {
-	-moz-border-radius-bottomleft: 		@radius;
-	-webkit-border-bottom-left-radius: 	@radius;
-	border-bottom-left-radius: 			@radius;
+	-moz-border-radius-bottomleft: @radius;
+	-webkit-border-bottom-left-radius: @radius;
+	border-bottom-left-radius: @radius;
 }
+
 .LESSborder-radius-bottomright(@radius) {
-	-moz-border-radius-bottomright: 		@radius;
-	-webkit-border-bottom-right-radius: 	@radius;
-	border-bottom-right-radius: 			@radius;
+	-moz-border-radius-bottomright: @radius;
+	-webkit-border-bottom-right-radius: @radius;
+	border-bottom-right-radius: @radius;
 }
+
 .LESSborder-radius-all(@radius) {
-	-o-border-radius:	@radius;
-	-ms-border-radius:	@radius;
-	-moz-border-radius: 	@radius;
-	-webkit-border-radius: 	@radius;
-	border-radius: 		@radius;
+	-o-border-radius: @radius;
+	-ms-border-radius: @radius;
+	-moz-border-radius: @radius;
+	-webkit-border-radius: @radius;
+	border-radius: @radius;
 }
+
 .LESSborder-radius-allimportant(@radius) {
-	-o-border-radius:	@radius ! important;
-	-ms-border-radius:	@radius ! important;
-	-moz-border-radius: 	@radius ! important;
-	-webkit-border-radius: 	@radius ! important;
-	border-radius: 		@radius ! important;
+	-o-border-radius: @radius ! important;
+	-ms-border-radius: @radius ! important;
+	-moz-border-radius: @radius ! important;
+	-webkit-border-radius: @radius ! important;
+	border-radius: @radius ! important;
 }
+
 // Mixin : box ***************************
 .LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
 	-o-box-shadow: @hshadow @vshadow @blur @color;

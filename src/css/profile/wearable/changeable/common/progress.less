@@ -53,7 +53,7 @@
 progress {
 	position: relative;
 	padding-left: 16 * @unit_base;
-	padding-right:16 * @unit_base;
+	padding-right: 16 * @unit_base;
 	margin-top: 14 * @unit_base;
 	margin-bottom: 14 * @unit_base;
 	width: 100%;
@@ -71,7 +71,7 @@ progress::-webkit-progress-bar {
 
 progress::-webkit-progress-value {
 	background-color: @color_progressbar_value_bg;
-	height:6 * @unit_base;
+	height: 6 * @unit_base;
 	border-radius: 2 * @unit_base;
 	overflow: hidden;
 }
@@ -79,6 +79,7 @@ progress::-webkit-progress-value {
 progress.ui-progress-indeterminate::-webkit-progress-bar {
 	background-color: @color_progressbar_value_bg;
 }
+
 progress.ui-progress-indeterminate::-webkit-progress-value {
 	background-size: 100% 100%;
 	.animation(indeterminate 150ms infinite);

@@ -17,13 +17,21 @@ Popup Transition
 }
 
 .w-pupup-popupslideinfrombottom() {
-    from { .transform(translateY(100%)); }
-    to { .transform(translateY(0%)); }
+	from {
+		.transform(translateY(100%));
+	}
+	to {
+		.transform(translateY(0%));
+	}
 }
 
 .w-popup-slideouttobottom() {
-    from { .transform(translateY(0%)); }
-    to { .transform(translateY(100%)); }
+	from {
+		.transform(translateY(0%));
+	}
+	to {
+		.transform(translateY(100%));
+	}
 }
 
 @-webkit-keyframes popupslideinfrombottom {
@@ -86,21 +94,22 @@ Popup Transition
 }
 
 @-webkit-keyframes popuppopin {
-    from {
+	from {
 		transform: scale3d(1.35, 1.35, 1);
 		opacity: 0;
 	}
-    to {
+	to {
 		transform: scale3d(1, 1, 1);
 		opacity: 1;
 	}
 }
+
 @-webkit-keyframes popuppopout {
-    from {
+	from {
 		transform: scale3d(1, 1, 1);
 		opacity: 1;
 	}
-    to {
+	to {
 		transform: scale3d(1.35, 1.35, 1);
 		opacity: 0;
 	}
@@ -110,46 +119,48 @@ Popup Transition
 Toast Popup Transition
 ****************************************/
 .ui-popup.ui-popup-toast {
-    &.pop.in {
-        -webkit-animation-name: toastpopuppopin !important;
-        -webkit-animation-duration: 250ms;
-        -webkit-transition-timing-function: ease-in-out;
-        animation-name: toastpopuppopin !important;
-        animation-duration: 250ms;
-        transition-timing-function: ease-in-out;
-    }
-    &.pop.out {
-        -webkit-animation-name: toastpopuppopout !important;
-        -webkit-animation-duration: 250ms;
-        -webkit-transition-timing-function: ease-in-out;
-        -webkit-animation-fill-mode: forwards;
-        animation-name: toastpopuppopout !important;
-        animation-duration: 250ms;
-        animation-fill-mode: forwards;
-        transition-timing-function: ease-in-out;
-    }
+	&.pop.in {
+		-webkit-animation-name: toastpopuppopin !important;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: toastpopuppopin !important;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+	&.pop.out {
+		-webkit-animation-name: toastpopuppopout !important;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		-webkit-animation-fill-mode: forwards;
+		animation-name: toastpopuppopout !important;
+		animation-duration: 250ms;
+		animation-fill-mode: forwards;
+		transition-timing-function: ease-in-out;
+	}
 }
 
 @-webkit-keyframes toastpopuppopin {
-    from {
-        -webkit-transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        -webkit-transform: translateY(0%);
-        opacity: 1;
-    }
+	from {
+		-webkit-transform: translateY(100%);
+		opacity: 0;
+	}
+	to {
+		-webkit-transform: translateY(0%);
+		opacity: 1;
+	}
 }
+
 @-webkit-keyframes toastpopuppopout {
-    from {
-        -webkit-transform: translateY(0%);
-        opacity: 1;
-    }
-    to {
-        -webkit-transform: translateY(100%);
-        opacity: 0;
-    }
+	from {
+		-webkit-transform: translateY(0%);
+		opacity: 1;
+	}
+	to {
+		-webkit-transform: translateY(100%);
+		opacity: 0;
+	}
 }
+
 /****************************************
 Popup Overlay Transition
 ****************************************/
@@ -175,6 +186,7 @@ Option Popup Transition
 		.animation(ctxpopupslideouttobottom 250ms ease-in-out);;
 	}
 }
+
 .ui-popup.ui-popup-arrow-b {
 	&.slideup.in {
 		.animation(ctxpopupslideinfromtop 250ms ease-in-out);
@@ -185,25 +197,48 @@ Option Popup Transition
 }
 
 .w-popup-ctxpopupslideinfrombottom() {
-	from { transform: translateY(20%); opacity: 0.0;}
-	to { transform: translateY(0%); opacity: 1.0; }
+	from {
+		transform: translateY(20%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0%);
+		opacity: 1;
+	}
 }
 
 .w-popup-ctxpopupslideouttobottom() {
-	from { transform: translateY(0%); opacity: 1.0;}
-	to { transform: translateY(20%); opacity: 0.0;}
+	from {
+		transform: translateY(0%);
+		opacity: 1;
+	}
+	to {
+		transform: translateY(20%);
+		opacity: 0;
+	}
 }
 
 .w-popup-ctxpopupslideinfromtop() {
-	from { transform: translateY(-20%); opacity: 0.0;}
-	to { transform: translateY(0%); opacity: 1.0; }
+	from {
+		transform: translateY(-20%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0%);
+		opacity: 1;
+	}
 }
 
 .w-popup-ctxpopupslideouttotop() {
-	from { transform: translateY(0%); opacity: 1.0;}
-	to { transform: translateY(-20%); opacity: 0.0;}
+	from {
+		transform: translateY(0%);
+		opacity: 1;
+	}
+	to {
+		transform: translateY(-20%);
+		opacity: 0;
+	}
 }
-
 
 @-webkit-keyframes ctxpopupslideinfrombottom {
 	.w-popup-ctxpopupslideinfrombottom();

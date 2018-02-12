@@ -7,7 +7,7 @@ Normal Popup
 .ui-popup {
 	position: fixed;
 	left: 0;
-	width:100%;
+	width: 100%;
 	margin: 0;
 	background-color: @color_popup_bg;
 	border: 3px solid @color_popup_border;
@@ -42,7 +42,7 @@ Normal Popup
 		color: @color_text;
 		background-color: @color_popup_bg;
 		padding: 10*@px_base 16*@px_base 9*@px_base 16*@px_base;
-		overflow:auto;
+		overflow: auto;
 		.touch-scrolling();
 
 		.ui-listview,
@@ -82,15 +82,15 @@ Normal Popup
 	}
 
 	&.ui-popup-active {
-		display:block;
+		display: block;
 	}
 
 	&.in {
-		display:block;
+		display: block;
 	}
 
 	&.ui-build {
-		display:block;
+		display: block;
 		visibility: hidden;
 	}
 }
@@ -99,11 +99,11 @@ Normal Popup
 Popup Container Scroll
 ***********************/
 .ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
-	max-height:100%;
+	max-height: 100%;
 
 	.ui-popup-wrapper {
-		width:100%;
-		max-height:100%;
+		width: 100%;
+		max-height: 100%;
 		overflow: auto !important;
 		.touch-scrolling();
 	}
@@ -126,7 +126,7 @@ Popup Container Scroll
 		left: 0;
 		width: 100%;
 		z-index: @z_base_popup + @z_base_header_footer;
-		-webkit-transform : translate3d(0, 0, 0);
+		-webkit-transform: translate3d(0, 0, 0);
 	}
 }
 
@@ -142,7 +142,7 @@ Option Popup
 
 	div&.ui-popup-content-size {
 		width: auto;
-		padding:0 0 0 0;
+		padding: 0 0 0 0;
 		.ui-popup-content {
 			width: auto;
 		}
@@ -163,8 +163,8 @@ Option Popup
 
 			a {
 				color: @color_option_popup_list_text;
-				margin: -21*@px_base -16*@px_base;	// Fill-up to the parent li
-				padding: 21*@px_base 16*@px_base;	// Compensate lost padding of li
+				margin: -21*@px_base -16*@px_base; // Fill-up to the parent li
+				padding: 21*@px_base 16*@px_base; // Compensate lost padding of li
 				min-height: 48*@px_base;
 				&:active {
 					color: @color_option_popup_list_text_pressed;
@@ -173,22 +173,22 @@ Option Popup
 			}
 
 			&:last-child {
-				border:none;
+				border: none;
 			}
 		}
 
 		.ui-listview .ui-list-icon {
-			position:relative;
-			padding-left:68*@unit_base;
+			position: relative;
+			padding-left: 68*@unit_base;
 
 			a {
-				margin-left:-68*@unit_base;
-				padding-left:68*@unit_base;
+				margin-left: -68*@unit_base;
+				padding-left: 68*@unit_base;
 			}
 
 			&::before {
 				content: "";
-				position:absolute;
+				position: absolute;
 				top: 50%;
 				left: 6*@unit_base;
 				width: 56*@unit_base;
@@ -205,22 +205,22 @@ Option Popup
 
 		.ui-inline-listview {
 			height: 69*@unit_base;
-			overflow:hidden;
+			overflow: hidden;
 
 			li {
-				float:left;
+				float: left;
 				height: 67*@unit_base;
 				line-height: 67*@unit_base;
 				border-right: 1px solid @color_option_popup_inline_list_border;
 
 				&:last-child {
-					border:none;
+					border: none;
 				}
 
 				a {
-					display:block;
-					width:100%;
-					height:100%;
+					display: block;
+					width: 100%;
+					height: 100%;
 					padding: 0*@unit_base 8*@unit_base;
 					color: @color_option_popup_list_text;
 					&:active {
@@ -231,15 +231,15 @@ Option Popup
 			}
 
 			.ui-list-icon-notext {
-				width:59*@unit_base;
+				width: 59*@unit_base;
 				height: 67*@unit_base;
 				text-indent: -1000em;
 				overflow: hidden;
-				position:relative;
+				position: relative;
 
 				&::before {
 					content: "";
-					position:absolute;
+					position: absolute;
 					top: 50%;
 					left: 50%;
 					width: 43*@unit_base;
@@ -272,20 +272,20 @@ Option Popup
 			height: 20*@px_base;
 			background-color: @color_option_popup_bg;
 			border: 1px solid @color_option_popup_border;
-			position:absolute;
-			top:6*@px_base;
-			left:8*@px_base;
+			position: absolute;
+			top: 6*@px_base;
+			left: 8*@px_base;
 			.transform(rotate(55deg) skew(24deg));
 			.animation-duration(0);
 		}
 	}
 
 	&.ui-popup-arrow-b {
-		padding:20*@px_base 20*@px_base 0 20*@px_base;
+		padding: 20*@px_base 20*@px_base 0 20*@px_base;
 	}
 
 	&.ui-popup-arrow-t {
-		padding:0 20*@px_base 20*@px_base 20*@px_base;
+		padding: 0 20*@px_base 20*@px_base 20*@px_base;
 	}
 
 	&.ui-popup-arrow-r {
@@ -299,20 +299,20 @@ Option Popup
 	&.ui-popup-arrow-b .ui-arrow {
 		display: block;
 		bottom: -14*@px_base;
-	  .rotate(180deg);
+		.rotate(180deg);
 	}
 	&.ui-popup-arrow-t .ui-arrow {
 		display: block;
-		top:-14*@px_base;
+		top: -14*@px_base;
 	}
 	&.ui-popup-arrow-r .ui-arrow {
 		display: block;
-		right:-25*@px_base;
+		right: -25*@px_base;
 		.rotate(90deg);
 	}
 	&.ui-popup-arrow-l .ui-arrow {
 		display: block;
-		left:-25*@px_base;
+		left: -25*@px_base;
 		.rotate(-90deg);
 	}
 }
@@ -372,7 +372,7 @@ Popup Overlay
 ****************************************/
 .ui-popup-overlay {
 	position: fixed;
-	display:none;
+	display: none;
 	top: 0;
 	width: 100%;
 	height: 100%;
@@ -380,6 +380,6 @@ Popup Overlay
 	background-color: @color_popup_overlay;
 
 	&.in {
-		display:block;
+		display: block;
 	}
 }

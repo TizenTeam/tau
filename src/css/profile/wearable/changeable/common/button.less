@@ -9,11 +9,11 @@
 	height: 85 * @unit_base;
 	text-align: center;
 	white-space: nowrap;
-	cursor:pointer;
+	cursor: pointer;
 	vertical-align: middle;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	border:0 none;
+	border: 0 none;
 	.ui-default;
 
 	&.ui-multiline {
@@ -36,16 +36,16 @@
 
 		&::before {
 			content: "";
-			-webkit-mask-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
-			-webkit-mask-repeat: no-repeat;
-			-webkit-mask-position: 0 0;
+			mask-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
+			mask-repeat: no-repeat;
+			mask-position: 0 0;
 			width: @fixed_button_icon_bg_size;
 			height: @fixed_button_icon_bg_size;
-			top : 50%;
+			top: 50%;
 			left: 50%;
 			transform: translate3d(-50%, -50%, 0);
 			position: absolute;
-			-webkit-mask-image: none;
+			mask-image: none;
 			background-position: center center;
 			background-repeat: no-repeat;
 		}
@@ -95,7 +95,7 @@
 
 		&.ui-btn-active::before {
 			transform: translate(-50%, -50%) scale(1.1);
-			animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
+			animation: touch-text-btn-scale cubic-bezier(.25, .46, .45, 1) 300ms, touch-text-btn-opacity linear 733ms;
 		}
 	}
 
@@ -112,7 +112,7 @@
 		}
 
 		&.ui-btn-active {
-			animation: btn-circle-opacity-press cubic-bezier(0.25,0.46,0.45,1.0) 300ms;
+			animation: btn-circle-opacity-press cubic-bezier(.25, .46, .45, 1) 300ms;
 		}
 	}
 
@@ -177,7 +177,6 @@
 	}
 }
 
-
 @keyframes touch-text-btn-scale {
 	0% {
 		transform: translate(-50%, -50%) scale(1);
@@ -188,14 +187,13 @@
 	}
 }
 
-
 @keyframes touch-text-btn-opacity {
 	0% {
-		opacity: 0.13;
+		opacity: .13;
 	}
 	// 533ms
 	72% {
-		opacity: 0.13;
+		opacity: .13;
 	}
 	// 733ms
 	100% {
@@ -209,11 +207,11 @@
 	}
 	// period 17ms
 	3% {
-		opacity: 0.4;
+		opacity: .4;
 	}
 	// period 350ms
 	65% {
-		opacity: 0.4;
+		opacity: .4;
 	}
 	// 200ms
 	100% {
@@ -238,7 +236,6 @@
 		opacity: 0;
 	}
 }
-
 
 .ui-default {
 	color: @color_button_default_text;
@@ -316,7 +313,9 @@
 	}
 }
 
-.ui-btn:focus, .ui-btn:active { outline: none; }
+.ui-btn:focus, .ui-btn:active {
+	outline: none;
+}
 
 a.ui-btn {
 	text-decoration: none;
@@ -330,7 +329,7 @@ button.ui-btn, input.ui-btn {
 
 	&.ui-inline {
 		display: inline-block;
-		width:auto;
+		width: auto;
 	}
 }
 
@@ -338,9 +337,9 @@ button.ui-btn, input.ui-btn {
 	.ui-grid-col-btn((@counter - 1));
 
 	.ui-grid-col-@{counter} > .ui-btn {
-		border-left:solid 1px @color_bg;
+		border-left: solid 1px @color_bg;
 		&:first-child {
-			border-left:0 none;
+			border-left: 0 none;
 		}
 	}
 }
