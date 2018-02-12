@@ -18,14 +18,20 @@
  * # Selector Component
  *
  * Selector component is special component that has unique UX of Tizen wearable profile.
- * Selector component has been used in more options commonly but If you want to use other situation then you can use
- * this component as standalone component in everywhere.
- * Selector component was consisted as selector element and item elements. You can set the item selector, each items locate degree and radius.
- * Selector component has made layers automatically. Layer has items and you can set items number on one layer.
- * Indicator is indicator that located center of Selector. We provide default indicator style and function.
- * But, If you want to change indicator style and function, you can make the custom indicator and set your indicator for operate with Selector.
- * Indicator arrow is special indicator style that has the arrow. That was used for provide more correct indicate information for user.
- * Also, you can make the custom indicator arrow and set your custom indicator arrow for operate with Selector.
+ * Selector component has been used in more options commonly but If you want to use other situation
+ * then you can use this component as standalone component in everywhere.
+ * Selector component was consisted as selector element and item elements. You can set the item
+ * selector, each items locate degree and radius.
+ * Selector component has made layers automatically. Layer has items and you can set items number
+ * on one layer.
+ * Indicator is indicator that located center of Selector. We provide default indicator style and
+ * function.
+ * But, If you want to change indicator style and function, you can make the custom indicator and
+ * set your indicator for operate with Selector.
+ * Indicator arrow is special indicator style that has the arrow. That was used for provide more
+ * correct indicate information for user.
+ * Also, you can make the custom indicator arrow and set your custom indicator arrow for operate
+ * with Selector.
  * Selector provide to control for arrow indicate active item position.
  *
  * ## HTML example
@@ -72,13 +78,24 @@
  * ## Options
  * Selector component options
  *
- * {string} itemSelector [options.itemSelector=".ui-item"] or You can set attribute on tag [data-item-selector=".ui-item] Selector item selector that style is css selector.
- * {string} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] or You can set attribute on tag [data-indicator-selector=".ui-selector-indicator"] Selector indicator selector that style is css selector.
- * {string} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] or You can set attribute on tag [data-indicator-arrow-selector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
- * {number} itemDegree [options.itemDegree=30] or You can set attribute on tag [data-item-degree=30] Items degree each other.
- * {number} itemRadius [options.itemRadius=140] or You can set attribute on tag [data-item-radius=140] Items radius between center and it.
- * {number} maxItemNumber [options.maxItemNumber=11] or You can set attribute on tag [data-max-item-number=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
- * {boolean} indicatorAutoControl [options.indicatorAutoControl=true] or You can set attribute on tag [data-indicator-auto-control=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
+ * {string} itemSelector [options.itemSelector=".ui-item"] or You can set attribute on tag
+ * [data-item-selector=".ui-item] Selector item selector that style is css selector.
+ * {string} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] or You can set
+ * attribute on tag [data-indicator-selector=".ui-selector-indicator"] Selector indicator selector
+ * that style is css selector.
+ * {string} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"]
+ * or You can set attribute on tag [data-indicator-arrow-selector=".ui-selector-indicator-arrow"]
+ * Selector indicator arrow selector that style is css style.
+ * {number} itemDegree [options.itemDegree=30] or You can set attribute on tag
+ * [data-item-degree=30] Items degree each other.
+ * {number} itemRadius [options.itemRadius=140] or You can set attribute on tag
+ * [data-item-radius=140] Items radius between center and it.
+ * {number} maxItemNumber [options.maxItemNumber=11] or You can set attribute on tag
+ * [data-max-item-number=11] Max item number on one layer. If you change the itemDegree, we
+ * recommend to consider to modify this value for fit your Selector layout.
+ * {boolean} indicatorAutoControl [options.indicatorAutoControl=true] or You can set attribute on
+ * tag [data-indicator-auto-control=true] Indicator auto control switch. If you want to control
+ * your indicator manually, change this options to false.
  *
  * @class ns.widget.wearable.Selector
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
@@ -348,13 +365,23 @@
 				var self = this;
 				/**
 				 * Selector component options
-				 * @property {string} itemSelector [options.itemSelector=".ui-item"] Selector item selector that style is css selector.
-				 * @property {string} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] Selector indicator selector that style is css selector.
-				 * @property {string} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
+				 * @property {string} itemSelector [options.itemSelector=".ui-item"] Selector item selector
+				 * that style is css selector.
+				 * @property {string} indicatorSelector
+				 * [options.indicatorSelector=".ui-selector-indicator"] Selector indicator selector that
+				 * style is css selector.
+				 * @property {string} indicatorArrowSelector
+				 * [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] Selector indicator
+				 * arrow selector that style is css style.
 				 * @property {number} itemDegree [options.itemDegree=30] Each items locate degree.
-				 * @property {number} itemRadius [options.itemRadius=-1] Items locate radius between center to it. Default value is determined by Selector element layout.
-				 * @property {number} maxItemNumber [options.maxItemNumber=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
-				 * @property {boolean} indicatorAutoControl [options.indicatorAutoControl=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
+				 * @property {number} itemRadius [options.itemRadius=-1] Items locate radius between center
+				 * to it. Default value is determined by Selector element layout.
+				 * @property {number} maxItemNumber [options.maxItemNumber=11] Max item number on one
+				 * layer. If you change the itemDegree, we recommend to consider to modify this value for
+				 * fit your Selector layout.
+				 * @property {boolean} indicatorAutoControl [options.indicatorAutoControl=true] Indicator
+				 * auto control switch. If you want to control your indicator manually, change this options
+				 * to false.
 				 */
 
 				self.options = utilsObject.merge(self.options, {
@@ -470,7 +497,8 @@
 					items = self._ui.items,
 					activeLayerIndex = self._getActiveLayer(),
 					activeItemIndex = self._getActiveItem(),
-					validLayout = element.offsetWidth > element.offsetHeight ? element.offsetHeight : element.offsetWidth,
+					validLayout = element.offsetWidth > element.offsetHeight ?
+						element.offsetHeight : element.offsetWidth,
 					i,
 					len;
 
@@ -479,11 +507,13 @@
 
 				self._activeItemIndex = activeItemIndex === null ? 0 : activeItemIndex;
 
-				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO : options.itemRadius;
+				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO :
+					options.itemRadius;
 				len = items.length;
 				for (i = 0; i < len; i++) {
 					utilDom.setNSData(items[i], "index", i);
-					setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+					setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, options.itemRadius,
+						-DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
 				}
 				if (activeLayerIndex === null) {
 					self._activeLayerIndex = 0;
@@ -764,7 +794,8 @@
 				}
 				if (items.length) {
 					items[index].classList.add(classes.ITEM_ACTIVE);
-					newTransformStyle = transform.replace(DEFAULT.ITEM_NORMAL_SCALE, DEFAULT.ITEM_ACTIVE_SCALE);
+					newTransformStyle = transform.replace(DEFAULT.ITEM_NORMAL_SCALE,
+						DEFAULT.ITEM_ACTIVE_SCALE);
 					items[index].style.transform = newTransformStyle;
 					items[index].style.webkitTransform = newTransformStyle;
 					if (self.options.indicatorAutoControl) {
@@ -834,7 +865,8 @@
 
 				utilDom.setNSData(indicator, "index", index);
 
-				setIndicatorTransform(indicatorArrow, DEFAULT.ITEM_START_DEGREE + self.options.itemDegree * idcIndex);
+				setIndicatorTransform(indicatorArrow, DEFAULT.ITEM_START_DEGREE + self.options.itemDegree *
+					idcIndex);
 			};
 
 			/**
@@ -1122,7 +1154,8 @@
 				} else if (targetElement.classList.contains(classes.LAYER_NEXT) && nextLayer) {
 					self._setNextLayer();
 				} else if (self._enabled && !self._editModeEnabled) {
-					if (pointedElement && (pointedElement.classList.contains(classes.INDICATOR) || pointedElement.parentElement.classList.contains(classes.INDICATOR))) {
+					if (pointedElement && (pointedElement.classList.contains(classes.INDICATOR) ||
+							pointedElement.parentElement.classList.contains(classes.INDICATOR))) {
 						indicatorClassList.remove(classes.INDICATOR_ACTIVE);
 						requestAnimationFrame(function () {
 							indicatorClassList.add(classes.INDICATOR_ACTIVE);
@@ -1239,13 +1272,15 @@
 				layer.classList.add(classes.LAYER_HIDE);
 				len = items.length;
 				for (i = 0; i < len; i++) {
-					setItemTransform(items[i], DEFAULT.ITEM_START_DEGREE, self.options.itemRadius, -DEFAULT.ITEM_START_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+					setItemTransform(items[i], DEFAULT.ITEM_START_DEGREE, self.options.itemRadius,
+						-DEFAULT.ITEM_START_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
 				}
 
 				setTimeout(function () {
 					len = items.length;
 					for (i = 0; i < len; i++) {
-						setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, self.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+						setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, self.options.itemRadius,
+							-DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
 					}
 					layer.classList.remove(classes.LAYER_HIDE);
 				}, 150);
@@ -1284,10 +1319,12 @@
 							(i < lastOnLayerIndex) &&
 							(i >= firstOnLayerIndex) &&
 							!items[i].classList.contains(classes.ITEM_PLACEHOLDER)) {
-							additionalDegree = DEFAULT.ITEM_START_DEGREE +
+							if (index >= lastOnLayerIndex) {
+								additionalDegree = DEFAULT.ITEM_START_DEGREE +
 									(options.itemDegree * maxItemNumber);
-							setItemTransform(items[i], additionalDegree, options.itemRadius,
-								-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
+								setItemTransform(items[i], additionalDegree, options.itemRadius,
+									-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
+							}
 							reorderedItems.push(i % maxItemNumber);
 						}
 					}
