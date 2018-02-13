@@ -5,6 +5,7 @@
 // Normal Popup
 //**********************
 .ui-popup {
+	box-sizing: border-box;
 	position: fixed;
 	left: 0;
 	width: 100%;
@@ -69,13 +70,13 @@
 				&::before {
 					content: "";
 					position: absolute;
-					-webkit-mask-size: 50 * @unit_base 50 * @unit_base;
-					-webkit-mask-repeat: no-repeat;
+					mask-size: 50 * @unit_base 50 * @unit_base;
+					mask-repeat: no-repeat;
 					width: 50 * @unit_base;
 					height: 50 * @unit_base;
 					top: 50%;
 					left: 50%;
-					-webkit-transform: translate3d(-50%, -50%, 0);
+					transform: translate3d(-50%, -50%, 0);
 				}
 			}
 		}
@@ -104,16 +105,16 @@
 	.ui-popup-wrapper {
 		width: 100%;
 		max-height: 100%;
-		overflow: auto !important;
+		overflow: auto;
 		.touch-scrolling();
 	}
 
 	.ui-popup-content {
-		height: auto !important;
+		height: auto;
 	}
 
 	.ui-popup-header.ui-fixed {
-		position: absolute !important;
+		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
@@ -121,12 +122,12 @@
 	}
 
 	.ui-popup-footer.ui-fixed {
-		position: absolute !important;
+		position: absolute;
 		bottom: 0;
 		left: 0;
 		width: 100%;
 		z-index: @z_base_popup + @z_base_header_footer;
-		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
 	}
 }
 
@@ -153,7 +154,6 @@
 		background-color: @color_option_popup_bg;
 		border: 1px solid @color_option_popup_border;
 		color: #333;
-		min-height: initial;
 
 		.ui-listview li {
 			color: @color_option_popup_list_text;
@@ -199,7 +199,7 @@
 				.mask-repeat(no-repeat)
 			}
 		}
-		.ui-listview a.ui-list-icon:active::before {
+		.ui-listview .ui-list-icon:active::before {
 			background-color: @color_option_popup_list_icon_bg_pressed;
 		}
 
@@ -252,7 +252,7 @@
 				}
 			}
 
-			a.ui-list-icon-notext:active::before {
+			.ui-list-icon-notext:active::before {
 				background-color: @color_option_popup_inline_list_icon_bg_pressed;
 			}
 
@@ -268,6 +268,7 @@
 		.animation-duration(0);
 
 		span {
+			box-sizing: border-box;
 			width: 20*@px_base;
 			height: 20*@px_base;
 			background-color: @color_option_popup_bg;
