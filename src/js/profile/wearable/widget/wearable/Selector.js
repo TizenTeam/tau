@@ -427,6 +427,33 @@
 				element.appendChild(ui.indicator);
 			}
 
+			prototype._buildIndicator = function (element) {
+				var self = this,
+					options = self.options,
+					ui = self._ui,
+					queryIndicator = element.querySelector(options.indicatorSelector),
+					queryIndicatorArrow = element.querySelector(options.indicatorArrowSelector),
+					queryIndicatorText = element.querySelector(options.indicatorTextSelector),
+					indicatorArrow;
+
+				if (queryIndicator) {
+					ui.indicator = queryIndicator;
+					if (queryIndicatorText) {
+						ui.indicatorText = queryIndicatorText;
+					}
+				} else {
+					createIndicator(ui, element);
+				}
+				if (queryIndicatorArrow) {
+					ui.indicatorArrow = queryIndicatorArrow;
+				} else {
+					indicatorArrow = document.createElement("div");
+					indicatorArrow.classList.add(classes.INDICATOR_ARROW);
+					ui.indicatorArrow = indicatorArrow;
+					element.appendChild(ui.indicatorArrow);
+				}
+			};
+
 			/**
 			 * Build Selector component
 			 * @method _build
@@ -440,44 +467,20 @@
 					ui = self._ui,
 					options = self.options,
 					items = element.querySelectorAll(self.options.itemSelector),
-					indicatorArrow,
-					queryIndicator,
-					queryIndicatorText,
-					queryIndicatorArrow,
 					layers;
 
 				if (items && items.length) {
-
 					layers = buildLayers(element, items, options);
 					element.classList.add(classes.SELECTOR);
 
 					if (options.indicatorAutoControl) {
-						queryIndicator = element.querySelector(options.indicatorSelector);
-						queryIndicatorArrow = element.querySelector(options.indicatorArrowSelector);
-						queryIndicatorText = element.querySelector(options.indicatorTextSelector);
-
-						if (queryIndicator) {
-							ui.indicator = queryIndicator;
-							if (queryIndicatorText) {
-								ui.indicatorText = queryIndicatorText;
-							}
-						} else {
-							createIndicator(ui, element);
-						}
-						if (queryIndicatorArrow) {
-							ui.indicatorArrow = queryIndicatorArrow;
-						} else {
-							indicatorArrow = document.createElement("div");
-							indicatorArrow.classList.add(classes.INDICATOR_ARROW);
-							ui.indicatorArrow = indicatorArrow;
-							element.appendChild(ui.indicatorArrow);
-						}
+						self._buildIndicator(element);
 					}
 					ui.items = items;
 					ui.layers = layers;
 				} else {
 					ns.warn("Please check your item selector option. Default value is '.ui-item'");
-					return;
+					return null;
 				}
 
 				return element;
@@ -940,6 +943,36 @@
 				self._reorderAnimationEnd = false;
 			};
 
+			prototype._onDragMovedElement = function (pointedElement, x, y, index) {
+				var self = this,
+					movedItemStyle = self._ui.movedItem.style,
+					pointedClassList = pointedElement && pointedElement.classList;
+
+				movedItemStyle.top = y + "px";
+				movedItemStyle.left = x + "px";
+
+				if (pointedElement) {
+					if (pointedClassList.contains(classes.LAYER_PREV)) {
+						self._pointedLayer = "prev";
+					} else if (pointedClassList.contains(classes.LAYER_NEXT)) {
+						self._pointedLayer = "next";
+					} else {
+						self._pointedLayer = null;
+						clearInterval(self._changeLayerInterval);
+						self._changeLayerInterval = null;
+					}
+				}
+
+				if (self._enabled) {
+					if (pointedElement && self._pointedLayer !== null) {
+						self._moveItemToLayer();
+					}
+					if (index !== null && index !== self._destinationIndex) {
+						self._setNewItemDestination(index);
+					}
+				}
+			};
+
 			/**
 			 * Drag event handler
 			 * @method _onDrag
@@ -951,16 +984,13 @@
 				var self = this,
 					x,
 					y,
-					movedItemStyle,
 					pointedElement,
-					pointedClassList,
 					index = null;
 
 				if (this._started) {
 					x = event.detail.estimatedX;
 					y = event.detail.estimatedY;
 					pointedElement = document.elementFromPoint(x, y);
-					pointedClassList = pointedElement && pointedElement.classList;
 
 					if (pointedElement && pointedElement.classList.contains(classes.ITEM) &&
 						!pointedElement.classList.contains(classes.ITEM_PLACEHOLDER)) {
@@ -972,30 +1002,7 @@
 					}
 
 					if (self._movedElementIndex !== null) {
-						movedItemStyle = self._ui.movedItem.style;
-						movedItemStyle.top = y + "px";
-						movedItemStyle.left = x + "px";
-
-						if (pointedElement) {
-							if (pointedClassList.contains(classes.LAYER_PREV)) {
-								self._pointedLayer = "prev";
-							} else if (pointedClassList.contains(classes.LAYER_NEXT)) {
-								self._pointedLayer = "next";
-							} else {
-								self._pointedLayer = null;
-								clearInterval(self._changeLayerInterval);
-								self._changeLayerInterval = null;
-							}
-						}
-
-						if (self._enabled) {
-							if (pointedElement && self._pointedLayer !== null) {
-								self._moveItemToLayer();
-							}
-							if (index !== null && index !== self._destinationIndex) {
-								self._setNewItemDestination(index);
-							}
-						}
+						self._onDragMovedElement(pointedElement, x, y, index);
 					}
 				}
 			};
@@ -1124,20 +1131,11 @@
 				self._started = false;
 			};
 
-			/**
-			 * Click event handler
-			 * @method _onClick
-			 * @param {Event} event
-			 * @protected
-			 * @member ns.widget.wearable.Selector
-			 */
-			prototype._onClick = function (event) {
+			prototype._onClickChangeActive = function (targetElement) {
 				var self = this,
 					ui = self._ui,
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
 					indicatorClassList = self._ui.indicator.classList,
-					targetElement = event.target,
-					targetClassList = targetElement.classList,
 					activeLayer,
 					prevLayer,
 					nextLayer,
@@ -1166,6 +1164,21 @@
 						self._setActiveItem(index);
 					}
 				}
+			};
+
+			/**
+			 * Click event handler
+			 * @method _onClick
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.wearable.Selector
+			 */
+			prototype._onClick = function (event) {
+				var self = this,
+					targetElement = event.target,
+					targetClassList = targetElement.classList;
+
+				self._onClickChangeActive(targetElement);
 
 				if (targetElement.classList.contains(classes.PLUS_BUTTON)) {
 					self.trigger("add");
@@ -1194,6 +1207,60 @@
 				this._changeLayer(layerIndex);
 			};
 
+			prototype._onRotaryCW = function () {
+				var self = this,
+					ui = self._ui,
+					options = self.options,
+					activeLayer = ui.layers[self._activeLayerIndex],
+					activeLayerItemsLength = activeLayer &&
+						activeLayer.querySelectorAll(options.itemSelector).length,
+					nextLayer = activeLayer && activeLayer.nextElementSibling,
+					bounceDegree;
+
+				// check length
+				if ((self._activeItemIndex === (activeLayerItemsLength +
+						self._activeLayerIndex * options.maxItemNumber) - 1) ||
+					self._editModeEnabled) {
+					if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
+						self._setNextLayer();
+					} else {
+						bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree *
+							(self._activeItemIndex % options.maxItemNumber);
+						setIndicatorTransform(ui.indicatorArrow, bounceDegree +
+							options.itemDegree / 3);
+						setTimeout(function () {
+							setIndicatorTransform(ui.indicatorArrow, bounceDegree);
+						}, 100);
+					}
+				} else {
+					self._changeItem(self._activeItemIndex + 1);
+				}
+			};
+
+			prototype._onRotaryCCW = function () {
+				var self = this,
+					ui = self._ui,
+					options = self.options,
+					activeLayer = ui.layers[self._activeLayerIndex],
+					prevLayer = activeLayer && activeLayer.previousElementSibling;
+
+				// check 0
+				if ((self._activeItemIndex % options.maxItemNumber === 0) ||
+					self._editModeEnabled) {
+					if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
+						self._setPreviousLayer();
+					} else {
+						setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE -
+							DEFAULT.ITEM_START_DEGREE / 3);
+						setTimeout(function () {
+							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
+						}, 100);
+					}
+				} else {
+					self._changeItem(self._activeItemIndex - 1);
+				}
+			};
+
 			/**
 			 * Rotary event handler
 			 * @method _onRotary
@@ -1205,13 +1272,7 @@
 				var self = this,
 					ui = self._ui,
 					options = self.options,
-					direction = event.detail.direction,
-					activeLayer = ui.layers[self._activeLayerIndex],
-					activeLayerItemsLength = activeLayer &&
-						activeLayer.querySelectorAll(options.itemSelector).length,
-					prevLayer = activeLayer && activeLayer.previousElementSibling,
-					nextLayer = activeLayer && activeLayer.nextElementSibling,
-					bounceDegree;
+					direction = event.detail.direction;
 
 				if (!options.indicatorAutoControl || !self._enabled || ui.items.length === 0) {
 					return;
@@ -1219,40 +1280,9 @@
 				event.stopPropagation();
 
 				if (direction === "CW") {
-					// check length
-					if ((self._activeItemIndex === (activeLayerItemsLength +
-							self._activeLayerIndex * options.maxItemNumber) - 1) ||
-						self._editModeEnabled) {
-						if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
-							self._setNextLayer();
-						} else {
-							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree *
-								(self._activeItemIndex % options.maxItemNumber);
-							setIndicatorTransform(ui.indicatorArrow, bounceDegree +
-								options.itemDegree / 3);
-							setTimeout(function () {
-								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
-							}, 100);
-						}
-					} else {
-						self._changeItem(self._activeItemIndex + 1);
-					}
+					self._onRotaryCW();
 				} else {
-					// check 0
-					if ((self._activeItemIndex % options.maxItemNumber === 0) ||
-						self._editModeEnabled) {
-						if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
-							self._setPreviousLayer();
-						} else {
-							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE -
-								DEFAULT.ITEM_START_DEGREE / 3);
-							setTimeout(function () {
-								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
-							}, 100);
-						}
-					} else {
-						self._changeItem(self._activeItemIndex - 1);
-					}
+					self._onRotaryCCW();
 				}
 			};
 
@@ -1286,6 +1316,51 @@
 				}, 150);
 			};
 
+			prototype._setIndexes = function () {
+				var self = this,
+					ui = self._ui,
+					items = ui.items,
+					i;
+
+				for (i = 0; i < ui.items.length; i++) {
+					utilDom.setNSData(items[i], "index", i);
+				}
+			};
+
+			prototype._refreshEditMode = function () {
+				var self = this,
+					ui = self._ui,
+					items = ui.items,
+					options = self.options,
+					reorderedItems = self._itemsToReorder,
+					maxItemNumber = options.maxItemNumber,
+					activeLayerIndex = self._activeLayerIndex,
+					lastOnLayerIndex = (activeLayerIndex + 1) * maxItemNumber,
+					firstOnLayerIndex = activeLayerIndex * maxItemNumber,
+					index,
+					additionalDegree,
+					i,
+					isCorrectIndex;
+
+				for (i = 0; i < ui.items.length; i++) {
+					index = parseInt(utilDom.getNSData(items[i], "index"), 10);
+					isCorrectIndex = i !== index && !Number.isNaN(index);
+					if (isCorrectIndex &&
+						(i < lastOnLayerIndex) &&
+						(i >= firstOnLayerIndex) &&
+						!items[i].classList.contains(classes.ITEM_PLACEHOLDER)) {
+						if (index >= lastOnLayerIndex) {
+							additionalDegree = DEFAULT.ITEM_START_DEGREE +
+								(options.itemDegree * maxItemNumber);
+							setItemTransform(items[i], additionalDegree, options.itemRadius,
+								-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
+						}
+						reorderedItems.push(i % maxItemNumber);
+					}
+				}
+
+			};
+
 			/**
 			 * Refresh Selector component
 			 * @method _refresh
@@ -1297,43 +1372,15 @@
 					ui = self._ui,
 					items = ui.items,
 					options = self.options,
-					element = self.element,
-					reorderedItems = self._itemsToReorder,
-					editModeEnabled = self._editModeEnabled,
-					maxItemNumber = options.maxItemNumber,
-					activeLayerIndex = self._activeLayerIndex,
-					lastOnLayerIndex = (activeLayerIndex + 1) * maxItemNumber,
-					firstOnLayerIndex = activeLayerIndex * maxItemNumber,
-					index,
-					additionalDegree,
-					i;
+					element = self.element;
 
-				if (editModeEnabled) {
+				if (self._editModeEnabled) {
 					self._removeRemoveIcons();
-				}
-
-				for (i = 0; i < ui.items.length; i++) {
-					if (editModeEnabled) {
-						index = parseInt(utilDom.getNSData(items[i], "index"), 10);
-						if (i !== index && !Number.isNaN(index) &&
-							(i < lastOnLayerIndex) &&
-							(i >= firstOnLayerIndex) &&
-							!items[i].classList.contains(classes.ITEM_PLACEHOLDER)) {
-							if (index >= lastOnLayerIndex) {
-								additionalDegree = DEFAULT.ITEM_START_DEGREE +
-									(options.itemDegree * maxItemNumber);
-								setItemTransform(items[i], additionalDegree, options.itemRadius,
-									-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
-							}
-							reorderedItems.push(i % maxItemNumber);
-						}
-					}
-					utilDom.setNSData(items[i], "index", i);
-				}
-
-
-				if (editModeEnabled) {
+					self._refreshEditMode();
+					self._setIndexes();
 					self._addRemoveIcons();
+				} else {
+					self._setIndexes();
 				}
 
 				ui.layers = buildLayers(element, items, options);
