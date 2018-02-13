@@ -33,20 +33,20 @@
 	height: 53 * @unit_base;
 	outline: none;
 	position: relative;
-	border: 0 !important;
-	padding: 0 !important;
+	border: 0;
+	padding: 0;
 	color: @color_tokentextarea_input_text;
-	background-color: @color_tokentextarea_bg !important;
+	background-color: @color_tokentextarea_bg;
 	text-align: left;
 	font-size: @font_size_tokentextarea_input_text;
 }
 
 .ui-tokentextarea-input-visible {
-	display: inline-block !important;
+	display: inline-block;
 }
 
 .ui-tokentextarea-input-invisible {
-	display: none !important;
+	display: none;
 }
 
 .ui-tokentextarea div {
@@ -62,15 +62,15 @@
 	margin: 8 * @unit_base 2 * @unit_base;
 }
 
-div.ui-tokentextarea-block {
-	.core_button_bg();
+.ui-tokentextarea-block {
+	.core-button-bg();
 	background-color: @color_tokentextarea_block_bg;
 	margin-left: 15 * @unit_base;
 	margin-top: 12 * @unit_base;
 }
 
-div.ui-tokentextarea-sblock {
-	.core_button_bg_pressed();
+.ui-tokentextarea-sblock {
+	.core-button-bg-pressed();
 	background-color: @color_tokentextarea_press_bg;
 	color: @color_tokentextarea_block_text_press;
 	margin-left: 15 * @unit_base;

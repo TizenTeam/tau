@@ -59,7 +59,7 @@
 		line-height: 76 * @unit_base;
 		font-size: 30 * @unit_base;
 		color: @color_button_text_normal;
-		.core_button_bg();
+		.core-button-bg();
 
 		&::before {
 			z-index: -1;
@@ -71,13 +71,13 @@
 			height: 100%;
 			.transform(scale(0.7));
 			opacity: 0;
-			.core_button_bg_pressed();
+			.core-button-bg-pressed();
 		}
 		&:active::before {
 			opacity: 1;
 			.transition(transform 300ms);
 			.transform(scale(1));
-			.core_button_bg_pressed();
+			.core-button-bg-pressed();
 		}
 	}
 }
