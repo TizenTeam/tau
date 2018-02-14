@@ -94,7 +94,7 @@ tau-page {
 			margin: 0;
 			padding-left: @fixed_header_title_padding;
 			padding-right: @fixed_header_title_padding;
-			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 95%);
+			mask-image: linear-gradient(left, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 95%);
 
 			&.ui-icon {
 				padding-left: @fixed_header_title_icon_padding;
@@ -107,7 +107,7 @@ tau-page {
 		&.ui-has-more {
 			.ui-title {
 				padding-right: @fixed_header_more_title_padding;
-				-webkit-mask-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 75%);
+				mask-image: linear-gradient(left, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 75%);
 			}
 		}
 
@@ -213,7 +213,7 @@ tau-page {
 		flex: 1;
 	}
 	.ui-content {
-		height: auto !important;
+		height: auto;
 		flex: none;
 	}
 
@@ -235,21 +235,21 @@ tau-page {
 	.ui-grid-col-1 {
 		.ui-grid-col;
 		& > * {
-			width: 100%
+			width: 100%;
 		}
 	}
 
 	.ui-grid-col-2 {
 		.ui-grid-col;
 		& > * {
-			width: 100/2%
+			width: 100/2%;
 		}
 	}
 
 	.ui-grid-col-3 {
 		.ui-grid-col;
 		& > * {
-			width: 100/3%
+			width: 100/3%;
 		}
 	}
 }

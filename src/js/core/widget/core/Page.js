@@ -452,7 +452,9 @@
 						contentStyle.paddingBottom = (-bottom) + "px";
 					}
 
-					contentStyle.height = (screenHeight - top - bottom) + "px";
+					if (!self.options.enablePageScroll) {
+						contentStyle.height = (screenHeight - top - bottom) + "px";
+					}
 				}
 			};
 
