@@ -143,50 +143,65 @@
 				}
 			}
 
+			function touchMoveMain(event) {
+				var touches = event.touches,
+					touch = touches[0],
+					// get current position in correct direction
+					clientPosition = direction ? touch.clientX : touch.clientY,
+					scrollLeft = 0,
+					scrollTop = 0;
+
+				fromAPI = false;
+				// calculate difference between touch start and current position
+				lastScrollPosition = clientPosition - startPosition;
+				if (!bounceBack) {
+					// normalize value to be in bound [0, maxScroll]
+					if (scrollPosition + lastScrollPosition > 0) {
+						lastScrollPosition = -scrollPosition;
+					}
+					if (scrollPosition + lastScrollPosition < -maxScrollPosition) {
+						lastScrollPosition = -maxScrollPosition - scrollPosition;
+					}
+				}
+
+				if (direction) {
+					scrollLeft = -(scrollPosition + lastScrollPosition);
+				} else {
+					scrollTop = -(scrollPosition + lastScrollPosition);
+				}
+
+				// trigger event scroll start if it is the first touch move
+				if (!isTouch) {
+					eventUtil.trigger(scrollingElement, EVENTS.SCROLL_START, {
+						scrollLeft: scrollLeft,
+						scrollTop: scrollTop,
+						fromAPI: fromAPI
+					});
+				}
+
+				// trigger event scroll
+				eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
+					scrollLeft: scrollLeft,
+					scrollTop: scrollTop,
+					inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) &&
+					(scrollPosition + lastScrollPosition <= 0),
+					fromAPI: fromAPI
+				});
+				fadeInScrollBar();
+			}
+
 			/**
 			 * Handler for touchmove event
 			 * @param {Event} event
 			 */
 			function touchMove(event) {
-				var touches = event.touches,
-					touch = touches[0],
-					// get current position in correct direction
-					clientPosition = direction ? touch.clientX : touch.clientY;
+				var touches = event.touches;
 
 				// if touch start was on scrolled element
 				if (isScrollableTarget) {
 					// if is only one touch
 					if (touches.length === 1) {
-						fromAPI = false;
-						// calculate difference between touch start and current position
-						lastScrollPosition = clientPosition - startPosition;
-						if (!bounceBack) {
-							// normalize value to be in bound [0, maxScroll]
-							if (scrollPosition + lastScrollPosition > 0) {
-								lastScrollPosition = -scrollPosition;
-							}
-							if (scrollPosition + lastScrollPosition < -maxScrollPosition) {
-								lastScrollPosition = -maxScrollPosition - scrollPosition;
-							}
-						}
-						// trigger event scroll start if it is the first touch move
-						if (!isTouch) {
-							eventUtil.trigger(scrollingElement, EVENTS.SCROLL_START, {
-								scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
-								scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
-								fromAPI: fromAPI
-							});
-						}
-
-						// trigger event scroll
-						eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
-							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
-							scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
-							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) &&
-								(scrollPosition + lastScrollPosition <= 0),
-							fromAPI: fromAPI
-						});
-						fadeInScrollBar();
+						touchMoveMain(event);
 					}
 					// if this is first touch move
 					if (!isTouch) {
@@ -197,12 +212,68 @@
 				}
 			}
 
+			function touchEndCalculateSpeed(inBounds) {
+				var diffTime = Date.now() - lastTime;
+
+				if (inBounds && abs(lastScrollPosition / diffTime) > 1) {
+					// if it was fast move, we start animation of scrolling after touch end
+					moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime),
+						0), -maxScrollPosition);
+					if (snapSize) {
+						moveToPosition = snapSize * round(moveToPosition / snapSize);
+					}
+					if (abs(lastScrollPosition / diffTime) > 1) {
+						eventUtil.trigger(scrollingElement, EVENTS.SCROLL_FLICK, {
+							scrollLeft: direction ? -moveToPosition : 0,
+							scrollTop: direction ? 0 : -moveToPosition,
+							fromAPI: fromAPI
+						});
+					}
+					requestAnimationFrame(moveTo);
+				} else {
+					// touch move was slow
+					if (snapSize) {
+						moveToPosition = snapSize * round(scrollPosition / snapSize);
+						requestAnimationFrame(moveTo);
+					}
+					isTouch = false;
+				}
+			}
+
+			function touchEndCalculatePosition(inBounds) {
+				if (bounceBack) {
+					if (!inBounds) {
+						// if it was fast move, we start animation of scrolling after touch end
+						if (scrollPosition > 0) {
+							moveToPosition = 0;
+						} else {
+							moveToPosition = -maxScrollPosition;
+						}
+						requestAnimationFrame(moveTo);
+					}
+				} else {
+					// normalize value to be in bound [0, maxScroll]
+					if (scrollPosition < -maxScrollPosition) {
+						scrollPosition = -maxScrollPosition;
+					}
+					if (scrollPosition > 0) {
+						scrollPosition = 0;
+					}
+				}
+			}
+
+			function touchEndTriggerEvents(details) {
+				eventUtil.trigger(scrollingElement, EVENTS.SCROLL, details);
+				eventUtil.trigger(scrollingElement, EVENTS.SCROLL_END, details);
+			}
+
 			/**
 			 * Handler for touchend event
 			 */
 			function touchEnd() {
-				var diffTime = Date.now() - lastTime,
-					inBounds;
+				var inBounds,
+					scrollLeft = 0,
+					scrollTop = 0;
 				// only if the event touchmove was noticed before
 
 				if (isTouch) {
@@ -211,61 +282,20 @@
 					inBounds = (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0);
 
 					// calculate speed of touch move
-					if (inBounds && abs(lastScrollPosition / diffTime) > 1) {
-						// if it was fast move, we start animation of scrolling after touch end
-						moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime),
-							0), -maxScrollPosition);
-						if (snapSize) {
-							moveToPosition = snapSize * round(moveToPosition / snapSize);
-						}
-						if (abs(lastScrollPosition / diffTime) > 1) {
-							eventUtil.trigger(scrollingElement, EVENTS.SCROLL_FLICK, {
-								scrollLeft: direction ? -moveToPosition : 0,
-								scrollTop: direction ? 0 : -moveToPosition,
-								fromAPI: fromAPI
-							});
-						}
-						requestAnimationFrame(moveTo);
-					} else {
-						// touch move was slow
-						if (snapSize) {
-							moveToPosition = snapSize * round(scrollPosition / snapSize);
-							requestAnimationFrame(moveTo);
-						}
-						isTouch = false;
-					}
+					touchEndCalculateSpeed(inBounds);
+					touchEndCalculatePosition(inBounds);
 
-					if (bounceBack) {
-						if (!inBounds) {
-							// if it was fast move, we start animation of scrolling after touch end
-							if (scrollPosition > 0) {
-								moveToPosition = 0;
-							} else {
-								moveToPosition = -maxScrollPosition;
-							}
-							requestAnimationFrame(moveTo);
-						}
+					if (direction) {
+						scrollLeft = -(scrollPosition);
 					} else {
-						// normalize value to be in bound [0, maxScroll]
-						if (scrollPosition < -maxScrollPosition) {
-							scrollPosition = -maxScrollPosition;
-						}
-						if (scrollPosition > 0) {
-							scrollPosition = 0;
-						}
+						scrollTop = -(scrollPosition);
 					}
 
 					lastScrollPosition = 0;
 					// trigger event scroll
-					eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
-						scrollLeft: direction ? -(scrollPosition) : 0,
-						scrollTop: direction ? 0 : -(scrollPosition),
-						inBounds: inBounds,
-						fromAPI: fromAPI
-					});
-					eventUtil.trigger(scrollingElement, EVENTS.SCROLL_END, {
-						scrollLeft: direction ? -(scrollPosition) : 0,
-						scrollTop: direction ? 0 : -(scrollPosition),
+					touchEndTriggerEvents({
+						scrollLeft: scrollLeft,
+						scrollTop: scrollTop,
 						inBounds: inBounds,
 						fromAPI: fromAPI
 					});
@@ -281,10 +311,10 @@
 			 * @param {Event} event
 			 */
 			function rotary(event) {
-				var direction = event.detail && event.detail.direction;
+				var eventDirection = event.detail && event.detail.direction;
 
 				// update position by snapSize
-				if (direction === "CW") {
+				if (eventDirection === "CW") {
 					moveToPosition -= snapSize || 50;
 				} else {
 					moveToPosition += snapSize || 50;
@@ -308,49 +338,62 @@
 				event.stopImmediatePropagation();
 			}
 
+			function moveToCalculatePosition() {
+				var diffPosition = moveToPosition - scrollPosition,
+					// get absolute value
+					absDiffPosition = abs(diffPosition);
+
+				if (absDiffPosition > 10) {
+					// we move 10% of difference
+					scrollPosition = round(scrollPosition + diffPosition / 10);
+					requestAnimationFrame(moveTo);
+				} else if (absDiffPosition > 2) {
+					// else if is difference < 10 then we move 50%
+					scrollPosition = round(scrollPosition + diffPosition / 2);
+					requestAnimationFrame(moveTo);
+				} else {
+					// if difference is <=2 then we move to end value and finish loop
+					scrollPosition = moveToPosition;
+				}
+				if (!bounceBack) {
+					// normalize scroll value
+					if (scrollPosition < -maxScrollPosition) {
+						scrollPosition = -maxScrollPosition;
+					}
+					if (scrollPosition > 0) {
+						scrollPosition = 0;
+					}
+				}
+			}
+
 			/**
 			 * Loop function to calculate state in animation after touchend
 			 */
 			function moveTo() {
 				// calculate difference between current position and expected scroll end
-				var diffPosition = moveToPosition - scrollPosition,
-					// get absolute value
-					absDiffPosition = abs(diffPosition);
+				var scrollLeft = 0,
+					scrollTop = 0;
 
 				// if difference is big
 				if (scrollingElement) {
-					if (absDiffPosition > 10) {
-						// we move 10% of difference
-						scrollPosition = round(scrollPosition + diffPosition / 10);
-						requestAnimationFrame(moveTo);
-					} else if (absDiffPosition > 2) {
-						// else if is difference < 10 then we move 50%
-						scrollPosition = round(scrollPosition + diffPosition / 2);
-						requestAnimationFrame(moveTo);
+					moveToCalculatePosition();
+
+					if (direction) {
+						scrollLeft = -scrollPosition;
 					} else {
-						// if difference is <=2 then we move to end value and finish loop
-						scrollPosition = moveToPosition;
-					}
-					if (!bounceBack) {
-						// normalize scroll value
-						if (scrollPosition < -maxScrollPosition) {
-							scrollPosition = -maxScrollPosition;
-						}
-						if (scrollPosition > 0) {
-							scrollPosition = 0;
-						}
+						scrollTop = -scrollPosition;
 					}
 					// trigger event scroll
 					eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
-						scrollLeft: direction ? -(scrollPosition) : 0,
-						scrollTop: direction ? 0 : -(scrollPosition),
+						scrollLeft: scrollLeft,
+						scrollTop: scrollTop,
 						inBounds: (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0),
 						fromAPI: fromAPI
 					});
 					if (!isTouch) {
 						eventUtil.trigger(scrollingElement, EVENTS.SCROLL_END, {
-							scrollLeft: direction ? -(scrollPosition) : 0,
-							scrollTop: direction ? 0 : -(scrollPosition),
+							scrollLeft: scrollLeft,
+							scrollTop: scrollTop,
 							fromAPI: fromAPI
 						});
 					}
@@ -359,6 +402,23 @@
 				}
 			}
 
+			function renderScrollbar() {
+				if (circularScrollBar) {
+					polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
+						arcStart: scrollBarPosition,
+						arcEnd: scrollBarPosition + circularScrollThumbSize,
+						r: RADIUS
+					});
+				} else {
+					if (scrollThumb) {
+						if (direction) {
+							scrollThumb.style.transform = "translate(" + scrollBarPosition + "px, 0)";
+						} else {
+							scrollThumb.style.transform = "translate(0, " + scrollBarPosition + "px)";
+						}
+					}
+				}
+			}
 			/**
 			 * Render loop on request animation frame
 			 */
@@ -385,23 +445,20 @@
 							"translate(0, " + lastRenderedPosition + "px)";
 					}
 
-					if (circularScrollBar) {
-						polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
-							arcStart: scrollBarPosition,
-							arcEnd: scrollBarPosition + circularScrollThumbSize,
-							r: RADIUS
-						});
-					} else {
-						if (scrollThumb) {
-							if (direction) {
-								scrollThumb.style.transform = "translate(" + scrollBarPosition + "px, 0)";
-							} else {
-								scrollThumb.style.transform = "translate(0, " + scrollBarPosition + "px)";
-							}
-						}
-					}
+					renderScrollbar();
 					requestAnimationFrame(render);
 				}
+			}
+
+			function initPosition() {
+				// init internal variables
+				startPosition = 0;
+				scrollPosition = 0;
+				scrollBarPosition = 0;
+				lastScrollPosition = 0;
+				moveToPosition = 0;
+				lastRenderedPosition = 0;
+				lastTime = Date.now();
 			}
 
 			/**
@@ -432,7 +489,6 @@
 					while (element.firstElementChild) {
 						childElement.appendChild(element.firstElementChild);
 					}
-
 					element.appendChild(childElement);
 
 					// setting scrolling element
@@ -450,20 +506,11 @@
 
 					// cache style element
 					elementStyle = childElement.style;
-
-					// init internal variables
-					startPosition = 0;
-					scrollPosition = 0;
-					scrollBarPosition = 0;
-					lastScrollPosition = 0;
-					moveToPosition = 0;
-					lastRenderedPosition = 0;
-					lastTime = Date.now();
+					initPosition();
 					// cache current overflow value to restore in disable
 					previousOverflow = window.getComputedStyle(element).getPropertyValue("overflow");
 					// set overflow hidden
 					element.style.overflow = "hidden";
-
 					// add event listeners
 					document.addEventListener("touchstart", touchStart, false);
 					document.addEventListener("touchmove", touchMove, false);
@@ -496,84 +543,91 @@
 				svgScrollBar = null;
 			}
 
-			function enableScrollBar() {
+			function enableScrollBarCircular() {
+				var arcStartPoint = direction ? 0 : 90;
+
+				scrollBar.classList.add(classes.circular);
+				svgScrollBar = polarUtil.createSVG();
+
+				// create background
+				polarUtil.addArc(svgScrollBar, {
+					arcStart: arcStartPoint - (CIRCULAR_SCROLL_BAR_SIZE / 2),
+					arcEnd: arcStartPoint + (CIRCULAR_SCROLL_BAR_SIZE / 2),
+					classes: classes.path,
+					width: 10,
+					r: RADIUS,
+					linecap: "round"
+				});
+				// create thumb
+				polarUtil.addArc(svgScrollBar, {
+					referenceDegree: arcStartPoint - (CIRCULAR_SCROLL_BAR_SIZE / 2),
+					arcStart: 0,
+					arcEnd: circularScrollThumbSize,
+					classes: classes.thumb,
+					width: 10,
+					r: RADIUS,
+					linecap: "round"
+				});
+
+				scrollBar.appendChild(svgScrollBar);
+				scrollingElement.parentElement.insertBefore(scrollBar, scrollingElement.nextSibling);
+			}
+
+			function enableScrollBarRectangular(scrollBarStyle) {
 				var boundingRect,
 					childElementRect,
-					scrollBarStyle,
 					scrollThumbStyle,
-					arcStartPoint = direction ? 0 : 90,
 					scrollBarWidth = 0,
 					scrollBarHeight = 0;
 
+				scrollBar.classList.add(classes.direction + "-" + (direction ? "x" : "y"));
+
+				scrollThumb = document.createElement("div");
+				scrollThumbStyle = scrollThumb.style;
+				scrollThumb.classList.add(classes.thumb);
+
+				boundingRect = scrollingElement.getBoundingClientRect();
+				childElementRect = childElement.getBoundingClientRect();
+
+				if (direction) {
+					scrollBarWidth = (boundingRect.width - (2 * SCROLL_MARGIN));
+
+					scrollBarStyle.width = scrollBarWidth + "px";
+					scrollBarStyle.left = (boundingRect.left + SCROLL_MARGIN) + "px";
+					scrollThumbStyle.transform = "translate3d(" + scrollBarPosition + "px,0,0)";
+					// Calculate size of the thumb (only useful when enabling after content has size > 0)
+					scrollThumbStyle.width = (scrollBarWidth / childElementRect.width * scrollBarWidth) +
+						"px";
+				} else {
+					scrollBarHeight = (boundingRect.height - (2 * SCROLL_MARGIN));
+
+					scrollBarStyle.height = scrollBarHeight + "px";
+					scrollBarStyle.top = (boundingRect.top + SCROLL_MARGIN) + "px";
+					scrollThumbStyle.transform = "translate3d(0," + scrollBarPosition + "px,0)";
+					// Calculate size of the thumb (only useful when enabling after content has size > 0)
+					scrollThumbStyle.height = (scrollBarHeight / childElementRect.height * scrollBarHeight) +
+						"px";
+				}
+
+				scrollBar.appendChild(scrollThumb);
+				scrollingElement.parentElement.insertBefore(scrollBar, scrollingElement.nextSibling);
+
+				// Get max scrollbar position after appending
+				if (direction) {
+					maxScrollBarPosition = scrollBarWidth - scrollThumb.getBoundingClientRect().width;
+				} else {
+					maxScrollBarPosition = scrollBarHeight - scrollThumb.getBoundingClientRect().height;
+				}
+			}
+
+			function enableScrollBar() {
 				scrollBar = document.createElement("div");
-				scrollBarStyle = scrollBar.style;
 				scrollBar.classList.add(classes.scrollbar);
 
 				if (circularScrollBar) {
-					scrollBar.classList.add(classes.circular);
-					svgScrollBar = polarUtil.createSVG();
-
-					// create background
-					polarUtil.addArc(svgScrollBar, {
-						arcStart: arcStartPoint - (CIRCULAR_SCROLL_BAR_SIZE / 2),
-						arcEnd: arcStartPoint + (CIRCULAR_SCROLL_BAR_SIZE / 2),
-						classes: classes.path,
-						width: 10,
-						r: RADIUS,
-						linecap: "round"
-					});
-					// create thumb
-					polarUtil.addArc(svgScrollBar, {
-						referenceDegree: arcStartPoint - (CIRCULAR_SCROLL_BAR_SIZE / 2),
-						arcStart: 0,
-						arcEnd: circularScrollThumbSize,
-						classes: classes.thumb,
-						width: 10,
-						r: RADIUS,
-						linecap: "round"
-					});
-
-					scrollBar.appendChild(svgScrollBar);
-					scrollingElement.parentElement.insertBefore(scrollBar, scrollingElement.nextSibling);
-
+					enableScrollBarCircular();
 				} else {
-
-					scrollBar.classList.add(classes.direction + "-" + (direction ? "x" : "y"));
-
-					scrollThumb = document.createElement("div");
-					scrollThumbStyle = scrollThumb.style;
-					scrollThumb.classList.add(classes.thumb);
-
-					boundingRect = scrollingElement.getBoundingClientRect();
-					childElementRect = childElement.getBoundingClientRect();
-
-					if (direction) {
-						scrollBarWidth = (boundingRect.width - (2 * SCROLL_MARGIN));
-
-						scrollBarStyle.width = scrollBarWidth + "px";
-						scrollBarStyle.left = (boundingRect.left + SCROLL_MARGIN) + "px";
-						scrollThumbStyle.transform = "translate3d(" + scrollBarPosition + "px,0,0)";
-						// Calculate size of the thumb (only useful when enabling after content has size > 0)
-						scrollThumbStyle.width = (scrollBarWidth / childElementRect.width * scrollBarWidth) + "px";
-					} else {
-						scrollBarHeight = (boundingRect.height - (2 * SCROLL_MARGIN));
-
-						scrollBarStyle.height = scrollBarHeight + "px";
-						scrollBarStyle.top = (boundingRect.top + SCROLL_MARGIN) + "px";
-						scrollThumbStyle.transform = "translate3d(0," + scrollBarPosition + "px,0)";
-						// Calculate size of the thumb (only useful when enabling after content has size > 0)
-						scrollThumbStyle.height = (scrollBarHeight / childElementRect.height * scrollBarHeight) + "px";
-					}
-
-					scrollBar.appendChild(scrollThumb);
-					scrollingElement.parentElement.insertBefore(scrollBar, scrollingElement.nextSibling);
-
-					// Get max scrollbar position after appending
-					if (direction) {
-						maxScrollBarPosition = scrollBarWidth - scrollThumb.getBoundingClientRect().width;
-					} else {
-						maxScrollBarPosition = scrollBarHeight - scrollThumb.getBoundingClientRect().height;
-					}
+					enableScrollBarRectangular(scrollBar.style);
 				}
 			}
 
@@ -657,7 +711,8 @@
 						if (scrollBar) {
 							if (circularScrollBar) {
 								// Calculate new thumb size based on max scrollbar size
-								circularScrollThumbSize = max((directionSize / (maxScrollPosition + directionSize)) * CIRCULAR_SCROLL_BAR_SIZE, CIRCULAR_SCROLL_MIN_THUMB_SIZE);
+								circularScrollThumbSize = max((directionSize / (maxScrollPosition + directionSize)) *
+									CIRCULAR_SCROLL_BAR_SIZE, CIRCULAR_SCROLL_MIN_THUMB_SIZE);
 								maxScrollBarPosition = CIRCULAR_SCROLL_BAR_SIZE - circularScrollThumbSize;
 								polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
 									arcStart: scrollBarPosition,
@@ -666,9 +721,12 @@
 								});
 							} else {
 								directionSize -= 2 * SCROLL_MARGIN;
-								scrollThumb.style[directionDimension] = (directionSize / (maxScrollPosition + directionSize) * directionSize) + "px";
-								// Cannot use direct value from style here because CSS may override the minimum size of thumb here
-								maxScrollBarPosition = directionSize - scrollThumb.getBoundingClientRect()[directionDimension];
+								scrollThumb.style[directionDimension] =
+									(directionSize / (maxScrollPosition + directionSize) * directionSize) + "px";
+								// Cannot use direct value from style here because CSS may override the minimum
+								// size of thumb here
+								maxScrollBarPosition = directionSize -
+									scrollThumb.getBoundingClientRect()[directionDimension];
 							}
 						}
 					}
