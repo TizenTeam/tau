@@ -34,7 +34,7 @@ div.ui-slider.ui-toggle-switch {
 
 	background-size: 100% 100%;
 	background-image: url(images/controls/00_on_off_handler_bg_ef.png);
-	.mask-image('images/controls/00_on_off_handler_bg_ef.png', 'images/controls/00_on_off_handler_bg.png');
+	mask-image: url('images/controls/00_on_off_handler_bg_ef.png'), url('images/controls/00_on_off_handler_bg.png');
 	.mask-size(100% 100%);
 
 	.ui-btn-inner {
@@ -46,7 +46,7 @@ div.ui-slider.ui-toggle-switch {
 	  .ui-btn-inner {
 		background-color: @color_toggle_handle_on_icon;
 		background-image: url(images/controls/00_on_off_handler_icon_on_ef.png);
-		.mask-image('images/controls/00_on_off_handler_icon_on_ef.png', 'images/controls/00_on_off_handler_icon_on.png');
+		mask-image: url('images/controls/00_on_off_handler_icon_on_ef.png'), url('images/controls/00_on_off_handler_icon_on.png');
 	  }
 	}
 	&.ui-toggle-off {
@@ -54,7 +54,7 @@ div.ui-slider.ui-toggle-switch {
 	  .ui-btn-inner {
 		background-color: @color_toggle_handle_off_icon;
 		background-image: url(images/controls/00_on_off_handler_icon_off_ef.png);
-		.mask-image('images/controls/00_on_off_handler_icon_off_ef.png', 'images/controls/00_on_off_handler_icon_off.png');
+		mask-image: url('images/controls/00_on_off_handler_icon_off_ef.png'), url('images/controls/00_on_off_handler_icon_off.png');
 	  }
 	}
   }

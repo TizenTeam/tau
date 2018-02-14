@@ -63,7 +63,7 @@ tau-textenveloper {
 				.transform(translate(-50%, -50%));
 				border-radius: 0;
 				opacity: 0;
-				.mask-box-image-source("images/nine-patch/core_navi_press.png");
+				-webkit-mask-box-image-source: url("images/nine-patch/core_navi_press.png");
 				.mask-box-image-slice(19 fill);
 			}
 
@@ -77,7 +77,7 @@ tau-textenveloper {
 				.transform(translate(-50%, -50%));
 				opacity: 0;
 				.transition(opacity linear 200ms);
-				.mask-box-image-source('images/nine-patch/core_focus_round.png');
+				-webkit-mask-box-image-source: url('images/nine-patch/core_focus_round.png');
 				.mask-box-image-slice(20 20 fill);
 				background-color: @color_enveloper_select_border_color;
 			}

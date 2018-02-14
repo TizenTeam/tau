@@ -40,18 +40,12 @@
 		position: absolute;
 		top: 8 * @unit_base;
 		&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-			.mask-box-image-repeat(none);
-			.mask-box-image-width(none);
-			.mask-box-image();
-			.mask-box-image-slice(none);
+			-webkit-mask-box-image: none;
 			background-color: transparent;
 
 			&::before {
 				z-index: -1;
-				.mask-box-image-repeat(none);
-				.mask-box-image-width(none);
-				.mask-box-image();
-				.mask-box-image-slice(none);
+				-webkit-mask-box-image: none;
 				background-color: @color_button_bg_press;
 			}
 		}

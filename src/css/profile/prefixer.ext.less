@@ -31,38 +31,6 @@
 	mask-image: none;
 }
 
-.mask-box-image() {
-	-webkit-mask-box-image: none;
-	-moz-mask-box-image: none;
-	-ms-mask-box-image: none;
-	-o-mask-box-image: none;
-	mask-box-image: none;
-}
-
-.mask-box-image(@value) {
-	-webkit-mask-box-image: url(@value);
-	-moz-mask-box-image: url(@value);
-	-ms-mask-box-image: url(@value);
-	-o-mask-box-image: url(@value);
-	mask-box-image: url(@value);
-}
-
-.mask-box-image-source(@value) {
-	-webkit-mask-box-image-source: url(@value);
-	-moz-mask-box-image-source: url(@value);
-	-ms-mask-box-image-source: url(@value);
-	-o-mask-box-image-source: url(@value);
-	mask-box-image-source: url(@value);
-}
-
-.mask-box-image-source(@value) when (@value = none) {
-	-webkit-mask-box-image-source: none;
-	-moz-mask-box-image-source: none;
-	-ms-mask-box-image-source: none;
-	-o-mask-box-image-source: none;
-	mask-box-image-source: none;
-}
-
 .mask-box-image-repeat(@repeat) {
 	-webkit-mask-box-image-repeat: @repeat;
 	-moz-mask-box-image-repeat: @repeat;
@@ -161,19 +129,10 @@
 
 .linear-gradient-right(@default,@color1,@stop1,@color2,@stop2) {
 	background-color: @default;
-	background-image: -webkit-gradient(linear, right top, right top, color-stop(@stop1, @color1), color-stop(@stop2 @color2));
-	background-image: -webkit-linear-gradient(right, @color1 @stop1, @color2 @stop2);
-	background-image: -moz-linear-gradient(right, @color1 @stop1, @color2 @stop2);
-	background-image: -ms-linear-gradient(right, @color1 @stop1, @color2 @stop2);
-	background-image: -o-linear-gradient(right, @color1 @stop1, @color2 @stop2);
 	background-image: linear-gradient(right, @color1 @stop1, @color2 @stop2);
 }
 
 .gradient-circural(@position, @startColor, @endColor, @radius) {
-	background-image: -webkit-gradient(radial, @position, 0, 50% 50%, @radius, from(@startColor), to(@endColor));
-	background-image: -moz-radial-gradient(@position, circle, @startColor 0, @endColor ~"@{radius}px");
-	background-image: -ms-radial-gradient(@position, circle cover, @startColor, @endColor ~"@{radius}%");
-	background-image: -o-radial-gradient(@position, circle cover, @startColor, @endColor ~"@{radius}%");
 	background-image: radial-gradient(~"circle at @{position}", @startColor, @endColor ~"@{radius}%");
 }
 
@@ -183,8 +142,7 @@
 }
 
 .appearance(@value) {
-	-webkit-appearance: @value;
-	-moz-appearance: @value;
+	appearance: @value;
 }
 
 // prefixer's tprop function fails with 2 arguments, and we dont want strings
@@ -303,18 +261,10 @@
 }
 
 .calc-width(@value) {
-	width: -webkit-calc(@value);
-	width: -moz-calc(@value);
-	width: -ms-calc(@value);
-	width: -o-calc(@value);
 	width: calc(@value);
 }
 
 .calc-margin-left(@value) {
-	margin-left: -webkit-calc(@value);
-	margin-left: -moz-calc(@value);
-	margin-left: -ms-calc(@value);
-	margin-left: -o-calc(@value);
 	margin-left: calc(@value);
 }
 
@@ -403,9 +353,6 @@
 }
 
 .backface-visiblity(@value) {
-	-webkit-backface-visibility: @value;
-	-moz-backface-visibility: @value;
-	-ms-backface-visibility: @value;
 	backface-visiblity: @value;
 }
 

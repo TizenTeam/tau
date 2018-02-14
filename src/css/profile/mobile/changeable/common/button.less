@@ -192,19 +192,19 @@ a.ui-btn {
 
 		&.ui-icon {
 			&-add::after {
-				.mask-image("images/controls/core_button_add.png");
+				mask-image: url("images/controls/core_button_add.png");
 			}
 
 			&-delete::after {
-				.mask-image("images/controls/core_button_delete.png");
+				mask-image: url("images/controls/core_button_delete.png");
 			}
 
 			&-cancel::after {
-				.mask-image("images/controls/core_button_cancel.png");
+				mask-image: url("images/controls/core_button_cancel.png");
 			}
 
 			&-reorder::after {
-				.mask-image("images/controls/core_button_reorder.png");
+				mask-image: url("images/controls/core_button_reorder.png");
 			}
 		}
 
@@ -267,7 +267,7 @@ a.ui-btn {
 		min-width: 96 * @unit_base;
 		font-size: @font_size_button_text_light_dark;
 		padding: 8 * @unit_base 24 * @unit_base;
-		.mask-box-image-source('images/nine-patch/core_button_on_bg.png');
+		-webkit-mask-box-image-source: url('images/nine-patch/core_button_on_bg.png');
 		.mask-box-image-slice(24 42 fill);
 
 		&.ui-btn-active {

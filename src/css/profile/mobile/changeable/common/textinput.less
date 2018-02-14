@@ -167,7 +167,7 @@ textarea.ui-text-input {
 		height: 80 * @unit_base;
 	}
 	& ~ .ui-text-input-clear.ui-btn.ui-btn-icon.ui-btn-nobg::after {
-		.mask-image("images/controls/core_button_icon_clear.png");
+		mask-image: url("images/controls/core_button_icon_clear.png");
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
 	}
@@ -210,7 +210,7 @@ textarea.ui-text-input {
 			overflow-x: visible;
 			overflow-y: visible;
 			color: rgba(82, 199, 217, 1);
-			.mask-box-image-source(none);
+			-webkit-mask-box-image-source: none;
 			.align-self(flex-start);
 
 			&::after {
