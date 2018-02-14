@@ -14,7 +14,7 @@ tau-progress {
 	margin-left: 32 * @unit_base;
 	margin-right: 32 * @unit_base;
 
-	.LESSborder-radius-all(10 * @unit_base);
+	border-radius: 10 * @unit_base;
 	background-color: @color_progress_bg;
 
 }
@@ -56,7 +56,7 @@ tau-progress {
 	background-color: @color_progress_pending; //#167fcd;
 	opacity: 1;
 
-	.LESSborder-radius-all(10 * @unit_base);
+	border-radius: 10 * @unit_base;
 }
 
 .ui-progress-bar-value {
@@ -65,7 +65,7 @@ tau-progress {
 	left: 0;
 	top: 0;
 	background-color: @color_progress_value; //#74d4eb;
-	.LESSborder-radius-all(10 * @unit_base);
+	border-radius: 10 * @unit_base;
 }
 
 // ************************************************
@@ -98,15 +98,13 @@ tau-progress {
 	position: relative;
 	display: inline-block;
 	pointer-events: none;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 
 	.ui-progress-circle-value.ui-progress-circle-half {
 		box-sizing: border-box;
 		clip: rect(auto, auto, auto, auto);
 		.ui-progress-circle-value-right {
-			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
 		}
 	}
 	.ui-progress-circle-value {
@@ -158,7 +156,7 @@ tau-progress {
 	min-width: 24 * @unit_base;
 	height: 8 * @unit_base;
 
-	.LESSborder-radius-all(10 * @unit_base);
+	border-radius: 10 * @unit_base;
 	background-color: @color_progress_bg;
 }
 
@@ -172,7 +170,7 @@ tau-progress {
 	.mask-image('./images/controls/core_progress_pending_bg.svg');
 	.mask-size(100% 100%);
 	.mask-repeat(no-repeat);
-	.LESSborder-radius-all(10 * @unit_base);
+	border-radius: 10 * @unit_base;
 	.animation(activitybar 300ms infinite linear);
 }
 
@@ -185,7 +183,7 @@ tau-progress {
 	}
 }
 
-@-webkit-keyframes activitybar {
+@keyframes activitybar {
 	.m-progress-activitybar();
 }
 
@@ -209,8 +207,8 @@ tau-progress {
 //                  Activity Circle type
 // **********************************************************
 .ui-activity-circle {
-	-webkit-transform: rotate(-90deg);
-	-webkit-transform-origin: 50% 50%;
+	transform: rotate(-90deg);
+	transform-origin: 50% 50%;
 	overflow: hidden;
 
 	.ui-activity-circle1,
@@ -303,51 +301,51 @@ tau-progress {
 }
 
 .ui-activity-circle-stopped {
-	-webkit-animation-play-state: paused;
+	animation-play-state: paused;
 }
 
 .animation-circle1rotate {
 	0% {
-		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
 	}
 	72% {
-		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
 	}
 	100% {
-		-webkit-transform: rotate(360deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(360deg);
+		transform-origin: 50% 50%;
 	}
 }
 
 .animation-circle2rotate {
 	0% {
-		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
 	}
 	67% {
-		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
 	}
 	100% {
-		-webkit-transform: rotate(360deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(360deg);
+		transform-origin: 50% 50%;
 	}
 }
 
 .animation-circle3rotate {
 	0% {
-		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
 	}
 	50% {
-		-webkit-transform: rotate(0deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(0deg);
+		transform-origin: 50% 50%;
 	}
 	100% {
-		-webkit-transform: rotate(360deg);
-		-webkit-transform-origin: 50% 50%;
+		transform: rotate(360deg);
+		transform-origin: 50% 50%;
 	}
 }
 
@@ -369,112 +367,32 @@ tau-progress {
 	}
 }
 
-@-webkit-keyframes circle1rotate {
-	.animation-circle1rotate();
-}
-
-@-moz-keyframes circle1rotate {
-	.animation-circle1rotate();
-}
-
-@-ms-keyframes circle1rotate {
-	.animation-circle1rotate();
-}
-
-@-o-keyframes circle1rotate {
-	.animation-circle1rotate();
-}
-
 @keyframes circle1rotate {
 	.animation-circle1rotate();
-}
-
-@-webkit-keyframes circle2rotate {
-	.animation-circle2rotate();
-}
-
-@-moz-keyframes circle2rotate {
-	.animation-circle2rotate();
-}
-
-@-ms-keyframes circle2rotate {
-	.animation-circle2rotate();
-}
-
-@-o-keyframes circle2rotate {
-	.animation-circle2rotate();
 }
 
 @keyframes circle2rotate {
 	.animation-circle2rotate();
 }
 
-@-webkit-keyframes circle3rotate {
-	.animation-circle3rotate();
-}
-
-@-moz-keyframes circle3rotate {
-	.animation-circle3rotate();
-}
-
-@-ms-keyframes circle3rotate {
-	.animation-circle3rotate();
-}
-
-@-o-keyframes circle3rotate {
-	.animation-circle3rotate();
-}
-
 @keyframes circle3rotate {
 	.animation-circle3rotate();
-}
-
-@-webkit-keyframes circle2path {
-	.animation-circle2path();
-}
-
-@-moz-keyframes circle2path {
-	.animation-circle2path();
-}
-
-@-ms-keyframes circle2path {
-	.animation-circle2path();
-}
-
-@-o-keyframes circle2path {
-	.animation-circle2path();
 }
 
 @keyframes circle2path {
 	.animation-circle2path();
 }
 
-@-webkit-keyframes circle3path {
-	.animation-circle3path();
-}
-
-@-moz-keyframes circle3path {
-	.animation-circle3path();
-}
-
-@-ms-keyframes circle3path {
-	.animation-circle3path();
-}
-
-@-o-keyframes circle3path {
-	.animation-circle3path();
-}
-
 @keyframes circle3path {
 	.animation-circle3path();
 }
 
-.ui-listview li.ui-li-has-progress {
+.ui-listview .ui-li-has-progress {
 	height: 8 * @unit_base;
 	padding: (120 - 8) / 2 * @unit_base 0;
 }
 
-.ui-listview li.ui-li-has-progress-with-labels {
+.ui-listview .ui-li-has-progress-with-labels {
 	height: 8 * @unit_base;
 	padding: (144 - 8) / 2 * @unit_base 0;
 }
