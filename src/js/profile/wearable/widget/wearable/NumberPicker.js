@@ -62,7 +62,8 @@
 					min: 0,
 					max: 12,
 					step: 1,
-					disabled: false
+					disabled: false,
+					accelerated: 0
 				};
 
 				// other widgets instances using by number picker
@@ -411,10 +412,21 @@
 			}
 
 			function onRotary(self, ev) {
+				var step = parseInt(self.options.step, 10),
+					now = Date.now(),
+					accelerated = parseInt(self.options.accelerated, 10);
+
+				if (accelerated) {
+					if (now - self._previousRotaryTime < 30) {
+						step *= accelerated;
+					}
+					self._previousRotaryTime = now;
+				}
+
 				if (ev.detail.direction === "CW") {
-					self.value(self.value() + self.options.step);
+					self.value(self.value() + step);
 				} else {
-					self.value(self.value() - self.options.step);
+					self.value(self.value() - step);
 				}
 			}
 
