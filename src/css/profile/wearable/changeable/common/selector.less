@@ -107,7 +107,9 @@
 			z-index: -1;
 			background-color: white;
 			transform: translate(-50%, -50%) scale(1.1);
-			animation: touch-text-btn-scale cubic-bezier(.25, .46, .45, 1) 300ms, touch-text-btn-opacity linear 733ms;
+			animation-duration: 300ms, 733ms;
+			animation-name: touch-text-btn-scale, touch-text-btn-opacity;
+			animation-timing-function: cubic-bezier(.25, .46, .45, 1), linear;
 		}
 
 		.ui-selector-indicator-text {

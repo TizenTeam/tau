@@ -95,7 +95,9 @@
 
 		&.ui-btn-active::before {
 			transform: translate(-50%, -50%) scale(1.1);
-			animation: touch-text-btn-scale cubic-bezier(.25, .46, .45, 1) 300ms, touch-text-btn-opacity linear 733ms;
+			animation-timing-function: cubic-bezier(.25, .46, .45, 1), linear;
+			animation-duration: 300ms, 733ms;
+			animation-name: touch-text-btn-scale, touch-text-btn-opacity;
 		}
 	}
 
@@ -116,7 +118,7 @@
 		}
 	}
 
-	/* class .ui-btn-no-bg is only for backward compatibility, now should be used only .ui-btn-nobg */
+	// class .ui-btn-no-bg is only for backward compatibility, now should be used only .ui-btn-nobg
 	&.ui-btn-nobg.ui-btn-icon, &.ui-btn-no-bg.ui-btn-icon {
 		width: 76 * @unit_base;
 		height: 76 * @unit_base;
