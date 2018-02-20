@@ -24,7 +24,7 @@ document.addEventListener("tauinit", function () {
 				pageId !== "page-multiline-list") {
 				list = page.querySelector(".ui-listview");
 				if (list) {
-					tau.widget.ArcListview(list);
+					tau.widget.Listview(list);
 				}
 			}
 		});
