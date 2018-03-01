@@ -594,17 +594,15 @@
 			 */
 			prototype._onDrag = function (event) {
 				var self = this,
-					element = self.element,
-					deltaX = event.detail.deltaX,
-					movedX = self._translatedX + deltaX,
-					limitWidth = element.offsetWidth - self._wholeWidth;
+					element = self.element;
 
-				if (movedX > 0) {
-					movedX = 0;
-				} else if (movedX < limitWidth) {
-					movedX = limitWidth;
-				}
-				self._translate(movedX, 0);
+				self._translate(
+					Math.max(
+						element.parentNode.offsetWidth - element.offsetWidth,
+						Math.min(self._translatedX + event.detail.deltaX, 0)
+					),
+					0
+				);
 			};
 			/**
 			 * Dragend event handler
