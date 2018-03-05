@@ -120,9 +120,14 @@
 						options.event = event;
 						if (rel && !options.rel) {
 							options.rel = rel;
+						} else {
+							rel = options.rel;
 						}
 						if (href && !options.href) {
 							options.href = href;
+						}
+						if (rel === "popup" && link && !options.link) {
+							options.link = link;
 						}
 						history.disableVolatileMode();
 						if (!triggerStateChange(options)) {
