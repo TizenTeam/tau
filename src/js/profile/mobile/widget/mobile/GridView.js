@@ -794,7 +794,7 @@
 			prototype._getTransformStyle = function (col, row, index) {
 				var size = this._itemSize + this._borderSize,
 					x = col * size + "px",
-					y = row * (this._itemHeight + this._borderSize + (this.options.label === labels.OUT ? 30 : 0)) + "px",
+					y = row * (this._itemHeight + this._borderSize) + "px",
 					transform,
 					style;
 
