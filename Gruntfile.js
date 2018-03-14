@@ -260,8 +260,8 @@ module.exports = function (grunt) {
 					},
 					files: {
 						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js",
-							"!tools/grunt/tasks/templates/**/*.js", "demos/SDK/**/*.js", "!demos/SDK/**/lib/**/*.js",
-							"demos/SDK/**/*.html", "demos/SDK/**/*.htm"]
+							"!tools/grunt/tasks/templates/**/*.js", "examples/**/*.js", "!examples/**/lib/**/*.js",
+							"examples/**/*.html", "examples/**/*.htm"]
 					}
 				},
 				"js-ci": {
@@ -270,9 +270,9 @@ module.exports = function (grunt) {
 						outputFile: "report/eslint/junit-output.xml"
 					},
 					files: {
-						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "demos/SDK/**/*.js",
-							"!tools/grunt/tasks/templates/**/*.js", "!demos/SDK/**/lib/**/*.js", "demos/SDK/**/*.html",
-							"demos/SDK/**/*.htm"]
+						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "examples/**/*.js",
+							"!tools/grunt/tasks/templates/**/*.js", "!examples/**/lib/**/*.js", "examples/**/*.html",
+							"examples/**/*.htm"]
 					}
 				},
 				single: {

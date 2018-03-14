@@ -36,8 +36,8 @@ module.exports = function (config) {
             {pattern: "tests/libs/jquery.js", included: true, served: true},
             {pattern: "tests/libs/require.js", included: false, served: true},
 
-            {pattern: "demos/SDK/mobile/UIComponents/**/*", included: false, served: true},
-            {pattern: "demos/SDK/mobile/UIComponentsCE/**/*", included: false, served: true},
+            {pattern: "examples/mobile/UIComponents/**/*", included: false, served: true},
+            {pattern: "examples/mobile/UIComponentsCE/**/*", included: false, served: true},
 
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper.js", included: false, served: true, watch: true},

@@ -83,9 +83,9 @@ module.exports = function (grunt) {
 					// [OPTIONAL] for device tests
 					//name: "Mobile Winset",
 					// REQUIRED for Phantom tests
-					//path: "demos/SDK/MobileWinset/src/index.html",
+					//path: "examples/MobileWinset/src/index.html",
 					// REQUIRED for device tests
-					wgtPath: "demos/SDK/MobileWinset/MobileWinset.wgt"
+					wgtPath: "examples/MobileWinset/MobileWinset.wgt"
 				}
 			],
 			noBuild = grunt.option("no-build"),
