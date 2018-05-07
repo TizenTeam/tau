@@ -135,6 +135,8 @@ module.exports = function (grunt) {
 	}
 
 	function build(dir, profile, done, appDest) {
+        grunt.log.ok("Current directory: " + process.cwd());
+
 		grunt.log.ok("building app for: [" + profile + "] from dir: " + dir);
 		fs.exists(dir + "/config.xml", function (exists) {
 			if (exists) {

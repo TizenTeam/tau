@@ -5,7 +5,7 @@
  */
 var shell = require("shelljs"),
 	path = require("path"),
-	TIZEN_VERSION = "4.0",
+	TIZEN_VERSION = "5.0",
 	TCT_MANAGER_NAME = "tizen_web_" + TIZEN_VERSION;
 
 module.exports = function (grunt) {
@@ -106,7 +106,17 @@ module.exports = function (grunt) {
 						src: "tests/karma/tests/helpers.js",
 						dest: "tests/tau-runner/tests/karma/tests/helpers.js"
 					}
-				]
+				],
+                options: {
+                    process: function (content, srcpath) {
+                        console.log("SRC: ", srcpath);
+                        if (srcpath.indexOf(".html") > -1) {
+                            console.log("APPEND!");
+                            return content + "<script>QUnit.config.autostart=false;</script>";
+                        }
+                        return content;
+                    }
+                }
 			},
 			mobileTCT: {
 				files: [
@@ -142,7 +152,7 @@ module.exports = function (grunt) {
 		},
 		exec: {
 			wgt: {
-				command: "grunt prepare-app --app=../tests/tau-runner/ --tizen-3-0=true --profile=wearable --no-run=true && cd ..",
+				command: "grunt prepare-app --app=./tests/tau-runner/ --tizen-3-0=true --profile=wearable --no-run=true && cd ..",
 				stdout: true
 			}
 		},
@@ -188,6 +198,8 @@ module.exports = function (grunt) {
 	grunt.loadTasks("tools/app/tasks");
 
 	grunt.registerTask("copyTctWgt", "copy tct wgts", function (number) {
+		grunt.log.ok("copyTctWgt");
+
 		grunt.config.merge({
 			copy: {
 				runnerTCT: {
@@ -249,10 +261,12 @@ module.exports = function (grunt) {
 
 		content = grunt.file.read(CONFIG_FILE_NAME, "UTF8");
 		content = content.replace(/\%\%name\%\%/g, "tct-webuifw-tests" + twoDigit(index));
+        content = content.replace(/\%\%tizen\-version\%\%/g, TIZEN_VERSION);
 		grunt.file.write(CONFIG_FILE_NAME, content);
 
 		content = grunt.file.read(SUITE_FILE_NAME, "UTF8");
 		content = content.replace(/\%\%name\%\%/g, "tct-webuifw-tests" + twoDigit(index));
+        content = content.replace(/\%\%tizen\-version\%\%/g, TIZEN_VERSION);
 		grunt.file.write(SUITE_FILE_NAME, content);
 
 	});
@@ -276,8 +290,8 @@ module.exports = function (grunt) {
 
 
 		for (i = 1; i <= len; i++) {
-			shell.exec("grunt prepare-app --app=../tests/tct-packages/" + i + "/tau-runner/" +
-				" --tizen-3-0=true --profile=" + profile + " --no-run=true --app-dest=../tests/tct-packages/" + i + "/ && cd ..");
+			shell.exec("grunt prepare-app --app=./tests/tct-packages/" + i + "/tau-runner/" +
+				" --tizen-3-0=true --profile=" + profile + " --no-run=true --app-dest=./tests/tct-packages/" + i + "/ && cd ..");
 		}
 	});
 
@@ -311,6 +325,7 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-contrib-compress");
+    grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks("grunt-exec");
 	grunt.loadNpmTasks("grunt-sync");
 

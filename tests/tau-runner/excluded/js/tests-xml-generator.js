@@ -72,6 +72,10 @@ $(document).ready(function () {
 					self.frame.QUnit.moduleStart = self.onModuleStart;
 					self.frame.QUnit.moduleDone = self.onModuleDone;
 					self.frame.QUnit.testStart = self.onTestStart;
+
+                    if (!self.frame.QUnit.config.autostart) {
+                        self.frame.QUnit.start();
+                    }
 				},
 				onBegin: function () {
 					currentRun = {
