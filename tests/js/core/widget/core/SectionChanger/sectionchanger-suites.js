@@ -13,7 +13,8 @@ var suites = {
 		{
 			name: "horizontal",
 			options: {
-				orientation: "horizontal"
+				orientation: "horizontal",
+				animationDuration: 0
 			},
 			moves: [
 				{
@@ -37,7 +38,8 @@ var suites = {
 		{
 			name: "vertical",
 			options: {
-				orientation: "vertical"
+				orientation: "vertical",
+				animationDuration: 0
 			},
 			moves: [
 				{
@@ -63,7 +65,8 @@ var suites = {
 	circular: {
 		name: "circular",
 		options: {
-			circular: true
+			circular: true,
+			animationDuration: 0
 		},
 		moves: [
 			{
