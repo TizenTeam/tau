@@ -109,7 +109,7 @@ module.exports = function (grunt) {
 				],
                 options: {
                     process: function (content, srcpath) {
-                        if (srcpath.indexOf(".html") > -1) {
+                        if (srcpath.indexOf(".html") > -1 && srcpath.indexOf("test-data") === -1) {
                         	content = content.replace("<!-- TCT", "");
                             content = content.replace("TCT -->", "");
                             return content + "<script>QUnit.config.autostart=false;</script>";
