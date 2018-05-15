@@ -109,9 +109,9 @@ module.exports = function (grunt) {
 				],
                 options: {
                     process: function (content, srcpath) {
-                        console.log("SRC: ", srcpath);
                         if (srcpath.indexOf(".html") > -1) {
-                            console.log("APPEND!");
+                        	content = content.replace("<!-- TCT", "");
+                            content = content.replace("TCT -->", "");
                             return content + "<script>QUnit.config.autostart=false;</script>";
                         }
                         return content;
