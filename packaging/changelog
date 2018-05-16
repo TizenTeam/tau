@@ -1,4 +1,8 @@
 %changelog
+* Tue May 16 2018 Dariusz Dyrda <d.dyrda@samsung.com> 0.13.34
+	- tests(wearable) Fix unit tests for ArcListview
+	- fix(wearable) Fix ArcListview scrolling performance issue
+
 * Fri May 11 2018 Krzysztof Antoszek <k.antoszek@samsung.com> 0.13.33
 	- build(all) Added dist folder with built project
 	- refactor(examples) Move UIComponentsCE to examples folder

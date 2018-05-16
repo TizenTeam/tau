@@ -20,7 +20,7 @@ var ns = window.tau = window.tau || {},
 nsConfig = window.tauConfig = window.tauConfig || {};
 nsConfig.rootNamespace = 'tau';
 nsConfig.fileName = 'tau';
-ns.version = '0.13.33';
+ns.version = '0.13.34';
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -30443,6 +30443,12 @@ function pathToRegexp (path, keys, options) {
 						items: []
 					};
 					self._initializeState();
+
+					self._renderCallback = self._render.bind(this);
+					self._halfItemsCount = null;
+					self._rendering = false;
+					self._lastRenderRequest = 0;
+
 					/**
 					 * Cache for widget UI HTMLElements
 					 * @property {Object} _ui
@@ -30733,7 +30739,7 @@ function pathToRegexp (path, keys, options) {
 				var self = this,
 					state = self._state,
 					carousel = self._carousel,
-					middleItemIndex = Math.ceil(self.options.visibleItems / 2) + 1,
+					middleItemIndex = self._halfItemsCount + 1,
 					itemElement,
 					itemStyle;
 
@@ -30746,7 +30752,7 @@ function pathToRegexp (path, keys, options) {
 							carousel.items[index - state.currentIndex + middleItemIndex - 1]
 								.carouselElement.appendChild(item.element);
 						}
-						itemStyle.transform = "translateY(-50%) scale(" + item.current.scale + ")";
+						itemStyle.transform = "translateY(-50%) scale3d(" + item.current.scale + "," + item.current.scale + "," + item.current.scale + ")";
 						itemStyle.opacity = item.current.scale * 1.15;
 						item.repaint = false;
 					} else {
@@ -30789,7 +30795,7 @@ function pathToRegexp (path, keys, options) {
 				var self = this,
 					carousel = self._carousel,
 					state = self._state,
-					halfItemsCount = Math.ceil(self.options.visibleItems / 2),
+					halfItemsCount = self._halfItemsCount,
 					item,
 					len,
 					i,
@@ -30802,7 +30808,7 @@ function pathToRegexp (path, keys, options) {
 					} else {
 						top = 0;
 					}
-					carousel.items[i + halfItemsCount].carouselElement.style.top = top;
+					carousel.items[i + halfItemsCount].carouselElement.style.transform = "translateY(" + top + ")";
 				}
 			};
 
@@ -30822,9 +30828,20 @@ function pathToRegexp (path, keys, options) {
 				if (!self._scrollAnimationEnd) {
 					state.currentIndex = self._findItemIndexByY(
 						-1 * (state.scroll.current - SCREEN_HEIGHT / 2 + 1));
-					util.cancelAnimationFrame(self._animationHandle);
-					self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
+					util.requestAnimationFrame(self._renderCallback);
+				} else {
+					self._rendering = false;
 				}
+			};
+
+			prototype._requestRender = function () {
+				var self = this;
+
+				if (!self._rendering) {
+					self._rendering = true;
+					util.requestAnimationFrame(self._renderCallback);
+				}
+				self._lastRenderRequest = Date.now();
 			};
 
 			/**
@@ -30885,6 +30902,7 @@ function pathToRegexp (path, keys, options) {
 				sumTime += -1 * deltaTime;
 				sumDistance += deltaTouchY;
 				averageVelocity = sumDistance / sumTime;
+				self._halfItemsCount = Math.ceil(self.options.visibleItems / 2);
 
 				if (momentum !== 0) {
 					momentum *= averageVelocity;
@@ -30907,7 +30925,7 @@ function pathToRegexp (path, keys, options) {
 				if (self._scrollAnimationEnd) {
 					state.startTime = Date.now();
 					self._scrollAnimationEnd = false;
-					self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
+					self._requestRender();
 				}
 			};
 
@@ -30921,8 +30939,7 @@ function pathToRegexp (path, keys, options) {
 				momentum = (momentum === undefined) ? 0 : momentum;
 
 				self._refresh();
-				util.cancelAnimationFrame(self._animationHandle);
-				self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
+				self._requestRender();
 			};
 
 			/**
@@ -30968,7 +30985,7 @@ function pathToRegexp (path, keys, options) {
 				if (self._scrollAnimationEnd) {
 					state.startTime = Date.now();
 					self._scrollAnimationEnd = false;
-					self._animationHandle = util.requestAnimationFrame(self._render.bind(self));
+					self._requestRender();
 				}
 			};
 
