@@ -107,16 +107,16 @@ module.exports = function (grunt) {
 						dest: "tests/tau-runner/tests/karma/tests/helpers.js"
 					}
 				],
-                options: {
-                    process: function (content, srcpath) {
-                        if (srcpath.indexOf(".html") > -1 && srcpath.indexOf("test-data") === -1) {
-                        	content = content.replace("<!-- TCT", "");
-                            content = content.replace("TCT -->", "");
-                            return content + "<script>QUnit.config.autostart=false;</script>";
-                        }
-                        return content;
-                    }
-                }
+				options: {
+					process: function (content, srcpath) {
+						if (srcpath.indexOf(".html") > -1 && srcpath.indexOf("test-data") === -1) {
+							content = content.replace("<!-- TCT", "");
+							content = content.replace("TCT -->", "");
+							return content + "<script>QUnit.config.autostart=false;</script>";
+						}
+						return content;
+					}
+				}
 			},
 			mobileTCT: {
 				files: [
@@ -261,12 +261,12 @@ module.exports = function (grunt) {
 
 		content = grunt.file.read(CONFIG_FILE_NAME, "UTF8");
 		content = content.replace(/\%\%name\%\%/g, "tct-webuifw-tests" + twoDigit(index));
-        content = content.replace(/\%\%tizen\-version\%\%/g, TIZEN_VERSION);
+		content = content.replace(/\%\%tizen\-version\%\%/g, TIZEN_VERSION);
 		grunt.file.write(CONFIG_FILE_NAME, content);
 
 		content = grunt.file.read(SUITE_FILE_NAME, "UTF8");
 		content = content.replace(/\%\%name\%\%/g, "tct-webuifw-tests" + twoDigit(index));
-        content = content.replace(/\%\%tizen\-version\%\%/g, TIZEN_VERSION);
+		content = content.replace(/\%\%tizen\-version\%\%/g, TIZEN_VERSION);
 		grunt.file.write(SUITE_FILE_NAME, content);
 
 	});
@@ -325,7 +325,7 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-contrib-compress");
-    grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks("grunt-exec");
 	grunt.loadNpmTasks("grunt-sync");
 

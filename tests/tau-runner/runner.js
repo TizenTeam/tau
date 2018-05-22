@@ -59,7 +59,6 @@ var Runner = function () {
 		$frameElem: $("#testFrame"),
 		assertionResultPrefix: "assertion result for test:",
 		onTimeout: function () {
-			console.log("onTimeout");
 			var src = "",
 				urlOperand = "?",
 				frame = self.$frameElem.get(0);
@@ -94,7 +93,6 @@ var Runner = function () {
 		},
 
 		onFrameLoad: function () {
-            console.log("onFrameLoad");
 			// establish a timeout for a given suite in case of async tests hanging
 			self.testTimer = setTimeout(self.onTimeout, self.testTimeout);
 
@@ -122,7 +120,6 @@ var Runner = function () {
 			}
 		},
 		onBegin: function () {
-            console.log("!!!onBegin");
 			currentRun = {
 				modules: [],
 				total: 0,
@@ -133,11 +130,9 @@ var Runner = function () {
 			};
 		},
 		onModuleStart: function () {
-            console.log("onModuleStart", currentTestPath);
 			currentModule = pushTestModule(currentRun, currentTestPath);
 		},
 		onTestStart: function (data) {
-            console.log("!!!onTestStart");
 			if (!currentModule) {
 				currentModule = pushTestModule(currentRun, currentTestPath);
 			}
@@ -156,7 +151,6 @@ var Runner = function () {
 			currentModule.tests.push(currentTest);
 		},
 		onLog: function (data) {
-		    console.log("onLog", data, currentModule);
 			assertCount++;
 			//if (!data.result) {
 			currentTest.failedAssertions.push(data);
@@ -164,7 +158,6 @@ var Runner = function () {
 			//}
 		},
 		onTestDone: function (result) {
-		    console.log("onTestDone", result);
 			currentTest.time = (new Date()).getTime() - currentTest.start.getTime();  // ms
 			currentTest.total = result.total;
 			currentTest.passed = result.passed;
@@ -177,12 +170,10 @@ var Runner = function () {
 		},
 
 		onModuleDone: function () {
-            console.log("onModuleDone", currentModule);
 			currentModule = null;
 		},
 
 		onFrameDone: function (result) {
-            console.log("onFrameDone", result, currentModule);
 			// make result object
 			var details = {};
 
@@ -199,11 +190,11 @@ var Runner = function () {
 			// clear the done call to prevent early completion of other test cases
 			self.frame.QUnit.done = noop;
 			self.frame.QUnit.testDone = noop;
-            self.frame.QUnit.log = noop;
-            self.frame.QUnit.begin = noop;
-            self.frame.QUnit.moduleStart = noop;
-            self.frame.QUnit.moduleDone = noop;
-            self.frame.QUnit.testStart = noop;
+			self.frame.QUnit.log = noop;
+			self.frame.QUnit.begin = noop;
+			self.frame.QUnit.moduleStart = noop;
+			self.frame.QUnit.moduleDone = noop;
+			self.frame.QUnit.testStart = noop;
 
 			// hide the extra assertions made to propogate the count
 			// to the suite level test
@@ -220,12 +211,10 @@ var Runner = function () {
 		},
 
 		getTestResult: function () {
-            console.log("getTestResult");
 			return currentRun;
 		},
 
 		getCurrentTest: function () {
-            console.log("getCurrentTest");
 			return currentTest;
 		},
 
@@ -242,7 +231,6 @@ var Runner = function () {
 		},
 
 		exec: function (data) {
-			console.log("exec: ", data);
 			var template = self.$frameElem.attr("data-src");
 
 			$.each(data, function (i, dir) {
@@ -528,9 +516,9 @@ $.ajax({
 			path = regEx.exec(data);
 
 		if (path) {
-			RESOURCE_DIR = path[1];			
+			RESOURCE_DIR = path[1];
 		}
-		
+
 		start();
 	}
 });
@@ -596,11 +584,11 @@ function start() {
 			// Save partial or final report to file.
 			try {
 				tizen.filesystem.resolve("file://" + RESOURCE_DIR + "/Documents",
-						function (dir) {
-							saveReport(data, _order, dir);
-						},
-						function (err) {
-				});
+					function (dir) {
+						saveReport(data, _order, dir);
+					},
+					function (err) {
+					});
 			} catch (except) {
 				// go to next test
 				QUnit.start();
