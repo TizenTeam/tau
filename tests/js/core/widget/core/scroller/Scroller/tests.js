@@ -50,10 +50,8 @@ document.getElementById("first").addEventListener("pageshow", function () {
 		fireEvent(scrollerInner, "dragend", {});
 
 		if (orientation === "vertical") {
-			//expect(16);
 			notEqual(scrollerInner.style[transformPropertyName], "", "element was scrolled (1)");
 		} else {
-			//expect(15);
 			// @todo window size in during TCT tests has size 0x0, this cause issue with scroll
 			// because content is always bigger then container
 			//equal(scrollerInner.style[transformPropertyName], "", "element was scrolled (2)");
@@ -92,7 +90,6 @@ document.getElementById("first").addEventListener("pageshow", function () {
 			equal(scrollerElement.children[1].className, "ui-scrollbar-bar-type ui-scrollbar-vertical", "bar has proper classes");
 			equal(scrollerElement.children[1].children[0].className, "ui-scrollbar-indicator", "inner bar has proper classes");
 			ok(scrollerElement.children[1].children[0].style.height !== "0px", "bar has proper height");
-			//expect(18);
 		}
 		// if (useBouncingEffect) {
 		// 	equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top ui-show", "top effect container has proper classes");

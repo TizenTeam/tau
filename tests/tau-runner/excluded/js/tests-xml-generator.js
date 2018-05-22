@@ -32,9 +32,9 @@ $(document).ready(function () {
 						stderr: []
 					};
 
-			// Avoid duplicates, if module exists, return it
-			// It's important for generating tcresult files by runner.js
-			// Splited modules for file, generated one file instead few tcresult files
+				// Avoid duplicates, if module exists, return it
+				// It's important for generating tcresult files by runner.js
+				// Splited modules for file, generated one file instead few tcresult files
 				for (i = 0, l = modules.length; i < l; i++) {
 					if (modules[i].name === moduleName) {
 						return modules[i];
@@ -53,18 +53,18 @@ $(document).ready(function () {
 				onTimeout: QUnit.start,
 
 				onFrameLoad: function () {
-				// establish a timeout for a given suite in case of async tests hanging
+					// establish a timeout for a given suite in case of async tests hanging
 					self.testTimer = setTimeout(self.onTimeout, self.testTimeout);
 
-				// it might be a redirect with query params for push state
-				// tests skip this call and expect another
+					// it might be a redirect with query params for push state
+					// tests skip this call and expect another
 					if (!self.frame.QUnit) {
 						self.$frameElem.one("load", self.onFrameLoad);
 						return;
 					}
 
-				// when the QUnit object reports done in the iframe
-				// run the onFrameDone method
+					// when the QUnit object reports done in the iframe
+					// run the onFrameDone method
 					self.frame.QUnit.done = self.onFrameDone;
 					self.frame.QUnit.testDone = self.onTestDone;
 					self.frame.QUnit.log = self.onLog;
@@ -73,9 +73,9 @@ $(document).ready(function () {
 					self.frame.QUnit.moduleDone = self.onModuleDone;
 					self.frame.QUnit.testStart = self.onTestStart;
 
-                    if (!self.frame.QUnit.config.autostart) {
-                        self.frame.QUnit.start();
-                    }
+					if (!self.frame.QUnit.config.autostart) {
+						self.frame.QUnit.start();
+					}
 				},
 				onBegin: function () {
 					currentRun = {
@@ -110,10 +110,10 @@ $(document).ready(function () {
 				},
 				onLog: function (data) {
 					assertCount++;
-				//if (!data.result) {
+					//if (!data.result) {
 					currentTest.failedAssertions.push(data);
 					currentModule.stdout.push("[" + currentModule.name + ", " + currentTest.name + ", " + assertCount + "] " + data.message);
-				//}
+					//}
 				},
 				onTestDone: function (result) {
 
@@ -132,10 +132,10 @@ $(document).ready(function () {
 					currentModule = null;
 				},
 
-			// @TODO fixme: Arguments of this function are fake, only first
-			// is passed.
+				// @TODO fixme: Arguments of this function are fake, only first
+				// is passed.
 				onFrameDone: function (failed, passed, total, runtime) {
-				// make result object
+					// make result object
 					var details = {};
 
 					details.failed = failed;
@@ -143,20 +143,20 @@ $(document).ready(function () {
 					details.total = total;
 					details.time = runtime;
 
-				// make sure we don't time out the tests
+					// make sure we don't time out the tests
 					clearTimeout(self.testTimer);
 
-				// TODO decipher actual cause of multiple test results firing twice
-				// clear the done call to prevent early completion of other test cases
+					// TODO decipher actual cause of multiple test results firing twice
+					// clear the done call to prevent early completion of other test cases
 					self.frame.QUnit.done = $.noop;
 					self.frame.QUnit.testDone = $.noop;
 
-				// hide the extra assertions made to propogate the count
-				// to the suite level test
+					// hide the extra assertions made to propogate the count
+					// to the suite level test
 					self.hideAssertionResults();
 
 					if (currentModule) {
-					// FIXME: this is wrong, check arguments variable
+						// FIXME: this is wrong, check arguments variable
 						pushTestModule(currentRun, currentModule.name);
 
 						currentModule = null;
@@ -213,12 +213,12 @@ $(document).ready(function () {
 						}
 					});
 
-				// having defined all suite level tests let QUnit run
+					// having defined all suite level tests let QUnit run
 					setTimeout(QUnit.start, 2000);
 				}
 			});
 		},
-	//Generate XML
+		//Generate XML
 		generateReport = function (results, run, end) {
 			var xmlEncode = function (text) {
 					var baseEntities = {
@@ -315,11 +315,11 @@ $(document).ready(function () {
 						stack.length = 0;
 					};
 
-			// Start by writing the XML declaration
+					// Start by writing the XML declaration
 					this.pi(settings.xmldecl || "xml version=\"1.0\" encoding=\"UTF-8\"");
 				},
 
-		// Generate JUnit XML report!
+				// Generate JUnit XML report!
 				m,
 				mLen,
 				module,
@@ -381,11 +381,6 @@ $(document).ready(function () {
 						continue;
 					}
 				}
-			/*if( !end ) {
-			 if( currentTest.toLowerCase() != module.name.toLowerCase() ) {
-			 continue;
-			 }
-			 }*/
 
 				xmlWriter.start("set", {
 					name: module.name + "_" + m,
@@ -416,7 +411,7 @@ $(document).ready(function () {
 
 			xmlWriter.end(); //suite
 			xmlWriter.end(); //test_definition
-		// Invoke the user-defined callback
+			// Invoke the user-defined callback
 			QUnit.jUnitReport({
 				results: results,
 				xml: xmlWriter.getString(),
