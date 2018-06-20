@@ -189,8 +189,8 @@ a {
 }
 ```
 
-This can be put directly in the application html file between `<script></script>` tags
-or you can create your own css nad add a `link` pointing to it in the markup `head` element
+This can be put directly in the application html file between `<style></style>` tags
+or you can create your own css file and add a `link` pointing to it in the markup `head` element
 as shown in step 2.
 
 ## Step 6:
@@ -200,7 +200,7 @@ Finally whole file should looks like below:
 
 !info
 Wrapping closure
-It's always good idea to wrap your whole content of your JavaScrpt files in a closure 
+It's always good idea to wrap your whole content of your JavaScript files in a closure
 function to prevent creating unneeded variables in the global scope.
 
 ```
