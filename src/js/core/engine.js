@@ -308,10 +308,6 @@
 					element = document.getElementById(id);
 				}
 
-				if (type === "ArcListview") {
-					type = "Listview";
-				}
-
 				if (element) {
 					// Fetch group of widget defined for this element
 					binding = widgetBindingMap[id];
