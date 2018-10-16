@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://tizen.org/%%name%%" version="3.0.0" viewmodes="maximized">
     <access origin="*"></access>
-    <tizen:application id="webuifwtcs.tctwebuifwtest" package="webuifwtcs" required_version="3.0"/>
+    <tizen:application id="webuifwtcs.tctwebuifwtest" package="webuifwtcs" required_version="%%tizen-version%%"/>
     <content src="run.html"/>
     <icon src="custom.png" height="117" width="117"/>
     <name>%%name%%</name>

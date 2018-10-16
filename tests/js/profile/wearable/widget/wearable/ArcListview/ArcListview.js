@@ -241,7 +241,7 @@
 					repaint: true
 				};
 
-			expect(4);
+			expect(3);
 			listWidget.element = element;
 			listWidget._state.currentIndex = 2;
 			listWidget._carousel = {
@@ -255,7 +255,6 @@
 			};
 
 			listWidget._drawItem(item, 0);
-
 			assert.deepEqual(item,
 				{
 					"current": {
@@ -264,7 +263,7 @@
 					"element": {
 						"style": {
 							"opacity": 1.15,
-							"transform": "translateY(-50%) scale(1)"
+							"transform": "translateY(-50%) scale3d(1,1,1)"
 						},
 						"parentNode": {
 							"removeChild": removeChild
@@ -288,7 +287,7 @@
 						},
 						"style": {
 							"opacity": 1.15,
-							"transform": "translateY(-50%) scale(1)"
+							"transform": "translateY(-50%) scale3d(1,1,1)"
 						}
 					},
 					"repaint": false
@@ -562,35 +561,35 @@
 					{
 						"carouselElement": {
 							"style": {
-								"top": "2px"
+								"transform": "translateY(22px)"
 							}
 						}
 					},
 					{
 						"carouselElement": {
 							"style": {
-								"top": "12px"
+
 							}
 						}
 					},
 					{
 						"carouselElement": {
 							"style": {
-								"top": "22px"
+
 							}
 						}
 					},
 					{
 						"carouselElement": {
 							"style": {
-								"top": 0
+
 							}
 						}
 					},
 					{
 						"carouselElement": {
 							"style": {
-								"top": 0
+
 							}
 						}
 					}
@@ -598,7 +597,7 @@
 			}, "arclistWidget._carousel is updated correctly");
 		});
 
-		QUnit.test("_render", 6, function (assert) {
+		QUnit.test("_render", 4, function (assert) {
 			var arclistWidget = new ArcListview();
 
 			arclistWidget._state = {
@@ -617,18 +616,10 @@
 				assert.equal(y, 79, "y is correct");
 				return 5;
 			};
-			helpers.stub(ns.util, "cancelAnimationFrame", function (callback) {
-				assert.equal(callback, undefined, "callback is undefined");
-			});
 
-			helpers.stub(ns.util, "requestAnimationFrame", function (callback) {
-				assert.equal(typeof callback, "function", "callback is function");
-			});
 			arclistWidget._render();
 			assert.equal(arclistWidget._state.currentIndex, 5, "_state.currentIndex is updated");
 
-			helpers.restoreStub(ns.util, "cancelAnimationFrame");
-			helpers.restoreStub(ns.util, "requestAnimationFrame");
 		});
 
 		QUnit.test("_findItemIndexByY", function (assert) {
@@ -658,22 +649,15 @@
 			arclistWidget._refresh = function () {
 				assert.ok(true, "_refresh was called");
 			};
-			helpers.stub(ns.util, "cancelAnimationFrame", function (callback) {
-				assert.equal(callback, undefined, "callback is undefined");
-			});
 
-			helpers.stub(ns.util, "requestAnimationFrame", function (callback) {
-				assert.equal(typeof callback, "function", "callback is function");
-				return 5;
-			});
+			arclistWidget._requestRender = function () {
+				assert.ok(true, "_requestRender was called");
+			};
+
 			arclistWidget._scroll();
-			assert.equal(arclistWidget._animationHandle, 5, "_state.currentIndex is updated");
-
-			helpers.restoreStub(ns.util, "cancelAnimationFrame");
-			helpers.restoreStub(ns.util, "requestAnimationFrame");
 		});
 
-		QUnit.test("_roll", 5, function (assert) {
+		QUnit.test("_roll", 3, function (assert) {
 			var arclistWidget = new ArcListview();
 
 			arclistWidget._state = {
@@ -688,12 +672,8 @@
 				toIndex: 0
 			};
 			arclistWidget._scrollAnimationEnd = true;
-			helpers.stub(ns.util, "requestAnimationFrame", function (callback) {
-				assert.equal(typeof callback, "function", "callback is function");
-				return 5;
-			});
+
 			arclistWidget._roll(2000);
-			assert.equal(arclistWidget._animationHandle, 5, "_state.currentIndex is updated");
 			assert.equal(arclistWidget._state.duration, 2000, "_state.duration is 2000");
 			assert.ok(arclistWidget._state.startTime, "_state.startTime is set");
 			assert.deepEqual(arclistWidget._state.scroll, {
@@ -701,7 +681,7 @@
 				"from": 5,
 				"to": 176
 			}, "arclistWidget._state.scroll is correct");
-			helpers.restoreStub(ns.util, "requestAnimationFrame");
+
 		});
 
 		QUnit.test("_rollDown", 12, function (assert) {

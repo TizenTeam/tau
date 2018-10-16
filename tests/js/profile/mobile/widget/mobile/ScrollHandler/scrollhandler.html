@@ -42,7 +42,7 @@
 			document.addEventListener('bound', function () {
 				module('support/mobile/widget/ScrollHandler');
 
-				test('Scrollhander created', 7, function () {
+				test('Scrollhander created', 6, function () {
 					var content = document.getElementById('content1'),
 						ScrollHandler = ej.engine.getBinding(document.getElementById('content1')),
 						clipStyle = window.getComputedStyle(content),
@@ -50,7 +50,9 @@
 
 					equal(content.getAttribute('data-tau-bound'), 'ScrollHandler', 'ScrollHandler added');
 					ok(content.classList.contains("ui-scrollview-clip"), 'ScrollHandler created');
-					equal(clipStyle.getPropertyValue("overflow"), 'auto', 'Overflow: auto');
+					// Chromium M63 https://codereview.chromium.org/2752623002
+					// test disabled
+					// equal(clipStyle.getPropertyValue("overflow"), "", 'Overflow: auto');
 					if (ScrollHandler.options.scrollIndicator) {
 						equal(content.childNodes.length, 4, 'Content body wrapped in ui-scrollview-view and ScrollHandler beside');
 					} else {
@@ -69,12 +71,14 @@
 					ok(content.classList.contains("ui-scrollview-clip"), 'ScrollHandler created');
 				});
 
-				test('ScrollHandler with data-direction=y', 3, function () {
+				test('ScrollHandler with data-direction=y', 2, function () {
 					var content = document.getElementById('content4'),
 						clipStyle = window.getComputedStyle(content);
 					equal(clipStyle.getPropertyValue("overflow-y"), "auto", 'Added vertical scroll');
 					equal(clipStyle.getPropertyValue("overflow-x"), "hidden", 'No horizontal scroll');
-					equal(clipStyle.getPropertyValue("overflow"), "auto", 'Main scroll not changed');
+					// Chromium M63 https://codereview.chromium.org/2752623002
+					// test disabled
+					// equal(clipStyle.getPropertyValue("overflow"), "", 'Main scroll not changed');
 				});
 
 				test('getScrollPosition', 2, function () {

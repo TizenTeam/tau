@@ -211,7 +211,7 @@ function checkProgress(issue, cb) {
 									remoteLink: {
 										"relationship": "artifacts",
 										"object": {
-											"url": `http://${SERVER}:8080/index.html#` + encodeURIComponent(artifactsLink + "demos/SDK/%profile%/UIComponents/"),
+											"url": `http://${SERVER}:8080/index.html#` + encodeURIComponent(artifactsLink + "examples/%profile%/UIComponents/"),
 											"title": "DevieceViewer",
 											"icon": {
 												"url16x16": "https://download.tizen.org/misc/Tizen-Brand/01-Primary-Assets/Pinwheel/On-Light/01-RGB/Tizen-Pinwheel-On-Light-RGB.png",

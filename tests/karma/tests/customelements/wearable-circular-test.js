@@ -4,7 +4,7 @@ define(
 	function (compareHelper) {
 		// circular
 		compareHelper.compare({
-			path: "/base/demos/SDK/wearable/circular",
+			path: "/base/examples/wearable/circular",
 			appName: "CircularUIComponents",
 			indexFile: "index.html",
 			width: 360,

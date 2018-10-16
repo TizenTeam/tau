@@ -3,7 +3,7 @@ define(
 	["../compare-helper"],
 	function (compareHelper) {
 		compareHelper.compare({
-			path: "/base/demos/SDK/mobile",
+			path: "/base/examples/mobile",
 			appName: "UIComponents",
 			indexFile: "index.html"
 		});

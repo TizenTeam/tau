@@ -4,7 +4,7 @@ define(
 	function (compareHelper) {
 		// square
 		compareHelper.compare({
-			path: "/base/demos/SDK/wearable",
+			path: "/base/examples/wearable",
 			appName: "UIComponents",
 			indexFile: "index.html",
 			width: 360,

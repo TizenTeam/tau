@@ -1,4 +1,85 @@
 %changelog
+* Tue May 16 2018 Dariusz Dyrda <d.dyrda@samsung.com> 0.13.34
+	- tests(wearable) Fix unit tests for ArcListview
+	- fix(wearable) Fix ArcListview scrolling performance issue
+
+* Fri May 11 2018 Krzysztof Antoszek <k.antoszek@samsung.com> 0.13.33
+	- build(all) Added dist folder with built project
+	- refactor(examples) Move UIComponentsCE to examples folder
+	- fix(mobile) Fixed wrong method of calculating grid view item height
+	- fix(mobile) Fixed handling of links for contextual popup
+	- fix(demo) Restored popup grid example images
+	- fix(demo) Restored thumbnail image for normal list demo
+	- fix(demo) Fixed paths for images in list styles demo page
+	- fix(mobile) Tabbar streches to children, which covers background fully
+	- docs(all): add possibility of defining constructor
+	- fix(wearable) Fix exception in ArcListview
+	- fix(wearable) Fix code smells in prefixer and connected less files
+	- fix(wearable) Fix code smells in Selector code
+	- fix(wearable) Fix code smells in popup.transition
+	- fix(wearable) Fix bugs from TAU project
+	- fix(wearable) Fix code smells in prefixer and connected less files
+	- fix(mobile) Fix code smells in Progress less
+	- fix(wearable) Fix code smells in Page less and code
+	- fix(wearable) Accelerated NumberPicker
+	- fix(wearable) Fix code smells in Checkbox radio less
+	- fix(wearable) Fix code smells in TokenTextArea less
+	- fix(wearable) Fix code smells in popup less
+	- fix(wearable) Fix code smells in scroller less
+	- fix(all) Fix links to TAU in examples
+	- fix(wearable) SonarCube fixes
+	- fix(wearable) Fix code smells in LESS
+	- fix(wearable) Fix code smells in Selector
+	- fix(wearable) Fix SonarCube code smells in LESS files
+	- fix(all) Fix SonarCube code smells in LESS files
+	- fix(all) Fix SonarCube errors
+	- fix(all) Fix 0px unit in all less files
+	- fix(all) Fix SonarQube bugs
+	- fix(core) Marquee widget has wrong animation after refactor
+	- feature(wearable) Implement Animation pause method
+	- refactor(core) Create new Marquee based on JS animations
+	- (fix) Fix errors in unit tests
+	- refactor(all) simplify demos folder to examples and templates
+	- feature(wearable) Implement Text Input widget
+	- samples(wearable) Add sample for Text Input outside Listview
+	- refactor(all) Move TAU folder to parent folder
+	- refactor(all) Remove root tools folder
+	- tests(runtime) Add possibility to run a single karma test
+	- tools(all) Add device to config
+	- feature(core) Add DOM state features to BaseWidget
+	- tests(core) Add tests for VirtualListSimple
+	- fix(wearable) Fix scrolling in SnapListview without header
+	- feature(core) Add module to create animations in JS
+	- feature(core) Optimize time of working request animation frame.
+	- tests(mobile) UI tests for textarea in popup landscape orientation
+	- fix(wearable) Fix layer change animations in Selector
+	- fix(core) Fix code smells in core Button widget
+	- feature(core) Add class Set which is missing on old Tizen devices
+	- fix(all) Fix script for uploading application to device.
+	- fix(all) Fix exception in script for preparing SonarCube config
+	- fix(tests) TCT test runner issue with QUnit callbacks
+	- fix(wearable) Fix hiding remove buttons in edit mode in Selector
+	- tests(mobile) Increase test coverage
+	- fix(wearable) Fix layout of Snaplistview without header
+	- tests(core) Fix unit test for _initStaticAndWidths method in Tabbar
+	- tests(wearable) Fix unit test for _build method in ArcListview
+	- fix(core) Fix problem in documentation for util.scrolling
+	- tests(all) Fixes problems in tests
+	- fix(core) Fix problem with scrolling up
+	- fix(core) Disable gradient in Marquee when text is not too long
+	- feature(core) Add acceleration on bezel scrolling
+	- fix(core) Resolve Marquee problems
+	- fix(mobile) Remove unused proprietary fonts
+	- tests(core) complement for core marquee widget
+	- fix(mobile) replace loop method in Popup build
+	- fix(wearable) Enable util.scrolling in SnapListview
+	- fix(mobile) Fix Popup landscape styling
+	- samples(mobile) Add new category called Input to Popup samples
+	- refactor(wearable) Performance optimization of VirtualListSimple
+	- fix(all) Fix problem with wrong version of grunt
+	- fix(wearable) Make scrollbar visible on VirtualListSimple
+	- fix(wearable) Fix snapping on touchend in util.scrolling
+
 * Tue Nov 7 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.32
 	- fix(wearable) Fix selecting item on click in SnapListview
 	- fix(wearable) Scrolling problem in VirtualListSimple
