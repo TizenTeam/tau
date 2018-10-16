@@ -9550,7 +9550,7 @@ tau-expandable {
 }
 .ui-listview li.ui-li-flex {
   display: flex;
-  padding: 0 16px;
+  padding: 0;
   overflow-x: visible;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -9669,27 +9669,55 @@ tau-expandable {
   justify-content: flex-start;
   margin-top: 16.5px;
   margin-bottom: 16.5px;
+  padding: 0 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-area-b {
   order: 0;
+  align-self: center;
+}
+.ui-listview li.ui-li-flex .ui-li-area-b.ui-li-image,
+.ui-listview li.ui-li-flex .ui-li-area-b.ui-li-circle-image,
+.ui-listview li.ui-li-flex .ui-li-area-b.ui-li-icon {
+  margin-left: 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-area-c {
   order: 3;
+  align-self: center;
+}
+.ui-listview li.ui-li-flex .ui-li-area-c.ui-li-image,
+.ui-listview li.ui-li-flex .ui-li-area-c.ui-li-circle-image {
+  margin-right: 16px;
+}
+.ui-listview li.ui-li-flex .ui-li-area-c.ui-li-icon {
+  margin-right: 8.5px;
+}
+.ui-listview li.ui-li-flex .ui-li-area-c .ui-toggle-container {
+  margin-right: 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-area-d {
   order: 2;
-}
-.ui-listview li.ui-li-flex input.ui-li-area-b,
-.ui-listview li.ui-li-flex .ui-li-area-b {
   align-self: center;
 }
-.ui-listview li.ui-li-flex input.ui-li-area-c,
-.ui-listview li.ui-li-flex .ui-li-area-c {
-  align-self: center;
+.ui-listview li.ui-li-flex .ui-li-area-d.ui-li-image,
+.ui-listview li.ui-li-flex .ui-li-area-d.ui-li-circle-image {
+  margin-right: 16px;
 }
-.ui-listview li.ui-li-flex input.ui-li-area-d,
-.ui-listview li.ui-li-flex .ui-li-area-d {
-  align-self: center;
+.ui-listview li.ui-li-flex .ui-li-area-d.ui-li-icon {
+  margin-right: 16px;
+}
+.ui-listview li.ui-li-flex input.ui-li-area-b[type="checkbox"],
+.ui-listview li.ui-li-flex input.ui-li-area-b[type="radio"] {
+  margin-left: 16px;
+}
+.ui-listview li.ui-li-flex input.ui-li-area-c[type="checkbox"],
+.ui-listview li.ui-li-flex input.ui-li-area-c[type="radio"] {
+  margin-right: 16px;
+}
+.ui-listview li.ui-li-flex input.ui-li-area-d[type="checkbox"],
+.ui-listview li.ui-li-flex input.ui-li-area-d[type="radio"],
+.ui-listview li.ui-li-flex input.ui-li-area-d .ui-li-image,
+.ui-listview li.ui-li-flex input.ui-li-area-d .ui-li-circle-image {
+  margin-right: 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-icon::after {
   content: "";
@@ -9737,7 +9765,6 @@ tau-expandable {
 .ui-listview li.ui-li-flex .ui-li-area.ui-li-area-c.ui-li-icon {
   width: 40px;
   height: 40px;
-  margin-right: -7.5px;
   align-items: center;
   justify-content: center;
   display: flex;

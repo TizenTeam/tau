@@ -7597,7 +7597,7 @@ tau-expandable {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 16px;
+  padding: 0;
   overflow-x: visible;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -7748,45 +7748,73 @@ tau-expandable {
           justify-content: flex-start;
   margin-top: 16.5px;
   margin-bottom: 16.5px;
+  padding: 0 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-area-b {
   -webkit-box-ordinal-group: 1;
   -webkit-order: 0;
       -ms-flex-order: 0;
           order: 0;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+              -ms-grid-row-align: center;
+          align-self: center;
+}
+.ui-listview li.ui-li-flex .ui-li-area-b.ui-li-image,
+.ui-listview li.ui-li-flex .ui-li-area-b.ui-li-circle-image,
+.ui-listview li.ui-li-flex .ui-li-area-b.ui-li-icon {
+  margin-left: 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-area-c {
   -webkit-box-ordinal-group: 4;
   -webkit-order: 3;
       -ms-flex-order: 3;
           order: 3;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+              -ms-grid-row-align: center;
+          align-self: center;
+}
+.ui-listview li.ui-li-flex .ui-li-area-c.ui-li-image,
+.ui-listview li.ui-li-flex .ui-li-area-c.ui-li-circle-image {
+  margin-right: 16px;
+}
+.ui-listview li.ui-li-flex .ui-li-area-c.ui-li-icon {
+  margin-right: 8.5px;
+}
+.ui-listview li.ui-li-flex .ui-li-area-c .ui-toggle-container {
+  margin-right: 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-area-d {
   -webkit-box-ordinal-group: 3;
   -webkit-order: 2;
       -ms-flex-order: 2;
           order: 2;
-}
-.ui-listview li.ui-li-flex input.ui-li-area-b,
-.ui-listview li.ui-li-flex .ui-li-area-b {
   -webkit-align-self: center;
       -ms-flex-item-align: center;
               -ms-grid-row-align: center;
           align-self: center;
 }
-.ui-listview li.ui-li-flex input.ui-li-area-c,
-.ui-listview li.ui-li-flex .ui-li-area-c {
-  -webkit-align-self: center;
-      -ms-flex-item-align: center;
-              -ms-grid-row-align: center;
-          align-self: center;
+.ui-listview li.ui-li-flex .ui-li-area-d.ui-li-image,
+.ui-listview li.ui-li-flex .ui-li-area-d.ui-li-circle-image {
+  margin-right: 16px;
 }
-.ui-listview li.ui-li-flex input.ui-li-area-d,
-.ui-listview li.ui-li-flex .ui-li-area-d {
-  -webkit-align-self: center;
-      -ms-flex-item-align: center;
-              -ms-grid-row-align: center;
-          align-self: center;
+.ui-listview li.ui-li-flex .ui-li-area-d.ui-li-icon {
+  margin-right: 16px;
+}
+.ui-listview li.ui-li-flex input.ui-li-area-b[type="checkbox"],
+.ui-listview li.ui-li-flex input.ui-li-area-b[type="radio"] {
+  margin-left: 16px;
+}
+.ui-listview li.ui-li-flex input.ui-li-area-c[type="checkbox"],
+.ui-listview li.ui-li-flex input.ui-li-area-c[type="radio"] {
+  margin-right: 16px;
+}
+.ui-listview li.ui-li-flex input.ui-li-area-d[type="checkbox"],
+.ui-listview li.ui-li-flex input.ui-li-area-d[type="radio"],
+.ui-listview li.ui-li-flex input.ui-li-area-d .ui-li-image,
+.ui-listview li.ui-li-flex input.ui-li-area-d .ui-li-circle-image {
+  margin-right: 16px;
 }
 .ui-listview li.ui-li-flex .ui-li-icon::after {
   content: "";
@@ -7846,7 +7874,6 @@ tau-expandable {
 .ui-listview li.ui-li-flex .ui-li-area.ui-li-area-c.ui-li-icon {
   width: 40px;
   height: 40px;
-  margin-right: -7.5px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;

@@ -88,96 +88,6 @@
 /***************************************************************************
                    IconButton
 ***************************************************************************/
-/***************************************************************************
-                  Body
-***************************************************************************/
-/***************************************************************************
-                   Action Bar / Header
-***************************************************************************/
-/****************************************************************************
-               Circle Progress Bar
-****************************************************************************/
-/****************************************************************************
-		Progress Bar
-****************************************************************************/
-/****************************************************************************
-		Processing
-****************************************************************************/
-/***************************************************************************
-                   Buttons
-***************************************************************************/
-/***************************************************************************
-                   Popup
-***************************************************************************/
-/***************************************************************************
-                   Footer
-***************************************************************************/
-/***************************************************************************
-                   Toast Popup
-***************************************************************************/
-/***************************************************************************
-                   Small Toast Popup
-***************************************************************************/
-/***************************************************************************
-                   Option Popup
-***************************************************************************/
-/***************************************************************************
-                  circular index scrollbar
-***************************************************************************/
-/***************************************************************************
-                  Listview
-***************************************************************************/
-/****************************************************************************
-               Listview with Marquee
-****************************************************************************/
-/***************************************************************************
-                   Multiline List
-***************************************************************************/
-/***************************************************************************
-                   Checkbox/Radio
-***************************************************************************/
-/***************************************************************************
-						Page Indicator
-***************************************************************************/
-/****************************************************************************
-		Toggle Switch
-****************************************************************************/
-/***************************************************************************
-                   Scroller
-***************************************************************************/
-/***************************************************************************
-                   More options
-***************************************************************************/
-/***************************************************************************
-                   Selector
-***************************************************************************/
-/***************************************************************************
-                   Text Input
-***************************************************************************/
-/***************************************************************************
-                   Slider
-***************************************************************************/
-/***************************************************************************
-                   Hyper Link
-***************************************************************************/
-/***************************************************************************
-                   Number Picker
-***************************************************************************/
-/***************************************************************************
-                   Time Picker
-***************************************************************************/
-/***************************************************************************
-                   Date Picker
-***************************************************************************/
-/***************************************************************************
-                   Time/Number/Date Indicator
-***************************************************************************/
-/***************************************************************************
-                   More Options
-***************************************************************************/
-/***************************************************************************
-                   IconButton
-***************************************************************************/
 /************************************************************************/
 /*                           fixedUIStyle.less                          */
 /************************************************************************/
@@ -219,7 +129,7 @@ Listview
 ***************************************************************************/
 body {
   background: B015;
-  color: #fafafa;
+  color: T011;
 }
 .ui-page {
   background: B015;
@@ -259,7 +169,7 @@ body {
   justify-content: flex-end;
 }
 .ui-page .ui-header .ui-title {
-  color: #74c4fc;
+  color: T012;
   margin: 0.875rem 4rem 1.5625rem;
   padding-left: 0;
   padding-right: 0;
@@ -371,7 +281,7 @@ body {
   width: 1rem;
   height: 2.25rem;
   -webkit-mask-box-image-source: url("images/Actionbar/b_more_option.png");
-  background-color: #74c4fc;
+  background-color: B052L1;
   border-radius: 50%;
   top: 50%;
   right: 0.375rem;
@@ -431,8 +341,8 @@ body {
   margin: 0;
   padding: 1.125rem 0 1.4375rem 0;
   font-size: 1.75rem;
-  color: #fafafa;
-  background-color: #02385c;
+  color: T041;
+  background-color: B065L4;
   mask-image: url("images/Bottom_button/tw_bottom_btn_bg.png");
   -webkit-mask-size: 100% 100%;
   -moz-mask-size: 100% 100%;
@@ -447,7 +357,7 @@ body {
   height: 100%;
   left: 0;
   top: 0;
-  background-color: #174973;
+  background-color: B065L4P;
   -webkit-transition: opacity 200ms;
   -moz-transition: opacity 200ms;
   -o-transition: opacity 200ms;
@@ -457,14 +367,14 @@ body {
   z-index: -1;
 }
 .ui-page .ui-footer.ui-bottom-button .ui-btn.ui-btn-active {
-  color: #fafafa;
+  color: T041P;
 }
 .ui-page .ui-footer.ui-bottom-button .ui-btn.ui-btn-active::after {
   animation: btn-footer-opacity-press linear 565ms;
 }
 .ui-page .ui-footer.ui-bottom-button .ui-btn.ui-state-disabled,
 .ui-page .ui-footer.ui-bottom-button .ui-btn:disabled {
-  color: rgba(250, 250, 250, 0.2);
+  color: T041D;
 }
 .ui-page .ui-footer.ui-bottom-button .ui-btn.ui-btn-icon-only {
   padding: 0.875rem 0 0.875rem 0;
@@ -509,7 +419,7 @@ This value only used for @rem_base, not for html font-size
 html font-size is set by WRT base font-size
 ***************************************************************/
 a {
-  color: #fafafa;
+  color: T011;
 }
 /***************************************************************************
                   toggle switch
@@ -534,7 +444,7 @@ a {
   height: 76px;
 }
 .ui-toggleswitch .ui-switch-input {
-  background-color: #858585;
+  background-color: W014L2;
   mask-image: url('images/Controller_icon/On_Off/tw_btn_control_bg_holo_dark.png');
   -webkit-mask-size: 100% 100%;
   -moz-mask-size: 100% 100%;
@@ -556,7 +466,7 @@ a {
   -o-transition: background-color 300ms linear;
   -ms-transition: background-color 300ms linear;
   transition: background-color 300ms linear;
-  background-color: #666565;
+  background-color: W014L2P;
 }
 .ui-toggleswitch .ui-switch-input:active ~ .ui-switch-activation,
 .ui-toggleswitch .ui-switch-input:active ~ .ui-switch-button {
@@ -564,7 +474,7 @@ a {
 }
 .ui-toggleswitch .ui-switch-input:active ~ .ui-switch-activation::after,
 .ui-toggleswitch .ui-switch-input:active ~ .ui-switch-button::after {
-  background-color: #b3b3b3;
+  background-color: W014L4P;
 }
 .ui-toggleswitch .ui-switch-input:disabled {
   background-color: transparent;
@@ -575,7 +485,7 @@ a {
 }
 .ui-toggleswitch .ui-switch-input:disabled ~ .ui-switch-activation::after,
 .ui-toggleswitch .ui-switch-input:disabled ~ .ui-switch-button::after {
-  background-color: #4d4d4d;
+  background-color: W014L4D;
 }
 .ui-toggleswitch .ui-switch-activation,
 .ui-toggleswitch .ui-switch-button {
@@ -598,7 +508,7 @@ a {
   -o-transition: transform 100ms 0ms linear;
   -ms-transition: transform 100ms 0ms linear;
   transition: transform 100ms 0ms linear;
-  background-color: #fafafa;
+  background-color: W014L3;
   -webkit-mask-size: 100% 100%;
   -moz-mask-size: 100% 100%;
   -ms-mask-size: 100% 100%;
@@ -638,12 +548,12 @@ a {
   -o-mask-position: 0;
   mask-position: 0;
   animation-fill-mode: both;
-  background-color: #fafafa;
+  background-color: W014L4;
   position: absolute;
   left: 0;
 }
 .ui-toggleswitch .ui-switch-input:checked {
-  background-color: #73bf0f;
+  background-color: W014L1;
 }
 .ui-toggleswitch .ui-switch-input:checked ~ .ui-switch-activation,
 .ui-toggleswitch .ui-switch-input:checked ~ .ui-switch-button {
@@ -661,7 +571,7 @@ a {
   -ms-mask-position: 0;
   -o-mask-position: 0;
   mask-position: 0;
-  background-color: #fafafa;
+  background-color: W014L3;
   -webkit-transition: transform 200ms 100ms linear;
   -moz-transition: transform 200ms 100ms linear;
   -o-transition: transform 200ms 100ms linear;
@@ -678,7 +588,7 @@ a {
   transition: transform 100ms 0ms linear;
 }
 .ui-toggleswitch .ui-switch-input:checked:active {
-  background-color: #4b6627;
+  background-color: W014L1P;
 }
 .ui-toggleswitch .ui-switch-input:checked:active ~ .ui-switch-activation,
 .ui-toggleswitch .ui-switch-input:checked:active ~ .ui-switch-button {
@@ -691,10 +601,10 @@ a {
   -ms-mask-position: 0;
   -o-mask-position: 0;
   mask-position: 0;
-  background-color: #b3b3b3;
+  background-color: W014L3P;
 }
 .ui-toggleswitch .ui-switch-input:checked:disabled {
-  background-color: #1f2615;
+  background-color: W014L1D;
 }
 .ui-toggleswitch .ui-switch-input:checked:disabled ~ .ui-switch-activation,
 .ui-toggleswitch .ui-switch-input:checked:disabled ~ .ui-switch-button {
@@ -707,7 +617,7 @@ a {
   -ms-mask-position: 0;
   -o-mask-position: 0;
   mask-position: 0;
-  background-color: #4d4d4d;
+  background-color: W014L3D;
 }
 /***************************************************************************
                                   Popup
@@ -777,7 +687,7 @@ a {
   overflow: hidden;
   border: 0;
   border-radius: 50%;
-  background-color: #001121;
+  background-color: B061L1E;
   /***********************
 	Popup Container Scroll
 	***********************/
@@ -795,7 +705,7 @@ a {
   text-align: center;
   min-height: 99px;
   background-color: transparent;
-  color: #74c4fc;
+  color: T091;
   padding-top: 60px;
   padding-right: 61px;
   padding-bottom: 0;
@@ -805,7 +715,7 @@ a {
   padding-top: 26px;
 }
 .ui-popup .ui-popup-content {
-  color: #fafafa;
+  color: T092;
   background-color: transparent;
   font-size: 32px;
   line-height: 2.625rem;
@@ -845,7 +755,7 @@ a {
   left: 0;
 }
 .ui-popup .ui-popup-footer.ui-side-button .ui-btn {
-  background-color: #02385c;
+  background-color: B065L4;
   mask-size: 100%;
 }
 .ui-popup .ui-popup-footer.ui-side-button .ui-btn::before {
@@ -854,7 +764,7 @@ a {
   transform: translate(-50%, -50%);
 }
 .ui-popup .ui-popup-footer.ui-side-button .ui-btn::after {
-  background-color: #174973;
+  background-color: B065L4P;
   z-index: -1;
 }
 .ui-popup .ui-popup-footer.ui-side-button .ui-btn.ui-btn-active::after {
@@ -876,7 +786,7 @@ a {
   border: none;
   line-height: 5.625rem;
   padding: 0 0 0.625rem 0;
-  background-color: #02385c;
+  background-color: B065L4;
   mask-image: url("images/Bottom_button/tw_bottom_btn_bg.png");
   -webkit-mask-size: 100% 100%;
   -moz-mask-size: 100% 100%;
@@ -891,7 +801,7 @@ a {
   height: 100%;
   left: 0;
   top: 0;
-  background-color: #174973;
+  background-color: B065L4P;
   opacity: 0;
   z-index: -1;
 }
@@ -954,7 +864,7 @@ a {
 }
 .ui-popup.ui-popup-toast {
   min-height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: W1712;
   background-image: none;
   border: none;
   margin: 0;
@@ -1068,7 +978,7 @@ a {
   border: 0 none;
   border-bottom: 0 solid transparent;
   border-image: linear-gradient(0deg, transparent, #245B85, transparent) 1;
-  color: #fafafa;
+  color: T0211;
   text-align: center;
   line-height: 2.9375rem;
   box-sizing: content-box;
@@ -1081,7 +991,7 @@ a {
   min-height: 2.0625rem;
   line-height: 1.9375rem;
   background-color: transparent;
-  color: #97c5e6;
+  color: T0231;
   display: flex;
   padding: 0;
 }
@@ -1150,7 +1060,7 @@ a {
   text-indent: -9999px;
 }
 .ui-listview li > * {
-  color: #fafafa;
+  color: T0211;
 }
 .ui-listview li > a:first-child:last-child,
 .ui-listview li button:first-child:last-child {
@@ -1176,30 +1086,30 @@ a {
   min-height: 2.0625rem;
   line-height: 1.9375rem;
   background-color: B023;
-  color: #97c5e6;
+  color: T0231;
   padding: 0;
 }
 .ui-listview li.ui-li-has-action-icon .ui-action-text::after {
-  background-color: #fafafa;
+  background-color: T011;
 }
 .ui-listview li.ui-li-has-action-icon .ui-action-delete {
-  background-color: #fafafa;
+  background-color: F022L1i;
 }
 .ui-listview li.ui-li-has-action-icon .ui-action-setting {
-  background-color: #fafafa;
+  background-color: F022L1i;
 }
 .ui-listview li.ui-li-has-action-icon .ui-action-add {
-  background-color: #fafafa;
+  background-color: F022L1i;
 }
 .ui-listview li.ui-li-has-action-icon .ui-action-delete:active,
 .ui-listview li.ui-li-has-action-icon .ui-action-setting:active,
 .ui-listview li.ui-li-has-action-icon .ui-action-add:active {
-  background-color: #08385e;
-  color: #fafafa;
+  background-color: B041P;
+  color: T0211P;
 }
 .ui-listview:not(.ui-arc-listview-carousel-item).ui-li-active {
   background-color: transparent;
-  color: #fafafa;
+  color: T0211P;
 }
 .ui-listview:not(.ui-arc-listview-carousel-item).ui-li-active::before {
   content: "";
@@ -1298,7 +1208,7 @@ a {
 }
 .ui-listview.ui-snap-listview li .ui-li-sub-text,
 .ui-listview.ui-arc-listview-carousel-item li .ui-li-sub-text {
-  color: #5587ab;
+  color: T022;
   font-size: 1.5rem;
   display: block;
   transition-property: opacity, line-height;
@@ -1335,7 +1245,7 @@ a {
 .ui-listview.ui-arc-listview-carousel-item li.ui-snap-listview-selected.ui-li-active,
 .ui-listview.ui-snap-listview li.ui-arc-listview-selected.ui-li-active,
 .ui-listview.ui-arc-listview-carousel-item li.ui-arc-listview-selected.ui-li-active {
-  color: #fafafa;
+  color: T0211P;
 }
 .ui-listview.ui-snap-listview li.ui-snap-listview-selected.ui-li-active::before,
 .ui-listview.ui-arc-listview-carousel-item li.ui-snap-listview-selected.ui-li-active::before,
@@ -1347,8 +1257,8 @@ a {
 .ui-listview.ui-arc-listview-carousel-item li.ui-snap-listview-selected.ui-li-active .ui-action-text:active,
 .ui-listview.ui-snap-listview li.ui-arc-listview-selected.ui-li-active .ui-action-text:active,
 .ui-listview.ui-arc-listview-carousel-item li.ui-arc-listview-selected.ui-li-active .ui-action-text:active {
-  background-color: #08385e;
-  color: #fafafa;
+  background-color: B041P;
+  color: T0211P;
 }
 .ui-listview.ui-snap-listview li.ui-snap-listview-selected::before,
 .ui-listview.ui-arc-listview-carousel-item li.ui-snap-listview-selected::before {
@@ -1456,13 +1366,13 @@ input[type="radio"] {
 }
 input[type="checkbox"]:not(.ui-switch-input) {
   mask-image: none;
-  background: radial-gradient(transparent, transparent 59%, #73bf0f 63%, #73bf0f 68%, transparent 72%), url("images/Controller_icon/Check/ref_btn_check_holo_dark.png") no-repeat;
+  background: radial-gradient(transparent, transparent 59%, W012L2 63%, W012L2 68%, transparent 72%), url("images/Controller_icon/Check/ref_btn_check_holo_dark.png") no-repeat;
   background-size: 100% 100%;
 }
 input[type="checkbox"]:not(.ui-switch-input)::before {
   content: "";
   mask-image: none;
-  background: radial-gradient(transparent, transparent 59%, #000e1a 63%, #000e1a 68%, transparent 72%);
+  background: radial-gradient(transparent, transparent 59%, W012L1 63%, W012L1 68%, transparent 72%);
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -1483,7 +1393,7 @@ input[type="checkbox"]:not(.ui-switch-input):checked::before {
   animation: checkon 300ms ease-out;
   transition: none;
   mask-image: none;
-  background: radial-gradient(transparent, transparent 59%, #000e1a 63%, #000e1a 68%, transparent 72%);
+  background: radial-gradient(transparent, transparent 59%, W012L1 63%, W012L1 68%, transparent 72%);
   opacity: 1;
 }
 input[type="checkbox"]:not(.ui-switch-input):checked::after {
@@ -1491,7 +1401,7 @@ input[type="checkbox"]:not(.ui-switch-input):checked::after {
   height: 100%;
 }
 input[type="checkbox"]:not(.ui-switch-input):active {
-  background: radial-gradient(transparent, transparent 59%, #73bf0f 63%, #73bf0f 68%, transparent 72%), url("images/Controller_icon/Check/ref_btn_check_holo_dark.png") no-repeat;
+  background: radial-gradient(transparent, transparent 59%, W012L2 63%, W012L2 68%, transparent 72%), url("images/Controller_icon/Check/ref_btn_check_holo_dark.png") no-repeat;
   background-size: 100% 100%;
 }
 input[type="checkbox"]:not(.ui-switch-input):active::after {
@@ -1499,19 +1409,19 @@ input[type="checkbox"]:not(.ui-switch-input):active::after {
 }
 input[type="checkbox"]:not(.ui-switch-input):active:checked::before {
   mask-image: none;
-  background: radial-gradient(transparent, transparent 59%, #000e1a 63%, #000e1a 68%, transparent 72%);
+  background: radial-gradient(transparent, transparent 59%, W012L1 63%, W012L1 68%, transparent 72%);
 }
 input[type="checkbox"]:not(.ui-switch-input):active:checked::after {
   background-color: W012L3;
   height: 100%;
 }
 input[type="checkbox"]:not(.ui-switch-input):disabled {
-  background: radial-gradient(transparent, transparent 59%, #3b3b3b 63%, #3b3b3b 68%, transparent 72%), url("images/Controller_icon/Check/ref_btn_check_holo_dark.png") no-repeat;
+  background: radial-gradient(transparent, transparent 59%, W012L2D 63%, W012L2D 68%, transparent 72%), url("images/Controller_icon/Check/ref_btn_check_holo_dark.png") no-repeat;
   background-size: 100% 100%;
 }
 input[type="checkbox"]:not(.ui-switch-input):disabled:checked::before {
   mask-image: none;
-  background: radial-gradient(transparent, transparent 59%, #242424 63%, #242424 68%, transparent 72%);
+  background: radial-gradient(transparent, transparent 59%, W012L1D 63%, W012L1D 68%, transparent 72%);
 }
 input[type="checkbox"]:not(.ui-switch-input):disabled:checked::after {
   background-color: W012L3D;
@@ -1526,7 +1436,7 @@ input[type="checkbox"]:not(.ui-switch-input):disabled:checked::after {
   }
 }
 input[type="radio"] {
-  background: radial-gradient(transparent, transparent 59%, #73bf0f 63%, #73bf0f 68%, transparent 72%, transparent);
+  background: radial-gradient(transparent, transparent 59%, W013L2 63%, W013L2 68%, transparent 72%, transparent);
   mask-image: none;
 }
 input[type="radio"]::after {
@@ -1547,7 +1457,7 @@ input[type="radio"]::before {
   transition: transform 300ms;
 }
 input[type="radio"]:checked {
-  background: radial-gradient(transparent, transparent 59%, #000e1a 63%, #000e1a 68%, transparent 72%, transparent);
+  background: radial-gradient(transparent, transparent 59%, W013L1 63%, W013L1 68%, transparent 72%, transparent);
 }
 input[type="radio"]:checked::before {
   background-color: W013L3;
@@ -1556,7 +1466,7 @@ input[type="radio"]:checked::before {
   z-index: 1;
 }
 input[type="radio"]:active {
-  background: radial-gradient(transparent, transparent 59%, #fafafa 63%, #fafafa 68%, transparent 72%, transparent);
+  background: radial-gradient(transparent, transparent 59%, W013L2P 63%, W013L2P 68%, transparent 72%, transparent);
   mask-image: none;
 }
 input[type="radio"]:active::after {
@@ -1564,7 +1474,7 @@ input[type="radio"]:active::after {
   background-color: W013L4P;
 }
 input[type="radio"]:active:checked {
-  background: radial-gradient(transparent, transparent 59%, rgba(0, 50, 84, 0.4) 63%, rgba(0, 50, 84, 0.4) 68%, transparent 72%, transparent);
+  background: radial-gradient(transparent, transparent 59%, W013L1P 63%, W013L1P 68%, transparent 72%, transparent);
 }
 input[type="radio"]:active:checked::before {
   mask-image: url('images/Controller_icon/Radio/tw_btn_radio_holo_dark.png');
@@ -1574,7 +1484,7 @@ input[type="radio"]:active:checked::after {
   content: none;
 }
 input[type="radio"]:disabled {
-  background: radial-gradient(transparent, transparent 59%, #3b3b3b 63%, #3b3b3b 68%, transparent 72%, transparent);
+  background: radial-gradient(transparent, transparent 59%, W013L2D 63%, W013L2D 68%, transparent 72%, transparent);
   mask-image: none;
 }
 input[type="radio"]:disabled::before {
@@ -1584,7 +1494,7 @@ input[type="radio"]:disabled::after {
   background-color: W013L4D;
 }
 input[type="radio"]:disabled:checked {
-  background: radial-gradient(transparent, transparent 59%, #242424 63%, #242424 68%, transparent 72%, transparent);
+  background: radial-gradient(transparent, transparent 59%, W013L1D 63%, W013L1D 68%, transparent 72%, transparent);
 }
 input[type="radio"]:disabled:checked::before {
   background-color: W013L3D;
@@ -1611,105 +1521,105 @@ input[type="radio"]:disabled:checked::after {
   background-color: transparent;
 }
 .ui-color-red {
-  color: #fafafa;
-  background-color: #cf2402;
+  color: T041;
+  background-color: W012;
 }
 a.ui-color-red:active:hover,
 .ui-color-red:enabled:active:hover {
-  background-color: #cf2402;
+  background-color: W012;
 }
 .ui-color-red:enabled:focus {
-  background-color: #cf2402;
+  background-color: W012;
 }
 a.ui-color-red.ui-state-disabled,
 .ui-color-red:disabled {
-  color: #fafafa;
-  background-color: #cf2402;
+  color: T041;
+  background-color: W012;
 }
 .ui-color-orange {
-  color: #fafafa;
-  background-color: #ed8600;
+  color: T041;
+  background-color: W013;
 }
 a.ui-color-orange:active:hover,
 .ui-color-orange:enabled:active:hover {
-  background-color: #ed8600;
+  background-color: W013;
 }
 .ui-color-orange:enabled:focus {
-  background-color: #ed8600;
+  background-color: W013;
 }
 a.ui-color-orange.ui-state-disabled,
 .ui-color-orange:disabled {
-  color: #fafafa;
-  background-color: #ed8600;
+  color: T041;
+  background-color: W013;
 }
 .ui-color-green {
-  color: #fafafa;
-  background-color: #61a310;
+  color: T041;
+  background-color: W014;
 }
 a.ui-color-green:active:hover,
 .ui-color-green:enabled:active:hover {
-  background-color: #61a310;
+  background-color: W014;
 }
 .ui-color-green:enabled:focus {
-  background-color: #61a310;
+  background-color: W014;
 }
 a.ui-color-green.ui-state-disabled,
 .ui-color-green:disabled {
-  color: #fafafa;
-  background-color: #61a310;
+  color: T041;
+  background-color: W014;
 }
 .ui-color-blue {
-  color: #fafafa;
-  background-color: #02385c;
+  color: T041;
+  background-color: W011;
 }
 a.ui-color-blue:active:hover,
 .ui-color-blue:enabled:active:hover {
-  background-color: #02385c;
+  background-color: W011;
 }
 .ui-color-blue:enabled:focus {
-  background-color: #02385c;
+  background-color: W011;
 }
 a.ui-color-blue.ui-state-disabled,
 .ui-color-blue:disabled {
-  color: #fafafa;
-  background-color: #02385c;
+  color: T041;
+  background-color: W011;
 }
 .ui-grid-col-1 > .ui-btn {
-  border-left: solid 1px #000000;
+  border-left: solid 1px B011;
 }
 .ui-grid-col-2 > .ui-btn {
-  border-left: solid 1px #000000;
+  border-left: solid 1px B011;
 }
 .ui-grid-col-3 > .ui-btn {
-  border-left: solid 1px #000000;
+  border-left: solid 1px B011;
 }
 /***************************************************************************
                   circle progress bar
 ***************************************************************************/
 .ui-progressbar .ui-progressbar-value .ui-progressbar-value-left {
-  border: 0.5rem solid #37a1ed;
+  border: 0.5rem solid B065L2;
 }
 .ui-progressbar .ui-progressbar-value .ui-progressbar-value-right {
-  border: 0.5rem solid #37a1ed;
+  border: 0.5rem solid B065L2;
 }
 .ui-progressbar .ui-progressbar-bg {
-  border: 0.5rem solid #404040;
+  border: 0.5rem solid B065L3;
 }
 .ui-progressbar.ui-progressbar-small .ui-progressbar-value .ui-progressbar-value-left,
 .ui-progressbar.ui-progressbar-small .ui-progressbar-value .ui-progressbar-value-right {
-  border: 0.25rem solid #37a1ed;
+  border: 0.25rem solid B065L2;
 }
 .ui-progressbar.ui-progressbar-small .ui-progressbar-bg {
-  border: 0.25rem solid #404040;
+  border: 0.25rem solid B065L3;
 }
 /***************************************************************************
                   circular index scroll bar
 ***************************************************************************/
 .ui-circularindexscrollbar .ui-circularindexscrollbar-indicator {
-  background-color: rgba(0, 61, 107, 0.95);
+  background-color: B0731;
 }
 .ui-circularindexscrollbar .ui-circularindexscrollbar-indicator-text {
-  color: #37a1ed;
+  color: T0312P;
 }
 .ui-indexscrollbar {
   display: none;
@@ -1718,11 +1628,11 @@ a.ui-color-blue.ui-state-disabled,
                   drawer
 ***************************************************************************/
 .ui-drawer {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: B0511D;
   border-radius: 50%;
 }
 .ui-drawer-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: B0511D;
 }
 /***************************************************************************
                   progress
@@ -1731,40 +1641,40 @@ a.ui-color-blue.ui-state-disabled,
   0% {
     -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate1_holo_dark.png);
     -webkit-mask-repeat: no-repeat;
-    background-color: #004d99;
+    background-color: B065L6;
   }
   25% {
     -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate2_holo_dark.png);
     -webkit-mask-repeat: no-repeat;
-    background-color: #004d99;
+    background-color: B065L6;
   }
   50% {
     -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate3_holo_dark.png);
     -webkit-mask-repeat: no-repeat;
-    background-color: #004d99;
+    background-color: B065L6;
   }
   75% {
     -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate4_holo_dark.png);
     -webkit-mask-repeat: no-repeat;
-    background-color: #004d99;
+    background-color: B065L6;
   }
   100% {
     -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate5_holo_dark.png);
     -webkit-mask-repeat: no-repeat;
-    background-color: #004d99;
+    background-color: B065L6;
   }
 }
 progress {
-  color: #fafafa;
+  color: T011;
 }
 progress::-webkit-progress-bar {
-  background-color: #404040;
+  background-color: B065L3;
 }
 progress::-webkit-progress-value {
-  background-color: #37a1ed;
+  background-color: B065L2;
 }
 progress.ui-progress-indeterminate::-webkit-progress-bar {
-  background-color: #37a1ed;
+  background-color: B065L2;
 }
 /***********************
 Processing
@@ -1956,7 +1866,7 @@ Processing
 }
 .ui-processing {
   opacity: 0;
-  background-color: #004d99;
+  background-color: B065L6;
   transition: opacity 0.2s linear;
 }
 .ui-processing.ui-processing-alternate {
@@ -1993,13 +1903,13 @@ Processing
 .ui-scrollbar-bouncing-effect {
   animation-duration: .7s;
   animation-timing-function: ease;
-  background-color: rgba(55, 161, 237, 0.7);
+  background-color: B018E;
 }
 .ui-scrollbar-bouncing-effect::before {
   animation-duration: .7s;
   animation-timing-function: ease;
   animation-fill-mode: forwards;
-  background-color: #37a1ed;
+  background-color: B019;
 }
 .ui-scrollbar-bouncing-effect.ui-top,
 .ui-scrollbar-bouncing-effect.ui-bottom {
@@ -2210,13 +2120,13 @@ Processing
   background-color: B01153;
 }
 .ui-selector .ui-item {
-  background-color: #fafafa;
+  background-color: B0554;
 }
 .ui-selector .ui-item:active {
-  background-color: #bfbfbf;
+  background-color: B0554P;
 }
 .ui-selector .ui-item.ui-item-active:active {
-  background-color: #fafafa;
+  background-color: B0554;
 }
 .ui-selector .ui-layer.ui-layer-prev,
 .ui-selector .ui-layer.ui-layer-next {
@@ -2374,7 +2284,7 @@ Processing
   transition: opacity 200ms;
 }
 .ui-selector.ui-selector-edit-mode .ui-item-plus {
-  background-color: #fafafa;
+  background-color: B0554;
   mask-image: url("images/Selector/b_rotary_selector_edit_mode_ic_add.png");
   mask-size: 100%;
 }
