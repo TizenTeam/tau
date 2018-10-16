@@ -26,34 +26,34 @@
 
 		<div id="qunit-fixture">
 
-			<div data-role="page" id="page1">
+			<div data-role="page" id="page1" data-transition="none">
 				<div data-role="content" id="page-content">
-					<div data-role="popup" id="test-popup">
+					<div data-role="popup" id="test-popup" data-transition="none">
 						<p>This is the test popup</p>
 						<a href="pages/other.html">other.html</a>
 					</div>
-					<div data-role="popup" id="test-popup-3">
+					<div data-role="popup" id="test-popup-3" data-transition="none">
 						<p>This is the test popup</p>
 						<a href="pages/other.html">other.html</a>
 					</div>
-					<div data-role="popup" id="test-popup-2">
+					<div data-role="popup" id="test-popup-2" data-transition="none">
 						<p>This is another test popup</p>
 					</div>
 					<a id="open-xyzzy-popup" href="#xyzzy" data-rel="popup" data-role="button">Pop</a>
 					<a id="open-test-popup" href="#test-popup" data-rel="popup" data-role="button">Pop</a>
-					<div data-role="popup" id="tolerance-test">
+					<div data-role="popup" id="tolerance-test" data-transition="none">
 							<p>Tolerance test popup</p>
 					</div>
-					<div data-role="popup" id="popup-sequence-test">
+					<div data-role="popup" id="popup-sequence-test" data-transition="none">
 							<a id="popup-sequence-test-open-dialog" href="pages/popup-sequence-test-dialog.html">Dialog</a>
 					</div>
 
-					<div data-role="popup" id="test-history-popup" data-history="false">
+					<div data-role="popup" id="test-history-popup" data-history="false" data-transition="none">
 						<p>This is the test popup</p>
 						<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 					</div>
 
-					<div data-role="popup" id="test-destroy-popup" data-history="false">
+					<div data-role="popup" id="test-destroy-popup" data-history="false" data-transition="none">
 						<p>This is the test popup</p>
 					</div>
 				</div>
@@ -65,5 +65,11 @@
 		</div>
 	<script type="text/javascript"
 			src="../../../../../../../libs/dist/js/tau.js"></script>
+	<!-- TCT
+	<script type="text/javascript">
+		var tauConfig = tauConfig || {};
+			tauConfig.popupTransition = "none";
+	</script>
+	TCT -->
 </body>
 </html>

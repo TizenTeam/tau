@@ -140,7 +140,7 @@ tau-expandable {
 
 	li.ui-li-flex {
 		display: flex;
-		padding: 0 32 * @unit_base;
+		padding: 0;
 
 		// no wrap text
 		overflow-x: visible;
@@ -254,26 +254,56 @@ tau-expandable {
 			justify-content: flex-start;
 			margin-top: 33 * @unit_base;
 			margin-bottom: 33 * @unit_base;
+			padding: 0 32 * @unit_base;
 		}
 		.ui-li-area-b {
 			order: 0;
+			align-self: center;
+			&.ui-li-image, &.ui-li-circle-image, &.ui-li-icon {
+				margin-left: 32 * @unit_base;
+			}
 		}
 		.ui-li-area-c {
 			order: 3;
+			align-self: center;
+			&.ui-li-image, &.ui-li-circle-image {
+				margin-right: 32 * @unit_base;
+			}
+			&.ui-li-icon {
+				margin-right: 17 * @unit_base;
+			}
+			.ui-toggle-container {
+				margin-right: 32 * @unit_base;
+			}
 		}
 		.ui-li-area-d {
 			order: 2;
-		}
-		input.ui-li-area-b, .ui-li-area-b {
 			align-self: center;
+			&.ui-li-image, &.ui-li-circle-image {
+				margin-right: 32 * @unit_base;
+			}
+			&.ui-li-icon {
+				margin-right: 32 * @unit_base;
+			}
+		}
+		input.ui-li-area-b {
+			&[type="checkbox"], &[type="radio"] {
+				margin-left: 32 * @unit_base;
+			}
 		}
 
-		input.ui-li-area-c, .ui-li-area-c {
-			align-self: center;
+		input.ui-li-area-c {
+			&[type="checkbox"], &[type="radio"] {
+				margin-right: 32 * @unit_base;
+			}
 		}
-		input.ui-li-area-d, .ui-li-area-d {
-			align-self: center;
+
+		input.ui-li-area-d {
+			&[type="checkbox"], &[type="radio"], .ui-li-image, .ui-li-circle-image {
+				margin-right: 32 * @unit_base;
+			}			
 		}
+
 		.ui-li-icon::after {
 			content: "";
 			position: absolute;
@@ -325,7 +355,6 @@ tau-expandable {
 				&.ui-li-icon {
 					width: 80 * @unit_base;
 					height: 80 * @unit_base;
-					margin-right: -15 * @unit_base;
 					align-items: center;
 					justify-content: center;
 					display: flex;

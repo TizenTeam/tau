@@ -40,6 +40,7 @@
 
 	// NOTE for the following two tests see index html for the binding
 	test("mobile.page is available when mobile init is fired", function () {
+		reloadCoreNSandInit();
 		ok(mobilePage !== undefined, "$.mobile.page is defined");
 	});
 
@@ -99,10 +100,12 @@
 		});
 
 		test("pages without a data-url attribute have it set to their id", function () {
+			reloadCoreNSandInit();
 			deepEqual($("#foo").jqmData("url"), "#foo", "");
 		});
 
 		test("pages with a data-url attribute are left with the original value", function () {
+			reloadCoreNSandInit();
 			deepEqual($("#bar").jqmData("url"), "bak", "");
 		});
 
@@ -113,19 +116,25 @@
 
 			$("<div />", { "data-role": "page", "id": "autoinit-on" }).prependTo("body");
 
+			var timeout = setTimeout(function () {
+				false("Test timeout");
+				start();
+			}, 4000);
+
 			$(document).one("mobileinit", function () {
 				$.mobile.autoInitializePage = true;
+
+				setTimeout(function () {
+					clearTimeout(timeout);
+					deepEqual($("#autoinit-on.ui-page").length, 1, "");
+
+					start();
+				}, 2000);
 			});
 
 			location.hash = "";
 
 			reloadCoreNSandInit();
-
-			setTimeout(function () {
-				deepEqual($("#autoinit-on.ui-page").length, 1, "");
-
-				start();
-			}, 2000);
 		});
 
 

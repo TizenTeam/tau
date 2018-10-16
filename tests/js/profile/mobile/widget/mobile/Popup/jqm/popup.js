@@ -124,7 +124,7 @@ $(document).ready(function () {
 		$.testHelper.detailedEventCascade([
 			function () {
 				$popup.popup();
-				$popup.popup("open");
+				$popup.popup("open", {transition: "none"});
 			},
 
 			{
@@ -133,7 +133,7 @@ $(document).ready(function () {
 
 			function () {
 				ok($popup.is(":visible"), "popup is indeed visible");
-				$.mobile.changePage("#no-popups");
+				$.mobile.changePage("#no-popups", {transition: "none"});
 			},
 
 			{
@@ -144,7 +144,7 @@ $(document).ready(function () {
 			function (result) {
 				ok(!result.close.timedOut, "close happened");
 				ok(!result.close.timedOut, "hashchange happened");
-				$.mobile.changePage("#page1");
+				$.mobile.changePage("#page1", {transition: "none"});
 
 					// TODO make sure that the afterclose is fired after the nav finishes
 				setTimeout(start, 300);
